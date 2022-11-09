@@ -1,0 +1,25 @@
+.content{
+    flex-direction: row;
+}
+
+.content-seperation{
+    float: left;
+    width: 50%;
+}
+
+.aboutus-image{
+    float: left;
+    width: 80%;
+    height: calc(100vh - 120px);
+}
+
+.heading{
+    font-size: 60px;
+    color: #006837;
+}
+
+.text{
+    font-size: 20px;
+    color: #006837; 
+    padding-right: 100px;
+}
