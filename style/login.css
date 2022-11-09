@@ -97,11 +97,9 @@ body{
     background: url(loginBg.png);
     background-size: cover;
     background-position: center;
-    font-family: sans-serif;
     background-color:#def9d7;
     height: calc(100vh - 120px);
-    display: flex;
-     flex-direction: row;
+  
 }
 
 .loginbox{
@@ -185,17 +183,4 @@ h1{
 .loginbox a:hover{
     color: #def9d7;
 }
-
-.content-right{
-    float: left; 
-    width: 60%;
-}
-
-.content-left{
-    float: left; 
-    width: 40%;
-    padding-left: 50px;
-    margin: auto; /*center images horizontally*/
-}
-
 
