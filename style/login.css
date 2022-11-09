@@ -101,6 +101,7 @@ body{
     background-color:#def9d7;
     height: calc(100vh - 120px);
     display: flex;
+     flex-direction: row;
 }
 
 .loginbox{
