@@ -1,0 +1,87 @@
+.addTrainerForm{
+    background-color: #FFFFFF;
+    margin: 50px 50px 50px 50px;
+    padding-top: 30px;
+    border-radius: 15px;
+  }
+
+.form-row {
+    display: flex;  
+}
+   
+.form-group {
+    padding: 5px;
+    width: 100%;
+    display: block;
+   
+}
+
+input[type="date"] , input[type="text"], select, .radio, input[type="email"], input[type="password"],input[type="tel"],input[type="number"] {
+   
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    width: 100%;
+    background-color: #DEF9D7;
+    padding: 0.5rem 0.75rem;
+  }
+
+  
+  
+  body{
+    background-color: #DEF9D7;
+  }
+
+  .submit{
+    margin-top: 50px;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+    height: 50px;
+    width: 200px;
+    background: #FF9F29;
+    font-size: 18px;
+    border-radius: 15px;  
+    font-weight: bold; 
+  }
+
+  .submit:hover{
+    cursor: pointer;
+    background: #006837;
+    color: #fff;
+    font-weight: bold;
+}
+
+input:focus {
+    background-color:#FFFFFF;
+  }
+
+h1{
+    color:#FF9F29;
+    margin-left: 30px ;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+textarea{
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    width: 60%;
+    background-color: #DEF9D7;
+    padding: 0.5rem 0.75rem;
+}
+
+textarea:focus{
+  background-color: #FFFFFF;
+}
+
+label{
+    color: #006837;
+    font-size: 19px;
+}
+   
+select:focus{
+    background-color: #FFFFFF;
+  }
+
