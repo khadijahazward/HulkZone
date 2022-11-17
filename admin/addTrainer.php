@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Trainer | Admin</title>
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/addTrainer.css">
+    <link rel="stylesheet" href="css/addtrainer.css">
 </head>
 <body>
 
@@ -44,7 +44,7 @@
                                     <input id="" type="tel" required>
                                 </div>
                             </div>
-
+    <h1 style="font-weight:normal;">Address</h1>
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                                     <label>Street No.</label><br>
@@ -114,8 +114,9 @@
                                 <div class="form-group">
                                     <label>Services offered</label><br>
                                     <select name="dropdownmenu" id="" required>
-                                        <option value="Diet1">Diet1</option>
-                                        <option value="Diet2">Diet2</option>
+                                        <option value="S1">CROSSFIT TRAINING</option>
+                                        <option value="S2">STRENGTH TRAINING</option>
+                                        <option value="S3">BODY BUILDING TRAINING</option>
                                     </select>
                                 </div>
                             </div>
