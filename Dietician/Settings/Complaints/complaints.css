@@ -1,0 +1,269 @@
+@import url(https://fonts.google.com/specimen/Inter);
+
+.container {
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    background-color: rgba(246, 251, 244, 1);
+    text-align: center;
+    position: relative;
+}
+
+.topBar {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    box-shadow: 0px 5px 20px rgba(26, 79, 131, 0.05);
+    left: 0%;
+    right: 0%;
+    top: 0%;
+}
+
+.gymLogo {
+    position: absolute;
+    left: 2.85%;
+    top: 8%;
+    width: 50px;
+    height: 50px;
+}
+
+.gymName {
+    position: absolute;
+    left: 7.29%;
+    top: -5%;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgba(0, 104, 55, 1);
+    align-content: center;
+}
+
+.myProfile {
+    width: 40px;
+    height: 40px;
+    left: 1390px;
+    top: 15px;
+    position: absolute;
+}
+
+.leftBar {
+    position: absolute;
+    width: 244px;
+    height: 670px;
+    left: 0%;
+    top: 70px;
+    background-color: rgba(0, 104, 55, 1);
+    align-items: center;
+}
+
+.leftBarContent {
+    position: absolute;
+    width: 164px;
+    height: 325px;
+    left: 35px;
+    top: 10px;
+}
+
+.tab {
+    width: 190px;
+    height: 17px;
+    position: absolute;
+    left: -35px;
+    border-radius: 25px;
+    text-align: center;
+    padding: 15px;
+    color: white;
+    background-color: rgba(0, 104, 55, 1);
+    cursor: pointer;
+}
+
+.tab :hover {
+    background-color: rgba(255, 253, 253, 1);
+    color: rgba(0, 104, 55, 1);
+    border-radius: 25px;
+    text-align: center;
+    padding-left: 30px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 30px;
+}
+
+.leftBarContent li {
+    margin-bottom: 35px;
+}
+
+.leftBarContent i {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.profileCard {
+    width: 250px;
+    height: 330px;
+    left: 266px;
+    top: 90px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    color: rgba(0, 104, 55, 1);
+}
+
+.profileCardPic {
+    width: 130px;
+    height: 130px;
+    top: 30px;
+    position: relative;
+}
+
+.intro {
+    top: 30px;
+    position: relative;
+    line-height: 0px;
+}
+
+.profileCard button {
+    top: 38px;
+    position: relative;
+    background-color: rgba(255, 159, 41, 0.75);
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
+    border: 0px;
+    border-radius: 4px;
+    width: 139px;
+    height: 40px;
+    color: white;
+}
+
+.profileCard button i {
+    margin-right: 10px;
+    align-items: center;
+}
+
+.rates {
+    top: 48px;
+    position: relative;
+    line-height: 0px;
+}
+
+.rates i {
+    color: rgba(255, 206, 49, 1);
+}
+
+.content {
+    width: 920px;
+    height: 670px;
+    left: 600px;
+    top: 70px;
+    position: absolute;
+    text-align: left;
+}
+
+.dateBar {
+    width: 428px;
+    height: 48px;
+    left: 250px;
+    top: 30px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    background-color: white;
+}
+
+.selector {
+    width: 29px;
+    height: 5px;
+    left: 338px;
+    top: 0px;
+    background: rgba(0, 104, 55, 1);
+    border-radius: 19px;
+    position: absolute;
+}
+
+.dateRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 41px;
+    top: 15px;
+    left: 40px;
+    position: absolute;
+}
+
+.dateRow a {
+    font-style: normal;
+    line-height: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.dateRow a:active {
+    color: rgba(0, 104, 55, 1);
+}
+
+.topic {
+    width: 281px;
+    height: 44px;
+    left: 0px;
+    top: 90px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 44px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
+}
+
+.gridContainer {
+    width: 723px;
+    height: 168px;
+    left: 50px;
+    top: 155px;
+    position: absolute;
+}
+
+.gridContainer hr {
+    position: relative;
+    border: 1px solid rgba(255, 253, 253, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.gridContainer table {
+    position: absolute;
+    width: 100%;
+}
+
+.gridContainer table th {
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    color: rgba(0, 104, 55, 1);
+}
+
+.gridContainer table td {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+    color: rgba(26, 79, 131, 1);
+    padding: 2px;
+    align-items: center;
+}
+
+.subtopic {
+    position: absolute;
+    left: 0px;
+    top: 280px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: rgba(0, 104, 55, 1);
+}
+
+.reportingComplaint {
+    position: absolute;
+    width: 692px;
+    height: 676px;
+    left: 57px;
+    top: 360px;
+    background-color: aqua;
+}

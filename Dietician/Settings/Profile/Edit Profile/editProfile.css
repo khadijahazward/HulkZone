@@ -1,0 +1,87 @@
+@import url(https://fonts.google.com/specimen/Inter);
+
+.container {
+    width: 100%;
+    height: 105%;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    background-color: white;
+    text-align: center;
+    position: relative;
+}
+
+.backgroundImage {
+    width: 100%;
+    height: 900px;
+    top: 71%;
+    left: 0%;
+    opacity: 0.25;
+}
+
+.topBar {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    box-shadow: 0px 5px 20px rgba(26, 79, 131, 0.05);
+    left: 0%;
+    right: 0%;
+    top: 0%;
+}
+
+.gymLogo {
+    position: absolute;
+    left: 2.85%;
+    top: 8%;
+    width: 50px;
+    height: 50px;
+}
+
+.gymName {
+    position: absolute;
+    left: 7.29%;
+    top: -5%;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgba(0, 104, 55, 1);
+    align-content: center;
+}
+
+.myProfile {
+    width: 40px;
+    height: 40px;
+    left: 1390px;
+    top: 15px;
+    position: absolute;
+}
+
+.profile {
+    width: 250px;
+    height: 250px;
+    left: 61px;
+    top: 109px;
+    position: absolute;
+}
+
+.editButton {
+    background-color: rgba(255, 159, 41, 0.75);
+    width: 175px;
+    height: 40px;
+    left: 101px;
+    top: 375px;
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
+    border-radius: 4px;
+    border: 0px;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 15px;
+    text-align: center;
+}
+
+.editButton:hover {
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05) inset;
+}
