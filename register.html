@@ -52,19 +52,19 @@
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;">
                                     <label>First name</label>
-                                    <input id="" type="text">
+                                    <input id="fname" type="text" name="fname">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Last name</label>
-                                    <input id="" type="text">
+                                    <input id="lname" type="text" name="lname">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;">
                                     <label>Date of Birth</label>
-                                    <input id="" type="date" value="2006-07-22" min="1930-01-01" max="2021-12-31">
+                                    <input id="dob" name="dob" type="date" value="2006-07-22" min="1930-01-01" max="2021-12-31" required>
                                 </div>
 
                                 <div class="form-group">
@@ -79,36 +79,36 @@
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;">
                                     <label >Phone Number</label>
-                                    <input id="" type="text">
+                                    <input id="number" name="number" type="text" >
                                 </div>
     
                                 <div class="form-group">
                                     <label>NIC Number</label>
-                                    <input id="" type="text">
+                                    <input id="nic" name="nic" type="text">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;">
                                     <label >Street Number</label>
-                                    <input id="" type="text">
+                                    <input id="sNumber" name="sNumber" type="text">
                                 </div>
     
                                 <div class="form-group">
                                     <label>Address Line 01</label>
-                                    <input id="" type="text">
+                                    <input id="aline1" name="aline1" type="text">
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group" style="margin-right:50px;">
                                     <label >Address Line 02</label>
-                                    <input id="" type="text">
+                                    <input id="aline2" name="aline2" type="text">
                                 </div>
     
                                 <div class="form-group">
                                     <label>City</label>
-                                    <input id="" type="text">
+                                    <input id="city" name="city" type="text">
                                 </div>
                             </div>
 
@@ -116,18 +116,21 @@
 
                                 <div class="form-group" style="margin-right:50px;">
                                     <label >Height (in Inches)</label>
-                                    <input id="" type="text">
+                                    <input id="height" name="height" type="text">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Weight (in kilograms)</label>
-                                    <input id="" type="text">
+                                    <input id="weight" name = "weight" type="text">
                                 </div>
 
     
                             </div>
 
-                            <button type="button" class="next-Btn">Next</button>
+                            <button type="button" class="next-Btn" id="next-btn">Next</button>
+
+                            
+
                         </div>
 
                         <!--Tab 02-->
@@ -170,20 +173,20 @@
                                 <div class="form-row">
 
                                     <div class="form-group" style="margin-right:50px;">
-                                        <label >Password (8 characters minimum)</label>
-                                        <input type="password" id="pass" name="password" minlength="8" required>
+                                        <label >Password</label>
+                                        <input type="password" id="pass1" name="pass1" minlength="8"  maxlength="15" required>
                                     </div>
 
         
                                     <div class="form-group">
                                         <label >Confirm Password</label>
-                                        <input type="password" id="pass" name="password" minlength="8" required>
+                                        <input type="password" id="pass2" name="pass2"required>
                                     </div>
         
                                 </div>
 
                             <button type="button" class="previous-Btn">Prev</button>
-                            <button type="submit" class="submit-Btn">Submit</button>
+                            <button type="submit" class="submit-Btn" onclick="return validateForm()">Submit</button>
                         </div>
                         
 
@@ -197,6 +200,6 @@
         <!--Footer-->
         <div class = footer>  © 2022 HulkZone. All rights reserved. </div>
 
-        <script src="../HulkZone/script/main.js"></script>
+        <script src="../HulkZone/script/register.js"></script>
 </body>
 </html>
