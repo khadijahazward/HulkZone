@@ -1,0 +1,48 @@
+.sidebar {
+  height: 100%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #006837;
+  overflow-x: hidden;
+  padding-top: 16px;
+}
+
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #eeee;
+  display: block;
+  font-size: 15px;
+}
+
+
+
+.gymLogo{
+  padding-left: 25px;
+  padding-bottom: 30px;
+}
+
+.tab{
+  padding-left: 25px;
+  padding-bottom: 0px;
+}
+
+.sidebar a:hover {
+  color: #006837;
+}
+
+.tab :hover {
+  background-color: rgba(255, 253, 253, 1);
+  color: rgba(0, 104, 55, 1);
+  border-radius: 25px;
+  font-weight: bold;
+  width: 240px;
+}
+
+hr{
+  width: 80%;
+}

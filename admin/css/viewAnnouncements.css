@@ -1,0 +1,84 @@
+button{
+    background-color: #FF9F29;
+    border: none;
+    margin-left: 13px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    width: 200px;
+    font-size: 17px;
+    border-radius: 5px;
+    color: white;
+}
+button:hover {
+    background-color: #006837;
+}
+
+
+
+.announcements {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 98%;
+    margin-left: 10px;
+  }
+  
+  .announcements td, .announcements th {
+    border: none;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .announcements tr:nth-child(even){background-color:#DEF9D7;}
+  .announcements tr:nth-child(odd){background-color: #DEF9D7;}
+  
+  .announcements tr:hover {
+    background-color:  #006837;
+    color: #ffff;
+}
+  
+  .announcements th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #ffff;
+    color: #006837;
+  }
+
+  .announcements tr{
+    border-radius: 15px;
+  }
+
+  .button1{
+    background-color: #EB5757;
+    border: none;
+    margin-left: 13px;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    width: 120px;
+    font-size: 17px;
+    border-radius: 5px;
+    color: white;
+    margin-top: 1px;
+  }
+
+  .button1:hover{
+    background-color: #DEF9D7;
+    color: #006837;
+  }
+
+  .button2:hover{
+    background-color: #DEF9D7;
+    color: #006837;
+  }
+
+  .announcements tr{
+    border-radius: 15px;
+  }
+
+  

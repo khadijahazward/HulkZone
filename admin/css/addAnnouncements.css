@@ -1,0 +1,56 @@
+
+textarea,input[type=date]{
+    padding: 12px 20px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #DEF9D7;
+    margin-left: 204px;
+    margin-bottom: 30px;
+  }
+
+  input[type=text]{
+    height: 200px;
+  }
+  
+  
+  input[type=submit] {
+    width: 120px;
+    background-color: #FF9F29;
+    color: white;
+    padding: 14px 20px;
+    margin-left: 500px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  .addAnnouncementForm {
+    border-radius: 15px;
+    background-color: #F6FBF4;
+    padding: 20px;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    
+  }
+
+  h1{
+    font-size: 19px;
+    padding-left: 25px;
+    color: #006837;
+  }
+
+  .formContent{
+    font-size: 19px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #006837;
+  }
+
+ 
