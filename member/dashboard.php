@@ -1,6 +1,12 @@
 
 <?php
+//checking if the user had already logged in
     session_start();
+    if(($_SESSION["logged_in"] == false)) 
+    {
+        header('location: ..\home\login.php');
+    }
+
 ?>
 
 
@@ -85,7 +91,7 @@
             <hr>
             
             <div class="line">
-                <div class="nav-font"><a href="../logout.php">Log Out</a></div>
+                <div class="nav-font"><a href="../home/logout.php">Log Out</a></div>
             </div>
 
             <hr>

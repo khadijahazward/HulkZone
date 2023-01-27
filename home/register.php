@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register | HulkZone</title>
-    <link rel="stylesheet" href="style/register.css">
-    <link rel="stylesheet" href="style/general.css">
+    <link rel="stylesheet" href="../style/register.css">
+    <link rel="stylesheet" href="../style/general.css">
     
 </head>
 
 <body>
 
     <?php
-    include '../HulkZone/connect.php';
+    include '../connect.php';
     $fnameErr = $lnameErr = $dobErr = $genErr = $numErr = $NICErr = "";
     $stErr = $ad1Err = $citErr = $hgErr = $wiErr = $emErr = $pw1Err = $pw2Err = "";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -76,7 +76,7 @@
     <!--navigation bar-->
     <div class="nav-bar">
         <div class="left">
-            <img src="../HulkZone/asset/images/gymLogo.png" class="logo-photo" alt="logo">
+            <img src="../asset/images/gymLogo.png" class="logo-photo" alt="logo">
         </div>
 
         <div class="middle">
@@ -98,7 +98,7 @@
 
         <!--Image-->
         <div class="content-left">
-            <img src="../HulkZone/asset/images/registerbg.png" alt="register">
+            <img src="../asset/images/registerbg.png" alt="register">
         </div>
 
         <div class="content-right">
@@ -127,7 +127,7 @@
                     <div class=" form-row">
                         <div class="form-group" style="margin-right:50px;">
                             <label>Date of Birth <span class="error">* <?php echo $dobErr; ?></span></label>
-                            <input id="dob" name="dob" type="date" min="1930-01-01" max="2021-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>">
+                            <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>">
                         </div>
 
                         <div class="form-group">
@@ -327,7 +327,7 @@
 
                 //checking if both are correct 
                 if ($result == TRUE && $result2 == true) {
-                    echo "<script>window.location.replace('login.php');</script>";
+                    echo "<script>window.location.replace('index.html');</script>";
                 }else{
                     echo ("error" .$sql.  mysqli_error($conn));
                 }

@@ -1,9 +1,10 @@
 <?php
-include '../HulkZone/connect.php';
+include '../connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $pw = $_POST['password'];
+    $_SESSION["logged_in"] = false;
 
     $sql = "select * from user where email = '$username'";
 
@@ -23,12 +24,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //login successful
     if ($verify == true && $count == 1) {
         session_start();
+        
+        $_SESSION["logged_in"] = true;
+        
         $_SESSION['username'] = $username;
         $_SESSION['firstName'] = $row['fName'];
         $_SESSION['userID'] = $row['userID'];
         $_SESSION['role'] = $row['roles'];
-        $_SESSION["logged_in"] = true;
-        header("location: member\dashboard.php");
+        
+
+        //redirecting to dashboard
+        if($_SESSION['role'] == 0){
+            header("location: ..\admin\dashboard.php");
+        }else if($_SESSION['role'] == 1){
+            header("location: ..\member\dashboard.php");
+        }else if($_SESSION['role'] == 2){
+            header("location: ..\dietician\dieticianDashboard.php");
+        }else if($_SESSION['role'] == 3){
+            header("location: ..\\trainer\dashboard.php");
+        }
+        
     } else {
         header("location:login.php?msg=failed");
     }
@@ -42,14 +57,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | HulkZone</title>
-    <link rel="stylesheet" href="style/index.css">
-    <link rel="stylesheet" type="text/css" href="style/login.css">
+    <link rel="stylesheet" href="../style/index.css">
+    <link rel="stylesheet" type="text/css" href="../style/login.css">
 </head>
 <body>
     <!--navigation bar-->
     <div class="nav-bar">
         <div class="left">
-            <img src="../HulkZone/asset/images/gymLogo.png" class="logo-photo" alt="logo">
+            <img src="../asset/images/gymLogo.png" class="logo-photo" alt="logo">
         </div>
 
         <div class="middle">
@@ -71,9 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="content">
         
         <div class="loginbox" >
-            <img src="gymLogo.png" alt="GymLogo" class="GymLogo">
+            <img src="../asset/images/gymLogo.png" alt="GymLogo" class="GymLogo">
             <h1>Login</h1>
-            <form action="../HulkZone/login.php" method="post" onsubmit="return validation()" id="loginForm">
+            <form action="login.php" method="post" onsubmit="return validation()" id="loginForm">
 
                 <?php
                     if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
