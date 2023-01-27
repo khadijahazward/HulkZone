@@ -1,0 +1,3 @@
+Do all the trainer related pages in this folder. 
+and refer the figma file before doing the ui
+and use connect.php to connect to db. 
