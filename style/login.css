@@ -135,25 +135,23 @@ h1{
     margin: 0;
     padding: 0;
     font-weight: bold;
+    font-size: 15px;
+    margin-top: 10px;
 }
 
 .loginbox input{
     width: 100%;
-    margin-bottom: 20px;
-   
+    margin-bottom: 20px;  
 }
 
-.loginbox input[type="text"],input[type="password"]{
-   border: none;
-   background: transparent;
-   outline: none;
-   height: 30px;
-   border: none;
-   background-color:#def9d7;
-   color:  rgb(00,68,37);
-   margin-top: 7px;
-   border-radius: 8px;
-   font-weight: bold;
+input[type="text"],input[type="password"]{
+    display: block;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: green solid 1px;
+    background-color: #DEF9D7;
+    padding: 10px;
+    margin-top: 8px;
 }
 
 .loginbox input[type="submit"]{
@@ -184,3 +182,14 @@ h1{
     color: #def9d7;
 }
 
+.msg{
+    color: red;
+    font-weight: bolder;
+    font-size: 12px;
+    text-align: center;
+}
+
+.p{
+    font-size: 28px;
+    color: #FF9F29;
+}

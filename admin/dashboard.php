@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Announcements | Admin</title>
+    <title>Dashboard | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/addAnnouncements.css">
@@ -51,7 +52,7 @@
 
         <div class="content" style="width: 100%;float:right;">
             <div class="contentLeft">
-                <p class="title">ANNOUNCEMENTS</p>
+                <p class="title">Dashboard</p>
             </div>
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
@@ -60,32 +61,10 @@
         </div>
 
 
-        <div class="down">
-            <div class="topic">
-                <h1>Add Announcement</h1>
-            </div>
-            <?php
-            ?>
-            <hr style="width: 98%;">
-            <div class="addAnnouncementForm">
-                <form action="createAnnouncements.php" method="POST">
-                    <label class="formContent">Message</label>
-                    <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required></textarea>
-                    <br>
-                    <label class="formContent">Date</label>
-                    <input type="date" name="d" style=" width: 170px;margin-left: 160px;" required >
-                    <br>
+       
+          
 
 
-                    <input type="submit" name="submit" value="submit">
-
-            </div>
-            </form>
-
-
-        </div>
-    </div>
-    </div>
 
 
 
@@ -93,4 +72,3 @@
 </body>
 
 </html>
-
