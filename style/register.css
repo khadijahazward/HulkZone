@@ -1,0 +1,115 @@
+.content{
+    flex-direction: row;
+}
+
+.content-left{
+    float:left;
+    width: 30%;
+    height: 100%;
+}
+
+.content-left img{
+    width: 100%;
+    height: 100%;
+    border-right: #006837 1px solid;
+}
+
+.content-right{
+    float:left;
+    width: 70%;
+    height: 100%;
+}
+
+.text{
+    margin: 0px; 
+    padding:0px;
+    text-align: center;
+    color: #006837;
+}
+
+
+.content-right-sub {
+    margin-right: 40px;
+    margin-left: 40px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    content: '';
+    position: absolute;
+    width: 65%;
+    height: 65%;
+}
+
+label, .form-row > p {
+    display: inline-block;
+    color: #006837;
+    margin-bottom: 1px;
+}
+   
+.form-row {
+    display: flex;
+    margin: 10px 10px 0px 10px;
+}
+   
+.form-group {
+    padding: 5px;
+    width: 100%;
+}
+   
+.form-group input {
+    width: 60%;
+}
+
+input[type="date"] , input[type="text"], select, .radio, input[type="email"], input[type="password"] {
+  display: block;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: green solid 1px;
+  width: 100%;
+  background-color: #DEF9D7;
+  padding: 0.5rem 0.75rem;
+}
+
+button.submit-Btn{
+    background-color: #FF9F29;
+    border-radius: 5px;
+    padding: 10px 20px 10px 20px;
+    border: #FF9F29 solid 1px;
+    font-weight: bold;
+    color: white;
+    float: right;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #FF9F29;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: green;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+.error{
+    color: red;
+    font-size: 10px;
+}
