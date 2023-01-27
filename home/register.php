@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -249,7 +250,8 @@
 
     <!--Footer-->
     <div class=footer> © 2022 HulkZone. All rights reserved. </div>
-    <?php
+   
+   <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
        
         $fname = $_POST["fname"];
@@ -348,5 +350,6 @@
 
 
 </body>
+
 
 </html>

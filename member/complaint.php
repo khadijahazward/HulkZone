@@ -1,3 +1,4 @@
+
 <?php
     session_start();
 ?>
@@ -245,4 +246,5 @@ $check = 1;
             alert("Complaint Recorded Successfully");
         }
     }
+
 </script>

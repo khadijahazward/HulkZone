@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,15 +61,5 @@
             <div class="contentRight" style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
         </div>
 
-
-       
-          
-
-
-
-
-
-
 </body>
-
 </html>
