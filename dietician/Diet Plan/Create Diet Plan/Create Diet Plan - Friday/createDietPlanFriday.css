@@ -1,0 +1,172 @@
+@import url(https://fonts.google.com/specimen/Inter);
+
+.container {
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    background-color: rgba(246, 251, 244, 1);
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: fixed;
+}
+
+.backgroundImage {
+    width: 100%;
+    height: 100%;
+    top: 71%;
+    left: 0%;
+    opacity: 0.25;
+}
+
+.topBar {
+    width: 100%;
+    height: 70px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    box-shadow: 0px 5px 20px rgba(26, 79, 131, 0.05);
+    left: 0%;
+    right: 0%;
+    top: 0%;
+}
+
+.gymLogo {
+    position: absolute;
+    left: 2.85%;
+    top: 8%;
+    width: 50px;
+    height: 50px;
+}
+
+.gymName {
+    position: absolute;
+    left: 7.29%;
+    top: -5%;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    color: rgba(0, 104, 55, 1);
+    align-content: center;
+}
+
+.myProfile {
+    width: 40px;
+    height: 40px;
+    left: 1390px;
+    top: 15px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.topic {
+    width: 281px;
+    height: 44px;
+    left: 121px;
+    top: 70px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 36px;
+    line-height: 44px;
+    position: absolute;
+    color: rgba(26, 79, 131, 1);
+}
+
+.dateBar {
+    width: 864px;
+    height: 48px;
+    left: 375px;
+    top: 175px;
+    box-shadow: 0px -3px 12px rgba(35, 0, 76, 0.05);
+    position: absolute;
+    background-color: white;
+}
+
+.selector {
+    width: 29px;
+    height: 5px;
+    left: 552px;
+    top: 0px;
+    background: rgba(0, 104, 55, 1);
+    border-radius: 19px;
+    position: absolute;
+}
+
+.dateRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 41px;
+    top: 15px;
+    left: 40px;
+    position: absolute;
+}
+
+.dateRow a {
+    font-style: normal;
+    line-height: 100%;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.dateRow a:active {
+    color: rgba(0, 104, 55, 1);
+}
+
+.gridContainer {
+    width: 1154px;
+    height: 386px;
+    left: 150px;
+    top: 275px;
+    position: absolute;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.gridTopic {
+    width: 250px;
+    height: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 32px;
+    color: black;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.gridText input {
+    width: 350px;
+    height: 20px;
+    background-color: white;
+    border: 2px solid #006837;
+    box-shadow: 0px 4px 10px 3px rgba(0, 0, 0, 0.11);
+    border-radius: 6px;
+    padding: 12px;
+}
+
+.saveButton {
+    background-color: rgba(255, 159, 41, 0.75);
+    width: 189px;
+    height: 57px;
+    left: 1186px;
+    top: 650px;
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
+    border-radius: 4px;
+    border: 0px;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+    text-align: center;
+}
+
+.saveButton:hover {
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05) inset;
+}

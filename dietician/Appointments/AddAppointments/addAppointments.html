@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Appointments</title>
+    <meta charset="utf-8">
+    <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
+    <link href="addAppointments.css" rel="StyleSheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="topBar">
+            <div class="gymLogo"><img src="../../Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
+            <div class="gymName">
+                <p>HULK ZONE</p>
+            </div>
+            <div>
+                <img src="../../Images/Profile.png" alt="my profile" class="myProfile">
+            </div>
+        </div>
+        <div class="main">
+            <img src="../../Images/add appointment.png">
+            <div class="topic">
+                <p>Time Slots</p>
+            </div>
+            <div class="chooseDate">
+                <label for="date">Choose a Date : </label>
+                <input type="date" name="date" id="date">
+            </div>
+            <div class="selectedTimeSlots">
+                <p>Selected Time Slots</p>
+            </div>
+            <table class="selected">
+                <tr>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="selectedSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="availableTimeSlots">
+                <p>Available Time Slots <span style="font-size: 15px;">(Select timeslots here!)</span></p>
+                <p></p>
+            </div>
+            <table class="available">
+                <tr>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="availableSlot">
+                            <p>8.00 - 9.00</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <button onclick="document.getElementById('popUp').style.display='block'" class="saveBtn">Save</button>
+        </div>
+    </div>
+
+    <div id="popUp" class="popUpContent">
+        <div class="popUpContainer">
+            <span class="close">&times;</span>
+            <img src="../../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
+            <p>Your TimeSlots Placed Succesfully!</p>
+            <button class="acceptBtn" onclick="window.location.href='../Appointments/appointments.html'">OK</button>
+        </div>
+    </div>
+
+    <script>
+        var popUpContent = document.getElementById('popUp');
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            popUpContent.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == popUpContent) {
+                popUpContent.style.display = "none";
+            }
+        }
+    </script>
+
+
+</body>
+
+</html>
