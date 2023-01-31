@@ -59,12 +59,16 @@
 
         //password validation
         $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
-        $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
+        $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special character
 
         if (empty($_POST["pass1"])) {
             $pw1Err = "Password is required";
-        }else if(strlen($_POST['pass1']) < 8 || !$numberCheck || !$specialCharsCheck){
-            $pw1Err = "password should be minimum 8 characters";
+        } else if (strlen($_POST['pass1']) < 8) {
+            $pw1Err = "Password must be at least 8 characters long.";
+        } else if (!$numberCheck) {
+            $pw1Err = "Password must contain at least one number.";
+        } else if (!$specialCharsCheck) {
+            $pw1Err = "Password must contain at least one special character.";
         }
 
         if (empty($_POST["pass2"])) {
@@ -110,7 +114,7 @@
 
             <div class="content-right-sub">
 
-                <form id="regForm" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="POST">
+                <form id="regForm" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="POST" onsubmit="">
 
                     <div class="form-row">
                         <div class="form-group" style="margin-right:50px;">
@@ -127,7 +131,7 @@
                     <div class=" form-row">
                         <div class="form-group" style="margin-right:50px;">
                             <label>Date of Birth <span class="error">* <?php echo $dobErr; ?></span></label>
-                            <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>">
+                            <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31"  value="<?php echo $_POST['dob'] ?? ''; ?>">
                         </div>
 
                         <div class="form-group">
@@ -147,7 +151,7 @@
 
                         <div class="form-group">
                             <label>NIC Number <span class="error"> * <?php echo $NICErr; ?></span></label>
-                            <input id="nic" name="nic" type="text" value="<?php echo $_POST['nic'] ?? ''; ?>">
+                            <input id="nic" name="nic" type="text"  value="<?php echo $_POST['nic'] ?? ''; ?>">
                         </div>
                     </div>
 
@@ -171,7 +175,7 @@
 
                         <div class="form-group">
                             <label>City</label>
-                            <input id="city" name="city" type="text" vvalue="<?php echo $_POST['city'] ?? ''; ?>">
+                            <input id="city" name="city" type="text" value="<?php echo $_POST['city'] ?? ''; ?>">
                         </div>
                     </div>
 
@@ -307,29 +311,33 @@
                 $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
                 
-                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($password_hash)){
+                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)){
                     $result = mysqli_query($conn, $sql);
                 }
-                
-                //retrieving the userID from user table to use as foreign key in member table
+
                 $sql1 = "select userID from user where email = '$username'";
-                
+                    
                 $result1 = mysqli_query($conn, $sql1);
     
                 $row = mysqli_fetch_array($result1);
-    
-                $userid = ($row['userID']);
-    
-                //inserting data into member table
-                $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
-    
-                $result2 = mysqli_query($conn, $sql2);
+                
+                if($result1 && $row = mysqli_fetch_array($result1)){
+                     //retrieving the userID from user table to use as foreign key in member table
+                    $userid = ($row['userID']);
+        
+                    //inserting data into member table
+                    $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
+        
+                    $result2 = mysqli_query($conn, $sql2);
+                }
+               
 
                 //checking if both are correct 
-                if ($result == TRUE && $result2 == true) {
+                if ($result == TRUE && isset($result2) && $result2 == true) {
+                    echo "<script> alert('Registration Successful!'); </script>";
                     echo "<script>window.location.replace('index.html');</script>";
                 }else{
-                    echo ("error" .$sql.  mysqli_error($conn));
+                    echo "<script> alert('Please Fill all the required Data!'); </script>";
                 }
             }else{
                 echo "<script> alert('Passwords dont match'); </script>";

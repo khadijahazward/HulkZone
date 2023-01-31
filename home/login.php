@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $pw = $_POST['password'];
     $_SESSION["logged_in"] = false;
 
-    $sql = "select * from user where email = '$username'";
+    $sql = "SELECT * from user where email = '$username'";
 
     $result = mysqli_query($conn, $sql);
 
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         $_SESSION['username'] = $username;
         $_SESSION['firstName'] = $row['fName'];
+        $_SESSION['lastName'] = $row['lName'];
         $_SESSION['userID'] = $row['userID'];
         $_SESSION['role'] = $row['roles'];
         
