@@ -1,0 +1,108 @@
+.content{
+    display: flex;
+    flex-direction: row;
+}
+
+.edit-profile{
+    background-color: #DEF9D7; 
+    width: 25%;
+    margin: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.edit-profile div, .menu div{
+    text-align: center;
+    font-size: 18px;
+    color: #006837;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+.edit-profile button, button[type = button], button[type=submit]{
+    padding: 5px 20px 5px 20px;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border: #FF9F29;
+    background-color: #FF9F29;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.edit-profile img{
+    padding: 10px;
+    border-radius: 150px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.content-base{
+    display: flex; 
+    flex-direction: column; 
+    width: 75%;
+}
+
+.menu{
+    background-color: #DEF9D7;
+    height: 8%;
+    margin: 10px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+  
+li {
+    float: left;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+  
+li a {
+    display: block;
+    color: #006837;
+    text-align: center;
+    padding: 15px;
+    margin-left: 23px;
+    font-weight: bold;
+    text-decoration: none;
+}
+  
+li a:hover {
+    background-color: #006837;
+    color: #DEF9D7;
+}
+
+.profile{
+    background-color: white;
+}
+
+.form-row {
+    display: flex;
+    margin: 10px 10px 0px 10px;
+}
+   
+.form-group {
+    padding: 5px;
+    width: 100%;
+}
+   
+.form-group input {
+    width: 60%;
+}
+
+input[type="date"] , input[type="text"], select,  input[type="email"]{
+  display: block;
+  box-sizing: border-box;
+  border-radius: 6px;
+  border: green solid 1px;
+  width: 100%;
+  background-color: #DEF9D7;
+  padding: 0.5rem 0.75rem;
+}

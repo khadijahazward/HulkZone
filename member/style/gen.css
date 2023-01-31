@@ -76,7 +76,11 @@ body{
     height: 80px;
 }
 
-.nav-font a{
+.nav-font{
+    width: 250px;
+}
+
+.line a{
     padding-left: 10px;
     font-size: 15px;
     color: white;
@@ -84,14 +88,13 @@ body{
     text-decoration: none;
 }
 
-.line :hover {
+.line a:hover {
     background-color: rgba(255, 253, 253, 1);
     color: rgba(0, 104, 55, 1);
     border-radius: 30px;
-    width: 270px;
-    height: 35px;
     font-weight: bold;
-    padding-top: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .left{

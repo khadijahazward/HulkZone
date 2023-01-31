@@ -1,8 +1,4 @@
-
-<?php
-    session_start();
-?>
-
+<?php include 'authorization.php';?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,72 +21,70 @@
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="../member/dashboard.php">Dashboard</a></div>
+            <a href="../member/dashboard.php"><div class="nav-font">Dashboard</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">My Profile</a></div>
+            <a href="../member/profile.php"><div class="nav-font">My Profile</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Services</a></div>
+                <a href=""><div class="nav-font">Services</div></a>
             </div>
             
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Team</a></div>
+                <a href=""><div class="nav-font">Team</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Work Out Plan</a></div>
+                <a href=""><div class="nav-font">Work Out Plan</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Diet Plan</a></div>
+                <a href=""><div class="nav-font">Diet Plan</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Chat</a></div>
+                <a href=""><div class="nav-font">Chat</div></a>
             </div>
 
             <hr>
             
             <div class="line">
-                <div class="nav-font"><a href="">Payments</a></div>
+                <a href=""><div class="nav-font">Payments</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="">Appointments</a></div>
+                <a href=""><div class="nav-font">Appointments</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <div class="nav-font"><a href="../member/complaint.php">Complaints</a></div>
+                <a href="../member/complaint.php"><div class="nav-font">Complaints</div></a>
             </div>
             
             <hr>
             
             <div class="line">
-                <div class="nav-font"><a href="../logout.php">Log Out</a></div>
+                <a href="../home/logout.php"><div class="nav-font">Log Out</div></a>
             </div>
 
             <hr>
-
-
         </div>
         <div class="body">
             <div class = "header">
