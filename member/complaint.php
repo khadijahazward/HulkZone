@@ -1,4 +1,20 @@
-<?php include 'authorization.php';?>
+<?php 
+include 'authorization.php';
+include "../connect.php";
+?>
+
+<?php
+    $query = "SELECT * from user where userID = " . $_SESSION['userID'];
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+    } else {
+        echo '<script> window.alert("Error receiving data!");</script>';
+    }
+
+    //dp link from db
+    $profilePictureLink = $row['profilePhoto'];
+?>
 
 <!--checking for empty fields-->
 <?php
@@ -115,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
-                    <img src="..\asset\images\dp.png" alt="dp" width="50px" height="50px">
+                    <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
             <div class="content">
@@ -160,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <div class="row"style="margin-top:10px;  margin-right:10px;">
                     <?php
-                        include "../connect.php";
+                        
                         $sql = "SELECT complaintID, subject, dateReported, status  FROM `complaint` where userID = '$userid'";
                         $result = mysqli_query($conn, $sql);
                     echo '<table> 

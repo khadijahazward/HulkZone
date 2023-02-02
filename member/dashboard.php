@@ -1,4 +1,23 @@
-<?php include 'authorization.php';?>
+<?php 
+include 'authorization.php';
+include '../connect.php';
+?>
+
+<?php
+$query = "SELECT * from user where userID = " . $_SESSION['userID'];
+    $result = mysqli_query($conn, $query);
+    $query1 = "SELECT * from member where userID = " . $_SESSION['userID'];
+    $result1 = mysqli_query($conn, $query1);
+    if (mysqli_num_rows($result) == 1 && mysqli_num_rows($result1) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        $row1 = mysqli_fetch_assoc($result1);
+    } else {
+        echo '<script> window.alert("Error receiving data!");</script>';
+    }
+
+    //dp link from db
+    $profilePictureLink = $row['profilePhoto'];
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -98,7 +117,7 @@
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
-                    <img src="..\asset\images\dp.png" alt="dp" width="50px" height="50px">
+                    <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
             <div class="content"></div>

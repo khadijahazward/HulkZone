@@ -6,6 +6,7 @@
     if ($_SERVER["REQUEST_METHOD"] != "POST") {
         header("location: dashboard.php");
     }
+    
     $check = 0;
     $errors = array();
 
