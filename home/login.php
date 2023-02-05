@@ -39,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("location: ..\admin\dashboard.php");
         }else if($_SESSION['role'] == 1){
             header("location: ..\member\dashboard.php");
-        }else if($_SESSION['role'] == 2){
-            header("location: ..\dietician\dieticianDashboard.php");
         }else if($_SESSION['role'] == 3){
+            header("location: ..\dietician\dieticianDashboard.php");
+        }else if($_SESSION['role'] == 2){
             header("location: ..\\trainer\dashboard.php");
         }
         
