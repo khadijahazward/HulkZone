@@ -112,19 +112,18 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    Hello, 
-                    <?php
-                        echo $_SESSION["firstName"];
-                    ?>  
-                    <br>
-                    Welcome and Let's Do Some Workout Today!
+                    CROSS FIT TRAINING 
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="image">
+                    
+                </div>
+            </div>
         </div>
 
     </div>

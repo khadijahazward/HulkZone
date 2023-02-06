@@ -16,8 +16,12 @@ include '../connect.php';
         echo '<script> window.alert("Error receiving data!");</script>';
     }
 
-    //dp link from db
-    $profilePictureLink = $row['profilePhoto'];
+    if(isset($row['profilePhoto']) && $row['profilePhoto'] != NULL){
+        //dp link from db
+        $profilePictureLink = $row['profilePhoto'];
+    }else{
+        $profilePictureLink = '../member/profileImages/default.png';
+    }
 ?>
 
 <script>
@@ -92,7 +96,7 @@ include '../connect.php';
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Services</div></a>
+                <a href="../member/services.php"><div class="nav-font">Services</div></a>
             </div>
             
             <hr>
