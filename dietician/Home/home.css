@@ -4,13 +4,12 @@
     width: 100%;
     height: 100%;
     font-family: "Inter", Arial, Helvetica, sans-serif;
-    background-color: rgba(246, 251, 244, 1);
     text-align: center;
     position: absolute;
     left: 0px;
     top: 0px;
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
 }
 
 .topBar {
@@ -22,7 +21,7 @@
     left: 0%;
     right: 0%;
     top: 0%;
-    z-index: 1;
+    z-index: 2;
 }
 
 .gymLogo {
@@ -157,14 +156,11 @@
 
 .countArea {
     width: 80%;
-    height: 130px;
+    height: 150px;
     top: 105px;
     left: 120px;
     position: absolute;
     background-color: rgba(246, 251, 244, 1);
-    border-radius: 8px;
-    overflow-y: auto;
-    overflow-x: hidden;
 }
 
 .countArea table {
@@ -175,30 +171,738 @@
     width: 33%;
 }
 
-.memberCount,
-.appointmentCount,
-.ratesCount {
+.memberCountCard,
+.appointmentCountCard,
+.ratesCountCard {
     height: 120px;
     width: 250px;
     border-radius: 6px;
     background-color: rgba(0, 106, 119, 0.75);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+    display: inline-block;
+    margin: 30px 15px 0 15px;
 }
 
-.appointmentCount {
+.appointmentCountCard {
     background-color: rgba(0, 159, 171, 0.75);
 }
 
-.ratesCount {
+.ratesCountCard {
     background-color: rgba(59, 74, 63, 0.75);
 }
 
-.memberCount img,
-.appointmentCount img,
-.ratesCount img {
-    width: 75px;
-    height: 75px;
-    position: relative;
-    left: 5px;
-    top: 5px;
+.left {
+    margin-top: -5px;
+    margin-left: 30px;
+    width: fit-content;
+    height: fit-content;
+    float: left;
+}
+
+.count {
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 0px;
+    text-align: left;
+}
+
+.cardTopic {
+    color: white;
+    font: 20px;
+    font-weight: 500;
+    margin-bottom: 0px;
+}
+
+
+.right {
+    width: 100px;
+    float: right;
+}
+
+.right i {
+    height: 80px;
+    line-height: 80px;
+    width: 80px;
+    display: block;
+    margin-top: 18px;
+    margin-right: 25px;
+    font-size: 50px;
+    text-align: center;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 50%;
+    color: white;
+}
+
+/*Rating Area*/
+.ratingArea {
+    height: 375px;
+    width: 650px;
+    left: 75px;
+    top: 365px;
+    position: absolute;
+    z-index: 1;
+    background-color: rgba(222, 249, 215, 1);
+}
+
+.graph {
+    margin-bottom: 16em;
+    font: normal 100%/150% arial, helvetica, sans-serif;
+}
+
+.graph caption {
+    font: bold 150%/120% arial, helvetica, sans-serif;
+    padding-bottom: 0.33em;
+    color: rgba(0, 104, 55, 1);
+    font-weight: 700;
+    font-size: 25px;
+    width: 100%;
+}
+
+.graph caption p {
+    left: -20px;
+    position: absolute;
+    top: -75px;
+}
+
+.ratingArea .yearPicker {
+    padding: 5px;
+    font-size: 16px;
+    background-color: rgba(222, 249, 215, 1);
+    border: none;
+    border-radius: 6px;
+    width: 200px;
+    float: right;
+    position: absolute;
+    right: 0px;
+    top: -55px;
+}
+
+.ratingArea .yearPicker:focus {
+    border: none;
+}
+
+.ratingArea .yearPicker option {
+    padding: 10px;
+}
+
+.graph tbody th {
+    text-align: right;
+}
+
+@supports (display:grid) {
+
+    @media (min-width:32em) {
+
+        .graph {
+            display: block;
+            width: 600px;
+            height: 300px;
+        }
+
+        .graph caption {
+            display: block;
+        }
+
+        .graph thead {
+            display: none;
+        }
+
+        .graph tbody {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(2em, 1fr));
+            column-gap: 2%;
+            align-items: end;
+            height: 100%;
+            margin: 3em 0 1em 2.8em;
+            padding: 0 1em;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+            background: repeating-linear-gradient(180deg,
+                    rgba(170, 170, 170, 0.7) 0,
+                    rgba(170, 170, 170, 0.7) 1px,
+                    transparent 1px,
+                    transparent 20%);
+        }
+
+        .graph tbody:before,
+        .graph tbody:after {
+            position: absolute;
+            left: -3.2em;
+            width: 2.8em;
+            text-align: right;
+            font: bold 80%/120% arial, helvetica, sans-serif;
+        }
+
+        .graph tbody:before {
+            content: "100%";
+            top: -0.6em;
+        }
+
+        .graph tbody:after {
+            content: "0%";
+            bottom: -0.6em;
+        }
+
+        .graph tr {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+
+        .graph tr:hover {
+            z-index: 999;
+        }
+
+        .graph th,
+        .graph td {
+            display: block;
+            text-align: center;
+        }
+
+        .graph tbody th {
+            position: absolute;
+            top: -3em;
+            left: 0;
+            width: 100%;
+            font-size: 12px;
+            font-weight: normal;
+            text-align: center;
+            white-space: nowrap;
+            text-indent: 0;
+            transform: rotate(-45deg);
+        }
+
+        .graph tbody th:after {
+            content: "";
+        }
+
+        .graph td {
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 79, 131, 0.75);
+            border-radius: 0.5em 0.5em 0 0;
+            transition: background 0.5s;
+        }
+
+        .graph tr:hover td {
+            opacity: 0.7;
+        }
+
+        .graph td span {
+            overflow: hidden;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            padding: 0.5em 0;
+            margin: -1em 0 0;
+            font: normal 85%/120% arial, helvetica, sans-serif;
+            /* 			background:white; */
+            /* 			box-shadow:0 0 0.25em rgba(0,0,0,0.6); */
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s;
+            color: white;
+        }
+
+        .toggleGraph:checked+table td span,
+        .graph tr:hover td span {
+            width: 4em;
+            margin-left: -2em;
+            /* 1/2 the declared width */
+            opacity: 1;
+        }
+    }
+
+    /* min-width:32em */
+}
+
+/*bar chart only */
+
+
+
+
+
+
+.appointmentArea {
+    height: 600px;
+    width: 500px;
+    right: 10px;
+    top: 300px;
+    position: absolute;
+}
+
+.appointmentArea .topic {
+    color: rgba(0, 104, 55, 1);
+    font-weight: 700;
+    font-size: 25px;
+    left: 0px;
+    top: -30px;
+    position: absolute;
+}
+
+.seeMore {
+    color: rgba(47, 147, 246, 1);
+    font-weight: 400;
+    font-size: 12px;
+    right: 5px;
+    top: 0px;
+    position: absolute;
+}
+
+.appointmentGridContainer {
+    height: fit-content;
+    width: 350px;
+    left: 50px;
+    top: 50px;
+    position: absolute;
+    border-radius: 12px;
+    background-color: rgba(222, 249, 215, 1);
+    overflow: hidden;
+    padding: 25px;
+    padding-bottom: 15px;
+}
+
+.appointmentGridContainer table {
+    width: 100%;
+}
+
+.appointmentGridContainer td {
+    border-bottom: 1px solid rgba(26, 79, 131, 0.1);
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.appointmentGridContainer img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%
+}
+
+.appointmentGridContainer .name {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(26, 79, 131, 1);
+    text-align: left;
+}
+
+.appointmentGridContainer .time {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgba(26, 79, 131, 0.75);
+}
+
+
+/*calendar*/
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap");
+
+:root {
+    --color-accent: rgba(88, 101, 242, 1);
+    --background-color: #f8f7fa;
+    --foreground-color: #ffffff;
+    --text-color: #19181a;
+    --highlight-text-color: var(--text-color);
+    --active-text-color: #f8f7fa;
+    --inactive-text-color: #a5a5a5;
+    --btn-bg: #f8f7fa;
+    --box-shadow: #efefef;
+
+    --border-width: 1px;
+    --border-radius: 15px;
+    --spacing: 18px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: rgba(222, 249, 215, 1);
+        --foreground-color: rgba(255, 255, 255, 1);
+        --text-color: black;
+        --highlight-text-color: rgba(18, 18, 18, 1);
+        --inactive-text-color: rgba(133, 133, 133, 1);
+        --btn-bg: white;
+        --box-shadow: none;
+    }
+}
+
+.calendarHolder {
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Quicksand", sans-serif;
+    user-select: none;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.card {
+    width: 316px;
+    height: fit-content;
+    background-color: var(--foreground-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0px 0px 10px var(--box-shadow);
+}
+
+.calendar-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 15px;
+    border-bottom: var(--border-width) solid var(--box-shadow);
+}
+
+.calendar-toolbar>.current-month {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--highlight-text-color);
+}
+
+.calendar-toolbar>[class$="month-btn"] {
+    width: 40px;
+    aspect-ratio: 1;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+    color: var(--highlight-text-color);
+    background: var(--btn-bg);
+    border: none;
+    border-radius: var(--border-radius);
+}
+
+.weekdays,
+.calendar-days {
+    display: flex;
+    flex-wrap: wrap;
+    padding-inline: var(--spacing);
+}
+
+.weekdays {
+    padding-top: 12px;
+}
+
+.calendar-days {
+    padding-bottom: 12px;
+}
+
+.weekday-name,
+[class$="-day"] {
+    width: 40px;
+    height: 40px;
+    color: var(--text-color);
+    text-align: center;
+    line-height: 40px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.weekday-name {
+    color: var(--highlight-text-color);
+    font-weight: 700;
+}
+
+.current-day {
+    background-color: var(--color-accent);
+    color: var(--active-text-color);
+    border-radius: var(--border-radius);
+    font-weight: 700;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.padding-day {
+    color: var(--inactive-text-color);
+    user-select: none;
+}
+
+.calendar-toolbar>[class$="month-btn"]:hover,
+.month-day:hover,
+.btn:hover {
+    border-radius: var(--border-radius);
+    background-color: var(--btn-bg);
+    color: var(--color-accent);
+    border-radius: var(--border-radius);
+    transition: 0.1s;
+    cursor: pointer;
+    box-shadow: inset 0px 0px 0px 1.5px var(--color-accent);
+}
+
+.calendar-toolbar>[class$="month-btn"]:focus,
+.month-day:focus,
+.btn:focus {
+    border-radius: var(--border-radius);
+    background-color: var(--color-accent);
+    color: var(--active-text-color);
+}
+
+.goto-buttons {
+    border-top: var(--border-width) solid var(--box-shadow);
+    padding-block: 18px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.btn {
+    background: var(--btn-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 11px 13px;
+    color: var(--highlight-text-color);
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    margin-right: 1px;
+    box-shadow: 0px 0px 0px var(--box-shadow);
+}
+
+/* calendar*/
+
+.memberArea {
+    height: 400px;
+    width: 400px;
+    left: 0px;
+    top: 775px;
+    position: absolute;
+}
+
+.memberArea .topic {
+    color: rgba(0, 104, 55, 1);
+    font-size: 25px;
+    font-weight: 700;
+    left: 50px;
+    top: 0px;
+    position: absolute;
+}
+
+.memberArea .yearPicker {
+    padding: 5px;
+    font-size: 16px;
+    background-color: rgba(222, 249, 215, 1);
+    border: none;
+    border-radius: 6px;
+    width: 100px;
+    float: right;
+    position: absolute;
+    right: 80px;
+    top: 35px;
+}
+
+.memberArea .content {
+    background-color: rgba(222, 249, 215, 1);
+    height: 270px;
+    width: 270px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    left: 70px;
+    top: 100px;
+}
+
+.memberArea .content table {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 30px;
+}
+
+.memberArea .content td {
+    width: 50%;
+}
+
+.memberArea .content i {
+    height: 60px;
+    line-height: 60px;
+    width: 60px;
+    display: block;
+    margin-top: 18px;
+    margin-right: 25px;
+    font-size: 40px;
+    text-align: center;
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 50%;
+    color: white;
+}
+
+.memberArea .content p {
+    color: rgba(26, 79, 131, 1);
+}
+
+.memberArea .content .count {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.memberArea .content .countName {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+
+
+.genderArea {
+    height: 400px;
+    width: 470px;
+    left: 330px;
+    top: 775px;
+    position: absolute;
+}
+
+.genderArea .topic {
+    color: rgba(0, 104, 55, 1);
+    font-size: 25px;
+    font-weight: 700;
+    left: 70px;
+    top: 0px;
+    position: absolute;
+}
+
+.genderArea .yearPicker {
+    padding: 5px;
+    font-size: 16px;
+    background-color: rgba(222, 249, 215, 1);
+    border: none;
+    border-radius: 6px;
+    width: 100px;
+    float: right;
+    position: absolute;
+    right: 80px;
+    top: 35px;
+}
+
+.pie-chart {
+    background:
+        radial-gradient(circle closest-side,
+            #DEF9D7 0,
+            #DEF9D7 52.8%,
+            transparent 52.8%,
+            transparent 66%,
+            #DEF9D7 0),
+        conic-gradient(#003865 0,
+            #003865 62.3%,
+            #EF5B03 0,
+            #EF5B03 100%);
+    position: absolute;
+    left: 95px;
+    top: 95px;
+    width: 304px;
+    height: 278px;
+    margin: 0;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+
+}
+
+.pie-chart figcaption {
+    position: absolute;
+    bottom: 1em;
+    right: 2em;
+    font-size: smaller;
+    text-align: right;
+}
+
+.pie-chart span:after {
+    display: inline-block;
+    content: "";
+    width: 0.8em;
+    height: 0.8em;
+    margin-left: 0.4em;
+    height: 0.8em;
+    border-radius: 0.2em;
+    background: currentColor;
+}
+
+
+
+
+.recentMemberArea {
+    width: 100%;
+    height: 400px;
+    left: 0px;
+    top: 1200px;
+    position: absolute;
+}
+
+.recentMemberArea .topic {
+    color: rgba(0, 104, 55, 1);
+    font-size: 25px;
+    font-weight: 700;
+    left: 30px;
+    top: -10px;
+    position: absolute;
+}
+
+.recentMemberArea .gridContainer {
+    width: 90%;
+    border-radius: 12px;
+    position: absolute;
+    top: 70px;
+    left: 0px;
+    overflow: hidden;
+    background-color: rgba(222, 249, 215, 1);
+    padding: 25px;
+    margin-left: 40px;
+    margin-bottom: 40px;
+}
+
+.recentMemberArea .gridContainer table {
+    width: 100%;
+}
+
+.recentMemberArea table thead {
+    background: linear-gradient(0deg, rgba(246, 251, 244, 0.5), rgba(246, 251, 244, 0.5)), #DEF9D7;
+    box-shadow: 0px 1px 0px 0px rgba(26, 79, 131, 0.1);
+    color: rgba(26, 79, 131, 0.75);
+    font-size: 13px;
+    font-weight: 700;
+    width: 100%;
+    height: 50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.recentMemberArea table img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+
+}
+
+.recentMemberArea table td {
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(26, 79, 131, 0.75);
+    text-align: center;
+    padding: 7px;
+    border-bottom: 1px solid rgba(26, 79, 131, 0.1);
+}
+
+.recentMemberArea .seeMore {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #82B1A9;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #446A76;
 }

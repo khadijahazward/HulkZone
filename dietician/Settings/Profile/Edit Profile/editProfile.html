@@ -16,11 +16,12 @@
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="../../../Images/Profile Pic.png" alt="my profile" class="myProfile">
+                <img src="../../../Images/Profile.png" alt="my profile" class="myProfile">
             </div>
         </div>
         <img src="../../../Images/Profile.png" alt="Profile Picture" class="profile">
-        <button class="editButton">Change Profile Picture</button>
+        <button onclick="document.getElementById('profile').style.display='block';" class="editButton">Change Profile
+            Picture</button>
         <div class="firstContent">
             <form>
                 <table border="0px">
@@ -89,7 +90,8 @@
                     </tr>
                     <tr>
                         <td><label for="gender">Gender</label></td>
-                        <td><input type="radio" id="female" name="gender" value="female">Female</td>
+                        <td style="text-align: center;"><input type="radio" id="female" name="gender"
+                                value="female">Female</td>
                         <td><input type="radio" id="male" name="gender" value="male">Male</td>
                     </tr>
                     <tr>
@@ -109,111 +111,94 @@
                     <tr>
                         <td colspan="3">
                             <label for="bio">Bio</label><br>
-                            <textarea name="bio" id="bio" cols="75" rows="10"></textarea>
+                            <textarea name="bio" id="bio" cols="80" rows="10"></textarea>
                         </td>
                     </tr>
+                    <tr></tr>
                     <tr>
-                        <td>What Vindinu Gunawardana Offers</td>
-                        <td colspan="2">
-                            <div>Diet</div>
-                            <div>Consulting</div>
-                            <div>Life Style Modification</div>
+                        <td colspan="3">
+                            <label for="offers">What Vindinu Gunawardana Offers</label><br>
+                            <table class="subtable" style="margin-top: -50px;">
+                                <tr>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                    <td><input type="text" id="offers" name="offers" class="subTextBox"></td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
-        <!--<div class="content">
-            <form>
-                <table border="0px">
-                    <tr>
-                        <td colspan="3">Name</td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="fname">First Name</label></td>
-                        <td colspan="2"><input type="text" id="fname" name="fname" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="lname">Last Name</label></td>
-                        <td colspan="2"><input type="text" id="lname" name="lname" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="nic">NIC</label></td>
-                        <td colspan="2"><input type="text" id="nic" name="nic" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="DOB">Date of Birth</label></td>
-                        <td colspan="2"><input type="date" id="DOB" name="DOB" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="phone">Phone</label></td>
-                        <td colspan="2"><input type="text" id="phone" name="phone" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="email"></label>Email</td>
-                        <td colspan="2"><input type="email" id="email" name="email" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">Address</td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="streetNum">Street Number</label>
-                        </td>
-                        <td colspan="2"><input type="text" id="streetNum" name="streetNum" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="addressLineOne">Address Line
-                                1</label></td>
-                        <td colspan="2"><input type="text" id="addressLineOne" name="addressLineOne" class="textBox">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="addressLineTwo">Address Line
-                                2</label></td>
-                        <td colspan="2"><input type="text" id="addressLineTwo" name="addressLineTwo" class="textBox">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="left: 50px; position:absolute;"><label for="city">City</label></td>
-                        <td colspan="2"><input type="text" id="city" name="city" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="gender">Gender</label></td>
-                        <td><input type="radio" id="female" name="gender" value="female">Female</td>
-                        <td><input type="radio" id="male" name="gender" value="male">Male</td>
-                    </tr>
-                    <tr>
-                        <td><label for="country">Country</label></td>
-                        <td colspan="2"><input type="text" id="country" name="country" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="experiancedYears">Number of years of Experiance</label></td>
-                        <td colspan="2"><input type="number" id="experiancedYears" name="experiancedYears"
-                                class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="qualification">Qualification</label></td>
-                        <td colspan="2"><input type="text" id="qualification" name="qualification" class="textBox">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="3">
-                            <label for="bio">Bio</label><br>
-                            <textarea name="bio" id="bio" cols="75" rows="10"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>What Vindinu Gunawardana Offers</td>
-                        <td colspan="2">
-                            <div>Diet</div>
-                            <div>Consulting</div>
-                            <div>Life Style Modification</div>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>>--
+        <button onclick="document.getElementById('popUp').style.display='block';" class="saveBtn">Save</button>
     </div>
+
+
+    <!--Change Profile Pic-->
+    <div id="profile" class="popUpContent">
+        <div class="popUpContainer">
+            <span class="close">&times;</span>
+            <p>Change Profile Photo</p>
+            <form>
+                <label for="profilePic">
+                    <input type="file" name="profilePic" id="profilePic">
+                </label>
+            </form>
+            <br>
+            <button class="acceptBtn" onclick="document.getElementById('profile').style.display='none';">UPDATE</button>
+        </div>
+    </div>
+
+
+    <script>
+        var popUpContent = document.getElementById('profile');
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            popUpContent.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == popUpContent) {
+                popUpContent.style.display = "none";
+            }
+        }
+    </script>
+
+
+
+
+    <div id="popUp" class="popUpContent">
+        <div class="popUpContainer">
+            <span class="close">&times;</span>
+            <img src="../../../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
+            <p>Your Profile has been Updated Successfully!</p>
+            <button class="acceptBtn" onclick="window.location.href='../View Profile/viewProfile.html';">OK</button>
+        </div>
+    </div>
+
+
+    <script>
+        var popUpContent = document.getElementById('popUp');
+        var span = document.getElementsByClassName('close')[0];
+
+        span.onclick = function () {
+            popUpContent.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == popUpContent) {
+                popUpContent.style.display = "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
