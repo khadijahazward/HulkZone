@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Dieticians | Admin</title>
+    <title>View Attendance | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/AnnouncementTable.css">
@@ -17,7 +17,7 @@
 </head>
 <body>
 <div class="sidebar">
-      <div class="gymLogo"><img src="../../HulkZone/asset/images/gymLogo.png" alt=""  width="80px" height="80px"></div>
+      <div class="gymLogo"><img src="../../HulkZone/asset/images/gymLogo.png" alt="" width="80px" height="80px"></div>
             <div class="sidebarContent">
                 <div class="tab"><a href="dashboard.php"><i class="fa fa-dashboard" style="padding-right: 15px;"></i> Dashboard</a></div>
                 <hr>
@@ -25,7 +25,7 @@
                 <hr>
                 <div class="tab"><a href="manageMembers.php"><i class="	fa fa-users" style="padding-right: 15px;"></i> Manage Members</a></div>
                 <hr>
-                <div class="tab"><a href="viewAnnouncements.php"><i class="fa fa-calendar" style="padding-right: 15px;"></i> Member Attendance</a></div>
+                <div class="tab"><a href="manageAttendance.php"><i class="fa fa-calendar" style="padding-right: 15px;"></i> Member Attendance</a></div>
                 <hr>
                 <div class="tab"><a href="#Schedule"><i class="fa fa-clock-o" style="padding-right: 15px;"></i> Schedule</a></div>
                 <hr>
@@ -51,44 +51,35 @@
     <div class="right" style="display: flex; flex-direction:column;margin-left:20%;">
     
     <div class="content" style="width: 100%;float:right;">
-        <div class="contentLeft"><p class="title">Manage Dieticians</p></div>
+        <div class="contentLeft"><p class="title">MEMBER ATTENDANCE</p></div>
         <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
         <div class="contentRight"  style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
         <div class="topic">
-        <a href="addDietician.php"><button>Add Dietician</button></a> 
+        <a href="addAttendance.php"><button>Mark Attendance</button></a> 
         </div>
         <hr style="width: 98%;">
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>Employee ID</th>
+                   <th>Member ID</th>
                    <th>Name</th>
                    <th>Gender</th>
-                   <th>Account status</th>
-                   <th>Action</th>
+                   <th>NIC</th>
+                   <th>Date and Time</th>
                 </tr>
 
                 <?php 
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    /*$sql="SELECT user.fName, user.gender, employee.employeeID
-                     CASE
-                                WHEN user.statuses = 1 THEN 'Enabled'
-                                ELSE 'Disabled'
-                                END AS accountStatus
-                    FROM user 
-                    INNER JOIN employee  ON user.userID = employee.userID
-                    WHERE user.roles = 3;
-                     ";*/
-
-                     $sql = "SELECT user.fName, user.gender, employee.employeeID,
-        IF(user.statuses = 1, 'Enabled', 'Disabled') AS accountStatus
-        FROM user
-        INNER JOIN employee ON user.userID = employee.userID
-        WHERE user.roles = 3";
+                    $sql="SELECT attendance.memberID,attendance.timestamp,user.fName,user.gender,user.NIC
+                    FROM (( attendance 
+                    INNER JOIN member ON member.memberID=attendance.memberID)
+                    INNER JOIN user ON user.userID=member.userID)
+                    ORDER BY timestamp
+                  ";
                     $result=$conn->query($sql);
 
                     if (!$result) {
@@ -98,19 +89,11 @@
                     while ($row = $result->fetch_assoc()) {
                         echo"
                     <tr>
-                   <td>$row[employeeID]</td>
+                   <td>$row[memberID]</td>
                    <td>$row[fName]</td>
                    <td>$row[gender]</td>
-                  
-                  
-                   
-                   
-                   <td>" . (($row['accountStatus'] == 'Disabled') ? '<span style="color:red;">Disabled</span>' : $row['accountStatus']) . "</td>
-                  
-                   <td>
-                   <a href='viewDieticianProfile.php?employeeID=$row[employeeID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
-               
-                  
+                   <td>$row[NIC]</td>
+                   <td>$row[timestamp]</td>
                 </tr>";
                     }
                     
@@ -119,6 +102,7 @@
                 
             </table>
         </div>
+    </div>
     </div>
 
      

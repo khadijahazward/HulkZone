@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Trainers | Admin</title>
+    <title>View Members | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/AnnouncementTable.css">
@@ -51,50 +50,42 @@
     <div class="right" style="display: flex; flex-direction:column;margin-left:20%;">
     
     <div class="content" style="width: 100%;float:right;">
-        <div class="contentLeft"><p class="title">MANAGE TRAINERS</p></div>
+        <div class="contentLeft"><p class="title">MANAGE MEMBERS</p></div>
         <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
         <div class="contentRight"  style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
         <div class="topic">
-        <a href="addTrainer.php"><button>Add Trainer</button></a> 
+        <h1 style="color: #006837;font-size:19px;margin-left:27px">Manage Members</h1> 
         </div>
         <hr style="width: 98%;">
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>Employee ID</th>
+                   <th>Member ID</th>
                    <th>Name</th>
                    <th>Gender</th>
-                   <!--<th>Action</th>-->
+                   <th>E-mail</th>
+                   <th>Date of Birth</th>
+                
                    <th>Account status</th>
                    <th>Action</th>
                 </tr>
 
                 <?php 
                     include('../../HulkZone/connect.php');
-                    
-                    //read all row from database table
-                    /*$sql="SELECT user.fName, user.gender, employee.employeeID
-                     CASE user.statuses
+            
+                   
+                    $sql="SELECT user.userID, user.fName, user.gender, user.email, user.dateOfBirth, member.memberID,
+                    CASE user.statuses
                         WHEN 1 THEN 'Enabled'
                         ELSE 'Disabled'
                     END AS accountStatus
-                    FROM user 
-                    INNER JOIN employee  ON user.userID = employee.userID
-                    WHERE user.roles = 2;
-                     ";*/
-
-                     $sql="SELECT user.fName, user.gender, employee.employeeID,
-                                CASE
-                                WHEN user.statuses = 1 THEN 'Enabled'
-                                ELSE 'Disabled'
-                                END AS accountStatus
-                                FROM user
-                                INNER JOIN employee ON user.userID = employee.userID
-                                WHERE user.roles = 2";
+                    FROM user
+                    INNER JOIN member ON user.userID=member.userID";
+                    
                     $result=$conn->query($sql);
-
+                    
                     if (!$result) {
                          die("invalid query: " .$conn->error);
                     }
@@ -102,18 +93,19 @@
                     while ($row = $result->fetch_assoc()) {
                         echo"
                     <tr>
-                   <td>$row[employeeID]</td>
+                   <td>$row[memberID]</td>
                    <td>$row[fName]</td>
                    <td>$row[gender]</td>
+                   <td>$row[email]</td>
+                   <td>$row[dateOfBirth]</td>
+                   
+                   
                   
-                  
-                   
-                   
-                   
                    <td>" . (($row['accountStatus'] == 'Disabled') ? '<span style="color:red;">Disabled</span>' : $row['accountStatus']) . "</td>
-                   <td>
-                   <a href='viewTrainerProfile.php?employeeID=$row[employeeID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
+                <td>
 
+                   <a href='viewMemberProfile.php?userID=$row[userID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
+                </td>
                   
                 </tr>";
                     }
@@ -124,10 +116,10 @@
             </table>
         </div>
     </div>
+    </div>
 
      
    
       
     </body>
-
 </html>

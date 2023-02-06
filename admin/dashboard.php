@@ -19,16 +19,16 @@
 </head>
 
 <body>
-    <div class="sidebar">
+<div class="sidebar">
         <div class="gymLogo" ><img src="../../HulkZone/asset/images/gymLogo.png" alt="" width="80px" height="80px"> </div>
         <div class="sidebarContent">
-            <div class="tab"><a href="#dashboard"><i class="fa fa-dashboard" style="padding-right: 15px;"></i> Dashboard</a></div>
+            <div class="tab"><a href="dashboard.php"><i class="fa fa-dashboard" style="padding-right: 15px;"></i> Dashboard</a></div>
             <hr>
-            <div class="tab"><a href="#MyProfile"><i class="fas fa-user-tie" style="padding-right: 15px;"></i> My Profile</a></div>
+            <div class="tab"><a href="viewProfile.php"><i class="fas fa-user-tie" style="padding-right: 15px;"></i> My Profile</a></div>
             <hr>
-            <div class="tab"><a href="#ManageMembers"><i class="	fa fa-users" style="padding-right: 15px;"></i> Manage Members</a></div>
+            <div class="tab"><a href="manageMembers.php"><i class="	fa fa-users" style="padding-right: 15px;"></i> Manage Members</a></div>
             <hr>
-            <div class="tab"><a href="#Attendance"><i class="fa fa-calendar" style="padding-right: 15px;"></i> Member Attendance</a></div>
+            <div class="tab"><a href="manageAttendance.php"><i class="fa fa-calendar" style="padding-right: 15px;"></i> Member Attendance</a></div>
             <hr>
             <div class="tab"><a href="#Schedule"><i class="fa fa-clock-o" style="padding-right: 15px;"></i> Schedule</a></div>
             <hr>
@@ -36,11 +36,13 @@
             <hr>
             <div class="tab"><a href="manageDietician.php"><i class="fas fa-user-nurse" style="padding-right: 15px;"></i> Manage Dieticians</a></div>
             <hr>
-            <div class="tab"><a href="#User Complaints"><i class='	fas fa-exclamation-circle' style="padding-right: 15px;"></i>User Complaints</a></div>
+            <div class="tab"><a href="manageComplaints.php"><i class='	fas fa-exclamation-circle' style="padding-right: 15px;"></i>User Complaints</a></div>
             <hr>
             <div class="tab"><a href="viewAnnouncements.php"><i class='fas fa-bullhorn' style="padding-right: 15px;"></i>Announcements</a></div>
             <hr>
             <div class="tab"><a href="#Reports"><i class=' fas fa-file-alt ' style="padding-right: 15px;"></i>Reports</a></div>
+            <hr>
+            <div class="tab"><a href="#payments"><i class=' 	far fa-money-bill-alt ' style="padding-right: 15px;"></i>Member Payments</a></div>
             <hr>
             <div class="tab"><a href="login.php"><i class="fa fa-sign-out " style="padding-right: 15px;"></i>Log Out</a></div>
             <hr>

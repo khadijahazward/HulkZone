@@ -28,6 +28,7 @@
             color: rgba(0, 104, 55, 1);
             font-weight: bold;
             font-size: 25px;
+            border-radius: 6px;
         }
 
         .acceptBtn {
@@ -46,6 +47,31 @@
             font-size: 15px;
             text-align: center;
         }
+
+        input[type=file] {
+            width: 450px;
+            max-width: 100%;
+            color: rgba(148, 156, 169, 1);
+            background: #fff;
+            border-radius: 6px;
+            border: 1px solid black;
+        }
+
+        input[type=file]::file-selector-button {
+            margin-right: 20px;
+            border: none;
+            background: rgba(217, 217, 217, 1);
+            padding: 10px 20px;
+            border-radius: 6px 0px 0px 6px;
+            color: black;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 19px;
+        }
+
+        input[type=file]::file-selector-button:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -54,7 +80,19 @@
 
     <div id="popUp" class="popUpContent">
         <div class="popUpContainer">
-            <p>Your Complaint has been Placed!</p>
+            <p>Change Profile Photo</p>
+            <!--<h3>Show a file-select field which allows multiple files:</h3>
+                <form action="/action_page.php">
+                    <label for="myfile">Select files:</label>
+                    <input type="file" id="myfile" name="myfile" multiple><br><br>
+                    <input type="submit">
+            </form>-->
+            <form>
+                <label for="profilePic">
+                    <input type="file" name="profilePic" id="profilePic">
+                </label>
+            </form>
+            <br>
             <button class="acceptBtn" onclick="document.getElementById('popUp').style.display='none'">OK</button>
         </div>
     </div>
