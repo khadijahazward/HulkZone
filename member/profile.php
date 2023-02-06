@@ -5,7 +5,6 @@ include '../connect.php';
 
 
 <?php
-
     $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     $result = mysqli_query($conn, $query);
     $query1 = "SELECT * from member where userID = " . $_SESSION['userID'];
@@ -17,6 +16,8 @@ include '../connect.php';
         echo '<script> window.alert("Error receiving data!");</script>';
     }
 
+    //dp link from db
+    $profilePictureLink = $row['profilePhoto'];
 ?>
 
 <script>
@@ -63,7 +64,7 @@ include '../connect.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard | HulkZone</title>
+    <title>Profile | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/profile.css">
 </head>
@@ -151,7 +152,7 @@ include '../connect.php';
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
-                    <img src="..\asset\images\dp.png" alt="dp" width="50px" height="50px">
+                    <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
             <div class="content">
@@ -160,7 +161,7 @@ include '../connect.php';
                 <div class="edit-profile">
                     <div>
                         <!--dp-->
-                        <img src="..\asset\images\serviceImage1.png" alt="dp" width="200px" height="200px">
+                        <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="200px" height="200px">
                     </div>
                     <div>
                         <?php 
@@ -170,7 +171,27 @@ include '../connect.php';
                         Member
                     </div>
                     <div style="margin: 30px;">
-                        <button>Edit Photo</button>
+                        <!--changing profile pic-->
+                        <button class="open-button" onclick="openForm()">Edit Profile</button>
+
+                        <div id="myForm" class="form-popup">
+
+                            <form action="../member/updatePic.php" class="form-container" method="post" enctype="multipart/form-data">
+                                <input type="file" name="image">
+                                <br>
+                                <button type="submit">Upload Image</button>
+                                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                            </form>
+                        </div>
+                        <script>
+                                function openForm() {
+                                document.getElementById("myForm").style.display = "block";
+                                }
+
+                                function closeForm() {
+                                document.getElementById("myForm").style.display = "none";
+                                }
+                        </script>
                     </div>
                     <div style="margin: 20px;">
                         <?php
@@ -194,16 +215,16 @@ include '../connect.php';
                     <!--the headings bar-->
                     <div class="menu">
                         <ul>
-                            <li><a href="">Profile</a></li>
-                            <li><a href="">Change Password</a></li>
-                            <li><a href="">Medical Form</a></li>
-                            <li><a href="">Emergency Contact</a></li>
+                            <li><a href="profile.php">Profile</a></li>
+                            <li><a href="changePw.php">Change Password</a></li>
+                            <li><a href="medicalForm.php">Medical Form</a></li>
+                            <li><a href="emergencyContact.php">Emergency Contact</a></li>
                         </ul>
                         
                     </div>
                     <!--the profile details-->
                     <div class="profile">
-                           <form method="post" action="updateProfile.php" onsubmit="return validateForm(event)">
+                           <form method="post" action="updateProfile.php">
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>First name </label>

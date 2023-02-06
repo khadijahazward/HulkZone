@@ -318,8 +318,6 @@
                 $sql1 = "select userID from user where email = '$username'";
                     
                 $result1 = mysqli_query($conn, $sql1);
-    
-                $row = mysqli_fetch_array($result1);
                 
                 if($result1 && $row = mysqli_fetch_array($result1)){
                      //retrieving the userID from user table to use as foreign key in member table
