@@ -1,0 +1,30 @@
+input[type="text"], input[type="email"], input[type="tel"], select, input[type="date"],input[type="number"],input[type="password"]{
+  background-color: #DEF9D7;
+  color: #006837;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+label {
+  color: green;
+  margin: 10px;
+  padding: 10px;
+  font-weight: bold;
+}
+
+td {
+  padding: 10px;
+}
+
+table {
+  width: 100%;
+}
+
+.adminForm{
+  margin-top: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-color: white;
+}

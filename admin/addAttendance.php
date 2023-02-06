@@ -1,3 +1,47 @@
+<?php
+date_default_timezone_set('Asia/Colombo');
+// Start a session
+session_start();
+
+// Connection to database
+include('../../HulkZone/connect.php');
+
+// Check if the form has been submitted
+if (isset($_POST['submit'])) {
+    // Get the form data
+    $memberID = $_POST['memberID'];
+    $timestamp = date("Y-m-d H:i:s");
+
+    // Validate the form data
+    if (empty($memberID)) {
+        $_SESSION['message'] = 'Please fill in all fields';
+    } else {
+        // Sanitize the form data
+        $memberID = $conn->real_escape_string($memberID);
+
+        // Check if the member ID exists in the member table
+        $memberCheckQuery = "SELECT * FROM member WHERE memberID = '$memberID'";
+        $memberCheckResult = $conn->query($memberCheckQuery);
+
+        if ($memberCheckResult->num_rows > 0) {
+            // Insert the data into the database
+            $query = "INSERT INTO attendance (memberID, timestamp) VALUES ('$memberID', '$timestamp')";
+            if ($conn->query($query)) {
+                $_SESSION['message'] = 'Attendance added successfully';
+                header("Location: manageAttendance.php");
+            } else {
+                $_SESSION['message'] = 'Error: ' . $conn->error;
+            }
+        } else {
+            $_SESSION['message'] = 'The member ID does not exist in the member table';
+        }
+    }
+}
+
+$conn->close();
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,19 +50,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Announcements | Admin</title>
+    <title>Add Attendance | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/addAnnouncements.css">
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    function checkMemberId() {
+        <?php if(isset($_SESSION['message']) && $_SESSION['message'] === 'The member ID does not exist in the member table') { ?>
+            alert('The member ID does not exist in the member table');
+        <?php } ?>
+    }
+</script>
 
 
 </head>
 
-<body>
-    <div class="sidebar">
+<body onload="checkMemberId()">
+<div class="sidebar">
         <div class="gymLogo" ><img src="../../HulkZone/asset/images/gymLogo.png" alt="" width="80px" height="80px"> </div>
         <div class="sidebarContent">
             <div class="tab"><a href="dashboard.php"><i class="fa fa-dashboard" style="padding-right: 15px;"></i> Dashboard</a></div>
@@ -54,7 +105,7 @@
 
         <div class="content" style="width: 100%;float:right;">
             <div class="contentLeft">
-                <p class="title">ANNOUNCEMENTS</p>
+                <p class="title">MARK ATTENDANCE</p>
             </div>
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
@@ -65,26 +116,26 @@
 
         <div class="down">
             <div class="topic">
-                <h1>Add Announcement</h1>
+                <h1>Attendance Form</h1>
             </div>
             <?php
             ?>
             <hr style="width: 98%;">
             <div class="addAnnouncementForm">
-                <form action="createAnnouncements.php" method="POST" onsubmit="return confirmSubmission()">
-                    <label class="formContent">Message</label>
-                    <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required></textarea>
+                <form action="" method="POST" onsubmit="return confirmSubmission()">
+                    
+                    <label class="formContent">Member ID</label>
+                    <input type="number" name="memberID" style=" width: 170px;margin-left: 160px;background-color: #DEF9D7;border:none;border-radius:15px;height:30px" required >
                     <br>
-                    <label class="formContent">Date</label>
-                    <input type="date" name="d" style=" width: 170px;margin-left: 160px;" required >
-                    <br>
-
-
-                    <input type="submit" name="submit" value="submit">
-
-            </div>
+                    
+            
+                    </div>
+            <input type="submit" name="submit" value="Mark" style="margin-top: 25px;">
             </form>
-            <script>
+
+
+        </div>
+        <script>
                 function confirmSubmission() {
                 if (confirm("Are you sure you want to submit the form?")) {
                 return true;
@@ -94,14 +145,13 @@
             }
             </script>
 
-        </div>
+
     </div>
-    </div>
-
-
-
+</div>
 
 </body>
 
 </html>
+                   
+
 

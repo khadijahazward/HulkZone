@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Trainers | Admin</title>
+    <title>View User Complaints | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     <link rel="stylesheet" href="css/AnnouncementTable.css">
@@ -51,23 +51,23 @@
     <div class="right" style="display: flex; flex-direction:column;margin-left:20%;">
     
     <div class="content" style="width: 100%;float:right;">
-        <div class="contentLeft"><p class="title">MANAGE TRAINERS</p></div>
+        <div class="contentLeft"><p class="title">USER COMPLAINTS</p></div>
         <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
         <div class="contentRight"  style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
         <div class="topic">
-        <a href="addTrainer.php"><button>Add Trainer</button></a> 
+        <h1 style="font-size: 19px;color:#006837;margin-left:30px">User Complaints</h1>
         </div>
         <hr style="width: 98%;">
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>Employee ID</th>
+                   <th>ComplaintID</th>
                    <th>Name</th>
-                   <th>Gender</th>
-                   <!--<th>Action</th>-->
-                   <th>Account status</th>
+                   <th>Date</th>
+                   <th>User type</th>
+                   <th>Status</th>
                    <th>Action</th>
                 </tr>
 
@@ -75,24 +75,16 @@
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    /*$sql="SELECT user.fName, user.gender, employee.employeeID
-                     CASE user.statuses
-                        WHEN 1 THEN 'Enabled'
-                        ELSE 'Disabled'
-                    END AS accountStatus
-                    FROM user 
-                    INNER JOIN employee  ON user.userID = employee.userID
-                    WHERE user.roles = 2;
-                     ";*/
-
-                     $sql="SELECT user.fName, user.gender, employee.employeeID,
-                                CASE
-                                WHEN user.statuses = 1 THEN 'Enabled'
-                                ELSE 'Disabled'
-                                END AS accountStatus
-                                FROM user
-                                INNER JOIN employee ON user.userID = employee.userID
-                                WHERE user.roles = 2";
+                    $sql="SELECT complaint.complaintID, user.fName, complaint.dateReported,complaint.status,
+                    CASE user.roles
+                        WHEN 1 THEN 'Member'
+                        WHEN 2 THEN 'Trainer'
+                        WHEN 3 THEN 'Dietician'
+                        ELSE 'Unknown'
+                    END as userType
+             FROM complaint
+             INNER JOIN user ON complaint.userID = user.userID";
+             
                     $result=$conn->query($sql);
 
                     if (!$result) {
@@ -102,27 +94,25 @@
                     while ($row = $result->fetch_assoc()) {
                         echo"
                     <tr>
-                   <td>$row[employeeID]</td>
+                   <td>$row[complaintID]</td>
                    <td>$row[fName]</td>
-                   <td>$row[gender]</td>
-                  
-                  
-                   
-                   
-                   
-                   <td>" . (($row['accountStatus'] == 'Disabled') ? '<span style="color:red;">Disabled</span>' : $row['accountStatus']) . "</td>
-                   <td>
-                   <a href='viewTrainerProfile.php?employeeID=$row[employeeID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
-
+                   <td>$row[dateReported]</td>
+                   <td>$row[userType]</td>
+                   <td>". (($row['status'] == 'Filed') ? '<span style="color:red;">Filed</span>' : $row['status']) . "</td>
+                   <td><a href='deleteComplaint.php?complaintID=$row[complaintID]'onclick='return confirm(\"Are you sure you want to delete this compalint?\");'><button class='button1'>Remove</button></a>  
+                   <a href='editComplaint.php?complaintID=$row[complaintID]' ><button class='button2' style='width: 120px;margin-top:1px'>Edit</button></a>
+                   </td>
                   
                 </tr>";
                     }
                     
                 ?>
-                
+           
+
                 
             </table>
         </div>
+    </div>
     </div>
 
      

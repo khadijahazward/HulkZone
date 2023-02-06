@@ -1,6 +1,6 @@
 
 
-textarea,input[type=date]{
+textarea,input[type=date],input[type=number]{
     padding: 12px 20px;
     border-radius: 4px;
     box-sizing: border-box;
