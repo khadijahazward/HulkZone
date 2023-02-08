@@ -102,7 +102,7 @@ include '../connect.php';
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Team</div></a>
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
             </div>
 
             <hr>

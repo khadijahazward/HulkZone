@@ -62,7 +62,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Team</div></a>
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
             </div>
 
             <hr>
