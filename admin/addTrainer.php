@@ -127,25 +127,35 @@
                 $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
                 
-                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)){
+                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($password_hash)){
                     $result = mysqli_query($conn, $sql);
                 }
-
+                
+                //retrieving the userID from user table to use as foreign key in member table
+              /*  $sql1 = "select userID from user where email = '$username'";
+                
+                $result1 = mysqli_query($conn, $sql1);
+    
+                $row = mysqli_fetch_array($result1);
+    
+                $userid = ($row['userID']);*/
                 $sql1 = "select userID from user where email = '$username'";
                     
                 $result1 = mysqli_query($conn, $sql1);
-
+    
+                //$row = mysqli_fetch_array($result1);
+                
                 if($result1 && $row = mysqli_fetch_array($result1)){
                      //retrieving the userID from user table to use as foreign key in member table
                     $userid = ($row['userID']);
     
                 //inserting data into employee table
-                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description, language) values( '$userid', '$exp', '$qual', '$des', 'sinhala')";
-
+                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description) values( '$userid', '$exp', '$qual', '$des')";
+    
+                $result2 = mysqli_query($conn, $sql2);
                 }
                 //checking if both are correct 
                 if ($result == TRUE && isset($result2) && $result2 == true) {
-                    echo "hello";
                     echo "<script> alert('Registration Successful!'); </script>";
                     echo "<script>window.location.replace('manageTrainer.php');</script>";
                 }else{
