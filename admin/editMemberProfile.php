@@ -102,19 +102,19 @@
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>First name </label>
-                                        <input id="fname" type="text" name="fname" required disabled>
+                                        <input id="fname" type="text" name="fname" >
                                     </div>
 
                                     <div class="form-group">
                                         <label>Last name</label> 
-                                        <input id="lname" type="text" name="lname"required disabled>
+                                        <input id="lname" type="text" name="lname">
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>NIC</label><span id = "error-message" style="font-size: 10px; color: red;"></span>
-                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">
+                                        <input id="nic" type="text" name="nic"onblur="validateNIC()">
                                         <script>
                                             function validateNIC() {
                                                 var nic = document.getElementById("nic").value;
@@ -133,17 +133,9 @@
 
                                         
                                     </div>
-
-                                    <div class="form-group">
-                                        <label>Date of Birth </label>
-                                        <input id="dob" type="date" name="dob" min="1930-01-01" max="2004-12-31" required disabled>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group" style="margin-right:50px;">
+                                    <div class="form-group" style="margin-right:0px;">
                                         <label>Phone Number</label><span id = "error-msg" style="font-size: 10px; color: red;"></span>
-                                        <input id="number" type="text" name="number" required disabled onblur="validateNum()">  
+                                        <input id="number" type="text" name="number"  onblur="validateNum()">  
                                         <script>
                                                 function validateNum() {
                                                     var number = document.getElementById("number").value;
@@ -160,19 +152,15 @@
                                         </script>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Gender</label> 
-                                        <select name="gender" id="gender" required disabled>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
+                                    
                                 </div>
+
+                               
 
                                 <div class="form-row">
                                     <div class="form-group">
                                         <label>Payment Plan</label> 
-                                        <select name="paymentPlan" id="paymentPlan" required disabled>
+                                        <select name="paymentPlan" id="paymentPlan">
                                             <option value="oneMonth">Month Package - Rs. 1000</option>
                                             <option value="threeMonth">Three Months Package - Rs. 2899</option>
                                             <option value="sixMonth">Six Months Package - Rs. 5599</option>
@@ -184,37 +172,49 @@
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Height (in Inches)</label>
-                                        <input id="height" name="height" type="text" required disabled>
+                                        <input id="height" name="height" type="text" >
                                     </div>
 
                                     <div class="form-group">
                                         <label>Weight (in kilograms)</label>
-                                        <input id="weight" name="weight" type="text" required disabled>
+                                        <input id="weight" name="weight" type="text" >
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Street Number</label>
-                                        <input id="sNumber" name="sNumber" type="text" disabled>
+                                        <input id="sNumber" name="sNumber" type="text" >
                                     </div>
 
                                     <div class="form-group">
                                         <label>Address Line 01</label>
-                                        <input id="aline1" name="aline1" type="text"  disabled>
+                                        <input id="aline1" name="aline1" type="text"  >
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Address Line 02</label>
-                                        <input id="aline2" name="aline2" type="text" disabled>
+                                        <input id="aline2" name="aline2" type="text" >
                                     </div>
 
                                     <div class="form-group">
                                         <label>City</label>
-                                        <input id="city" name="city" type="text"  disabled>
+                                        <input id="city" name="city" type="text"  >
                                     </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group" style="margin-right:460px;">
+                                        <label>Account Status</label>
+                                        <select name="status" id="paymentPlan" required >
+                                            <option value="Enabled">Enabled</option>
+                                            <option value="threeMonth">Disabled</option>
+                                            
+                                        </select>
+                                    </div>
+
+                                    
                                 </div>
                                 <a href="manageMembers.php"><button type="button" style="float: right; margin:13px;height: 35px;border-radius:5px;width:120px;">Save </button></a>
                             

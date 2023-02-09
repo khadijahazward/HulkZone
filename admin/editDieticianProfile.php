@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Trainer | Admin</title>
+    <title>Edit Dietician | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/addtrainer.css">
 
@@ -71,7 +71,7 @@
         <input id="nic" name="nic" type="text" >
     </div>
 </div>
-<h1 style="font-weight:normal;">Address</h1>
+<h1 style="font-weight:bold;">Address</h1>
 <div class="form-row">
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Street Number</label>
@@ -99,7 +99,7 @@
         <input id="city" name="city" type="text"  >
     </div>
 </div>
-<h1 style="font-weight:normal;">Other details</h1>
+<h1 style="font-weight:bold;">Other details</h1>
 <div class="form-row">
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label> No. of years of Experience</label>
@@ -124,7 +124,21 @@
     <div class="form-group">
         <label>Languages</label> 
         <br>
-        <input id="lang" type="text" name="lang" >
+       
+        <div class="checkbox" >
+        <input type="checkbox" id="Snglish" name="lang" value="English" >
+        <label for="english" >English</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Sinhala" name="lang" value="Sinhala">
+        <label for="spanish">Sinhala</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Tamil" name="lang" value="Tamil">
+        <label for="french">Tamil</label>
+        </div>
     </div>
 </div>
 
@@ -137,6 +151,14 @@
          
         </select>
     </div>
+    <div class="form-group"  >
+    <label>Account Status</label> 
+    <br>
+    <select name="#" id="gender" >
+            <option value="Enabled">Enabled</option>
+            <option value="Disabled">Disabled</option>
+    </select>
+</div>
 </div>
 
 

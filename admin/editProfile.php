@@ -6,21 +6,21 @@
   if(isset($_POST['edit'])){
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
-    $NIC = $_POST['NIC'];
-    $gender = $_POST['gender'];
-    $dateOfBirth = $_POST['dateOfBirth'];
+    //$NIC = $_POST['NIC'];
+    //$gender = $_POST['gender'];
+    //$dateOfBirth = $_POST['dateOfBirth'];
     $contactNumber = $_POST['contactNumber'];
     $streetNumber = $_POST['streetNumber'];
     $addressLine01 = $_POST['addressLine01'];
     $addressLine02 = $_POST['addressLine02'];
     $city = $_POST['city'];
     $pw = $_POST['pw'];
-    $email = $_POST['email'];
+    //$email = $_POST['email'];
 
     //update query to update the details
-    $query = "UPDATE user SET fName='$fName', lName='$lName', NIC='$NIC', gender='$gender', 
-    dateOfBirth='$dateOfBirth', contactNumber='$contactNumber', streetNumber='$streetNumber', 
-    addressLine01='$addressLine01', addressLine02='$addressLine02', city='$city', pw='$pw', email='$email' WHERE userID=114";
+    $query = "UPDATE user SET fName='$fName', lName='$lName',  
+    contactNumber='$contactNumber', streetNumber='$streetNumber', 
+    addressLine01='$addressLine01', addressLine02='$addressLine02', city='$city', pw='$pw' WHERE userID=119";
 
     $result = mysqli_query($conn, $query);
     if($result){
@@ -31,7 +31,7 @@
   }
   else{
     // retrieve the details of the admin from the user table
-    $query = "SELECT * FROM user WHERE userID=114";
+    $query = "SELECT * FROM user WHERE userID=119";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_assoc($result);
 
@@ -159,40 +159,31 @@
                             <td><label for="last-name">Last Name:</label></td>
                             <td><input type="text" id="lName" name="lName" class="form-input" value="<?php echo $lName; ?>" ></td>
                         </tr>
-                        <tr>
-                            <td><label for="nic">NIC:</label></td>
-                            <td><input type="text" id="nic" name="NIC" class="form-input" value="<?php echo $NIC; ?>"></td>
-                            <td><label for="email">Email Address:</label></td>
-                            <td><input type="email" id="email" name="email" class="form-input" value="<?php echo $email; ?>"></td>
-                        </tr>
+                       
                         <tr>
                             <td><label for="phone">Phone Number:</label></td>
                             <td><input type="tel" id="phone" name="contactNumber" class="form-input" value="<?php echo $contactNumber; ?>"></td>
-                            <td><label for="gender">Gender:</label></td>
-                            <td>
-                            <select name="gender" id="gender" style="width:180px"  >
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                            </td>
+                           
+                           
                         </tr>
+                        
                         <tr>
-                            <td><label for="dob">Date of Birth:</label></td>
-                            <td><input type="date" id="dob" name="dateOfBirth" class="form-input" style="width:160px"value="<?php echo $dateOfBirth; ?>" ></td>
+                            
                             <td><label for="street-number">Street Number:</label></td>
                             <td><input type="number" id="street-number" name="streetNumber" class="form-input" value="<?php echo $streetNumber; ?>"  ></td>
-                        </tr>
-                        <tr>
                             <td><label for="address-line1">Address Line 1:</label></td>
                             <td><input type="text" id="addressLine01" name="addressLine01" class="form-input" value="<?php echo $addressLine01; ?>" ></td>
-                            <td><label for="address-line2">Address Line 2:</label></td>
-                            <td><input type="text" id="addressLine02" name="addressLine02" class="form-input" value="<?php echo $addressLine02; ?>" ></td>
                         </tr>
                         <tr>
+                       
+                            <td><label for="address-line2">Address Line 2:</label></td>
+                            <td><input type="text" id="addressLine02" name="addressLine02" class="form-input" value="<?php echo $addressLine02; ?>" ></td>
                             <td><label for="city">City:</label></td>
                             <td><input type="text" id="city" name="city" class="form-input" value="<?php echo $city; ?>" ></td>
-                            <td><label for="city">Username:</label></td>
-                            <td><input type="text" id="email" name="email" class="form-input" value="<?php echo $email; ?>" ></td>
+                        </tr>
+                        <tr>
+                            
+                           
                         </tr>
                         <tr>
                             <td><label for="city">Password:</label></td>

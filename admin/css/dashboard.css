@@ -1,0 +1,59 @@
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .dashboard-box {
+    width: 25%;
+    text-align: center;
+    background-color: #F6FBF4;
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 25px;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+    padding-bottom: 15px;
+  }
+  
+  .dashboard-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #006837;
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+  
+  .dashboard-left {
+    display: inline-block;
+    text-align: center;
+    width: 20%;
+
+  }
+  
+  .dashboard-right {
+    display: inline-block;
+    width: 60%;
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #006837;
+  }
+
+  .topIcons{
+    width:35px;
+    height:35px;
+  }
+
+  .graph{
+    margin-left: 20px;
+    box-shadow: 2px 2px 0px rgba(5, 5, 0, 0.15);
+    border-radius:25px;
+    background-color:#F6FBF4;
+    margin-left:15px;
+    margin-top:15px;
+    display:flex;
+    width:98%;
+  }
+  
