@@ -1,6 +1,7 @@
 <?php 
 include 'authorization.php';
 include '../connect.php';
+
 ?>
 
 <?php
@@ -29,8 +30,9 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard | HulkZone</title>
+    <title>TEAM | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
+    <link rel="stylesheet" type="text/css" href="../member/style/team.css">   
 </head>
 <body>
     <div class="container">
@@ -111,19 +113,78 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    Hello, 
-                    <?php
-                        echo $_SESSION["firstName"];
-                    ?>  
-                    <br>
-                    Welcome and Let's Do Some Workout Today!
+                    TEAM
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
-            <div class="content"></div>
+            <div class="content">
+                <div class="row">
+                    <form action="search.php" method="post">
+                        <input type="text" placeholder="Search" name="search">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+
+                <div class="row"><br>
+                    Team Members
+                </div>
+
+                <div class="row">
+                    <?php 
+                        $sql = "SELECT userID, fName, lName, roles, profilePhoto  FROM `user` where roles IN (2,3)";
+                        $result = mysqli_query($conn, $sql);
+                        
+                        $count = 0;
+                        
+                        echo '<table>';
+
+                        if (mysqli_num_rows($result) > 0) {
+                            echo "<tr>";
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $count++;
+                                if(isset($row['profilePhoto']) && $row['profilePhoto'] != NULL){
+                                    //dp link from db
+                                    $profilePictureLink = $row['profilePhoto'];
+                                }else{
+                                    $profilePictureLink = '../member/profileImages/default.png';
+                                }
+
+                                $fullName = $row["fName"] . " " . $row["lName"];
+                                if($row["roles"] == 2){
+                                    $role = "Trainer";
+                                }else{
+                                    $role = "Dietician";
+                                }
+
+                                echo "
+                                <td>
+                                    <div class = 'test'>
+                                        <div><img src='$profilePictureLink'></div>
+                                        <div>$fullName</div>
+                                        <div>$role</div>
+                                        <div><a href='employeeProfile.php?userID=$row[userID]'><button>View Profile</button></a></div>
+                                    </div>
+                                </td> 
+                                ";
+
+
+                                //3 cols per row
+                                if ($count % 3 == 0) {
+                                    echo "</tr><tr>";
+                                }
+                            }
+                            echo "</tr>";
+                        }
+                        
+                        echo '</table>';
+                    
+                        
+                    ?>
+                </div>
+            </div>
         </div>
 
     </div>

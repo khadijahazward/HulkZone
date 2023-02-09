@@ -44,7 +44,6 @@
 .form-container {
     max-width: 600px;
     padding: 40px;
-    background-color: white;
     border: black solid 1px;
 } 
 
@@ -98,9 +97,7 @@ li a:hover {
     color: #DEF9D7;
 }
 
-.profile{
-    background-color: white;
-}
+
 
 .form-row {
     display: flex;

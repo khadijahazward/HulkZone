@@ -1,0 +1,148 @@
+form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+input[type="text"] {
+  padding: 15px;
+  border: 1px solid #DEF9D7;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  background-color: #DEF9D7;
+  transition: all 0.3s;
+  width: 60%;
+}
+
+button[type="submit"], .test button {
+  padding: 15px 15px;
+  border: 1px solid #FF9F29;
+  border-radius: 0 5px 5px 0;
+  background-color: #FF9F29;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+input[type="text"]:focus {
+  background-color: white;
+  box-shadow: 0 0 10px #DEF9D7;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  width: 100%;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+  color: #006837;
+}
+
+.table-container{
+  width: 33%;
+  background-color: #FF9F29;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  align-items: center;
+  text-align: center;
+}
+
+.test img{
+  align-items: center;
+  background-color: white;
+  border-radius: 100%;
+  border: 2px solid #006837;
+  width: 70%;
+  height: 70%;
+}
+
+tr{
+  margin: 40px;
+  justify-content: space-between;
+}
+
+table{
+  width:90%; 
+  margin: 0 auto;
+}
+
+td{
+  width:30%;
+}
+
+.test{
+  background-color:#DEF9D7; 
+  display:flex; 
+  flex-direction:column; 
+  margin:10px;
+  text-align: center;
+  font-size: 20px;
+  border-radius:10px;
+  padding: 10px;
+  border: 1px solid #006837;
+}
+
+.test button{
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 10px;
+}
+
+.test div{
+  margin-top:6px;
+}
+
+.top-r {
+  margin: 20px;
+  margin-left: 15%;
+  background-color: #DEF9D7;
+  height: 30vh;
+  font-size: 20px;
+  color: #006837;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 70%;
+  border: 1px solid black;
+}
+
+.top-r-div{
+  width:60%; display:flex; flex-direction:column; font-weight:bold; margin-left: 20px;  justify-content: center;
+}
+
+.middle-r{
+  margin-left: 50px;
+  font-weight: bold;
+  font-size: 25px;
+  color: #006837;
+  margin-top: 40px;
+}
+
+.middle-r p{
+  font-weight: 0;
+  font-size: 18px;
+  margin: 10px;
+}
+
+li {
+  list-style-image: url("../images/star.png");
+  font-weight: 0;
+  font-size: 18px;
+}
+
+.middle-r tr, td, table{
+  padding: 0;
+  margin: 0;
+  margin-top: -15px;
+}
+
+.content{
+  background-color: #e5e7e8;
+  opacity: 1;
+  background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e7e8 11px ), repeating-linear-gradient( #b3d8aa55, #b3d8aa );
+}

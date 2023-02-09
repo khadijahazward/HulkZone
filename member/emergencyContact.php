@@ -19,8 +19,13 @@ include '../connect.php';
     } else {
         echo '<script> window.alert("Error receiving data!");</script>';
     }
-    //dp link from db
-    $profilePictureLink = $row['profilePhoto'];
+    
+    if(isset($row['profilePhoto']) && $row['profilePhoto'] != NULL){
+        //dp link from db
+        $profilePictureLink = $row['profilePhoto'];
+    }else{
+        $profilePictureLink = '../member/profileImages/default.png';
+    }
 
     $query2 = "select * from emergencyContact where memberID = " . $row1['memberID'];
     
@@ -94,43 +99,43 @@ if (mysqli_num_rows($result2) == 1) {
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Services</div></a>
+                <a href="../member/services.php"><div class="nav-font">Services</div></a>
             </div>
             
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Team</div></a>
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Work Out Plan</div></a>
+                <a href="../member/workout.php"><div class="nav-font">Work Out Plan</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Diet Plan</div></a>
+                <a href="../member/dietplan.php"><div class="nav-font">Diet Plan</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Chat</div></a>
+                <a href="../member/chat.php"><div class="nav-font">Chat</div></a>
             </div>
 
             <hr>
             
             <div class="line">
-                <a href=""><div class="nav-font">Payments</div></a>
+                <a href="../member/payment.php"><div class="nav-font">Payments</div></a>
             </div>
 
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Appointments</div></a>
+                <a href="../member/appointment.php"><div class="nav-font">Appointments</div></a>
             </div>
 
             <hr>
