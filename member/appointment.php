@@ -120,7 +120,20 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                 </div>
             </div>
             <div class="content">
-
+                <div class="row">
+                    <div class="topic">
+                        <p style="margin-top:0;">Schedule Appointment To Use Gym</p>
+                        <button onclick="window.location.href='../member/gymUse.php'">Book Now</button>
+                    </div>
+                    <img src="../member/images/appointment1.png" width= "99%" height="96%" style="margin-top:5px; border-radius:10px;">
+                </div>
+                <div class="row">
+                    <div class="topic">
+                        <p style="margin-top:0;">Schedule Appointment With Your Dietician</p>
+                        <button onclick="window.location.href='../member/dietUse.php'">Book Now</button>
+                    </div>
+                    <img src="../member/images/appointment2.png" width= "99%" height="96%" style="margin-top:5px; border-radius:10px;">
+                </div>
             </div>
         </div>
 

@@ -156,8 +156,8 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
 
                     if (mysqli_num_rows($result3) > 0) {
                         while ($row3 = mysqli_fetch_assoc($result3)) {
-                            $field1name = $row3["paymentDate"];
-                            $field2name = $row3["paymentDate"];
+                            $field1name = DATE_FORMAT($row3["paymentDate"], '%Y-%m-%d');
+                            $field2name = DATE_FORMAT($row3["paymentDate"], '%H:%i:%s');
 
                             //1 = payment Plan , 0 = service charge
                             $field3name = $row3["type"];
