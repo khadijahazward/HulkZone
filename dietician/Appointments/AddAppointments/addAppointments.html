@@ -7,6 +7,30 @@
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="addAppointments.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /*.checkbox-button span {
+            display: inline-block;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 0.25em;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .checkbox-button input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkbox-button-label {
+            display: inline-block;
+            margin-right: 0.5em;
+        }
+
+        .checkbox-button input[type="checkbox"]:checked+.checkbox-button-label {
+            background-color: #333;
+            color: #fff;
+        }*/
+    </style>
 </head>
 
 <body>
@@ -26,13 +50,10 @@
                 <p>Time Slots</p>
             </div>
             <div class="chooseDate">
-                <label for="date">Choose a Date : </label>
-                <input type="date" name="date" id="date">
+                <label for="month">Choose month : </label>
+                <input type="month" name="month" id="month">
             </div>
-            <div class="selectedTimeSlots">
-                <p>Selected Time Slots</p>
-            </div>
-            <table class="selected">
+            <!--<table class="selected">
                 <tr>
                     <td>
                         <div class="selectedSlot">
@@ -159,7 +180,640 @@
                         </div>
                     </td>
                 </tr>
-            </table>
+            </table>-->
+            <div class="gridContainer">
+                <table class="selected">
+                    <thead>
+                        <tr>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="08:00-09:00" />
+                                    <span class="checkbox-button-label">08:00 - 09:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="09:00-10:00" />
+                                    <span class="checkbox-button-label">09:00 - 10:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="10:00-11:00" />
+                                    <span class="checkbox-button-label">10:00 - 11:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="11:00-12:00" />
+                                    <span class="checkbox-button-label">11:00 - 12:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="12:00-13:00" />
+                                    <span class="checkbox-button-label">12:00 - 13:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="13:00-14:00" />
+                                    <span class="checkbox-button-label">13:00 - 14:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="14:00-15:00" />
+                                    <span class="checkbox-button-label">14:00 - 15:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="15:00-16:00" />
+                                    <span class="checkbox-button-label">15:00 - 16:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="16:00-017:00" />
+                                    <span class="checkbox-button-label">16:00 - 17:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="17:00-18:00" />
+                                    <span class="checkbox-button-label">17:00 - 18:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="18:00-19:00" />
+                                    <span class="checkbox-button-label">18:00 - 19:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="19:00-20:00" />
+                                    <span class="checkbox-button-label">19:00 - 20:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="20:00-21:00" />
+                                    <span class="checkbox-button-label">20:00 - 21:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                            <td>
+                                <label class="checkbox-button">
+                                    <input type="checkbox" name="time-slot[]" value="21:00-22:00" />
+                                    <span class="checkbox-button-label">21:00 - 22:00</span>
+                                </label>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <button onclick="document.getElementById('popUp').style.display='block';" class="saveBtn">Save</button>
         </div>
     </div>
