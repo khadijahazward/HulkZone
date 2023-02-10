@@ -52,6 +52,15 @@
     border-radius: 50%;
 }
 
+.notification {
+    font-size: 20px;
+    color: rgba(0, 104, 55, 1);
+    position: absolute;
+    top: 15px;
+    left: 1300px;
+    z-index: 6;
+}
+
 .leftBar {
     position: fixed;
     width: 250px;
@@ -73,7 +82,7 @@
 .leftBarContent a {
     display: block;
     color: white;
-    padding: 16px;
+    padding: 10px;
     text-decoration: none;
     margin: 5px;
 }

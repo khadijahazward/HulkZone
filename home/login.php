@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }else if($_SESSION['role'] == 2){
             header("location: ..\\trainer\dashboard.php");
         }else if($_SESSION['role'] == 3){
-            header("location: ..\dietician\dieticianDashboard.php");
+            header("location: ..\dietician\Home\home.php");
         }
      
     } else {
@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../style/index.css">
     <link rel="stylesheet" type="text/css" href="../style/login.css">
 </head>
+
 <body>
     <!--navigation bar-->
     <div class="nav-bar">
@@ -85,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!--content-->
     <!--code the content here-->
     <div class="content">
-        
-        <div class="loginbox" >
+
+        <div class="loginbox">
             <img src="../asset/images/gymLogo.png" alt="GymLogo" class="GymLogo">
             <h1>Login</h1>
             <form action="login.php" method="post" onsubmit="return validation()" id="loginForm">
@@ -98,48 +100,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ?>
 
                 <p>Username</p>
-                <input type="text" name="username" id = "username" placeholder= "Enter Username" >
+                <input type="text" name="username" id="username" placeholder="Enter Username">
 
                 <p>Password</p>
                 <input type="password" name="password" id="pass" placeholder="Enter Password">
 
                 <input type="submit" name="" value="Login"><br>
                 <a href="#">Forgot your password?</a><br>
-               
+
             </form>
-            </div>
         </div>
-       
+    </div>
+
     </div>
 
 
 
 
     <!--Footer-->
-    <div class = footer>  © 2022 HulkZone. All rights reserved. </div>
+    <div class=footer> © 2022 HulkZone. All rights reserved. </div>
 
-<!--js code to check if user input are empty-->
+    <!--js code to check if user input are empty-->
     <script>
-        function validation(){
-            var username = document.forms["loginForm"]["username"].value;
-            var pw = document.forms["loginForm"]["pass"].value;
-            if(username == "" && pw == "" ){
-                alert("Username and password must be filled out");
-                return false;
-            }else{
-                if (username == "") {
+    function validation() {
+        var username = document.forms["loginForm"]["username"].value;
+        var pw = document.forms["loginForm"]["pass"].value;
+        if (username == "" && pw == "") {
+            alert("Username and password must be filled out");
+            return false;
+        } else {
+            if (username == "") {
                 alert("Username must be filled out");
                 return false;
-                }    
+            }
 
-            
-                if (pw == "") {
-                    alert("Password must be filled out");
-                    return false;
-                } 
-            }   
+
+            if (pw == "") {
+                alert("Password must be filled out");
+                return false;
+            }
         }
-        
+    }
     </script>
 </body>
 

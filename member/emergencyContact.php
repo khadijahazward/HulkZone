@@ -105,7 +105,7 @@ if (mysqli_num_rows($result2) == 1) {
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Team</div></a>
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
             </div>
 
             <hr>

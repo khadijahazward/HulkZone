@@ -29,7 +29,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossfit Training | HulkZone</title>
+    <title>Strength Training | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/servicepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -113,7 +113,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    CROSS FIT TRAINING 
+                    STRENGTH TRAINING
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
@@ -123,10 +123,8 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
 
             <div class="content">
                 <div class="row">
-                        <div class="topic">
-                        Unleash your inner athlete with Crossfit training. Get ready for a full-body challenge that will push you to your limits, <br>transform your body, and leave you feeling stronger and more confident than ever before!
-                        </div>
-                        <img src="../member/images/crossfitpage.png" width= "100%" height="100%">
+                        <div class="topic">Sculpt a leaner, stronger you with strength training! Ditch body fat, boost lean muscle,<br> and ignite calorie-burning efficiency for ultimate health and fitness!</div>
+                        <img src="../member/images/strengthpage.png" width= "100%" height="100%">
                 </div>
                 <div class="row-two">
                     <div class="sub-topic">
@@ -140,7 +138,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                     </div>
                 </div>
                 <hr class="hr-heading">
-                    <div class="row-two" style="font-size:20px;">Crossfit Training - Service History</div>
+                    <div class="row-two" style="font-size:20px;">Strength Training - Service History</div>
                 <hr class="hr-heading">
 
                 <div class="row-two" style="margin-left: 10px; margin-right: 10px;">

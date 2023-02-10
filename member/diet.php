@@ -29,7 +29,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crossfit Training | HulkZone</title>
+    <title>DIET SERVICE | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/servicepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -113,7 +113,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    CROSS FIT TRAINING 
+                    DIET SERVICE
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
@@ -124,23 +124,28 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
             <div class="content">
                 <div class="row">
                         <div class="topic">
-                        Unleash your inner athlete with Crossfit training. Get ready for a full-body challenge that will push you to your limits, <br>transform your body, and leave you feeling stronger and more confident than ever before!
+                        Say goodbye to bland diets and hello to delicious, healthy eating with our expert diet service. <br>Let us help you reach your weight loss goals, improve your health, and nourish your body with every bite.
                         </div>
-                        <img src="../member/images/crossfitpage.png" width= "100%" height="100%">
+                        <img src="../member/images/dietpage.png" width= "100%">
                 </div>
                 <div class="row-two">
-                    <div class="sub-topic">
+                    <div class="sub-topic" style="margin-top:10px;">
                         <div class="row-two" style="margin-left:40px;">
-                            <div class="col"><li>Customized Work out Plan</li></div>
+                            <div class="col"><li>Customized Diet Plan</li></div>
                             <div class="col"><li>View Progress</li></div>
                             <div class="col"><li>Rs. 10, 000 For  06 Months</li></div>
-                            <div class="col"><li>Personal Trainer</li></div>
+                        </div>
+
+                        <div class="row-two" style="margin-left:40px;">
+                            <div class="col"><li>Personal Dietician</li></div>
+                            <div class="col"><li>Schedule Appointments</li></div>
+                            <div class="col"><li>Chat with Your Dietician</li></div>
                         </div>
                         
                     </div>
                 </div>
                 <hr class="hr-heading">
-                    <div class="row-two" style="font-size:20px;">Crossfit Training - Service History</div>
+                    <div class="row-two" style="font-size:20px;">Diet Service - Service History</div>
                 <hr class="hr-heading">
 
                 <div class="row-two" style="margin-left: 10px; margin-right: 10px;">
@@ -171,7 +176,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                 </div>
 
                 <hr class="hr-heading">
-                    <div class="row-two" style="font-size:20px;">Select Your Trainer</div>
+                    <div class="row-two" style="font-size:20px;">Select Your Dietician</div>
                 <hr class="hr-heading">
 
                 <div class="row-two" style="margin-left: 10px; margin-right: 10px;">
@@ -193,7 +198,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                             } else {
                                 echo '<table>
                                     <tr> 
-                                        <td> Trainers Unavailable at the Moment </td> 
+                                        <td> Dieticians Unavailable at the Moment </td> 
                                     </tr>
                                 </table>';
                             }

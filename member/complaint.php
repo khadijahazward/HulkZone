@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr>
 
             <div class="line">
-                <a href=""><div class="nav-font">Team</div></a>
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
             </div>
 
             <hr>
@@ -206,6 +206,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </tr>';
                         }
                     }
+                    echo '</table>';
                     ?>
                     
                 </div>

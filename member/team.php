@@ -1,6 +1,7 @@
 <?php 
 include 'authorization.php';
 include '../connect.php';
+
 ?>
 
 <?php
@@ -21,7 +22,6 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     }else{
         $profilePictureLink = '../member/profileImages/default.png';
     }
-    
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +30,9 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | HulkZone</title>
+    <title>TEAM | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
-    <link rel="stylesheet" type="text/css" href="../member/style/services.css">
-
+    <link rel="stylesheet" type="text/css" href="../member/style/team.css">   
 </head>
 <body>
     <div class="container">
@@ -114,7 +113,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    SERVICES
+                    TEAM
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
@@ -123,58 +122,67 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
             </div>
             <div class="content">
                 <div class="row">
-                    <div class="col" style="margin-right: 150px;">
-                        <img src="../member/images/crossfit1.jpg" alt="crossfit training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                CROSSFIT TRAINING
-                                <div style="font-size: 10px;">High Intensity Work Out</div>
-                            </div>
-                            <div style="width: 30%;">
-                                <button type="button" onclick="window.location.href = './crossfit.php';">View</button>
-                            </div>
-                            
-                        </div>
-                    </div>
-        
-                    <div class="col">
-                        <img src="../member/images/strength1.jpg" alt="strength training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                STRENGTH TRAINING                                
-                                <div style="font-size: 10px;">Gain Muscles weight with us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './strength.php';">View</button>
-                            </div>
-                        </div>
-                    </div>
+                    <form action="search.php" method="post">
+                        <input type="text" placeholder="Search" name="search">
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
+
+                <div class="row"><br>
+                    Team Members
+                </div>
+
                 <div class="row">
-                    <div class="col" style="margin-right: 150px;">
-                        <img src="../member/images/bodybuilding.png" alt="bodybuilding training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                BODYBUILDING TRAINING
-                                <div style="font-size: 10px;">Gain Muscles weight with us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './bodybuilding.php';">View</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <img src="../member/images/diet.png" alt="diet training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                DIET SERVICE
-                                <div style="font-size: 10px;">Stay Fit With Us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './diet.php';">View</button>
-                            </div>
-                        </div>
-                    </div>
+                    <?php 
+                        $sql = "SELECT userID, fName, lName, roles, profilePhoto  FROM `user` where roles IN (2,3)";
+                        $result = mysqli_query($conn, $sql);
+                        
+                        $count = 0;
+                        
+                        echo '<table>';
+
+                        if (mysqli_num_rows($result) > 0) {
+                            echo "<tr>";
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $count++;
+                                if(isset($row['profilePhoto']) && $row['profilePhoto'] != NULL){
+                                    //dp link from db
+                                    $profilePictureLink = $row['profilePhoto'];
+                                }else{
+                                    $profilePictureLink = '../member/profileImages/default.png';
+                                }
+
+                                $fullName = $row["fName"] . " " . $row["lName"];
+                                if($row["roles"] == 2){
+                                    $role = "Trainer";
+                                }else{
+                                    $role = "Dietician";
+                                }
+
+                                echo "
+                                <td>
+                                    <div class = 'test'>
+                                        <div><img src='$profilePictureLink'></div>
+                                        <div>$fullName</div>
+                                        <div>$role</div>
+                                        <div><a href='employeeProfile.php?userID=$row[userID]'><button>View Profile</button></a></div>
+                                    </div>
+                                </td> 
+                                ";
+
+
+                                //3 cols per row
+                                if ($count % 3 == 0) {
+                                    echo "</tr><tr>";
+                                }
+                            }
+                            echo "</tr>";
+                        }
+                        
+                        echo '</table>';
+                    
+                        
+                    ?>
                 </div>
             </div>
         </div>

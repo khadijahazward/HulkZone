@@ -1,3 +1,10 @@
+<?php
+
+include '../../connect.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,14 +29,24 @@
         </div>
         <div class="leftBar">
             <div class="leftBarContent">
-                <a href="../../Home/home.html"><i class="fa fa-home"></i>Home</a>
+                <hr>
+                <a href="../../Home/home.php"><i class="fa fa-home"></i>Home</a>
+                <hr>
                 <a href="../../Members/members.php"><i class="fa fa-group"></i>Members</a>
-                <a href="../../Appointments/Appointments/appointments.html"><i
+                <hr>
+                <a href="../../Appointments/Appointments/appointments.php"><i
                         class="fa fa-calendar"></i>Appointments</a>
-                <a href="../../Diet Plan/DietPlan/dietPlan.html"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
+                <a href="../../Schedule/schedule.php""><i class=" fa fa-clock-o"></i>Schedule</a>
+                <hr>
+                <a href="../../Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
                 <a href="../../ChatBox/chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
-                <a href="complaint.html" class="active"><i class="fa fa-cog"></i>Settings</a>
-                <a><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
+                <a href="complaint.php" class="active"><i class="fa fa-cog"></i>Settings</a>
+                <hr>
+                <a href="../../../../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
             </div>
         </div>
         <!--<div class="profileCard">
@@ -52,9 +69,9 @@
             <div class="dateBar">
                 <div class="selector"></div>
                 <div class="dateRow">
-                    <a href="../Profile/View Profile/viewProfile.html">Profile</a>
-                    <a href="../Change Password/changePassword.html">Change Password</a>
-                    <a href="complaint.html" style="color: rgba(0, 104, 55, 1);">Complaints</a>
+                    <a href="../Profile/View Profile/profile.php">Profile</a>
+                    <a href="../Change Password/changePassword.php">Change Password</a>
+                    <a href="complaint.php" style="color: rgba(0, 104, 55, 1);">Complaints</a>
                 </div>
             </div>
             <div class="subtopic">
@@ -107,18 +124,12 @@
                             <td>System Breakdown</td>
                             <td>Completed</td>
                         </tr>
-                        <tr>
-                            <td>607</td>
-                            <td>31/10/2022</td>
-                            <td>Other</td>
-                            <td>Filed</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
+    <!--
 
     <div id="popUp" class="popUpContent">
         <div class="popUpContainer">
@@ -130,20 +141,20 @@
     </div>
 
     <script>
-        var popUpContent = document.getElementById('popUp');
-        var span = document.getElementsByClassName("close")[0];
+    var popUpContent = document.getElementById('popUp');
+    var span = document.getElementsByClassName("close")[0];
 
-        span.onclick = function () {
+    span.onclick = function() {
+        popUpContent.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == popUpContent) {
             popUpContent.style.display = "none";
         }
-
-        window.onclick = function (event) {
-            if (event.target == popUpContent) {
-                popUpContent.style.display = "none";
-            }
-        }
+    }
     </script>
-
+-->
 </body>
 
 </html>

@@ -1,3 +1,11 @@
+<?php
+
+include '../../connect.php'
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 
@@ -22,14 +30,24 @@
         </div>
         <div class="leftBar">
             <div class="leftBarContent">
-                <a href="../../Home/home.html"><i class="fa fa-home"></i>Home</a>
+                <hr>
+                <a href="../../Home/home.php"><i class="fa fa-home"></i>Home</a>
+                <hr>
                 <a href="../../Members/members.php"><i class="fa fa-group"></i>Members</a>
-                <a href="../../Appointments/Appointments/appointments.html"><i
+                <hr>
+                <a href="../../Appointments/Appointments/appointments.php"><i
                         class="fa fa-calendar"></i>Appointments</a>
-                <a href="dietPlan.html" class="active"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
+                <a href="../../Schedule/schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
+                <hr>
+                <a href="dietPlan.php" class="active"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
                 <a href="../../ChatBox/chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
-                <a href="../../Settings/Profile/View Profile/viewProfile.html"><i class="fa fa-cog"></i>Settings</a>
-                <a><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
+                <a href="../../Settings/Profile/View Profile/profile.php"><i class="fa fa-cog"></i>Settings</a>
+                <hr>
+                <a href="../../../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
             </div>
         </div>
         <div class="main">
@@ -58,30 +76,7 @@
                                     onclick="window.location.href='../View Diet Plan/viewDietPlan.html';">View</button>
                                 <button
                                     onclick="window.location.href='../Create Diet Plan/Create Diet Plan - Monday/createDietPlanMonday.html';">New</button>
-                                <button
-                                    onclick="window.location.href='../Update Diet Plan/updateDietPlan.html';">Update</button>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>01</td>
-                            <td><img src="../../Images/Member.png" alt="member's DP"><span>Lina Johnson</span></td>
-                            <td>Active</td>
-                            <td>Scheduled</td>
-                            <td><button>View</button><button>New</button><button>Update</button></td>
-                        </tr>
-                        <tr>
-                            <td>01</td>
-                            <td><img src="../../Images/Member.png" alt="member's DP"><span>Lina Johnson</span></td>
-                            <td>Active</td>
-                            <td>Scheduled</td>
-                            <td><button>View</button><button>New</button><button>Update</button></td>
-                        </tr>
-                        <tr>
-                            <td>01</td>
-                            <td><img src="../../Images/Member.png" alt="member's DP"><span>Lina Johnson</span></td>
-                            <td>Active</td>
-                            <td>Scheduled</td>
-                            <td><button>View</button><button>New</button><button>Update</button></td>
                         </tr>
                     </tbody>
                 </table>
