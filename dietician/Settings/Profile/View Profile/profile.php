@@ -35,7 +35,8 @@
                     <hr>
                     <a href="../../../Members/members.php"><i class="fa fa-group"></i>Members</a>
                     <hr>
-                    <a href="appointments.php"><i class="fa fa-calendar"></i>Appointments</a>
+                    <a href="../../../Appointments/Appointments/appointments.php"><i
+                            class="fa fa-calendar"></i>Appointments</a>
                     <hr>
                     <a href="../../../Schedule/schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
                     <hr>

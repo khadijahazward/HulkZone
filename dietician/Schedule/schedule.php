@@ -10,7 +10,7 @@ include '../connect.php';
 <html>
 
 <head>
-    <title>Appointments</title>
+    <title>Schedule</title>
     <meta charset="utf-8">
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="schedule.css" rel="StyleSheet">

@@ -103,9 +103,19 @@ function enableInput() {
             <hr>
 
             <div class="line">
+<<<<<<< HEAD
                 <a href="../member/services.php">
                     <div class="nav-font">Services</div>
                 </a>
+=======
+                <a href="../member/services.php"><div class="nav-font">Services</div></a>
+            </div>
+            
+            <hr>
+
+            <div class="line">
+                <a href="../member/team.php"><div class="nav-font">Team</div></a>
+>>>>>>> 3c08d8b920fadb34c438be6c5be2b0748a6e4b4a
             </div>
 
             <hr>
