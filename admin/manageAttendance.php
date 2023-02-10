@@ -56,25 +56,26 @@
         <div class="contentRight"  style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
-        <div class="topic">
-        <a href="addAttendance.php"><button>Mark Attendance</button></a> 
-        </div>
+        
         <hr style="width: 98%;">
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
                    <th>Member ID</th>
-                   <th>Name</th>
-                   <th>Gender</th>
-                   <th>NIC</th>
-                   <th>Date and Time</th>
+                   <th>Member Name</th>
+                   <th>Trainer</th>
+                   <th>Date</th>
+                   <th>Start Time</th>
+                   <th>End Time</th>
+                   <th>Attendance</th>
                 </tr>
+
 
                 <?php 
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    $sql="SELECT attendance.memberID,attendance.timestamp,user.fName,user.gender,user.NIC
+                    /*$sql="SELECT attendance.memberID,attendance.timestamp,user.fName,user.gender,user.NIC
                     FROM (( attendance 
                     INNER JOIN member ON member.memberID=attendance.memberID)
                     INNER JOIN user ON user.userID=member.userID)
@@ -94,8 +95,10 @@
                    <td>$row[gender]</td>
                    <td>$row[NIC]</td>
                    <td>$row[timestamp]</td>
+                   <td> <input type='checkbox' ></td>
+
                 </tr>";
-                    }
+                    }*/
                     
                 ?>
                 

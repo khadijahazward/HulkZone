@@ -45,11 +45,23 @@
         $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
         $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
 
-        if (empty($_POST["pass1"])) {
+       /* if (empty($_POST["pass1"])) {
             $pw1Err = "Password is required";
         }else if(strlen($_POST['pass1']) < 8 || !$numberCheck || !$specialCharsCheck){
             $pw1Err = "password should be minimum 8 characters";
+        }*/
+
+        
+        if (empty($_POST["pass1"])) {
+            $pw1Err = "Password is required";
+        } else if (strlen($_POST['pass1']) < 8) {
+            $pw1Err = "Password must be at least 8 characters long.";
+        } else if (!$numberCheck) {
+            $pw1Err = "Password must contain at least one number.";
+        } else if (!$specialCharsCheck) {
+            $pw1Err = "Password must contain at least one special character.";
         }
+
 
         if (empty($_POST["pass2"])) {
             $pw2Err = "Confirm Password is required";
@@ -92,7 +104,7 @@
 
         $cpw = $_POST["pass2"];
 
-        $lang=$_POST["lang"];
+        //$lang=$_POST["lang"];
 
         $status = 1; //active
 
@@ -120,24 +132,34 @@
                 }
                 
                 //retrieving the userID from user table to use as foreign key in member table
-                $sql1 = "select userID from user where email = '$username'";
+              /*  $sql1 = "select userID from user where email = '$username'";
                 
                 $result1 = mysqli_query($conn, $sql1);
     
                 $row = mysqli_fetch_array($result1);
     
-                $userid = ($row['userID']);
+                $userid = ($row['userID']);*/
+                $sql1 = "select userID from user where email = '$username'";
+                    
+                $result1 = mysqli_query($conn, $sql1);
+    
+                //$row = mysqli_fetch_array($result1);
+                
+                if($result1 && $row = mysqli_fetch_array($result1)){
+                     //retrieving the userID from user table to use as foreign key in member table
+                    $userid = ($row['userID']);
     
                 //inserting data into employee table
-                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description,language) values( '$userid', '$exp', '$qual', '$des','$lang')";
+                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description) values( '$userid', '$exp', '$qual', '$des')";
     
                 $result2 = mysqli_query($conn, $sql2);
-
+                }
                 //checking if both are correct 
-                if ($result == TRUE && $result2 == true) {
+                if ($result == TRUE && isset($result2) && $result2 == true) {
+                    echo "<script> alert('Registration Successful!'); </script>";
                     echo "<script>window.location.replace('manageDietician.php');</script>";
                 }else{
-                    echo ("error" .$sql.  mysqli_error($conn));
+                    echo "<script> alert('Please Fill all the required Data!'); </script>";
                 }
             }else{
                 echo "<script> alert('Passwords dont match'); </script>";
@@ -152,6 +174,7 @@
         }
     
     }
+    
 
     ?>
 
@@ -165,12 +188,19 @@
     <title>Add Trainer | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/addtrainer.css">
+
+    <style>
+        .error{
+    color: red;
+    font-size: 10px;
+}
+    </style>
 </head>
 <body>
 
     <!--Header-->
     <div class="content">
-        <div class="contentLeft"><p class="title">ADD TRAINER</p></div>
+        <div class="contentLeft"><p class="title">ADD DIETICIAN</p></div>
         <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
         <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
     </div>
@@ -183,13 +213,13 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>First name <span class="error"> <?php echo $fnameErr; ?></span></label>
         <br>
-        <input id="fname" type="text" name="fname" value="<?php echo $_POST['fname'] ?? ''; ?>" required>
+        <input id="fname" type="text" name="fname" value="<?php echo $_POST['fname'] ?? ''; ?>"  >
     </div>
 
     <div class="form-group">
         <label>Last name<span class="error"> <?php echo $lnameErr; ?></span></label> 
         <br>
-        <input id="lname" type="text" name="lname" value="<?php echo $_POST['lname'] ?? ''; ?>" required>
+        <input id="lname" type="text" name="lname" value="<?php echo $_POST['lname'] ?? ''; ?>"  >
     </div>
 </div>
 
@@ -197,7 +227,7 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Date of Birth <span class="error"><?php echo $dobErr; ?></span></label>
         <br>
-        <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>" required>
+        <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>" >
     </div>
 
     <div class="form-group">
@@ -214,13 +244,13 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Phone Number <span class="error"> <?php echo $numErr; ?></span></label >
         <br>
-        <input id="number" name="number" type="text" value="<?php echo $_POST['number'] ?? ''; ?>" required>
+        <input id="number" name="number" type="text" value="<?php echo $_POST['number'] ?? ''; ?>" >
     </div>
 
     <div class="form-group">
         <label>NIC Number <span class="error"> <?php echo $NICErr; ?></span></label>
         <br>
-        <input id="nic" name="nic" type="text" value="<?php echo $_POST['nic'] ?? ''; ?>" required>
+        <input id="nic" name="nic" type="text" value="<?php echo $_POST['nic'] ?? ''; ?>" >
     </div>
 </div>
 <h1 style="font-weight:normal;">Address</h1>
@@ -228,13 +258,13 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Street Number</label>
         <br>
-        <input id="sNumber" name="sNumber" type="text" value="<?php echo $_POST['sNumber'] ?? ''; ?>" required>
+        <input id="sNumber" name="sNumber" type="text" value="<?php echo $_POST['sNumber'] ?? ''; ?>"  >
     </div>
 
     <div class="form-group">
         <label>Address Line 01</label>
         <br>
-        <input id="aline1" name="aline1" type="text" value="<?php echo $_POST['aline1'] ?? ''; ?>" required>
+        <input id="aline1" name="aline1" type="text" value="<?php echo $_POST['aline1'] ?? ''; ?>"  >
     </div>
 </div>
 
@@ -242,13 +272,13 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Address Line 02</label>
         <br>
-        <input id="aline2" name="aline2" type="text" value="<?php echo $_POST['aline2'] ?? ''; ?>" required>
+        <input id="aline2" name="aline2" type="text" value="<?php echo $_POST['aline2'] ?? ''; ?>" >
     </div>
 
     <div class="form-group">
         <label>City</label>
         <br>
-        <input id="city" name="city" type="text" vvalue="<?php echo $_POST['city'] ?? ''; ?>" required>
+        <input id="city" name="city" type="text" vvalue="<?php echo $_POST['city'] ?? ''; ?>" >
     </div>
 </div>
 <h1 style="font-weight:normal;">Other details</h1>
@@ -256,13 +286,13 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label> No. of years of Experience</label>
         <br>
-        <input id="exp" type="text" name="exp" value="<?php echo $_POST['exp'] ?? ''; ?>" required>
+        <input id="exp" type="text" name="exp" value="<?php echo $_POST['exp'] ?? ''; ?>" >
     </div>
 
     <div class="form-group">
         <label>Qualification</label>
         <br> 
-        <input id="qual" type="text" name="qual" value="<?php echo $_POST['qual'] ?? ''; ?>" required>
+        <input id="qual" type="text" name="qual" value="<?php echo $_POST['qual'] ?? ''; ?>" >
     </div>
 </div>
 
@@ -270,22 +300,37 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label> Description</label>
         <br>
-        <input id="des" type="text" name="des"  value="<?php echo $_POST['des'] ?? ''; ?>" required>
+        <input id="des" type="text" name="des"  value="<?php echo $_POST['des'] ?? ''; ?>" >
     </div>
 
     <div class="form-group">
         <label>Languages</label> 
         <br>
-        <input id="lang" type="text" name="lang" value="<?php echo $_POST['lang'] ?? ''; ?>" required>
+       
+        <div class="checkbox" >
+        <input type="checkbox" id="Snglish" name="#" value="English" >
+        <label for="english" >English</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Sinhala" name="#" value="Sinhala">
+        <label for="spanish">Sinhala</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Tamil" name="#" value="Tamil">
+        <label for="french">Tamil</label>
+        </div>
     </div>
 </div>
 
 
 
-<div class="form-group" style="margin-right:50px;margin-left: 220px;">
+
+<div class="form-group" style="margin-right:50px;margin-left: 220px;" >
     <label>Username (Enter Email Address)<span class="error">* <?php echo $emErr; ?></span></label> 
     <br>
-    <input type="email" id="email"  size="30" style="width: 340px;" name="email" required >
+    <input type="email" id="email"  size="30" style="width: 340px;" name="email" >
 </div>
 
 <div class="form-row">
@@ -293,14 +338,14 @@
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Password<span class="error">* <?php echo $pw1Err; ?></span></label> 
         <br>
-        <input type="password" id="pass1" name="pass1" minlength="8" maxlength="15" required>
+        <input type="password" id="pass1" name="pass1" minlength="8" maxlength="15" >
     </div>
 
 
     <div class="form-group">
         <label>Confirm Password <span class="error"> <?php echo $pw2Err; ?></span></label>
         <br>
-        <input type="password" id="pass2" name="pass2" required>
+        <input type="password" id="pass2" name="pass2"  >
     </div>
 
 </div>

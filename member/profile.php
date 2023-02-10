@@ -26,7 +26,7 @@ include '../connect.php';
 
 <script>
 function setUserData(fName, lName, nic, contactNumber, gender, dob, plan, height, weight, street, aline1, aline2,
-city) {
+    city) {
     document.getElementById("fname").value = fName;
     document.getElementById("lname").value = lName;
     document.getElementById("nic").value = nic;
@@ -103,25 +103,15 @@ function enableInput() {
             <hr>
 
             <div class="line">
-<<<<<<< HEAD
                 <a href="../member/services.php">
                     <div class="nav-font">Services</div>
                 </a>
-=======
-                <a href="../member/services.php"><div class="nav-font">Services</div></a>
-            </div>
-            
-            <hr>
-
-            <div class="line">
-                <a href="../member/team.php"><div class="nav-font">Team</div></a>
->>>>>>> 3c08d8b920fadb34c438be6c5be2b0748a6e4b4a
             </div>
 
             <hr>
 
             <div class="line">
-                <a href="">
+                <a href="../member/team.php">
                     <div class="nav-font">Team</div>
                 </a>
             </div>
@@ -129,7 +119,7 @@ function enableInput() {
             <hr>
 
             <div class="line">
-                <a href="">
+                <a href="../member/workout.php">
                     <div class="nav-font">Work Out Plan</div>
                 </a>
             </div>
@@ -137,7 +127,7 @@ function enableInput() {
             <hr>
 
             <div class="line">
-                <a href="">
+                <a href="../member/dietplan.php">
                     <div class="nav-font">Diet Plan</div>
                 </a>
             </div>
@@ -145,8 +135,24 @@ function enableInput() {
             <hr>
 
             <div class="line">
-                <a href="">
+                <a href="../member/chat.php">
                     <div class="nav-font">Chat</div>
+                </a>
+            </div>
+
+            <hr>
+
+            <div class="line">
+                <a href="../member/payment.php">
+                    <div class="nav-font">Payments</div>
+                </a>
+            </div>
+
+            <hr>
+
+            <div class="line">
+                <a href="../member/appointment.php">
+                    <div class="nav-font">Appointments</div>
                 </a>
             </div>
 
@@ -248,6 +254,9 @@ function enableInput() {
 
                             echo "Joined Date: ";
                             echo $row["created_at"];
+                            echo "<br>";
+                            echo "Member ID: ";
+                            echo $row1['memberID'];
 
                         ?>
                     </div>

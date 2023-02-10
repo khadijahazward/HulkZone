@@ -16,7 +16,7 @@
     margin-bottom: 12px;
 }
 
-input[type="date"] , input[type="text"], select, .radio, input[type="email"], input[type="password"],input[type="tel"],input[type="number"] {
+input[type="date"] , input[type="text"], select, .radio, input[type="email"], input[type="password"],input[type="tel"],input[type="number"],input[type=checkbox] {
    
     box-sizing: border-box;
     border-radius: 6px;
@@ -85,5 +85,12 @@ label{
    
 select:focus{
     background-color: #FFFFFF;
+  }
+
+  .checkbox{
+    background-color: #DEF9D7;
+    width:340px;
+    border-radius:5px;
+    height:30px;
   }
 

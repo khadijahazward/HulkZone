@@ -320,9 +320,9 @@
                 $result1 = mysqli_query($conn, $sql1);
                 
                 if($result1 && $row = mysqli_fetch_array($result1)){
-                     //retrieving the userID from user table to use as foreign key in member table
+                    //retrieving the userID from user table to use as foreign key in member table
                     $userid = ($row['userID']);
-        
+
                     //inserting data into member table
                     $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
         

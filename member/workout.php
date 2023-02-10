@@ -21,7 +21,6 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     }else{
         $profilePictureLink = '../member/profileImages/default.png';
     }
-    
 ?>
 
 <!DOCTYPE html>
@@ -30,10 +29,9 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services | HulkZone</title>
+    <title>Workout plan | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
-    <link rel="stylesheet" type="text/css" href="../member/style/services.css">
-
+    <link rel="stylesheet" type="text/css" href="../member/style/plan.css">
 </head>
 <body>
     <div class="container">
@@ -114,7 +112,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    SERVICES
+                    WORKOUT PLAN
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
@@ -122,59 +120,67 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                 </div>
             </div>
             <div class="content">
+                <div class="row" style="font-weight:bold;">
+                    Work Out Plan for 
+                    <?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                    ?>
+                </div>
+
                 <div class="row">
-                    <div class="col" style="margin-right: 150px;">
-                        <img src="../member/images/crossfit1.jpg" alt="crossfit training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                CROSSFIT TRAINING
-                                <div style="font-size: 10px;">High Intensity Work Out</div>
-                            </div>
-                            <div style="width: 30%;">
-                                <button type="button" onclick="window.location.href = './crossfit.php';">View</button>
-                            </div>
-                            
-                        </div>
-                    </div>
-        
-                    <div class="col">
-                        <img src="../member/images/strength1.jpg" alt="strength training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                STRENGTH TRAINING                                
-                                <div style="font-size: 10px;">Gain Muscles weight with us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './strength.php';">View</button>
-                            </div>
-                        </div>
+                    <p style="font-size:20px; margin:0;">DAILY PROGRESS</p>
+                </div>
+                <!--for the progress bar-->
+                <div class="row">
+                    <div id="bar">
+                        <div id="progress"></div>
+                        <div id="percentage">0%</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col" style="margin-right: 150px;">
-                        <img src="../member/images/bodybuilding.png" alt="bodybuilding training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                BODYBUILDING TRAINING
-                                <div style="font-size: 10px;">Gain Muscles weight with us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './bodybuilding.php';">View</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <img src="../member/images/diet.png" alt="diet training" height="70%" width="100%">
-                        <div class="sub-content">
-                            <div class="text-content">
-                                DIET SERVICE
-                                <div style="font-size: 10px;">Stay Fit With Us!</div>
-                            </div>
-                            <div style="width:30%;">
-                                <button type="button" onclick="window.location.href = './diet.php';">View</button>
-                            </div>
-                        </div>
-                    </div>
+                    <?php
+                        //edit this query - wrong
+                        $sql3 = "select * from workoutplan where memberID = " . $row1['memberID'];
+
+                        echo '<table> 
+                        <tr> 
+                            <th> Exercise </th> 
+                            <th> Duration </th> 
+                            <th> Rest Time </th> 
+                            <th> Status </th> 
+                        </tr>';
+                        $result3 = mysqli_query($conn, $sql3);
+                        if (mysqli_num_rows($result3) > 0) {
+                            while ($row3 = mysqli_fetch_assoc($result3)) {
+                                
+                                //retrieving exercise name from the exercise table using exercise ID
+                                $exerciseID = $row3["exerciseID"];
+
+                                $sql4 = "select exerciseName from exercise where exerciseID =  " . $exerciseID;
+                                $result4 = mysqli_query($conn, $sql4);
+                                $row4 = mysqli_fetch_assoc($result4);
+                                $field1name = $row4["exerciseName"];
+
+                                $field2name = $row3["duration"];
+                                $field3name = $row3["restTime"];
+                                $field4name = $row3["status"];
+
+                                echo '<tr> 
+                                    <td>'.$field1name.'</td> 
+                                    <td>'.$field2name.'</td> 
+                                    <td>'.$field3name.'</td> 
+                                    <td><input type="checkbox" name="status[]" value="'.$row3["status"].'" '.($field4name == 1 ? 'checked' : '').'></td> 
+                                </tr>';
+                            }
+                        }else{
+                            echo '<tr>
+                                <td colspan="4" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
+
+                            </tr>'; 
+                        }
+                        echo '</table>';
+                    ?>
                 </div>
             </div>
         </div>
@@ -183,3 +189,27 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
 </body>
 
 </html>
+
+
+<!--for progress bar-->
+<script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const progress = document.querySelector('#progress');
+    const percentage = document.querySelector('#percentage');
+
+    let checkedCount = 0;
+
+    checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        if (this.checked) {
+        checkedCount++;
+        } else {
+        checkedCount--;
+        }
+        
+        progress.style.width = `${(checkedCount / checkboxes.length) * 100}%`;
+        percentage.innerHTML = `${(checkedCount / checkboxes.length) * 100}%`;
+    });
+    });
+
+</script>

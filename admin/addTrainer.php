@@ -104,7 +104,7 @@
 
         $cpw = $_POST["pass2"];
 
-        $lang=$_POST["lang"];
+        //$lang=$_POST["lang"];
 
         $status = 1; //active
 
@@ -150,7 +150,7 @@
                     $userid = ($row['userID']);
     
                 //inserting data into employee table
-                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description,language) values( '$userid', '$exp', '$qual', '$des','$lang')";
+                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description) values( '$userid', '$exp', '$qual', '$des')";
     
                 $result2 = mysqli_query($conn, $sql2);
                 }
@@ -306,11 +306,21 @@
     <div class="form-group">
         <label>Languages</label> 
         <br>
-        <select name="lang" id="lang" style="width:340px" >
-            <option value="Male">English</option>
-            <option value="Female">Sinhala</option>
-            <option value="Female">Tamil</option>
-        </select>
+       
+        <div class="checkbox" >
+        <input type="checkbox" id="Snglish" name="#" value="English" >
+        <label for="english" >English</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Sinhala" name="#" value="Sinhala">
+        <label for="spanish">Sinhala</label>
+        </div>
+        <br>
+        <div class="checkbox" >
+        <input type="checkbox" id="Tamil" name="#" value="Tamil">
+        <label for="french">Tamil</label>
+        </div>
     </div>
 </div>
 
@@ -321,6 +331,7 @@
         <select name="#" id="gender" style="width:340px" >
             <option value="Male">Cross Fit Training</option>
             <option value="Female">Cardio</option>
+            <option value="Female">Strength</option>
         </select>
     </div>
 </div>

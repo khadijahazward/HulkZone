@@ -116,16 +116,18 @@
                         <tr>
                             <td><label for="dob">Date of Birth:</label></td>
                             <td><input type="date" id="dob" name="dob" class="form-input" style="width:160px"value="<?php echo $dOfBirth; ?>" readonly></td>
-                            <td><label for="street-number">Street Number:</label></td>
-                            <td><input type="number" id="street-number" name="street-number" class="form-input" value="<?php echo $stNum; ?>"  readonly></td>
+                           
                         </tr>
                         <tr>
+                        <td><label for="street-number">Street Number:</label></td>
+                            <td><input type="number" id="street-number" name="street-number" class="form-input" value="<?php echo $stNum; ?>"  readonly></td>
                             <td><label for="address-line1">Address Line 1:</label></td>
                             <td><input type="text" id="address-line1" name="address-line1" class="form-input" value="<?php echo $addL1; ?>" readonly></td>
-                            <td><label for="address-line2">Address Line 2:</label></td>
-                            <td><input type="text" id="address-line2" name="address-line2" class="form-input" value="<?php echo $addL2; ?>" readonly></td>
+                 
                         </tr>
                         <tr>
+                        <td><label for="address-line2">Address Line 2:</label></td>
+                            <td><input type="text" id="address-line2" name="address-line2" class="form-input" value="<?php echo $addL2; ?>" readonly></td>
                             <td><label for="city">City:</label></td>
                             <td><input type="text" id="city" name="city" class="form-input" value="<?php echo $city; ?>" readonly></td>
                         </tr>
