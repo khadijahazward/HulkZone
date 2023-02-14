@@ -1,51 +1,56 @@
+<?php
+
+include '../connect.php';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Add Appointments</title>
+    <title>Schedule</title>
     <meta charset="utf-8">
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
-    <link href="addAppointments.css" rel="StyleSheet">
+    <link href="schedule.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        /*.checkbox-button span {
-            display: inline-block;
-            padding: 10px;
-            border: 2px solid #333;
-            border-radius: 0.25em;
-            background-color: #fff;
-            cursor: pointer;
-        }
-
-        .checkbox-button input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-button-label {
-            display: inline-block;
-            margin-right: 0.5em;
-        }
-
-        .checkbox-button input[type="checkbox"]:checked+.checkbox-button-label {
-            background-color: #333;
-            color: #fff;
-        }*/
-    </style>
 </head>
 
 <body>
     <div class="container">
         <div class="topBar">
-            <div class="gymLogo"><img src="../../Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
+            <div class="gymLogo"><img src="../Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
             <div class="gymName">
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="../../Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="../Images/Profile.png" alt="my profile" class="myProfile">
+            </div>
+        </div>
+        <div class="leftBar">
+            <div class="leftBarContent">
+                <hr>
+                <a href="../Home/home.php"><i class="fa fa-home"></i>Home</a>
+                <hr>
+                <a href="../Members/members.php"><i class="fa fa-group"></i>Members</a>
+                <hr>
+                <a href="../Appointments/Appointments/appointments.php"><i class="fa fa-calendar"></i>Appointments</a>
+                <hr>
+                <a href="schedule.php" class="active"><i class="fa fa-clock-o"></i>Schedule</a>
+                <hr>
+                <a href="../Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
+                <a href="../ChatBox/chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
+                <hr>
+                <a href="../Settings/Profile/View Profile/profile.php"><i class="fa fa-cog"></i>Settings</a>
+                <hr>
+                <a href="../../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
             </div>
         </div>
         <div class="main">
-            <img src="../../Images/add appointment.png">
+            <img src="../Images/add appointment.png">
             <div class="topic">
                 <p>Time Slots</p>
             </div>
@@ -53,134 +58,6 @@
                 <label for="month">Choose month : </label>
                 <input type="month" name="month" id="month">
             </div>
-            <!--<table class="selected">
-                <tr>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="selectedSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <div class="availableTimeSlots">
-                <p>Available Time Slots <span style="font-size: 15px;">(Select timeslots here!)</span></p>
-                <p></p>
-            </div>
-            <table class="available">
-                <tr>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="availableSlot">
-                            <p>8.00 - 9.00</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>-->
             <div class="gridContainer">
                 <table class="selected">
                     <thead>
@@ -821,28 +698,30 @@
     <div id="popUp" class="popUpContent">
         <div class="popUpContainer">
             <span class="close">&times;</span>
-            <img src="../../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
+            <img src="../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
             <p>Your TimeSlots Placed Succesfully!</p>
-            <button class="acceptBtn" onclick="window.location.href='../Appointments/appointments.php';">OK</button>
+            <button class="acceptBtn" onclick="window.location.href='../Schedule/schedule.php';">OK</button>
         </div>
     </div>
 
     <script>
-        var popUpContent = document.getElementById('popUp');
-        var span = document.getElementsByClassName("close")[0];
+    var popUpContent = document.getElementById('popUp');
+    var span = document.getElementsByClassName("close")[0];
 
-        span.onclick = function () {
+    span.onclick = function() {
+        popUpContent.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == popUpContent) {
             popUpContent.style.display = "none";
         }
-
-        window.onclick = function (event) {
-            if (event.target == popUpContent) {
-                popUpContent.style.display = "none";
-            }
-        }
+    }
     </script>
 
 
+    </div>
+    </div>
 </body>
 
 </html>
