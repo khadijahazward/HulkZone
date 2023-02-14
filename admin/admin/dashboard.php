@@ -17,7 +17,7 @@ $totalComplaintsQuery = "SELECT COUNT(*) AS total FROM complaint";
 $totalComplaintsResult = mysqli_query($conn, $totalComplaintsQuery);
 $totalComplaints = mysqli_fetch_assoc($totalComplaintsResult)['total'];
 
-$sumQuery = "SELECT SUM(bill) AS totalRevenue FROM payment";
+$sumQuery = "SELECT SUM(amount) AS totalRevenue FROM payment";
 $sumResult = mysqli_query($conn, $sumQuery);
 $totalRevenue = mysqli_fetch_assoc($sumResult)['totalRevenue'];
 
@@ -86,7 +86,7 @@ mysqli_close($conn);
             <hr>
             <div class="tab"><a href="#payments"><i class=' 	far fa-money-bill-alt ' style="padding-right: 15px;"></i>Member Payments</a></div>
             <hr>
-            <div class="tab"><a href="login.php"><i class="fa fa-sign-out " style="padding-right: 15px;"></i>Log Out</a></div>
+            <div class="tab"><a href="../home/logout.php"><i class="fa fa-sign-out " style="padding-right: 15px;"></i>Log Out</a></div>
             <hr>
         </div>
     </div>
@@ -156,49 +156,7 @@ mysqli_close($conn);
             </div>
               
         </div>
-        <div class="graph" >
-                <!--Bar Graph-->
-                    <div style="width:70%;">
-                      <canvas id="myChart"></canvas>
-                    </div>
-                    <script>
-                                var ctx = document.getElementById('myChart').getContext('2d');
-                                var chart = new Chart(ctx, {
-                                    type: 'bar',
-                                    data: {
-                                        labels: ['Members', 'Trainers', 'Dieticians'],
-                                        datasets: [{
-                                            label: 'Male',
-                                            backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                                            borderColor: 'rgba(0, 0, 255, 1)',
-                                            data: [
-                                                <?php echo isset($data[1]['Male']) ? $data[1]['Male'] : 0 ?>, 
-                                                <?php echo isset($data[2]['Male']) ? $data[2]['Male'] : 0 ?>, 
-                                                <?php echo isset($data[3]['Male']) ? $data[3]['Male'] : 0 ?>
-                                            ]
-                                        },{
-                                            label: 'Female',
-                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                            borderColor: 'rgba(54, 162, 235, 1)',
-                                            data: [
-                                                <?php echo isset($data[1]['Female']) ? $data[1]['Female'] : 0 ?>, 
-                                                <?php echo isset($data[2]['Female']) ? $data[2]['Female'] : 0 ?>, 
-                                                <?php echo isset($data[3]['Female']) ? $data[3]['Female'] : 0 ?>
-                                            ]
-                                        }]
-                                    },
-                                    options: {
-                                        scales: {
-                                            yAxes: [{
-                                                ticks: {
-                                                    beginAtZero: true
-                                                }
-                                            }]
-                                        }
-                                    }
-                                });
-                    </script>
-                </div>
+        
                 <!--<div class="tets" style="background-color: black;height:30px;width:100%;">Next elements can be added from here</div>-->
 
     </div>

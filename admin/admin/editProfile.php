@@ -20,7 +20,7 @@
     //update query to update the details
     $query = "UPDATE user SET fName='$fName', lName='$lName',  
     contactNumber='$contactNumber', streetNumber='$streetNumber', 
-    addressLine01='$addressLine01', addressLine02='$addressLine02', city='$city', pw='$pw' WHERE userID=119";
+    addressLine01='$addressLine01', addressLine02='$addressLine02', city='$city', pw='$pw' WHERE userID=128";
 
     $result = mysqli_query($conn, $query);
     if($result){
@@ -31,7 +31,7 @@
   }
   else{
     // retrieve the details of the admin from the user table
-    $query = "SELECT * FROM user WHERE userID=119";
+    $query = "SELECT * FROM user WHERE userID=128";
     $result = mysqli_query($conn, $query);
     $user = mysqli_fetch_assoc($result);
 
