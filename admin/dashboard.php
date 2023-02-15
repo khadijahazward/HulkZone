@@ -104,18 +104,23 @@ include('../admin/sideBar.php');
             <div class="dashboard">
                 <div class="topBoxes" >
                     <!-- Box for Total Members -->
+                    
                     <div class="dashboard-box">
-                      <div class="dashboard-title">Total Members</div>
+                    <a href="manageMembers.php" style="text-decoration: none;">
+                     <div class="dashboard-title" >Total Members</div>
                       <div class="dashboard-left">
                         <img class="topIcons"src="images/users.png" alt="Members" >
                       </div>
                       <div class="dashboard-right">
                         <?php echo $totalMembers; ?>
                       </div>
+                      </a>
                     </div>
+      
   
                     <!-- Box for Total Revenue -->
                     <div class="dashboard-box">
+                    <a href="memberPayments.php" style="text-decoration: none;">
                       <div class="dashboard-title">Total Revenue</div>
                       <div class="dashboard-left">
                         <img class="topIcons" src="images/revenue.png" alt="Revenue">
@@ -123,10 +128,12 @@ include('../admin/sideBar.php');
                       <div class="dashboard-right">
                         <?php  echo $totalRevenue; ?>
                       </div>
+                    </a>
                     </div>
   
                     <!-- Box for Total Announcements -->
                     <div class="dashboard-box">
+                    <a href="viewAnnouncements.php" style="text-decoration: none;">
                       <div class="dashboard-title">Total Announcements</div>
                       <div class="dashboard-left">
                         <img class="topIcons" src="images/announcement.png" alt="Announcements">
@@ -134,10 +141,12 @@ include('../admin/sideBar.php');
                       <div class="dashboard-right">
                         <?php echo $totalAnnouncements; ?>
                       </div>
+                    </a>
                     </div>
   
                     <!-- Box for Total Complaints -->
                     <div class="dashboard-box">
+                    <a href="manageComplaints.php" style="text-decoration: none;">
                       <div class="dashboard-title">Total Complaints</div>
                       <div class="dashboard-left">
                         <img class="topIcons" src="images/complaints.png" alt="Complaints">
@@ -145,6 +154,7 @@ include('../admin/sideBar.php');
                       <div class="dashboard-right">
                         <?php echo $totalComplaints; ?>
                       </div>
+                    </a>
                 </div>
             </div>    
         </div>     
