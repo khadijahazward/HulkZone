@@ -31,6 +31,7 @@
 .tab{
   padding-left: 25px;
   padding-bottom: 0px;
+ 
 }
 
 .sidebar a:hover {
@@ -47,4 +48,12 @@
 
 hr{
   width: 80%;
+}
+
+img{
+  width: 80px;
+  height: 80px;
+}
+i{
+   padding-right: 15px;
 }

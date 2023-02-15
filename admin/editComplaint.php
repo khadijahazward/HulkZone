@@ -63,7 +63,7 @@ if(isset($_GET['complaintID'])) {
     $row = mysqli_fetch_array($result);
     $subject = $row['subject'];
     $description = $row['description'];
-    $desiredOutcome = $row['desiredOutcome'];
+    //$desiredOutcome = $row['desiredOutcome'];
     $status = $row['status'];
     $dateReported = $row['dateReported'];
     $userID = $row['userID'];
@@ -105,50 +105,23 @@ if(mysqli_num_rows($result) == 1) {
 
 
 </head>
-
 <body>
-    <div class="sidebar">
-        <div class="gymLogo" ><img src="../../HulkZone/asset/images/gymLogo.png" alt="" width="80px" height="80px"> </div>
-        <div class="sidebarContent">
-            <div class="tab"><a href="dashboard.php"><i class="fa fa-dashboard" style="padding-right: 15px;"></i> Dashboard</a></div>
-            <hr>
-            <div class="tab"><a href="viewProfile.php"><i class="fas fa-user-tie" style="padding-right: 15px;"></i> My Profile</a></div>
-            <hr>
-            <div class="tab"><a href="manageMembers.php"><i class="	fa fa-users" style="padding-right: 15px;"></i> Manage Members</a></div>
-            <hr>
-            <div class="tab"><a href="manageAttendance.php"><i class="fa fa-calendar" style="padding-right: 15px;"></i> Member Attendance</a></div>
-            <hr>
-            <div class="tab"><a href="#Schedule"><i class="fa fa-clock-o" style="padding-right: 15px;"></i> Schedule</a></div>
-            <hr>
-            <div class="tab"><a href="manageTrainer.php"><i class="	fa fa-user" style="padding-right: 15px;"></i> Manage Trainers</a></div>
-            <hr>
-            <div class="tab"><a href="manageDietician.php"><i class="fas fa-user-nurse" style="padding-right: 15px;"></i> Manage Dieticians</a></div>
-            <hr>
-            <div class="tab"><a href="manageComplaints.php"><i class='	fas fa-exclamation-circle' style="padding-right: 15px;"></i>User Complaints</a></div>
-            <hr>
-            <div class="tab"><a href="viewAnnouncements.php"><i class='fas fa-bullhorn' style="padding-right: 15px;"></i>Announcements</a></div>
-            <hr>
-            <div class="tab"><a href="#Reports"><i class=' fas fa-file-alt ' style="padding-right: 15px;"></i>Reports</a></div>
-            <hr>
-            <div class="tab"><a href="#payments"><i class=' 	far fa-money-bill-alt ' style="padding-right: 15px;"></i>Member Payments</a></div>
-            <hr>
-            <div class="tab"><a href="login.php"><i class="fa fa-sign-out " style="padding-right: 15px;"></i>Log Out</a></div>
-            <hr>
-        </div>
-    </div>
+  
 
 
-    <!--Right Part-->
-    <div class="right" style="display: flex; flex-direction:column;margin-left:20%;">
+<?php 
+include('../admin/sideBar.php');
+?>
+        <div class="right">
 
-        <div class="content" style="width: 100%;float:right;">
+        <div class="content" >
             <div class="contentLeft">
-                <p class="title">USER COMOPLAINTS</p>
+                <p class="title">User Complaints</p>
             </div>
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight" style="padding-right:40px;"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
         </div>
 
 
@@ -177,9 +150,9 @@ if(mysqli_num_rows($result) == 1) {
                     <br>
                     <textarea name="description" id="" cols="60" rows="5" style="margin-left: 258px;"  readonly><?php echo $description; ?></textarea>
                     <br>
-                    <label class="formContent">Desired Outcome</label>
+                    <label class="formContent">Evidence</label>
                     <br>
-                    <textarea name="desiredOutcome" id="" cols="60" rows="5" style="margin-left: 258px;" readonly><?php echo $desiredOutcome; ?></textarea>
+                    <textarea name="evidence" id="" cols="60" rows="5" style="margin-left: 258px;" readonly></textarea>
                     <br>
                     <label class="formContent">Action Taken</label>
                     <br>
