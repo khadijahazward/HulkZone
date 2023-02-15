@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 03, 2023 at 05:07 AM
+-- Generation Time: Feb 14, 2023 at 07:58 AM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -38,23 +38,12 @@ CREATE TABLE `announcement` (
 --
 
 INSERT INTO `announcement` (`announcementID`, `date`, `message`) VALUES
-(1, '2022-12-05', 'hello'),
+(1, '2022-12-05', 'hi'),
 (3, '2022-12-22', 'hello today gym is closed.'),
 (4, '2022-12-16', 'Gym is going to close soon'),
 (5, '2022-12-16', 'Keep Gym clean'),
-(6, '2022-12-16', 'Hi');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `attendance`
---
-
-CREATE TABLE `attendance` (
-  `attendanceID` int NOT NULL,
-  `memberID` int NOT NULL,
-  `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(6, '2022-12-16', 'Hi'),
+(7, '2023-02-10', 'gym closed');
 
 -- --------------------------------------------------------
 
@@ -78,33 +67,31 @@ CREATE TABLE `complaint` (
   `complaintID` int NOT NULL,
   `subject` varchar(200) NOT NULL,
   `description` text NOT NULL,
-  `desiredOutcome` text NOT NULL,
   `status` varchar(100) NOT NULL,
   `dateReported` date NOT NULL,
   `actionTaken` text,
-  `userID` int NOT NULL
+  `userID` int NOT NULL,
+  `evidence` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `complaint`
 --
 
-INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `desiredOutcome`, `status`, `dateReported`, `actionTaken`, `userID`) VALUES
-(48, 'help me', 'i paid my fee and i cant access my work out plan', 'fulfill my need asap', 'Filed', '2022-12-08', NULL, 71),
-(49, 'help me', 'i paid my fee and i cant access my work out plan', 'fulfill my need asap', 'Filed', '2022-12-08', NULL, 71),
-(50, 'gym coach hit me', 'yeah so he hit me on my head', 'please have well behaved staff in the future', 'Filed', '2022-12-17', NULL, 71),
-(51, 'i paid my fee and i cant access my work out plan', 'i paid my fee and i cant access my work out plan', 'i paid my fee and i cant access my work out plan', 'Filed', '2022-12-23', NULL, 71),
-(56, 'my friend tried to kill me', 'so yeah he slapped me', 'please ban him from the gym', 'Filed', '2022-12-16', NULL, 71),
-(58, 'hey', 'yes', 'no', 'Filed', '2022-12-13', NULL, 71),
-(61, 'saa', 'kjjna', 'kjas', 'Filed', '2022-12-22', NULL, 71),
-(62, 'saa', 'kjjna', 'kjas', 'Filed', '2022-12-22', NULL, 71),
-(63, 'saa', 'kjjna', 'kjas', 'Filed', '2022-12-22', NULL, 71),
-(64, 'ka,', 'jms', 'm', 'Filed', '2022-12-29', NULL, 71),
-(65, 'nm', 'nm', 'n', 'Filed', '2022-12-16', NULL, 71),
-(66, 'kk', 'jjsd', 'kjs', 'Filed', '2022-12-22', NULL, 71),
-(67, 'khds', 'kjsd', 'jb', 'Filed', '2022-12-14', NULL, 71),
-(68, 'khds', 'kjsd', 'jb', 'Filed', '2022-12-14', NULL, 71),
-(69, 'Work out plan not updated', 'the workout plan was not showing the progress', 'make the error soon', 'Filed', '2022-12-15', NULL, 86);
+INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `status`, `dateReported`, `actionTaken`, `userID`, `evidence`) VALUES
+(50, 'gym coach hit me', 'yeah so he hit me on my head', 'Filed', '2022-12-17', NULL, 71, ''),
+(51, 'i paid my fee and i cant access my work out plan', 'i paid my fee and i cant access my work out plan', 'Filed', '2022-12-23', NULL, 71, ''),
+(56, 'my friend tried to kill me', 'so yeah he slapped me', 'Filed', '2022-12-16', NULL, 71, ''),
+(58, 'hey', 'yes', 'Filed', '2022-12-13', NULL, 71, ''),
+(61, 'saa', 'kjjna', 'Filed', '2022-12-22', NULL, 71, ''),
+(62, 'saa', 'kjjna', 'Filed', '2022-12-22', NULL, 71, ''),
+(63, 'saa', 'kjjna', 'Filed', '2022-12-22', NULL, 71, ''),
+(64, 'ka,', 'jms', 'Filed', '2022-12-29', NULL, 71, ''),
+(65, 'nm', 'nm', 'Filed', '2022-12-16', NULL, 71, ''),
+(66, 'kk', 'jjsd', 'Filed', '2022-12-22', NULL, 71, ''),
+(67, 'khds', 'kjsd', 'Filed', '2022-12-14', NULL, 71, ''),
+(68, 'khds', 'kjsd', 'Filed', '2022-12-14', NULL, 71, ''),
+(69, 'Work out plan not updated', 'the workout plan was not showing the progress', 'Filed', '2022-12-15', NULL, 86, '');
 
 -- --------------------------------------------------------
 
@@ -114,11 +101,11 @@ INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `desiredOutcom
 
 CREATE TABLE `dieticianappointment` (
   `employeeID` int NOT NULL,
-  `memberID` int NOT NULL,
+  `memberID` int DEFAULT NULL,
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
-  `status` varchar(100) NOT NULL
+  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -133,7 +120,9 @@ CREATE TABLE `dietplan` (
   `mealType` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `Qty` varchar(100) NOT NULL,
   `day` varchar(100) NOT NULL,
-  `meal` varchar(100) NOT NULL
+  `meal` varchar(100) NOT NULL,
+  `status` int NOT NULL DEFAULT '0',
+  `memberID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -170,11 +159,27 @@ CREATE TABLE `employee` (
   `employeeID` int NOT NULL,
   `userID` int NOT NULL,
   `noOfYearsOfExperience` varchar(100) NOT NULL,
-  `avgRating` double NOT NULL,
+  `avgRating` double NOT NULL DEFAULT '0',
   `qualification` text NOT NULL,
   `description` text NOT NULL,
   `language` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`employeeID`, `userID`, `noOfYearsOfExperience`, `avgRating`, `qualification`, `description`, `language`) VALUES
+(5, 99, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
+(6, 105, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
+(7, 100, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
+(8, 101, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
+(9, 121, '10', 0, 'Bachelor of Arts', 'Chris is a passionate certified personal trainer and group fitness instructor who uses a combination of HIIT and metabolic training and stress management techniques. He’s worked with hundreds of clients, from CEOs to professional athletes–and everyone in between.   A recent client explained, “Chris’s knowledge, support, and personality makes his methods challenging but rewarding. He helps you achieve desired results without boredom or burnout.” ', 'sinhala'),
+(10, 122, '3', 0, 'BSc. in Arts', 'Hi!  I’m a vegan registered dietitian nutritionist, and I created VeganCoach.com to empower people to optimize their health using a vegan diet. My paid coaching program sponsors this account for aspiring vegans, the Vegan Coach', 'sinhala'),
+(11, 126, '3', 0, 'none', 'none', 'sinhala'),
+(12, 127, '10', 0, 'Experienced trainer', 'jolly fun filled sessions ', 'sinhala'),
+(13, 129, '', 0, '', '', 'sinhala'),
+(14, 130, '4', 0, 'Undergraduate', '', 'sinhala');
 
 -- --------------------------------------------------------
 
@@ -187,6 +192,14 @@ CREATE TABLE `employeeservice` (
   `employeeID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `employeeservice`
+--
+
+INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
+(1, 5),
+(2, 5);
+
 -- --------------------------------------------------------
 
 --
@@ -198,6 +211,19 @@ CREATE TABLE `exercise` (
   `exerciseName` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `exercise`
+--
+
+INSERT INTO `exercise` (`exerciseID`, `exerciseName`) VALUES
+(1, 'Bench Press'),
+(2, 'Shoulder Press'),
+(3, 'Military Press'),
+(4, 'Leg Press'),
+(5, 'Barbell Row'),
+(6, 'Leg Extension'),
+(7, 'Leg Curl');
+
 -- --------------------------------------------------------
 
 --
@@ -205,12 +231,11 @@ CREATE TABLE `exercise` (
 --
 
 CREATE TABLE `gymuseappointment` (
+  `appointmentID` int NOT NULL,
   `date` date NOT NULL,
-  `startTime` datetime NOT NULL,
-  `endTime` datetime NOT NULL,
   `memberID` int NOT NULL,
-  `slot` int NOT NULL,
-  `status` varchar(100) NOT NULL
+  `slotID` int NOT NULL,
+  `attendance` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -255,13 +280,11 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALUES
 (25, 71, 0, 0, 'oneMonth'),
-(41, 86, 100, 20, 'twelveMonth'),
+(41, 86, 100, 20, 'threeMonth'),
 (43, 98, 0, 0, 'twelveMonth'),
-(44, 99, 0, 0, 'twelveMonth'),
-(45, 100, 0, 0, 'twelveMonth'),
-(46, 101, 0, 0, 'oneMonth'),
 (47, 102, 0, 0, 'oneMonth'),
-(50, 105, 0, 0, 'oneMonth');
+(52, 108, 0, 0, 'oneMonth'),
+(54, 128, 0, 0, 'oneMonth');
 
 -- --------------------------------------------------------
 
@@ -302,7 +325,7 @@ CREATE TABLE `payment` (
   `paymentID` int NOT NULL,
   `paymentDate` datetime NOT NULL,
   `amount` double NOT NULL,
-  `bill` blob NOT NULL,
+  `type` int NOT NULL,
   `memberID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -342,9 +365,18 @@ CREATE TABLE `service` (
   `serviceID` int NOT NULL,
   `serviceName` varchar(255) NOT NULL,
   `servicePeriod` int NOT NULL,
-  `servicePrice` double NOT NULL,
-  `serviceDescription` text NOT NULL
+  `servicePrice` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`serviceID`, `serviceName`, `servicePeriod`, `servicePrice`) VALUES
+(1, 'CrossFit', 6, 10000),
+(2, 'BodyBuilding', 6, 10000),
+(3, 'Diet', 6, 10000),
+(4, 'Strength', 6, 10000);
 
 -- --------------------------------------------------------
 
@@ -360,6 +392,32 @@ CREATE TABLE `servicecharge` (
   `startDate` datetime NOT NULL,
   `endDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `slots`
+--
+
+CREATE TABLE `slots` (
+  `slotID` int NOT NULL,
+  `sTime` time NOT NULL,
+  `eTime` time NOT NULL,
+  `availableSlots` int NOT NULL DEFAULT '10'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `slots`
+--
+
+INSERT INTO `slots` (`slotID`, `sTime`, `eTime`, `availableSlots`) VALUES
+(1, '08:00:00', '10:00:00', 10),
+(2, '10:00:00', '12:00:00', 10),
+(3, '12:00:00', '14:00:00', 10),
+(4, '14:00:00', '16:00:00', 10),
+(5, '16:00:00', '18:00:00', 10),
+(6, '18:00:00', '20:00:00', 10),
+(7, '20:00:00', '22:00:00', 10);
 
 -- --------------------------------------------------------
 
@@ -408,14 +466,22 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`, `dateOfBirth`, `roles`, `statuses`, `contactNumber`, `streetNumber`, `addressLine01`, `addressLine02`, `city`, `pw`, `created_at`, `email`) VALUES
 (71, 'zah', 'ra', '', 'Male', NULL, '2006-07-22', 1, 1, 1234567890, '', '', '', '', '$2y$10$PhOkPbicL/IeemnaPkvboOlarG1QOT/STGyVfoyXGH7HGuVqbJ14W', '2022-12-13', 'zahra@gmail.com'),
-(86, ' Saitharsan', 'Nanthakumaran', '123456789V', 'Male', 'profileImages/86.jpeg', '2004-12-07', 1, 1, 1234567890, '', '', '', '', '$2y$10$tryEREPEWp0J1qMCtpXokedgbAbrMIN6OzYlrgyw9235bvApxNwO.', '2022-12-14', 'sai@gmail.com'),
-(97, 'Munsira', 'Mansoor', '123456789012', 'Male', NULL, '2012-12-03', 0, 1, 711541753, NULL, NULL, NULL, NULL, '$2y$10$PhOkPbicL/IeemnaPkvboOlarG1QOT/STGyVfoyXGH7HGuVqbJ14W', '2022-12-16', 'munsira@gmail.com'),
+(86, 'Khadijah', 'Azward', '123456789V', 'Male', 'profileImages/86.jpg', '2004-12-07', 1, 1, 1234567890, '', '', '', '', '$2y$10$DAO7.6Y4QFjj0bct63h2puo6qb9dTXwy6rtxO5f5I/2o9/W4M1s9i', '2022-12-14', 'kay@gmail.com'),
 (98, 'munsira', 'Mansoor', '123456789012', 'Female', NULL, '1998-07-09', 1, 1, 711541753, '', '', '', '', '$2y$10$qIy0CFE7KytNEGbPsQ/7ZugRzxliEiZUZ.EDkGeIUPhMwnbvDvZ4W', '2022-12-16', 'kj@gmail.com'),
-(99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
-(100, 'khadijah', 'Azward', '123456789012', 'Female', NULL, '2021-12-08', 1, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
-(101, 'kj', 'aj', '123456789V', 'Male', NULL, '1999-02-17', 1, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
+(99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
+(100, 'Saitharsan', 'Perera', '123456789012', 'Female', NULL, '2021-12-08', 2, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
+(101, 'kj', 'aj', '123456789V', 'Male', NULL, '1999-02-17', 3, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
 (102, 'Khadijah', 'Azward', '123456789V', 'Male', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$eUxzhlIJVy8LIPlDx2qUTOh6awKys29yPnDM/fu8zZTxa.kXcYJ/O', '2023-01-31', '123@gmail.com'),
-(105, 'jkj', 'jbjk', '123456789009', 'Male', NULL, '2004-12-15', 1, 1, 1234567890, '', '', '', '', '$2y$10$F3YTzaS6JYEw8G62AppFletRnC9kJKhc/zVOZwW.bow6x7OSPxKl2', '2023-01-31', 'kji@gmail.com');
+(105, 'jkj', 'jbjk', '123456789009', 'Male', NULL, '2004-12-15', 2, 1, 1234567890, '', '', '', '', '$2y$10$F3YTzaS6JYEw8G62AppFletRnC9kJKhc/zVOZwW.bow6x7OSPxKl2', '2023-01-31', 'kji@gmail.com'),
+(108, 'Rujhan', 'Khan', '123456789V', 'Male', NULL, '2004-12-01', 1, 1, 711541752, '', '', '', '', '$2y$10$R7UcP6DyHFL0HY48bBQ/4.f37nSfNmDsDFMBL85NeoNgM8N.LrhuO', '2023-02-03', 'rujhankhan@gmail.com'),
+(121, 'Eshitha', 'Kiribathgoda', '123098567432', 'Male', NULL, '2000-02-11', 2, 1, 776094223, '2', 'leyards Broadway', 'colombo', '', '$2y$10$Ukbnmw28hSRlQmVnM5JRsOC1/dZ.0lzD36e8P8DKhfTD75vtWARAi', '2023-02-09', 'eshitha@gmail.com'),
+(122, 'kaveesha', 'gunawardana', '123456789V', 'Male', NULL, '2000-01-01', 3, 1, 711541753, '10', 'flower road', '', 'colombo 10', '$2y$10$.7jusna.OggSxAJjoUdPDOaZkyfgMRUIMiUp1GKCqZVbbxeUMhg1W', '2023-02-10', 'kaveesha@gmail.com'),
+(125, 'hun', 'meh', '123456789V', 'Male', NULL, '2004-12-01', 2, 1, 71145689, '192', 'shoe road', '', 'colombo', '$2y$10$VI/sq8tw741aK2tdnpZS9.PEL8JLN2qvjrAlVd63v/E8p1PpVOpuu', '2023-02-10', 'hun@gmail.com'),
+(126, 'james', 'millie', '123456789V', 'Male', NULL, '2004-11-29', 3, 1, 1234567890, '', '', '', '', '$2y$10$mpcJll08KRJ814NC.3oxKeWjUUMjjqVGvgbV1HCri7du5ntUZqY6W', '2023-02-10', 'james@gmail.com'),
+(127, 'Juliet ', 'Khan', '123456789V', 'Female', NULL, '2004-12-01', 2, 1, 115467876, '', '', '', '', '$2y$10$nhnBvpmuRTPQGMejHCfCM.fsK64FyULvN/eKHAKdrB0ZdY1h0WXGS', '2023-02-10', 'juliet@gmail.com'),
+(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', '', '', 'Colombo', '', '2023-02-10', 'munchi@gmail.com'),
+(129, 'Edward', 'Gardin', '9855546232V', 'Male', NULL, '2004-12-03', 2, 1, 775087334, '3', '', '', 'Colombo', '$2y$10$1hCR19NL/PqarKGzfsLc3eQUNJhI6kRXWIiiz/s/Y9BpBe6KrTtYS', '2023-02-10', 'gardin@gmail.com'),
+(130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -430,7 +496,8 @@ CREATE TABLE `workoutplan` (
   `day` varchar(100) NOT NULL,
   `duration` int NOT NULL,
   `exerciseID` int NOT NULL,
-  `restTime` int NOT NULL
+  `restTime` int NOT NULL,
+  `status` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -442,13 +509,6 @@ CREATE TABLE `workoutplan` (
 --
 ALTER TABLE `announcement`
   ADD PRIMARY KEY (`announcementID`);
-
---
--- Indexes for table `attendance`
---
-ALTER TABLE `attendance`
-  ADD PRIMARY KEY (`attendanceID`),
-  ADD KEY `memberID` (`memberID`);
 
 --
 -- Indexes for table `chat`
@@ -477,8 +537,9 @@ ALTER TABLE `dieticianappointment`
 -- Indexes for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD PRIMARY KEY (`employeeID`,`dietplanDate`,`mealType`),
-  ADD KEY `employeeID` (`employeeID`);
+  ADD PRIMARY KEY (`employeeID`,`dietplanDate`,`mealType`,`memberID`),
+  ADD KEY `employeeID` (`employeeID`),
+  ADD KEY `memberID` (`memberID`);
 
 --
 -- Indexes for table `emergencycontact`
@@ -512,8 +573,9 @@ ALTER TABLE `exercise`
 -- Indexes for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  ADD PRIMARY KEY (`date`,`startTime`,`slot`),
-  ADD KEY `memberID` (`memberID`);
+  ADD PRIMARY KEY (`appointmentID`),
+  ADD KEY `memberID` (`memberID`),
+  ADD KEY `slotID` (`slotID`);
 
 --
 -- Indexes for table `medicalform`
@@ -587,6 +649,12 @@ ALTER TABLE `servicecharge`
   ADD KEY `serviceID` (`serviceID`);
 
 --
+-- Indexes for table `slots`
+--
+ALTER TABLE `slots`
+  ADD PRIMARY KEY (`slotID`);
+
+--
 -- Indexes for table `trainerappointment`
 --
 ALTER TABLE `trainerappointment`
@@ -617,13 +685,7 @@ ALTER TABLE `workoutplan`
 -- AUTO_INCREMENT for table `announcement`
 --
 ALTER TABLE `announcement`
-  MODIFY `announcementID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `attendance`
---
-ALTER TABLE `attendance`
-  MODIFY `attendanceID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `announcementID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -641,19 +703,25 @@ ALTER TABLE `complaint`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `exercise`
 --
 ALTER TABLE `exercise`
-  MODIFY `exerciseID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `exerciseID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `gymuseappointment`
+--
+ALTER TABLE `gymuseappointment`
+  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -671,23 +739,23 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `serviceID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `serviceID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `slots`
+--
+ALTER TABLE `slots`
+  MODIFY `slotID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `attendance`
---
-ALTER TABLE `attendance`
-  ADD CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `chat`
@@ -713,7 +781,8 @@ ALTER TABLE `dieticianappointment`
 -- Constraints for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD CONSTRAINT `dietplan_ibfk_2` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dietplan_ibfk_2` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dietplan_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `emergencycontact`
@@ -738,7 +807,8 @@ ALTER TABLE `employeeservice`
 -- Constraints for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  ADD CONSTRAINT `gymuseappointment_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `gymuseappointment_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `gymuseappointment_ibfk_2` FOREIGN KEY (`slotID`) REFERENCES `slots` (`slotID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `medicalform`
