@@ -1,3 +1,10 @@
+<?php
+
+include '../connect.php';
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 
@@ -24,36 +31,23 @@
         </div>
         <div class="leftBar">
             <div class="leftBarContent">
-                <!--<ul>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-home"></i>Home</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-group"></i>Members</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-calendar"></i>Appointments</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-heartbeat"></i>Diet Plans</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-comments"></i>Chat Box</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-cog"></i>Settings</a></div>
-                    </li>
-                    <li>
-                        <div class="tab"><a><i class="fa fa-sign-out"></i>Log out</a></div>
-                    </li>
-                </ul>-->
-                <a href="home.html" class="active"><i class="fa fa-home"></i>Home</a>
-                <a href="../Members/members.html"><i class="fa fa-group"></i>Members</a>
-                <a href="../Appointments/Appointments/appointments.html"><i class="fa fa-calendar"></i>Appointments</a>
-                <a href="../Diet Plan/DietPlan/dietPlan.html"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
+                <a href="home.php" class="active"><i class="fa fa-home"></i>Home</a>
+                <hr>
+                <a href="../Members/members.php"><i class="fa fa-group"></i>Members</a>
+                <hr>
+                <a href="../Appointments/Appointments/appointments.php"><i class="fa fa-calendar"></i>Appointments</a>
+                <hr>
+                <a href="../Schedule/schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
+                <hr>
+                <a href="../Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <hr>
                 <a href="../ChatBox/chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
-                <a href="../Settings/Profile/View Profile/viewProfile.html"><i class="fa fa-cog"></i>Settings</a>
-                <a><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
+                <a href="../Settings/Profile/View Profile/profile.php"><i class="fa fa-cog"></i>Settings</a>
+                <hr>
+                <a href="../../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
+                <hr>
             </div>
         </div>
         <div class="main">
@@ -63,7 +57,7 @@
             <div class="subTopic">
                 <p>Have a nice day at great work</p>
             </div>
-            <div class="countArea">
+            <!--<div class="countArea">
                 <table>
                     <tr>
                         <td>
@@ -260,7 +254,7 @@
                             </div>
                         </div>
 
-                        <!--JS for calendar-->
+                        JS for calendar
                         <script>
                             var currentMonth = document.querySelector(".current-month");
                             var calendarDays = document.querySelector(".calendar-days");
@@ -422,7 +416,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 

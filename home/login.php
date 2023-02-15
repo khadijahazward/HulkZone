@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }else if($_SESSION['role'] == 2){
             header("location: ..\\trainer\dashboard.php");
         }else if($_SESSION['role'] == 3){
-            header("location: ..\dietician\dieticianDashboard.php");
+            header("location: ..\dietician\Home\home.php");
         }
      
     } else {

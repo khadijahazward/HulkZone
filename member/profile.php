@@ -45,11 +45,11 @@ include '../connect.php';
     function enableInput() {
         document.getElementById("fname").removeAttribute("disabled");
         document.getElementById("lname").removeAttribute("disabled");
-        document.getElementById("nic").removeAttribute("disabled");
+        //document.getElementById("nic").removeAttribute("disabled");
         document.getElementById("number").removeAttribute("disabled");
-        document.getElementById("gender").removeAttribute("disabled");
-        document.getElementById("dob").removeAttribute("disabled");
-        document.getElementById("paymentPlan").removeAttribute("disabled");
+        //document.getElementById("gender").removeAttribute("disabled");
+        //document.getElementById("dob").removeAttribute("disabled");
+        //document.getElementById("paymentPlan").removeAttribute("disabled");
         document.getElementById("height").removeAttribute("disabled");
         document.getElementById("weight").removeAttribute("disabled");
         document.getElementById("sNumber").removeAttribute("disabled");
@@ -247,24 +247,7 @@ include '../connect.php';
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>NIC</label><span id = "error-message" style="font-size: 10px; color: red;"></span>
-                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">
-                                        <script>
-                                            function validateNIC() {
-                                                var nic = document.getElementById("nic").value;
-                                                var errorMessage = document.getElementById("error-message");
-                                                const pattern2 = /^\d{9}V$/;
-                                                const pattern1 = /^\d{12}$/; 
-                                                if (nic === "") {
-                                                    errorMessage.innerHTML = " NIC must be filled out";
-                                                } else if (pattern2.test(nic) || pattern1.test(nic)){
-                                                    errorMessage.innerHTML = " ";
-                                                }else {
-                                                    errorMessage.innerHTML = " Invalid NIC";
-                                                }
-                                            }
-                                        </script>
-
-                                        
+                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">                                        
                                     </div>
 
                                     <div class="form-group">
@@ -316,7 +299,7 @@ include '../connect.php';
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
-                                        <label>Height (in Inches)</label>
+                                        <label>Height (in cm)</label>
                                         <input id="height" name="height" type="text" required disabled>
                                     </div>
 

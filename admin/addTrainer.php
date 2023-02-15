@@ -136,16 +136,16 @@
                 $result1 = mysqli_query($conn, $sql1);
 
                 if($result1 && $row = mysqli_fetch_array($result1)){
-                     //retrieving the userID from user table to use as foreign key in member table
+                    //retrieving the userID from user table to use as foreign key in member table
                     $userid = ($row['userID']);
     
                 //inserting data into employee table
                 $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description, language) values( '$userid', '$exp', '$qual', '$des', 'sinhala')";
-
+                $result2 = mysqli_query($conn, $sql2);
                 }
                 //checking if both are correct 
                 if ($result == TRUE && isset($result2) && $result2 == true) {
-                    echo "hello";
+                    
                     echo "<script> alert('Registration Successful!'); </script>";
                     echo "<script>window.location.replace('manageTrainer.php');</script>";
                 }else{

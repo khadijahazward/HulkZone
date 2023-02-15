@@ -29,7 +29,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat | HulkZone</title>
+    <title>Gym Appointments | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
 </head>
 <body>
@@ -111,7 +111,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
         <div class="body">
             <div class = "header">
                 <div class="left"> 
-                    CHAT
+                    GYM APPOINTMENTS
                 </div>
                 <div class="right">
                     <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">

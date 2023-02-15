@@ -20,37 +20,16 @@ include "../connect.php";
     }
 ?>
 
-<!--checking for empty fields-->
-<?php
-$check = "";
-$userid = $_SESSION["userID"];
-$subjectErr = $desErr = $outcomeErr = "";
-include "../connect.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    if (empty($_POST["subject"])) {
-        $subjectErr = "Subject is required";
-    }
-    if (empty($_POST["des"])) {
-        $desErr = "Description is required";
-    }
-    if (empty($_POST["outcome"])) {
-        $outcomeErr = "Outcome is required";
-    }
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard | HulkZone</title>
+    <title>Complaint | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/complaint.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
 </head>
 <body>
     <div class="container">
@@ -129,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <hr>
         </div>
         <div class="body">
-            <div class = "header">
+        <div class = "header">
                 <div class="left"> 
                     COMPLAINTS
                 </div>
@@ -139,70 +118,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
             <div class="content">
-                <div class="row">Report a Complaint</div>
-
-                <div class="row" style="background-color:#DEF9D7; margin-right:10px; border-radius:15px;">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="complaintForm">
-
-                        <div class="form-row">
-                            <label>Complaint Subject
-                                <span class=" error">*<br> 
-                                    <?php echo $subjectErr; ?>
-                                </span>
-                            </label>
-                            <input type="text" id ="subject" name="subject" 
-                            value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
-                        </div>
-
-                        <div class="form-row">
-                            <label>Complaint Description
-                                <span class=" error">*<br> 
-                                    <?php echo $desErr; ?>
-                                </span>
-                            </label>
-                            <textarea rows="4" id="des" name="des"><?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?></textarea>
-                        </div>
-
-                        <div class="form-row">
-                            <label>Desired Outcome
-                                <span class=" error">* 
-                                    <br> <?php echo $outcomeErr; ?>
-                                </span>
-                            </label>
-                            <textarea rows="4" name="outcome" id="outcome"><?php if ($check == 1) {echo $_POST['outcome'] ?? ''; }else if($check == 0){ $_POST['outcome'] == ""; }?></textarea> 
-                        </div>
-
-                        <div class="center">
-                        <button type="submit" class="submit-Btn" onclick="return Alertfunction()">Submit</button>
-                        </div>
-                    </form>
+                <div class="row" style="display:flex; flex-direction:row; align-items:center;   justify-content: space-between;">
+                    <div>Reported Complaints</div>
+                    <div><button type="button" onclick="window.location.href='http://localhost/Hulkzone/member/createComplaint.php'" id="fileC">Report a Complaint</button></div>
                 </div>
-
                 <div class="row"style="margin-top:10px;  margin-right:10px;">
                     <?php
                         
-                        $sql = "SELECT complaintID, subject, dateReported, status  FROM `complaint` where userID = '$userid'";
+                        $sql = "SELECT complaintID, subject, dateReported, status, actionTaken  FROM `complaint` where userID = " . $_SESSION['userID'];
                         $result = mysqli_query($conn, $sql);
+
                     echo '<table> 
                     <tr> 
                         <th> Complaint ID </th> 
                         <th> Date Reported </th> 
                         <th> Subject </th> 
                         <th> Status </th> 
+                        <th> action Taken </th>
                     </tr>';
-                    $result = mysqli_query($conn, $sql);
+
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $field1name = $row["complaintID"];
                             $field2name = $row["dateReported"];
                             $field3name = $row["subject"];
                             $field4name = $row["status"];
+                            $field5name = $row["actionTaken"];
 
                             echo '<tr> 
                                 <td>'.$field1name.'</td> 
                                 <td>'.$field2name.'</td> 
-                                <td style = "text-align:left;">'.$field3name.'</td> 
+                                <td>'.$field3name.'</td> 
                                 <td>'.$field4name.'</td> 
+                                <td>'.$field5name.'</td>
                             </tr>';
                         }
                     }
@@ -210,55 +158,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ?>
                     
                 </div>
-            </div>
-        </div>
-
-    </div>
-</body>
-</html>
-
-<!--inserting into table-->
-<?php
-$check = 1;
-    function test_input($data) {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-
-    if($_SERVER["REQUEST_METHOD"] == "POST"){
-    
-        $subject = $des = $outcome = " ";
-        $subject = test_input($_POST["subject"]);
-        $des = test_input($_POST["des"]);
-        $outcome = test_input($_POST["outcome"]);
-        $userid = $_SESSION["userID"];
-        $status = "Filed";
-
-        $sql = "insert into complaint (subject, description, desiredOutcome, status, dateReported, userID) values ('$subject', '$des', '$outcome', '$status', current_timestamp(), '$userid')";
-
-        if (!empty($subject) && !empty($des) && !empty($outcome)) {
-            $result = mysqli_query($conn, $sql);
-            if($result == 1){
-                $check = 0;
-            }
-        }
-    }
-?>
-
-
-
-<!--alert message displayed when successful-->
-<script>
-    function Alertfunction() {
-       var reportedDate =  document.forms["complaintForm"]["reportedDate"].value;
-       var subject =  document.forms["complaintForm"]["subject"].value;
-       var des =  document.forms["complaintForm"]["des"].value;
-       var outcome =  document.forms["complaintForm"]["outcome"].value;
-        if (reportedDate != "" && subject != "" && des != "" && outcome != "") {
-            alert("Complaint Recorded Successfully");
-        }
-    }
-
-</script>

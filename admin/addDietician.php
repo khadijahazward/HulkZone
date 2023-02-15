@@ -127,7 +127,7 @@
                 $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
                 
-                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($password_hash)){
+                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)){
                     $result = mysqli_query($conn, $sql);
                 }
                 
@@ -150,7 +150,7 @@
                     $userid = ($row['userID']);
     
                 //inserting data into employee table
-                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description) values( '$userid', '$exp', '$qual', '$des')";
+                $sql2 = "insert into employee(userID, noOfYearsOfExperience, qualification, description, language) values( '$userid', '$exp', '$qual', '$des', 'sinhala')";
     
                 $result2 = mysqli_query($conn, $sql2);
                 }
