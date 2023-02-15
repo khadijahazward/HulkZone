@@ -141,7 +141,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                 <div class="row">
                     <?php
                         //edit this query - wrong
-                        $sql3 = "select * from workoutplan where memberID = " . $row1['memberID'];
+                       /* $sql3 = "select * from workoutplan where memberID = " . $row1['memberID'];
 
                         echo '<table> 
                         <tr> 
@@ -179,7 +179,7 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
 
                             </tr>'; 
                         }
-                        echo '</table>';
+                        echo '</table>';*/
                     ?>
                 </div>
             </div>

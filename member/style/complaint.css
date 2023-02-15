@@ -95,3 +95,26 @@ td:last-child,
 td:last-child {
   border-radius: 0 10px 10px 0;
 }
+
+
+input[type="file"] {
+    display: block;
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: green solid 1px;
+    width: 100%;
+    background-color: white;
+    padding: 0.5rem 0.75rem;
+}
+
+button[type = button], button[type=submit]{
+    padding: 5px 20px 5px 20px;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border: #FF9F29;
+    background-color: #FF9F29;
+    font-size: 16px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-right: 20px;
+}
