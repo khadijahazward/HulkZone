@@ -113,6 +113,10 @@
             </div>
 
             <div class="content-right-sub">
+                <!--The purpose of using htmlspecialchars with $_SERVER["PHP_SELF"] is to protect against cross-site scripting (XSS) attacks, 
+                which can occur when user input is not properly sanitized.When the user submits the form, the form data is sent to the same page,
+                 and the $_SERVER['PHP_SELF'] variable is used to process the form data. -->
+             
 
                 <form id="regForm" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="POST" onsubmit="">
 
