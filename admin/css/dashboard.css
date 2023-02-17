@@ -13,6 +13,14 @@
     border-radius: 25px;
     box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
     padding-bottom: 15px;
+    cursor: pointer;
+    border:1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .dashboard-box:hover{
+    background-color: rgba(99, 250, 85, 0.4);
+    
+    
   }
   
   .dashboard-title {
@@ -24,6 +32,8 @@
     margin-top: 5px;
     margin-bottom: 15px;
   }
+
+  
   
   .dashboard-left {
     display: inline-block;
@@ -47,13 +57,43 @@
   }
 
   .graph{
-    margin-left: 20px;
-    box-shadow: 2px 2px 0px rgba(5, 5, 0, 0.15);
-    border-radius:25px;
-    background-color:#F6FBF4;
+    display:flex;
+    width:99.5%;
     margin-left:15px;
     margin-top:15px;
+    flex-direction:row;
+    background-color: #F6FBF4;
+  }
+
+  .topBoxes{
     display:flex;
-    width:98%;
+    width:100%;
+  }
+
+  .title1{
+    margin-top: 25px;
+    background-color:#DEF9D7;
+    height:40px;
+    border-radius:5px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  h1{
+    padding: 5px;
+    padding-left: 15px;
+    font-size:19px
+  }
+
+  .boxes2{
+    display: flex;
+    flex-direction:column;
+    width:40%;
+    margin-top:13px;
+  }
+
+  .box1{
+    display: flex;
+    flex-direction:row;
   }
   

@@ -6,6 +6,8 @@
     flex-direction: row;
     height: 80px;
     background-color: #DEF9D7;
+    width: 100%;
+    float:right;
 }
 
 body{
@@ -15,6 +17,7 @@ body{
 
 .contentRight{
     width: 7%;
+    padding-right:40px;
   
 }
 .contentLeft{
@@ -45,4 +48,12 @@ body{
     font-weight: bold;
     margin-top: 30px;
     font-size: 22px;
+}
+
+.right{
+    display: flex; 
+    flex-direction:column;
+    margin-left:20%;
+    width: 1215px;
+   
 }
