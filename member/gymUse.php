@@ -31,82 +31,14 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gym Appointments | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
+    <link rel="stylesheet" type="text/css" href="../member/style/appointment.css">
 </head>
 <body>
     <div class="container">
         <div class = "nav-bar">
-            <div class="line-heading">
-                <div class="images"><img src="..\asset\images\gymLogo.png" alt="Gym Logo" class="gymLogo"></div>
-                <div class="option">HULK ZONE</div>
-            </div>
-            
-            <hr>
-
-            <div class="line">
-            <a href="../member/dashboard.php"><div class="nav-font">Dashboard</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-            <a href="../member/profile.php"><div class="nav-font">My Profile</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/services.php"><div class="nav-font">Services</div></a>
-            </div>
-            
-            <hr>
-
-            <div class="line">
-                <a href="../member/team.php"><div class="nav-font">Team</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/workout.php"><div class="nav-font">Work Out Plan</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/dietplan.php"><div class="nav-font">Diet Plan</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/chat.php"><div class="nav-font">Chat</div></a>
-            </div>
-
-            <hr>
-            
-            <div class="line">
-                <a href="../member/payment.php"><div class="nav-font">Payments</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/appointment.php"><div class="nav-font">Appointments</div></a>
-            </div>
-
-            <hr>
-
-            <div class="line">
-                <a href="../member/complaint.php"><div class="nav-font">Complaints</div></a>
-            </div>
-            
-            <hr>
-            
-            <div class="line">
-                <a href="../home/logout.php"><div class="nav-font">Log Out</div></a>
-            </div>
-
-            <hr>
+            <?php
+                include("navBar.php");
+            ?>
         </div>
         <div class="body">
             <div class = "header">
@@ -118,10 +50,78 @@ $query = "SELECT * from user where userID = " . $_SESSION['userID'];
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
-            <div class="content"></div>
+            <div class="content" style = "background-image:none;" >
+                <div class="row2" style="font-weight:bold;">
+                    Make Appointments for 
+                    <?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                    ?>
+                </div>
+
+                <div class="row2">
+                <?php
+                        
+                        $sql = "SELECT * FROM slots";
+                        $result = mysqli_query($conn, $sql);
+
+                    echo '<table> 
+                    <tr> 
+                        <th> Start Time </th> 
+                        <th> End Time </th> 
+                        <th> Available Slots </th> 
+                        <th> Action </th> 
+                    </tr>';
+
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $field1name = $row["sTime"];
+                            $field2name = $row["eTime"];
+                            $field3name = $row["availableSlots"];
+                            
+                            if ($field3name == 0) {
+                                $field4name = "<button disabled>Not Available</button></td>";
+                            } else {
+                                $field4name = "<button onclick=\"bookAppointment(" . $row["slotID"] . ")\">Book Now</button></td>";
+                            }
+
+                            echo '<tr> 
+                                <td>'.$field1name.'</td> 
+                                <td>'.$field2name.'</td> 
+                                <td>'.$field3name.'</td> 
+                                <td>'.$field4name.'</td>   
+                            </tr>';
+                        }
+                    }
+                    echo '</table>';
+                    ?>
+                </div>
+
+            </div>
         </div>
 
     </div>
 </body>
 
 </html>
+
+<script>
+    function bookAppointment(slotID) {
+    // Confirm the booking with the user
+        if (confirm("Are you sure you want to book this slot?")) {
+            // Submit a form to book the appointment
+            var form = document.createElement("form");
+            form.setAttribute("method", "post");
+            form.setAttribute("action", "book-appointment.php");
+
+            var slotIDField = document.createElement("input");
+            slotIDField.setAttribute("type", "hidden");
+            slotIDField.setAttribute("name", "slotID");
+            slotIDField.setAttribute("value", slotID);
+
+            form.appendChild(slotIDField);
+            document.body.appendChild(form);
+            form.submit();
+        }
+    }
+</script>
