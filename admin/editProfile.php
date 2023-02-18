@@ -5,13 +5,13 @@ include('../../HulkZone/connect.php');
 // start the session
 session_start();
 // define form validation variables
-$fNameErr =$lNameErr=$contactNumberErr=$pwErr =$confirmPasswordErr= "";
+$fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = "";
 // check if the form has been submitted and update the details if necessary
 if (isset($_POST['edit'])) {
     // get the user ID from the session
     $userID = $_SESSION['userID'];
-    
-    
+
+
     // retrieve the updated form data
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];
@@ -32,19 +32,19 @@ if (isset($_POST['edit'])) {
     if (empty($contactNumber)) {
         $contactNumberErr = "Phone number is required";
     }
-     //password validation
-     $numberCheck = preg_match('@[0-9]@', $pw); //atleast one number
-     $specialCharsCheck = preg_match('@[^\w]@',$pw); //atleast one special character
+    //password validation
+    $numberCheck = preg_match('@[0-9]@', $pw); //atleast one number
+    $specialCharsCheck = preg_match('@[^\w]@', $pw); //atleast one special character
 
-     if (empty($pw)) {
-         $pwErr = "Password is required";
-     } else if (strlen($pw) < 8) {
-         $pwErr = "Password must be at least 8 characters long.";
-     } else if (!$numberCheck) {
-         $pwErr = "Password must contain at least one number.";
-     } else if (!$specialCharsCheck) {
-         $pwErr = "Password must contain at least one special character.";
-     }
+    if (empty($pw)) {
+        $pwErr = "Password is required";
+    } else if (strlen($pw) < 8) {
+        $pwErr = "Password must be at least 8 characters long.";
+    } else if (!$numberCheck) {
+        $pwErr = "Password must contain at least one number.";
+    } else if (!$specialCharsCheck) {
+        $pwErr = "Password must contain at least one special character.";
+    }
 
     if (empty($confirmPassword)) {
         $confirmPasswordErr = "Confirm password is required";
@@ -54,7 +54,7 @@ if (isset($_POST['edit'])) {
 
     // if all form fields are valid, update the database
     if (empty($fNameErr) && empty($lNameErr) && empty($contactNumberErr) && empty($pwErr) && empty($confirmPasswordErr)) {
-        
+
         // hash the password
         $hashedPassword = password_hash($pw, PASSWORD_DEFAULT);
 
@@ -65,6 +65,8 @@ if (isset($_POST['edit'])) {
 
         $result = mysqli_query($conn, $query);
         if ($result) {
+            //echo "<script> alert('Updated Successfully!'); </script>";
+            //header("Location: viewProfile.php");
             echo "<script> alert('Updated Successfully!'); window.location='viewProfile.php'; </script>";
         } else {
             echo "Error updating record: " . mysqli_error($conn);
@@ -73,7 +75,7 @@ if (isset($_POST['edit'])) {
 } else {
     // get the user ID from the session
     $userID = $_SESSION['userID'];
-    
+
     // retrieve the details of the user from the user table
     $query = "SELECT * FROM user WHERE userID='$userID' AND roles=0";
     $result = mysqli_query($conn, $query);
@@ -112,9 +114,41 @@ if (isset($_POST['edit'])) {
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .error{
-            color:red;
-            font-size:10px;
+        .error {
+            color: red;
+            font-size: 10px;
+        }
+
+        .back {
+            margin-top: 50px;
+            margin-left: 670px;
+            margin-bottom: 30px;
+            border: none;
+            outline: none;
+            height: 50px;
+            width: 200px;
+            background: #FF9F29;
+            font-size: 18px;
+            border-radius: 5px;
+            font-weight: normal;
+            text-align: center;
+            height: 40px;
+            margin-top: 8px;
+            color:#ffffff;
+            padding-top: 10px;
+        }
+
+        .link{
+            text-decoration: none;
+        }
+
+        .buttonS{
+            cursor: pointer;
+            height: 50px;
+            margin-top: 30px;
+        }
+        .back:hover{
+            background-color: #006837;
         }
     </style>
 
@@ -163,12 +197,12 @@ if (isset($_POST['edit'])) {
             <!--the profile details-->
             <div class="profile">
                 <form method="post" id="form-id" onsubmit="">
-                    
+
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">First Name</label>
                         <input type="text" name="fName" value="<?php echo "$fName" ?>" style="width:320px;margin-left:140px;">
                         <span class="error">* <?php echo $fNameErr; ?></span>
-                       
+
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
@@ -205,16 +239,18 @@ if (isset($_POST['edit'])) {
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Password</label>
                         <input type="password" name="pw" style="width:320px;margin-left:149px;" maxlength="15">
-                        <span class="error">* <?php echo $pwErr ; ?></span>
+                        <span class="error">* <?php echo $pwErr; ?></span>
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Confirm Password </label>
                         <input type="password" name="confirmPassword" style="width:320px;margin-left:85px;">
                         <span class="error">* <?php echo  $confirmPasswordErr; ?></span>
-                       
+
                     </div>
-                    <div><button type="submit" class="buttonS" name="edit" style="margin-left:670px;">Save</button></div>
+                    <div><button class="buttonS" name="edit" style="margin-left:670px;">Save</button></div>
+                    <a href="viewProfile.php"  class="link"><div class="back"><span> Back</span></div></a>
+                    
 
                 </form>
             </div>
@@ -234,12 +270,12 @@ if (isset($_POST['edit'])) {
             </script>
             <script>
                 function confirmSubmission() {
-                if (confirm("Are you sure you want to save the changes?")) {
-                return true;
-                } else {
-                return false;
+                    if (confirm("Are you sure you want to save the changes?")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-            }
             </script>
         </div>
 
