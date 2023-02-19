@@ -1,6 +1,6 @@
 <?php
 include('../../HulkZone/connect.php');
-$fnameErr = $lnameErr = $dobErr = $genErr = $numErr = $NICErr = $langErr= $serviceErr="";
+$fnameErr = $lnameErr = $dobErr = $genErr = $numErr = $NICErr = $langErr = $serviceErr = "";
 $stErr = $ad1Err = $citErr = $hgErr = $wiErr = $emErr = $pw1Err = $pw2Err = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $langErr = "At least one language is required";
     }
     if (empty($_POST['services'])) {
-        $serviceErr= "At least one service is required";
+        $serviceErr = "At least one service is required";
     }
 
     //checking length = 10
@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <?php
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $fname = $_POST["fname"];
@@ -197,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Trainer | Admin</title>
     <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/addtrainer.css">
+    <link rel="stylesheet" href="css/employee.css">
 
     <style>
         .error {
@@ -248,9 +249,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label>Gender<span class="error"> <?php echo $genErr; ?></span></label>
                 <br>
-                <select name="gender" id="gender" value="<?php echo $_POST['gender'] ?? ''; ?>">
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                <select name="gender" id="gender">
+                    <option value="Male" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Male') ? ' selected' : ''; ?>>Male</option>
+                    <option value="Female" <?php echo (isset($_POST['gender']) && $_POST['gender'] === 'Female') ? ' selected' : ''; ?>>Female</option>
                 </select>
             </div>
         </div>
@@ -301,7 +302,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                 <label> No. of years of Experience</label>
                 <br>
-                <input id="exp" type="number" name="exp" value="<?php echo $_POST['exp'] ?? ''; ?>">
+
+               
+                    <select name="exp" id="exp">
+                        <option value="Less than 1 year" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'Less than 1 year') {
+                                                                echo ' selected';
+                                                            } ?>>Less than 1 year</option>
+                        <option value="1-3 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '1-3 years') {
+                                                        echo ' selected';
+                                                    } ?>>1-3 years</option>
+                        <option value="3-5 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '3-5 years') {
+                                                        echo ' selected';
+                                                    } ?>>3-5 years</option>
+                        <option value="5-10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '5-10 years') {
+                                                        echo ' selected';
+                                                    } ?>>5-10 years</option>
+                        <option value="More than 10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'More than 10 years') {
+                                                                echo ' selected';
+                                                            } ?>>More than 10 years</option>
+                    </select>
             </div>
 
             <div class="form-group">
@@ -315,8 +334,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                 <label> Description</label>
                 <br>
-                
-                <textarea name="des" id="" cols="10" rows="10"  value="<?php echo $_POST['des'] ?? ''; ?>" ></textarea>
+
+                <textarea name="des" id="" cols="10" rows="8" value="<?php echo $_POST['des'] ?? ''; ?>"></textarea>
             </div>
 
             <div class="form-group">
@@ -324,17 +343,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <br>
 
                 <div class="checkbox">
-                <input type="checkbox" id="English" name="language[]" value="English" <?php if(isset($_POST['language']) && in_array('English', $_POST['language'])) { echo 'checked'; } ?>>
+                    <input type="checkbox" id="English" name="language[]" value="English" <?php if (isset($_POST['language']) && in_array('English', $_POST['language'])) {
+                                                                                                echo 'checked';
+                                                                                            } ?>>
                     <label for="english">English</label>
                 </div>
                 <br>
                 <div class="checkbox">
-                <input type="checkbox" id="Sinhala" name="language[]" value="Sinhala" <?php if(isset($_POST['language']) && in_array('Sinhala', $_POST['language'])) { echo 'checked'; } ?>>
+                    <input type="checkbox" id="Sinhala" name="language[]" value="Sinhala" <?php if (isset($_POST['language']) && in_array('Sinhala', $_POST['language'])) {
+                                                                                                echo 'checked';
+                                                                                            } ?>>
                     <label for="spanish">Sinhala</label>
                 </div>
                 <br>
                 <div class="checkbox">
-                <input type="checkbox" id="Tamil" name="language[]" value="Tamil" <?php if(isset($_POST['language']) && in_array('Tamil', $_POST['language'])) { echo 'checked'; } ?>>
+                    <input type="checkbox" id="Tamil" name="language[]" value="Tamil" <?php if (isset($_POST['language']) && in_array('Tamil', $_POST['language'])) {
+                                                                                            echo 'checked';
+                                                                                        } ?>>
                     <label for="french">Tamil</label>
                 </div>
             </div>
@@ -345,17 +370,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label> Service offered<span class="error">* <?php echo $serviceErr; ?></span></label>
                 <br>
                 <div class="checkbox">
-                <input type="checkbox" name="services[]" value="1" <?php if (isset($_POST['services']) && in_array(1, $_POST['services'])) echo "checked"; ?>>
+                    <input type="checkbox" name="services[]" value="1" <?php if (isset($_POST['services']) && in_array(1, $_POST['services'])) echo "checked"; ?>>
                     <label>CrossFit</label>
                 </div>
                 <br>
                 <div class="checkbox">
-                <input type="checkbox" name="services[]" value="4" <?php if (isset($_POST['services']) && in_array(4, $_POST['services'])) echo "checked"; ?>>
+                    <input type="checkbox" name="services[]" value="4" <?php if (isset($_POST['services']) && in_array(4, $_POST['services'])) echo "checked"; ?>>
                     <label>Strength</label>
                 </div>
                 <br>
                 <div class="checkbox">
-                <input type="checkbox" name="services[]" value="2" <?php if (isset($_POST['services']) && in_array(2, $_POST['services'])) echo "checked"; ?>>
+                    <input type="checkbox" name="services[]" value="2" <?php if (isset($_POST['services']) && in_array(2, $_POST['services'])) echo "checked"; ?>>
                     <label>BodyBuilding</label>
                 </div>
             </div>
@@ -378,7 +403,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             <div class="form-group">
-                <label>Confirm Password <span class="error"> <?php echo $pw2Err; ?></span></label>
+                <label>Confirm Password <span class="error"> *<?php echo $pw2Err; ?></span></label>
                 <br>
                 <input type="password" id="pass2" name="pass2">
             </div>
