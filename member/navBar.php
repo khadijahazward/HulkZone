@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+
+<body>
+
 <div class="line-heading">
     <div class="images"><img src="..\asset\images\gymLogo.png" alt="Gym Logo" class="gymLogo"></div>
     <div class="option">HULK ZONE</div>
@@ -70,3 +74,7 @@
 </div>
 
 <hr>
+
+</body>
+
+</html>
