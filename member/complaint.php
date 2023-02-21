@@ -4,20 +4,7 @@ include "../connect.php";
 ?>
 
 <?php
-    $query = "SELECT * from user where userID = " . $_SESSION['userID'];
-    $result = mysqli_query($conn, $query);
-    if (mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-    } else {
-        echo '<script> window.alert("Error receiving data!");</script>';
-    }
-
-    if(isset($row['profilePhoto']) && $row['profilePhoto'] != NULL){
-        //dp link from db
-        $profilePictureLink = $row['profilePhoto'];
-    }else{
-        $profilePictureLink = '../member/profileImages/default.png';
-    }
+    include("setProfilePic.php");
 ?>
 
 <!DOCTYPE html>

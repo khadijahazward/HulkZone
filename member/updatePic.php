@@ -28,7 +28,7 @@ include '../connect.php';
     if (empty($errors)) {
       $userID = $_SESSION['userID'];
       $newFileName = $userID . '.' . $file_ext;
-      $folder = "profileImages/";
+      $folder = "../profileImages/";
       $file_path = $folder . $newFileName;
       move_uploaded_file($file_tmp, $file_path);
 
