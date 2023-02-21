@@ -16,6 +16,7 @@
 </head>
 <body>
     
+    
 
 <?php 
 include('../admin/sideBar.php');
@@ -50,44 +51,46 @@ include('../admin/sideBar.php');
                 </tr>
 
                 <?php 
-                    include('../../HulkZone/connect.php');
-            
-                   
-                    $sql="SELECT user.userID, user.fName, user.gender, user.email, user.dateOfBirth, member.memberID,
-                    CASE user.statuses
-                        WHEN 1 THEN 'Enabled'
-                        ELSE 'Disabled'
-                    END AS accountStatus
-                    FROM user
-                    INNER JOIN member ON user.userID=member.userID";
-                    
-                    $result=$conn->query($sql);
-                    
-                    if (!$result) {
-                         die("invalid query: " .$conn->error);
-                    }
+include('../../HulkZone/connect.php');
 
-                    while ($row = $result->fetch_assoc()) {
-                        echo"
-                    <tr>
-                   <td>$row[memberID]</td>
-                   <td>$row[fName]</td>
-                   <td>$row[gender]</td>
-                   <td>$row[email]</td>
-                   <td>$row[dateOfBirth]</td>
-                   
-                   
-                  
-                   <td>" . (($row['accountStatus'] == 'Disabled') ? '<span style="color:red;">Disabled</span>' : $row['accountStatus']) . "</td>
-                <td>
+$sql = "SELECT user.userID, user.fName, user.gender, user.email, user.dateOfBirth, member.memberID,
+        CASE user.statuses
+            WHEN 1 THEN 'Enabled'
+            ELSE 'Disabled'
+        END AS accountStatus
+        FROM user
+        INNER JOIN member ON user.userID=member.userID";
 
-                   <a href='viewMemberProfile.php?userID=$row[userID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
-                </td>
-                  
-                </tr>";
-                    }
-                    
-                ?>
+$result = $conn->query($sql);
+
+if (!$result) {
+    die("Invalid query: " . $conn->error);
+}
+
+while ($row = $result->fetch_assoc()) {
+    $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
+    $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
+    $buttonStyle = ($row['accountStatus'] == 'Disabled') ? 'background-color: red;' : '';
+
+    echo "
+        <tr>
+            <td>{$row['memberID']}</td>
+            <td>{$row['fName']}</td>
+            <td>{$row['gender']}</td>
+            <td>{$row['email']}</td>
+            <td>{$row['dateOfBirth']}</td>
+            <td>
+                <form method='POST' action='accountStatusButton/changeStatusMember.php'>
+                    <button type='submit' class='button2' name='status' value='$statusValue'style='$buttonStyle'>{$row['accountStatus']}</button>
+                    <input type='hidden' name='userID' value='{$row['userID']}'>
+                </form>
+            </td>
+            <td>
+                <a href='viewMemberProfile.php?userID={$row['userID']}'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
+            </td>
+        </tr>";
+}
+?>
                 
                 
             </table>
@@ -95,7 +98,7 @@ include('../admin/sideBar.php');
     </div>
     </div>
 
-     
+    
    
       
     </body>

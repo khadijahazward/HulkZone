@@ -4,7 +4,8 @@ include('../../HulkZone/connect.php');
 if(isset($_GET['complaintID'])) {
     $complaintID = $_GET['complaintID'];
 
-    $sql = "DELETE FROM complaint WHERE complaintID = ?";
+    //$sql = "DELETE FROM complaint WHERE complaintID = ?";
+    $sql = "UPDATE complaint SET status='Ignored' WHERE complaintID=?";
 
     $stmt = mysqli_prepare($conn, $sql);
     mysqli_stmt_bind_param($stmt, "i", $complaintID);

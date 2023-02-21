@@ -51,18 +51,9 @@ include('../admin/sideBar.php');
                 <?php 
                     include('../../HulkZone/connect.php');
                     
-                    //read all row from database table
-                    /*$sql="SELECT user.fName, user.gender, employee.employeeID
-                     CASE user.statuses
-                        WHEN 1 THEN 'Enabled'
-                        ELSE 'Disabled'
-                    END AS accountStatus
-                    FROM user 
-                    INNER JOIN employee  ON user.userID = employee.userID
-                    WHERE user.roles = 2;
-                     ";*/
+                    
 
-                     $sql="SELECT user.fName, user.gender, employee.employeeID,
+                     $sql="SELECT user.userID,user.fName, user.gender, employee.employeeID,
                                 CASE
                                 WHEN user.statuses = 1 THEN 'Enabled'
                                 ELSE 'Disabled'
@@ -70,13 +61,17 @@ include('../admin/sideBar.php');
                                 FROM user
                                 INNER JOIN employee ON user.userID = employee.userID
                                 WHERE user.roles = 2";
-                    $result=$conn->query($sql);
+
+                   $result = mysqli_query($conn, $sql);
 
                     if (!$result) {
                          die("invalid query: " .$conn->error);
                     }
 
                     while ($row = $result->fetch_assoc()) {
+                        $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
+                        $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
+                        $buttonStyle = ($row['accountStatus'] == 'Disabled') ? 'background-color: red;' : '';
                         echo"
                     <tr>
                    <td>$row[employeeID]</td>
@@ -87,7 +82,12 @@ include('../admin/sideBar.php');
                    
                    
                    
-                   <td>" . (($row['accountStatus'] == 'Disabled') ? '<span style="color:red;">Disabled</span>' : $row['accountStatus']) . "</td>
+                   <td>
+                   <form method='POST' action='accountStatusButton/changeStatusTrainer.php'>
+                       <button type='submit' class='button2' name='status' value='$statusValue'style='$buttonStyle'>{$row['accountStatus']}</button>
+                       <input type='hidden' name='userID' value='{$row['userID']}'>
+                   </form>
+               </td>
                    <td>
                    <a href='viewTrainerProfile.php?employeeID=$row[employeeID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
 

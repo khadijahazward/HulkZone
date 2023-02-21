@@ -87,8 +87,7 @@ include('../admin/sideBar.php');
                    <th>Name</th>
                    <th>Date</th>
                    <th>User type</th>
-                   <th>Status</th>
-                   <th>Action</th>
+                   
                 </tr>
 
                 <?php 
@@ -103,7 +102,8 @@ include('../admin/sideBar.php');
                         ELSE 'Unknown'
                     END as userType
              FROM complaint
-             INNER JOIN user ON complaint.userID = user.userID";
+             INNER JOIN user ON complaint.userID = user.userID
+             WHERE complaint.status = 'Completed'";
              
              $result = mysqli_query($conn, $sql);
 
@@ -112,21 +112,18 @@ include('../admin/sideBar.php');
                     }
 
                     while ($row = $result->fetch_assoc()) {
-                        if ($row['status'] != 'Ignored') { // if status is not equla to "Removed" below code will work
+                        // if status is not equla to "Removed" below code will work
                         echo"
                     <tr>
                    <td>$row[complaintID]</td>
                    <td>$row[fName]</td>
                    <td>$row[dateReported]</td>
                    <td>$row[userType]</td>
-                   <td>". (($row['status'] == 'Filed') ? '<span style="color:red;">Filed</span>' : $row['status']) . "</td>
-                   <td><a href='deleteComplaint.php?complaintID=$row[complaintID]'onclick='return confirm(\"Are you sure you want to remove this compalint?\");'><button class='button1'>Ignore</button></a>  
-                   <a href='editComplaint.php?complaintID=$row[complaintID]' ><button class='button2' style='width: 120px;margin-top:1px'>Respond</button></a>
-                   </td>
+                  
                   
                 </tr>";
                     }
-                }
+                
                     
                 ?>
            
