@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php 
 include 'authorization.php';
 include '../connect.php';
@@ -35,50 +36,66 @@ include '../connect.php';
                 </div>
             </div>
             <div class="content" style = "background-image:none;" >
-                <div class="row2" style="font-weight:bold;">
-                    Make Appointments for 
+
+                <div class="row2" style="justify-content:space-between; background-color:#006837; padding:10px; ">
                     <?php
-                        $currentDate = date('Y-m-d');
-                        echo $currentDate;
-                    ?>
-                </div>
+                        // Get the previous Monday's date
+                        if (date('N') == 1) { // If today is Monday
+                            $previousMonday = date('Y-m-d'); // Use today's date instead
+                        } else {
+                            $previousMonday = date('Y-m-d', strtotime('last Monday'));
+                        }
 
-                <div class="row2">
-                <?php
-                        
-                        $sql = "SELECT * FROM slots";
-                        $result = mysqli_query($conn, $sql);
-
-                    echo '<table> 
-                    <tr> 
-                        <th> Start Time </th> 
-                        <th> End Time </th> 
-                        <th> Available Slots </th> 
-                        <th> Action </th> 
-                    </tr>';
-
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $field1name = $row["sTime"];
-                            $field2name = $row["eTime"];
-                            $field3name = $row["availableSlots"];
+                        // Loop through each day of the week (Monday to Sunday)
+                        for ($i = 1; $i <= 7; $i++) {
+                            $dayOfWeekDate = date('Y-m-d', strtotime($previousMonday . ' +' . ($i-1) . ' day'));
                             
-                            if ($field3name == 0) {
-                                $field4name = "<button disabled>Not Available</button></td>";
+                            // Check if the button date is before today's date
+                            if (strtotime($dayOfWeekDate) < strtotime(date('Y-m-d'))) {
+                                // If so, disable the button
+                                $buttonHtml = '<button disabled>' . date('D, M j', strtotime($dayOfWeekDate)). '</button>';
                             } else {
-                                $field4name = "<button onclick=\"bookAppointment(" . $row["slotID"] . ")\">Book Now</button></td>";
+                                // Otherwise, create a clickable button
+                                $buttonHtml = '<button onclick="displayAvailableSlots(' . $i . ', \'' . $dayOfWeekDate . '\')">' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>';
                             }
 
-                            echo '<tr> 
-                                <td>'.$field1name.'</td> 
-                                <td>'.$field2name.'</td> 
-                                <td>'.$field3name.'</td> 
-                                <td>'.$field4name.'</td>   
-                            </tr>';
+                            // Display the date as a button
+                            echo $buttonHtml;
                         }
-                    }
-                    echo '</table>';
                     ?>
+                </div>
+                <div class="row2">
+                    <div id="availableSlots"></div>
+
+                    <script>
+                        //onload the page will show current date's slot
+                        $(document).ready(function() {
+                            var currentDate = '<?php echo date('Y-m-d'); ?>';
+                            var currentDayNumber = '<?php echo date('N'); ?>';
+                            $.ajax({
+                                type: "POST",
+                                url: "./getSlotsTable.php",
+                                data: { dayID: currentDayNumber, date: currentDate },
+                                success: function(response) {
+                                    // Update the contents of the availableSlots div with the response from the server
+                                    $("#availableSlots").html(response);
+                                }
+                            });
+                        });
+
+                        // Get the available slots using the selected date and weekdayID 
+                        function displayAvailableSlots(weekdayID, selectedDate) {
+                        $.ajax({
+                            type: "POST",
+                            url: "./getSlotsTable.php",
+                            data: { dayID: weekdayID, date: selectedDate},
+                            success: function(response) {
+                            // Update the contents of the availableSlots div with the response from the server
+                            $("#availableSlots").html(response);
+                            }
+                        });
+                        }
+                    </script>
                 </div>
 
             </div>
@@ -89,23 +106,4 @@ include '../connect.php';
 
 </html>
 
-<script>
-    function bookAppointment(slotID) {
-    // Confirm the booking with the user
-        if (confirm("Are you sure you want to book this slot?")) {
-            // Submit a form to book the appointment
-            var form = document.createElement("form");
-            form.setAttribute("method", "post");
-            form.setAttribute("action", "book-appointment.php");
 
-            var slotIDField = document.createElement("input");
-            slotIDField.setAttribute("type", "hidden");
-            slotIDField.setAttribute("name", "slotID");
-            slotIDField.setAttribute("value", slotID);
-
-            form.appendChild(slotIDField);
-            document.body.appendChild(form);
-            form.submit();
-        }
-    }
-</script>

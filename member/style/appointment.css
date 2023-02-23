@@ -41,7 +41,13 @@ button{
 
 button:active {
     transform: scale(0.95);
-  }
+}
+
+button:disabled {
+    background-color: grey;
+    border-color: grey;
+    cursor: default;
+}
 
 .content{
     opacity: 1;
@@ -90,3 +96,8 @@ td:last-child,
 td:last-child {
   border-radius: 0 10px 10px 0;
 }
+
+#availableSlots {
+    width: 100%;
+}
+
