@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+include('authorization.php');
 include('../connect.php');
 
 // get the user ID from the session

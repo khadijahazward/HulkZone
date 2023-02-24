@@ -1,9 +1,8 @@
 <?php
+include('authorization.php');
 //connect.php contains database connection details
 include('../../HulkZone/connect.php');
 
-// start the session
-session_start();
 // define form validation variables
 $fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = "";
 // check if the form has been submitted and update the details if necessary
@@ -108,7 +107,7 @@ if (isset($_POST['edit'])) {
     <title>Admin Profile | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
-    <link rel="stylesheet" href="css/AnnouncementTable.css">
+    <link rel="stylesheet" href="css/table.css">
     <link rel="stylesheet" type="text/css" href="css/profile.css">
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>

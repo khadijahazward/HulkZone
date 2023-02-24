@@ -1,7 +1,7 @@
 <?php
+include('authorization.php');
 // Connect to the database
 include('../../HulkZone/connect.php');
-
 // Get the announcementID from the URL
 $announcementID = mysqli_real_escape_string($conn, $_GET['announcementID']);
 

@@ -1,4 +1,6 @@
-
+<?php
+include('authorization.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,7 @@
     <title>Manage Dieticians | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
-    <link rel="stylesheet" href="css/AnnouncementTable.css">
+    
     <link rel="stylesheet" type="text/css" href="../member/style/profile.css">
   
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>

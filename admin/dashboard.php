@@ -1,7 +1,7 @@
 <?php
 // Connect to database
 include('../connect.php');
-
+include('authorization.php');
 
 // Total Members Query
 $totalMembersQuery = "SELECT COUNT(*) AS total FROM user where roles=1";

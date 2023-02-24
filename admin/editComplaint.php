@@ -1,28 +1,5 @@
 <?php
-
-/*include('../../HulkZone/connect.php');
-
-if(isset($_POST['submit'])) {
-  $complaintID = $_POST['complaintID'];
-  $subject = $_POST['subject'];
-  $description = $_POST['description'];
-  $desiredOutcome = $_POST['desiredOutcome'];
-  $status = $_POST['status'];
-  $dateReported = $_POST['dateReported'];
-  $userID = $_POST['userID'];
-  $actionTaken = $_POST['actionTaken'];
-
-  $query = "UPDATE complaint SET subject='$subject', description='$description', desiredOutcome='$desiredOutcome', status='$status', dateReported='$dateReported', userID='$userID', actionTaken='$actionTaken' WHERE complaintID='$complaintID'";
-  $result = mysqli_query($conn, $query);
-
-  if(!$result) {
-    die("Query Failed.");
-  }
-
-  $_SESSION['message'] = "Complaint Updated Successfully";
-  $_SESSION['message_type'] = "success";
-  header("Location: manageComplaints.php");
-}*/
+include('authorization.php');
 include('../../HulkZone/connect.php');
 
 // Get the announcementID from the URL

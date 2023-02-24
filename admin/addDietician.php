@@ -1,3 +1,6 @@
+<?php 
+include('authorization.php');
+?>
 <?php
 include('../../HulkZone/connect.php');
 $fnameErr = $lnameErr = $dobErr = $genErr = $numErr = $NICErr = $langErr =  "";
