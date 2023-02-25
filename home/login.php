@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if($row['statuses'] == 1){
             session_start();
         
+<<<<<<< Updated upstream
             $_SESSION["logged_in"] = true;
             
             $_SESSION['username'] = $username;
@@ -47,6 +48,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
+=======
+        $_SESSION["logged_in"] = true;
+        
+        $_SESSION['username'] = $username;
+        $_SESSION['firstName'] = $row['fName'];
+        $_SESSION['lastName'] = $row['lName'];
+        $_SESSION['userID'] = $row['userID'];
+        $_SESSION['role'] = $row['roles'];
+        
+
+        //redirecting to dashboard
+        if($_SESSION['role'] == 0){
+            header("location: ..\admin\dashboard.php");
+        }else if($_SESSION['role'] == 1){
+            header("location: ..\member\dashboard.php");
+        }else if($_SESSION['role'] == 2){
+            header("location: ..\\trainer\dashboard.php");
+        }else if($_SESSION['role'] == 3){
+            header("location: ..\dietician\home.php");
+>>>>>>> Stashed changes
         }
 
      
