@@ -82,7 +82,7 @@ include '../connect.php';
                             } else {
                                 echo '<table>
                                     <tr> 
-                                        <td> No Service History </td> 
+                                        <td style=:"width:100%;"> No Service History </td> 
                                     </tr>
                                 </table>';
                             }

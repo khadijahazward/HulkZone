@@ -73,11 +73,45 @@ th{
 
 table tr{
    background-color: #DEF9D7;
-   border-radius: 10px 10px 10px 10px;
 }
 
 td{
     padding:7px;
     text-align: center;
-    border-radius: 10px 10px 10px 10px;
 }
+
+/*top left and bottom left*/
+td:first-child,
+td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+
+td:last-child,
+td:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+
+td:nth-child(2) {
+    width: 15%;
+}
+  
+td:nth-child(3) {
+    width: 15%;
+}
+
+.button {
+    display: inline-block;
+    padding: 5px 20px 5px 20px;
+    border-radius: 2px;
+    font-weight: bold;
+    color: #FFFFFF;
+    border: #FF9F29;
+    background-color: #FF9F29;
+    font-size: 14px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    margin-right: 20px;
+    text-decoration: none;
+}
+
