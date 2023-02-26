@@ -101,7 +101,7 @@ td:nth-child(3) {
     width: 15%;
 }
 
-.button {
+.button, button {
     display: inline-block;
     padding: 5px 20px 5px 20px;
     border-radius: 2px;
@@ -113,5 +113,41 @@ td:nth-child(3) {
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     margin-right: 20px;
     text-decoration: none;
+    cursor:pointer;
+}
+
+button:disabled{
+    background-color: gray;
+    cursor: default;
+}
+
+
+/*position of edit pic*/
+.form-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 60%;
+    width: 30%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    background-color: white;
+    padding: 1%;
+    border: black solid 1px;
+}
+
+#rating_stars {
+    font-size: 25px;
+}
+
+#rating_stars span{
+    color: gold;
+    cursor: pointer;
+}
+
+#rating_stars span.checked {
+    color: gold;
+    font-weight: 900;
 }
 

@@ -4,6 +4,7 @@ include '../connect.php';
 ?>
 
 <?php
+    date_default_timezone_set('Asia/Colombo');
     include("setProfilePic.php");
 ?>
 
@@ -59,13 +60,16 @@ include '../connect.php';
                 <div class="row-two" style="margin-left: 10px; margin-right: 10px;">
                         <?php
                             //add the history in db
-                            $sql6 = "SELECT * FROM `servicecharge` where memberID = ". $row1['memberID'] . " AND serviceID = 4";
+                            $serviceID = 4;
+                            $memberID = $row1['memberID'];
+                            $sql6 = "SELECT * FROM `servicecharge` where memberID = $memberID AND serviceID = $serviceID";
                             $result6 = mysqli_query($conn, $sql6);
                             
                             if ($result6 && mysqli_num_rows($result6) > 0) {
                                 echo '<table>';
                                 while ($row6 = mysqli_fetch_assoc($result6)) {
                                     $employeeID = $row6["employeeID"];
+                                    $endDate = $row6["endDate"];
                                     
                                     //getting user id from employee
                                     $sql7 = "select * from employee where employeeID = $employeeID";
@@ -91,10 +95,102 @@ include '../connect.php';
                                     $result8 = mysqli_query($conn, $sql8);
                                     $row8 = mysqli_fetch_assoc($result8);
 
+                                    //member will be able to rate when the service is over and he has not rated yet
+                                    if ($endDate <= date('Y-m-d H:i:s') && $row6['rate'] == 0) {
+                                        $rate_button_enabled = true;
+                                    }else{
+                                        $rate_button_enabled = false;
+                                    }
+
                                     //field names for table
                                     $field1name = $row8["fName"] . " " . $row8["lName"];
                                     $field2name = $stars;
-                                    $field3name = "";
+                                    $field3name = '<button onclick="openForm()"' . ($rate_button_enabled ? '' : 'disabled') . '>Rate Now</button>';
+
+
+                                    if($rate_button_enabled){
+                                        echo '
+                                            <div id="myForm" class="form-popup">
+                                        
+                                                <form action="../member/rate.php" class="form-container" method="post">
+
+                                                    <h3>Rate This Service</h3>
+
+                                                    <p>Select a rating:</p>
+
+                                                    <div id="rating_stars">
+                                                        <span class="far fa-star" data-rating="1"></span>
+                                                        <span class="far fa-star" data-rating="2"></span>
+                                                        <span class="far fa-star" data-rating="3"></span>
+                                                        <span class="far fa-star" data-rating="4"></span>
+                                                        <span class="far fa-star" data-rating="5"></span>
+                                                        <input type="hidden" name="rating">
+                                                    </div>
+
+                                                    <br>
+                                                    
+                                                    <input type="hidden" name="employeeID" value="' . $employeeID . '">
+                                                    <input type="hidden" name="serviceID" value="' . $serviceID . '">
+                                                    <input type="hidden" name="memberID" value="' . $memberID . '">
+                                                    <input type="hidden" name="paymentID" value="' . $row6['paymentID'] . '">
+                                                    
+                                                    <button type="submit">Rate</button>
+                                                    <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                                                </form>
+                                            </div>
+                                            <script>
+                                                function openForm() {
+                                                document.getElementById("myForm").style.display = "block";
+                                                }
+                
+                                                function closeForm() {
+                                                document.getElementById("myForm").style.display = "none";
+                                                }
+
+                                                // Get all the star elements
+                                                var stars = document.querySelectorAll("#rating_stars .fa-star");
+
+                                                //storing last star
+                                                var lastClickedStar = null;
+
+                                                // Add a click event listener to each star
+                                                stars.forEach(function(star) {
+                                                    star.addEventListener("click", function() {
+                                                        // Get the rating value
+                                                        var rating = star.getAttribute("data-rating");
+                                                        
+
+                                                        // Remove the "checked" class from all stars
+                                                        stars.forEach(function(s) {
+                                                        s.classList.remove("checked");
+                                                        });
+
+                                                        // Add the "checked" class to the clicked star and all previous stars
+                                                        for (var i = 1; i <= rating; i++) {
+                                                            stars[i - 1].classList.add("checked");
+                                                        }
+                                                        
+                                                        lastClickedStar = star;
+                                                    });
+                                                });
+
+                                               // Get the submit button element
+                                                var submitButton = document.querySelector("#myForm button[type=\"submit\"]");
+
+                                                // Add a click event listener to the submit button
+                                                submitButton.addEventListener("click", function() {
+                                                
+                                                    // Get the rating value
+                                                    var rating = lastClickedStar.getAttribute("data-rating");
+
+                                                    // Set the value of the hidden input field
+                                                    document.querySelector("#myForm input[name=rating]").value = rating;
+                                                });
+
+                                            </script>
+                                            
+                                        ';
+                                    }
                             
                                     echo '<tr> 
                                         <td style="text-align:left; padding-left: 50px;">'.$field1name.'</td> 
