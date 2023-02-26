@@ -54,7 +54,7 @@ include '../connect.php';
                 <div class="bottom-r">
                 <?php
                         
-                    $sql3 = "SELECT *  FROM `payment` where memberID = " . $row1['memberID'];
+                    $sql3 = "SELECT DATE(paymentDate) as paymentDate, TIME(paymentDate) as paymentTime, type, amount, paymentID, memberID FROM payment WHERE memberID = " . $row1['memberID'];
                     $result3 = mysqli_query($conn, $sql3);
 
                     if(!$result3){
@@ -71,14 +71,14 @@ include '../connect.php';
 
                     if (mysqli_num_rows($result3) > 0) {
                         while ($row3 = mysqli_fetch_assoc($result3)) {
-                            $field1name = DATE_FORMAT($row3["paymentDate"], '%Y-%m-%d');
-                            $field2name = DATE_FORMAT($row3["paymentDate"], '%H:%i:%s');
+                            $field1name = $row3["paymentDate"];
+                            $field2name = $row3["paymentTime"];
 
-                            //1 = payment Plan , 0 = service charge
+                            //0 = payment Plan , 1,2,3,4 = service charge
                             $field3name = $row3["type"];
-                            if($row["type"] == 0){
+                            if($row3["type"] == 1 || $row3["type"] == 4 || $row3["type"] == 2 || $row3["type"] == 3){
                                 $field3name = "Service Charge";
-                            }else if($row3["type"] == 1){
+                            }else if($row3["type"] == 0){
                                 $field3name = "Payment Plan Charge";
                             }else{
                                 $field3name = "Type Unknown";

@@ -216,7 +216,7 @@ include '../connect.php';
 
                 <div class="row-two" style="margin-left: 10px; margin-right: 10px;">
                         <?php
-                            //correct the query
+                            
                             $sql2 = "SELECT employeeID FROM `employeeservice` where serviceID = 4";
                             $result2 = mysqli_query($conn, $sql2);
                             
@@ -251,6 +251,7 @@ include '../connect.php';
                                         $onclick = 'onclick="alert(\'You already have an ongoing service and cannot obtain another one until it ends.\'); return false;"';                                    
                                     } else {
                                         $payNow = 'pay_now.php?employeeID='.$employeeID.'&serviceID=1';
+                                        $onclick = "";
                                     }
 
                                     $field3name = '<a href="'.$payNow.'" class = "button" '.$onclick.'>Pay Now</a>';
