@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if($row['statuses'] == 1){
             session_start();
         
-<<<<<<< Updated upstream
             $_SESSION["logged_in"] = true;
             
             $_SESSION['username'] = $username;
@@ -48,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
-=======
         $_SESSION["logged_in"] = true;
         
         $_SESSION['username'] = $username;
@@ -67,11 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("location: ..\\trainer\dashboard.php");
         }else if($_SESSION['role'] == 3){
             header("location: ..\dietician\home.php");
->>>>>>> Stashed changes
         }
 
      
-    } else {
+    }
+} else {
         header("location:login.php?msg=failed");
     }
 }

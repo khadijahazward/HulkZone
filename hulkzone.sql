@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2023 at 02:19 PM
+-- Generation Time: Feb 26, 2023 at 04:54 PM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -161,10 +161,10 @@ CREATE TABLE `employee` (
 INSERT INTO `employee` (`employeeID`, `userID`, `noOfYearsOfExperience`, `avgRating`, `qualification`, `description`, `language`) VALUES
 (5, 99, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
 (6, 105, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
-(7, 100, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
+(7, 100, '05', 2, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
 (8, 101, '05', 0, 'Bsc. in Reading', 'I care deeply about my clients, and there’s nothing of more value to me than helping somebody go through an experience that makes them happy, confident, and strong. I realize how being overweight affects many aspects of your life, and I want to be there for you and help you discover the benefits and joys of training that helped me become the person I am today. I’m here to be your personal guide on every step of the journey.', 'English, Tamil, Sinhala'),
 (9, 121, '10', 0, 'Bachelor of Arts', 'Chris is a passionate certified personal trainer and group fitness instructor who uses a combination of HIIT and metabolic training and stress management techniques. He’s worked with hundreds of clients, from CEOs to professional athletes–and everyone in between.   A recent client explained, “Chris’s knowledge, support, and personality makes his methods challenging but rewarding. He helps you achieve desired results without boredom or burnout.” ', 'sinhala'),
-(10, 122, '3', 0, 'BSc. in Arts', 'Hi!  I’m a vegan registered dietitian nutritionist, and I created VeganCoach.com to empower people to optimize their health using a vegan diet. My paid coaching program sponsors this account for aspiring vegans, the Vegan Coach', 'sinhala'),
+(10, 122, '3', 2, 'BSc. in Arts', 'Hi!  I’m a vegan registered dietitian nutritionist, and I created VeganCoach.com to empower people to optimize their health using a vegan diet. My paid coaching program sponsors this account for aspiring vegans, the Vegan Coach', 'sinhala'),
 (11, 126, '3', 0, 'none', 'none', 'sinhala'),
 (12, 127, '10', 0, 'Experienced trainer', 'jolly fun filled sessions ', 'sinhala'),
 (13, 129, '', 0, '', '', 'sinhala'),
@@ -187,7 +187,17 @@ CREATE TABLE `employeeservice` (
 
 INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
 (1, 5),
-(2, 5);
+(2, 5),
+(2, 6),
+(1, 7),
+(2, 7),
+(4, 7),
+(3, 8),
+(1, 9),
+(2, 9),
+(3, 10),
+(3, 11),
+(4, 14);
 
 -- --------------------------------------------------------
 
@@ -235,7 +245,8 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 (15, '2023-02-17', 41, 1, 0),
 (16, '2023-02-19', 41, 1, 0),
 (17, '2023-02-20', 41, 2, 0),
-(18, '2023-02-22', 41, 1, 0);
+(18, '2023-02-22', 41, 1, 0),
+(28, '2023-02-26', 41, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -327,6 +338,15 @@ CREATE TABLE `payment` (
   `memberID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `payment`
+--
+
+INSERT INTO `payment` (`paymentID`, `paymentDate`, `amount`, `type`, `memberID`) VALUES
+(1, '2022-08-22 18:14:48', 10000, 4, 41),
+(2, '2023-02-24 18:17:15', 10000, 4, 41),
+(3, '2022-07-06 21:14:05', 10000, 3, 41);
+
 -- --------------------------------------------------------
 
 --
@@ -337,20 +357,6 @@ CREATE TABLE `paymentplan` (
   `memberID` int NOT NULL,
   `paymentID` int NOT NULL,
   `expiryDate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `rate`
---
-
-CREATE TABLE `rate` (
-  `memberID` int NOT NULL,
-  `rating` double NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `serviceID` int NOT NULL,
-  `employeeID` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -388,8 +394,18 @@ CREATE TABLE `servicecharge` (
   `serviceID` int NOT NULL,
   `employeeID` int NOT NULL,
   `startDate` datetime NOT NULL,
-  `endDate` datetime NOT NULL
+  `endDate` datetime NOT NULL,
+  `rate` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `servicecharge`
+--
+
+INSERT INTO `servicecharge` (`memberID`, `paymentID`, `serviceID`, `employeeID`, `startDate`, `endDate`, `rate`) VALUES
+(41, 1, 4, 7, '2022-08-22 13:45:34', '2023-02-22 13:45:34', 2),
+(41, 2, 4, 7, '2023-02-24 18:18:13', '2023-08-24 18:18:13', 0),
+(41, 3, 3, 10, '2022-07-06 21:16:47', '2023-01-06 21:16:47', 2);
 
 -- --------------------------------------------------------
 
@@ -476,7 +492,7 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (40, 6, 5, 10),
 (41, 6, 6, 10),
 (42, 6, 7, 10),
-(43, 7, 1, 10),
+(43, 7, 1, 9),
 (44, 7, 2, 10),
 (45, 7, 3, 10),
 (46, 7, 4, 10),
@@ -530,7 +546,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`, `dateOfBirth`, `roles`, `statuses`, `contactNumber`, `streetNumber`, `addressLine01`, `addressLine02`, `city`, `pw`, `created_at`, `email`) VALUES
-(86, '   Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.png', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
+(86, 'Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.png', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
 (98, 'munsira', 'Mansoor', '123456789012', 'Female', NULL, '1998-07-09', 1, 1, 711541753, '', '', '', '', '$2y$10$qIy0CFE7KytNEGbPsQ/7ZugRzxliEiZUZ.EDkGeIUPhMwnbvDvZ4W', '2022-12-16', 'kj@gmail.com'),
 (99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
 (100, 'Saitharsan', 'Perera', '123456789012', 'Female', NULL, '2021-12-08', 2, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
@@ -543,7 +559,7 @@ INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`,
 (125, 'hun', 'meh', '123456789V', 'Male', NULL, '2004-12-01', 2, 1, 71145689, '192', 'shoe road', '', 'colombo', '$2y$10$VI/sq8tw741aK2tdnpZS9.PEL8JLN2qvjrAlVd63v/E8p1PpVOpuu', '2023-02-10', 'hun@gmail.com'),
 (126, 'james', 'millie', '123456789V', 'Male', NULL, '2004-11-29', 3, 1, 1234567890, '', '', '', '', '$2y$10$mpcJll08KRJ814NC.3oxKeWjUUMjjqVGvgbV1HCri7du5ntUZqY6W', '2023-02-10', 'james@gmail.com'),
 (127, 'Juliet ', 'Khan', '123456789V', 'Female', NULL, '2004-12-01', 2, 1, 115467876, '', '', '', '', '$2y$10$nhnBvpmuRTPQGMejHCfCM.fsK64FyULvN/eKHAKdrB0ZdY1h0WXGS', '2023-02-10', 'juliet@gmail.com'),
-(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', '', '', 'Colombo', '', '2023-02-10', 'munchi@gmail.com'),
+(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', '', '', 'Colombo', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2023-02-10', 'munchi@gmail.com'),
 (129, 'Edward', 'Gardin', '9855546232V', 'Male', NULL, '2004-12-03', 2, 1, 775087334, '3', '', '', 'Colombo', '$2y$10$1hCR19NL/PqarKGzfsLc3eQUNJhI6kRXWIiiz/s/Y9BpBe6KrTtYS', '2023-02-10', 'gardin@gmail.com'),
 (130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com');
 
@@ -712,15 +728,6 @@ ALTER TABLE `paymentplan`
   ADD KEY `paymentID` (`paymentID`);
 
 --
--- Indexes for table `rate`
---
-ALTER TABLE `rate`
-  ADD PRIMARY KEY (`memberID`,`serviceID`,`employeeID`),
-  ADD KEY `memberID` (`memberID`,`serviceID`,`employeeID`),
-  ADD KEY `employeeID` (`employeeID`),
-  ADD KEY `serviceID` (`serviceID`);
-
---
 -- Indexes for table `service`
 --
 ALTER TABLE `service`
@@ -730,7 +737,7 @@ ALTER TABLE `service`
 -- Indexes for table `servicecharge`
 --
 ALTER TABLE `servicecharge`
-  ADD PRIMARY KEY (`memberID`,`paymentID`,`serviceID`),
+  ADD PRIMARY KEY (`memberID`,`paymentID`,`serviceID`,`employeeID`),
   ADD KEY `memberID` (`memberID`,`paymentID`,`serviceID`,`employeeID`),
   ADD KEY `employeeID` (`employeeID`),
   ADD KEY `paymentID` (`paymentID`),
@@ -817,7 +824,7 @@ ALTER TABLE `exercise`
 -- AUTO_INCREMENT for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -835,7 +842,7 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `paymentID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `paymentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -962,14 +969,6 @@ ALTER TABLE `payment`
 ALTER TABLE `paymentplan`
   ADD CONSTRAINT `paymentplan_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `paymentplan_ibfk_2` FOREIGN KEY (`paymentID`) REFERENCES `payment` (`paymentID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `rate`
---
-ALTER TABLE `rate`
-  ADD CONSTRAINT `rate_ibfk_1` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rate_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `rate_ibfk_3` FOREIGN KEY (`serviceID`) REFERENCES `service` (`serviceID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `servicecharge`
