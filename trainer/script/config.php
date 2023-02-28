@@ -9,3 +9,4 @@ define('COMPLAINTS','');
 define('SETTINGS','');
 define('LOGOUT','http://localhost/hulkzone/home/logout.php');
 
+session_start();
