@@ -41,20 +41,7 @@ include '../connect.php';
             </div>
             <div class="content">
                 <div class="row">
-                        <p>Membership Information</p>
-                        <div class="row-2">
-                            <div class="sub-content">
-                                <p>Total Payable</p>
-                                <!--retreive-->
-                                <div>Rs. X</div>
-                                <button>Pay Bill</button>
-                            </div>
-                            <div class="sub-content">
-                                <p>Last Payment</p>
-                                <!--retreive-->
-                                <div>X</div>
-                            </div>
-                        </div>
+                    
                 </div>
                 <div class="row">
                     <p>Today’s Meal Plan</p>

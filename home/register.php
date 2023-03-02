@@ -84,7 +84,7 @@
         </div>
 
         <div class="middle">
-            <div class="nav-text"><a href="index.html">Home</a></div>
+            <div class="nav-text"><a href="../index.html">Home</a></div>
             <div class="nav-text"><a href="service.html">Services</a></div>
             <div class="nav-text"><a href="team.html">Team</a></div>
             <div class="nav-text"><a href="aboutUs.html">About Us</a></div>
