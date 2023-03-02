@@ -35,9 +35,9 @@
                 <hr>
                 <a href="chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
-                <a href="changePassword.php" class="active"><i class="fa fa-cog"></i>My Profile</a>
+                <a href="changePassword.php" class="active"><i class="fa fa-user"></i>My Profile</a>
                 <hr>
-                <a href="cmplaint.php">Complaints</a>
+                <a href="complaint.php"><i class="fa fa-cog"></i>Complaints</a>
                 <hr>
                 <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
                 <hr>
@@ -105,3 +105,22 @@
 </body>
 
 </html>
+
+
+<?php
+                        
+       /*                 
+                        
+                    $query2 = "SELECT * FROM complaint WHERE userID = '$userID'";
+                    $result2 = mysqli_query($conn, $query2);
+                    if(mysqli_fetch_assoc($result2) > 0){
+                        while($row = mysqli_fetch_assoc($result2)){
+                            echo "<tr>" ; 
+                            echo    "<td>".$row['complaintID']."</td>";
+                            echo    "<td>".$row['dateReported']."</td>";
+                            echo    "<td>".$row['subject']."</td>";
+                            echo    "<td>".$row['status']."</td>";
+                            echo "</tr>";
+                        }
+                    }*/
+                    ?>
