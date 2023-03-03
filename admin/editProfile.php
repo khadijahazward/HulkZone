@@ -12,13 +12,18 @@ if (isset($_POST['edit'])) {
 
 
     // retrieve the updated form data
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $contactNumber = $_POST['contactNumber'];
-    $streetNumber = $_POST['streetNumber'];
-    $addressLine01 = $_POST['addressLine01'];
-    $addressLine02 = $_POST['addressLine02'];
-    $city = $_POST['city'];
+   // $fName = $_POST['fName'];
+    $fName=isset($_POST['fName']) ? $_POST['fName'] : '';
+    //$lName = $_POST['lName'];
+    $lName=isset($_POST['lName']) ? $_POST['lName'] : '';
+    $contactNumber = isset($_POST['contactNumber']) ? $_POST['contactNumber'] : '';
+    $streetNumber = isset($_POST['streetNumber']) ? $_POST['streetNumber'] : '';
+    //$addressLine01 = $_POST['addressLine01'];
+    $addressLine01=isset($_POST['addressLine01']) ? $_POST['addressLine01'] : '';
+    //$addressLine02 = $_POST['addressLine02'];
+    $addressLine02=isset($_POST['addressLine02']) ? $_POST['addressLine02'] : '';
+    //$city = $_POST['city'];
+    $city=isset($_POST['city']) ? $_POST['city'] : '';
     $pw = $_POST['pw'];
     $confirmPassword = $_POST['confirmPassword'];
     // validate form data

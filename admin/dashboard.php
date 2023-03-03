@@ -9,7 +9,7 @@ $totalMembersResult = mysqli_query($conn, $totalMembersQuery);
 $totalMembers = mysqli_fetch_assoc($totalMembersResult)['total'];
 
 // Total Revenue Query
-$totalAnnouncementsQuery = "SELECT COUNT(*) AS total FROM announcement";
+$totalAnnouncementsQuery = "SELECT COUNT(*) AS total FROM notifications where type=0";
 $totalAnnouncementsResult = mysqli_query($conn, $totalAnnouncementsQuery);
 $totalAnnouncements = mysqli_fetch_assoc($totalAnnouncementsResult)['total'];
 

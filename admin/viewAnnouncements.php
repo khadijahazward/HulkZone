@@ -42,8 +42,8 @@ include('../admin/sideBar.php');
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>No</th>
-                   <th>Date</th>
+                   <th>NotificationID</th>
+                   <th>Date and Time</th>
                    <th>Message</th>
                    <th>Action</th>
                 </tr>
@@ -52,7 +52,7 @@ include('../admin/sideBar.php');
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    $sql="SELECT * FROM announcement";
+                    $sql="SELECT * FROM notifications where type=0";
                     $result=$conn->query($sql);
 
                     if (!$result) {
@@ -62,12 +62,12 @@ include('../admin/sideBar.php');
                     while ($row = $result->fetch_assoc()) {
                         echo"
                     <tr>
-                   <td>$row[announcementID]</td>
-                   <td>$row[date]</td>
+                   <td>$row[notificationsID]</td>
+                   <td>$row[created_at]</td>
                    <td>$row[message]</td>
                    
-                   <td><a href='deleteAnnouncement.php?announcementID=$row[announcementID]'onclick='return confirm(\"Are you sure you want to delete this announcement?\");'><button class='button1'> Delete</button></a>  
-                   <a href='editAnnouncement.php?announcementID=$row[announcementID]' ><button class='button2' style='width: 120px;margin-top:1px'>Edit</button></a>
+                   <td><a href='deleteAnnouncement.php?notificationsID=$row[notificationsID]'onclick='return confirm(\"Are you sure you want to delete this announcement?\");'><button class='button1'> Delete</button></a>  
+                   <a href='editAnnouncement.php?notificationsID=$row[notificationsID]' ><button class='button2' style='width: 120px;margin-top:1px'>Edit</button></a>
                    </td>
                   
                 </tr>";

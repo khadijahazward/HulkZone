@@ -1,6 +1,25 @@
 <?php
 include('authorization.php');
 ?>
+<?php
+    include('../connect.php');
+    
+    // Retrieve employee details using employeeID
+    $employeeID = $_GET['employeeID'];
+    $sql = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
+    $result = $conn->query($sql);
+    $employeeDetails = $result->fetch_assoc();
+    
+    // Retrieve user details using userID from employee table
+    $userID = $employeeDetails['userID'];
+    $sql = "SELECT * FROM user WHERE userID = '$userID'";
+    $result = $conn->query($sql);
+    $userDetails = $result->fetch_assoc();
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +30,7 @@ include('authorization.php');
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
     
-    <link rel="stylesheet" type="text/css" href="../member/style/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
   
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -43,34 +62,34 @@ include('../admin/sideBar.php');
                     </div>
                     <div>
                         <?php 
-                            //echo $_SESSION["firstName"] ." " . $_SESSION["lastName"];
-                            echo "Dietician Name"; 
+                            
+                            echo $userDetails['fName'] . ' ' . $userDetails['lName']; 
                         ?>
                         <br>
                         Dietician<!--User Type-->
                         <br>
                     </div>
-                    <div style="margin: 30px;">
-                        <!--changing profile pic-->
-                        <a href="editDieticianProfile.php"><button class="open-button" style="height: 35px;border-radius:5px;">Edit Profile</button></a>
-                    </div>
+                   
                         
                     <div style="margin: 20px;">
                         <?php
                             echo "Status: ";
 
-                            /*if($row["statuses"] == 1){
+                            if($userDetails["statuses"] == 1){
                                 echo "ACTIVE";
                             }else{
                                 echo "INACTIVE";
-                            }*/
+                            }
 
                             echo "<br>";
 
                             echo "Joined Date: ";
+                            echo $userDetails['created_at'];
+
                             echo "<br>";
                             echo "Average Rating: ";
-                            //echo $row["created_at"];
+                            echo $employeeDetails['avgRating'];
+                           
 
                         ?>
                     </div>
@@ -86,70 +105,39 @@ include('../admin/sideBar.php');
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>First name </label>
-                                        <input id="fname" type="text" name="fname" required disabled>
+                                        <input id="fname" type="text" name="fname" value="<?php echo $userDetails['fName']; ?>" readonly>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Last name</label> 
-                                        <input id="lname" type="text" name="lname"required disabled>
+                                        <input id="lname" type="text" name="lname" value="<?php echo $userDetails['lName']; ?>" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>NIC</label><span id = "error-message" style="font-size: 10px; color: red;"></span>
-                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">
-                                        <script>
-                                            function validateNIC() {
-                                                var nic = document.getElementById("nic").value;
-                                                var errorMessage = document.getElementById("error-message");
-                                                const pattern2 = /^\d{9}V$/;
-                                                const pattern1 = /^\d{12}$/; 
-                                                if (nic === "") {
-                                                    errorMessage.innerHTML = " NIC must be filled out";
-                                                } else if (pattern2.test(nic) || pattern1.test(nic)){
-                                                    errorMessage.innerHTML = " ";
-                                                }else {
-                                                    errorMessage.innerHTML = " Invalid NIC";
-                                                }
-                                            }
-                                        </script>
-
+                                        <input id="nic" type="text" name="NIC" value="<?php echo $userDetails['NIC']; ?>" readonly>
+                                        
                                         
                                     </div>
 
                                     <div class="form-group">
                                         <label>Date of Birth </label>
-                                        <input id="dob" type="date" name="dob" min="1930-01-01" max="2004-12-31" required disabled>
+                                        <input id="dob" type="date" name="dob" min="1930-01-01" max="2004-12-31" value="<?php echo $userDetails['dateOfBirth']; ?>" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Phone Number</label><span id = "error-msg" style="font-size: 10px; color: red;"></span>
-                                        <input id="number" type="text" name="number" required disabled onblur="validateNum()">  
-                                        <script>
-                                                function validateNum() {
-                                                    var number = document.getElementById("number").value;
-                                                    var errorMessage = document.getElementById("error-msg");
-                                                    if (number === "") {
-                                                        errorMessage.innerHTML = " Number must be filled out";
-                                                    } else if (number.length !== 10 || isNaN(number)){
-                                                        errorMessage.innerHTML = " Invalid Number";   
-                                                    }
-                                                    else {
-                                                        errorMessage.innerHTML = "";
-                                                    }
-                                                }
-                                        </script>
+                                        <input id="number" type="text" name="number" value="<?php echo $userDetails['contactNumber']; ?>" readonly>  
+                                       
                                     </div>
 
                                     <div class="form-group">
                                         <label>Gender</label> 
-                                        <select name="gender" id="gender" required disabled>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
+                                        <input id="gender" type="text" name="gender" value="<?php echo $userDetails['gender']; ?>"  readonly>
                                     </div>
                                 </div>
                                 </div>
@@ -163,24 +151,24 @@ include('../admin/sideBar.php');
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Street Number</label>
-                                        <input id="sNumber" name="sNumber" type="text" disabled>
+                                        <input id="sNumber" name="sNumber" type="text" value="<?php echo $userDetails['streetNumber']; ?>" readonly>
                                     </div>
 
                                     <div class="form-group">
                                         <label>Address Line 01</label>
-                                        <input id="aline1" name="aline1" type="text"  disabled>
+                                        <input id="aline1" name="aline1" type="text" value="<?php echo $userDetails['addressLine01']; ?>" readonly>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Address Line 02</label>
-                                        <input id="aline2" name="aline2" type="text" disabled>
+                                        <input id="aline2" name="aline2" type="text" value="<?php echo $userDetails['addressLine02']; ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label>City</label>
-                                        <input id="city" name="city" type="text"  disabled>
+                                        <input id="city" name="city" type="text" value="<?php echo $userDetails['city']; ?>">
                                     </div>
                                 </div>
                                 </div>
@@ -194,24 +182,25 @@ include('../admin/sideBar.php');
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Qualification</label>
-                                        <input id="aline2" name="aline2" type="text" disabled>
+                                        <input  type="text" value="<?php echo $employeeDetails['qualification']; ?>">
                                     </div>
 
                                     <div class="form-group">
                                         <label>Description</label>
-                                        <input id="city" name="city" type="text"  disabled>
+                                        <br>
+                                        <textarea name="des" id="" cols="40" rows="8" ><?php echo $employeeDetails['description']; ?></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>Number of years of experience</label>
-                                        <input id="aline2" name="aline2" type="text" disabled>
+                                        <input id="aline2" name="aline2" type="text" value="<?php echo $employeeDetails['noOfYearsOfExperience']; ?>" readonly>
                                     </div>
 
                                     <div class="form-group">
                                         <label>languages</label>
-                                        <input id="city" name="city" type="text"  disabled>
+                                        <input id="city" name="city" type="text" value="<?php echo $employeeDetails['language']; ?>">
                                     </div>
                                 </div>
                                 </div>

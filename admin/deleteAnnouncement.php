@@ -2,16 +2,23 @@
 include('../../HulkZone/connect.php');
 
 // Sanitize the input
-$announcementID = filter_input(INPUT_GET, 'announcementID', FILTER_SANITIZE_NUMBER_INT);
+$notificationsID = filter_input(INPUT_GET, 'notificationsID', FILTER_SANITIZE_NUMBER_INT);
 
-// Use prepared statement
-$stmt = $conn->prepare("DELETE FROM announcement WHERE announcementID = ?");
-$stmt->bind_param("i", $announcementID);
+// Use prepared statement to delete from notifications table
+$stmt = $conn->prepare("DELETE FROM notifications WHERE notificationsID = ?");
+$stmt->bind_param("i", $notificationsID);
+$stmt->execute();
+$stmt->close();
+
+// Use another prepared statement to delete from usernotifications table
+$stmt = $conn->prepare("DELETE FROM usernotifications WHERE notificationsID = ?");
+$stmt->bind_param("i", $notificationsID);
 $stmt->execute();
 $stmt->close();
 
 // Redirect to the announcements page
 header('Location: viewAnnouncements.php');
+
 ?>
 
 
