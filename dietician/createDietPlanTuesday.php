@@ -182,10 +182,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </td>
                     </tr>
                 </table>
+                <button type="submit" class="saveButton" name="next">Next</button>
             </form>
-            <button type="submit" class="saveButton" name="next">Next</button>
         </div>
-
     </div>
 </body>
 

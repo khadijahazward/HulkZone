@@ -5,53 +5,51 @@ include 'connect.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-if(isset($_GET['next'])){
+if (isset($_GET['next'])) {
     $memberID = $_GET['next'];
 }
 
 $query1 = "SELECT * FROM employee INNER JOIN user ON employee.userID = user.userID WHERE user.userID = '$userID'";
 $result1 = mysqli_query($conn, $query1);
-if(mysqli_num_rows($result1) == 1){
+if (mysqli_num_rows($result1) == 1) {
     $row = mysqli_fetch_assoc($result1);
     $employeeID = $row['employeeID'];
-}else{
-    echo '<script> window.alert("Error receiving employee ID!");</script>';
+} else {
+    echo '<script> window.alert("Error of receiving employee ID!");</script>';
 }
 
 $breakfastMeal = $breakfastQuantity = $lunchMeal = $lunchQuantity = $dinnerMeal = $dinnerQuantity = "";
 $breakfastMealErr = $breakfastQuantityErr = $lunchMealErr = $lunchQuantityErr = $dinnerMealErr = $dinnerQuantityErr = "";
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    if(empty($_POST['breakfastMeal'])){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (empty($_POST['breakfastMeal'])) {
         $breakfastMealErr = "Breakfast meal is required";
     }
-    
-    if(empty($_POST['breakfastQuantity'])){
+
+    if (empty($_POST['breakfastQuantity'])) {
         $breakfastQuantityErr = "Quantity of breakfast meal is required";
     }
-    
-    if(empty($_POST['lunchMeal'])){
+
+    if (empty($_POST['lunchMeal'])) {
         $lunchMealErr = "Lunch meal is required";
     }
-    
-    if(empty($_POST['lunchQuantity'])){
+
+    if (empty($_POST['lunchQuantity'])) {
         $lunchQuantityErr = "Quantity of lunch meal is required";
     }
-    
-    if(empty($_POST['dinnerMeal'])){
+
+    if (empty($_POST['dinnerMeal'])) {
         $dinnerMealErr = "Dinner meal is required";
     }
-    
-    if(empty($_POST['dinnerQuantity'])){
+
+    if (empty($_POST['dinnerQuantity'])) {
         $dinnerQuantityErr = "Quantity of dinner meal is required";
     }
-
 }
 
-if($_SERVER["REQUEST_METHOD"] == "POST"){
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
     $breakfastMeal = mysqli_real_escape_string($conn, $_POST['breakfastMeal']);
     $breakfastQuantity = mysqli_real_escape_string($conn, $_POST['breakfastQuantity']);
     $lunchMeal = mysqli_real_escape_string($conn, $_POST['lunchMeal']);
@@ -64,17 +62,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $query2 = "SELECT * FROM dietplan WHERE memberID = '$memberID' AND day = 'Sunday' ";
     $result2 = mysqli_query($conn, $query2);
 
-    if(mysqli_num_rows($result2) == 0){
-        
+    if (mysqli_num_rows($result2) == 0) {
+
         $query3 = "INSERT INTO dietplan(employeeID, breakfastMeal, breakfastQty, lunchMeal, lunchQty, dinnerMeal, dinnerQty, day, memberID) VALUES ('$employeeID', '$breakfastMeal', '$breakfastQuantity', '$lunchMeal', '$lunchQuantity', '$dinnerMeal', '$dinnerQuantity', '$day', '$memberID')";
 
-        if(!empty($breakfastMeal) && !empty($breakfastQuantity) && !empty($lunchMeal) && !empty($lunchQuantity) && !empty($dinnerMeal) && !empty($dinnerQuantity)){
+        if (!empty($breakfastMeal) && !empty($breakfastQuantity) && !empty($lunchMeal) && !empty($lunchQuantity) && !empty($dinnerMeal) && !empty($dinnerQuantity)) {
             $result3 = mysqli_query($conn, $query3);
         }
 
-        if($result3 == TRUE){
-            echo "<script> window.location.href='createDietPlanSunday.php?next=".$memberID."'; </script>";
-        }else{
+        if ($result3 == TRUE) {
+            echo "<script> alert('Updated Successfully!'); window.location.href='addSupplements.php?add=" . $memberID . "'; </script>";
+        } else {
             echo "<script> alert('Please fill all required data!'); </script>";
         }
     }
@@ -140,13 +138,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="gridTopic">Breakfast</div>
                         </td>
                         <td>
-                            <div class="gridText"><input type="text" name="breakfastMeal" placeholder="Meal" ]
-                                    value="<?php echo $breakfastMeal ?>">
+                            <div class="gridText"><input type="text" name="breakfastMeal" placeholder="Meal" ] value="<?php echo $breakfastMeal ?>">
                             </div>
                         </td>
                         <td>
-                            <div class="gridText"><input type="text" name="breakfastQuantity" placeholder="Quantity"
-                                    value="<?php echo $breakfastQuantity ?>">
+                            <div class="gridText"><input type="text" name="breakfastQuantity" placeholder="Quantity" value="<?php echo $breakfastQuantity ?>">
                             </div>
                         </td>
                     </tr>
@@ -155,13 +151,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             <div class="gridTopic">Lunch</div>
                         </td>
                         <td>
-                            <div class="gridText"><input type="text" name="lunchMeal" placeholder="Meal"
-                                    value="<?php echo $lunchMeal ?>">
+                            <div class="gridText"><input type="text" name="lunchMeal" placeholder="Meal" value="<?php echo $lunchMeal ?>">
                             </div>
                         </td>
                         <td>
-                            <div class=" gridText"><input type="text" name="lunchQuantity" placeholder="Quantity"
-                                    value="<?php echo $lunchQuantity ?>">
+                            <div class=" gridText"><input type="text" name="lunchQuantity" placeholder="Quantity" value="<?php echo $lunchQuantity ?>">
                             </div>
                         </td>
                     </tr>
@@ -171,19 +165,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </td>
                         <td>
                             <div class="gridText">
-                                <input type="text" name="dinnerMeal" placeholder="Meal"
-                                    value="<?php echo $dinnerMeal ?>">
+                                <input type="text" name="dinnerMeal" placeholder="Meal" value="<?php echo $dinnerMeal ?>">
                             </div>
                         </td>
                         <td>
-                            <div class=" gridText"><input type="text" name="dinnerQuantity" placeholder="Quantity"
-                                    value="<?php echo $dinnerQuantity ?>">
+                            <div class=" gridText"><input type="text" name="dinnerQuantity" placeholder="Quantity" value="<?php echo $dinnerQuantity ?>">
                             </div>
                         </td>
                     </tr>
                 </table>
+                <button type="submit" name="add" class="saveButton">Save</button>
             </form>
-            <button onclick="document.getElementById('popUp').style.display='block'" class="saveButton">Save</button>
         </div>
 
     </div>
@@ -198,18 +190,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <script>
-    var popUpContent = document.getElementById('popUp');
-    var span = document.getElementsByClassName("close")[0];
+        var popUpContent = document.getElementById('popUp');
+        var span = document.getElementsByClassName("close")[0];
 
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
+        span.onclick = function() {
             popUpContent.style.display = "none";
         }
-    }
+
+        window.onclick = function(event) {
+            if (event.target == popUpContent) {
+                popUpContent.style.display = "none";
+            }
+        }
     </script>
 
 </body>

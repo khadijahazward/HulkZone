@@ -1,10 +1,107 @@
 <?php 
+date_default_timezone_set('Asia/Colombo');
 include 'authorization.php';
 include '../connect.php';
 ?>
 
 <?php
     include("setProfilePic.php");
+?>
+
+<?PHP
+    $memberID = $row1['memberID'];
+    $userID = $_SESSION['userID'];
+    
+    // Get the latest expiry date from the paymentplan table for that member
+    $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = '$memberID' ORDER BY expiryDate DESC LIMIT 1;";
+    $result5 = mysqli_query($conn, $sql5);
+
+    if ($result5 && mysqli_num_rows($result5) > 0) {
+        $row5 = mysqli_fetch_assoc($result5);
+        $expiryDate = $row5['expiryDate'];
+
+        $cDate = date('y-m-d');
+        //seconds divided by seconds to get days
+        $dayUntilExpiry = (strtotime($expiryDate) - strtotime($cDate)) / (60 * 60 * 24);
+
+        //days until expiry is 3 or lesser but more than 0
+        if ($dayUntilExpiry > 0 && $dayUntilExpiry <= 3) {
+            // Check if a notification has already been sent for this expiry date
+            // for type: Announcement = 0, Complaint = 1, Payment = 2.
+            $sql6 = "SELECT notificationsID FROM notifications WHERE type = 2 AND DATE(created_at) = '$cDate' AND notificationsID IN (SELECT notificationsID FROM usernotifications WHERE userID = $userID)";
+            $result6 = mysqli_query($conn, $sql6);
+
+            if ($result6 && mysqli_num_rows($result6) > 0) {
+                // Notification has already been sent
+            } else {
+                // Insert a new record into the notifications table
+                $message = "Your membership plan will expire in $dayUntilExpiry days.";
+                $type = 2;
+                $created_at = date('Y-m-d H:i:s');
+    
+                $sql7 = "INSERT INTO notifications(message, type, created_at) VALUES ('$message', '$type', '$created_at')";
+                $result7 = mysqli_query($conn, $sql7);
+    
+                if ($result7) {
+                    //getting previous inserted notification id
+                    $notificationID = mysqli_insert_id($conn);
+
+                    // Insert a new record into the user_notifications table 
+                    $sql8 = "INSERT INTO usernotifications(userID, notificationsID) VALUES ('$userID', '$notificationID')";
+                    $result8 = mysqli_query($conn, $sql8);
+                }else{
+                    echo "Error: " . mysqli_error($conn);
+                }
+            }
+
+        }
+
+        if($dayUntilExpiry == 0){
+
+            // Check if a notification has already been sent to admin
+            // for type: Announcement = 0, Complaint = 1, Payment = 2.
+            $adminID = 128;
+            $sql9 = "SELECT notificationsID FROM notifications WHERE type = 2 AND DATE(created_at) = '$cDate' AND notificationsID IN (SELECT notificationsID FROM usernotifications WHERE userID = $adminID)";
+            $result9 = mysqli_query($conn, $sql9);
+
+            if ($result9 && mysqli_num_rows($result9) > 0) {
+                // Notification has already been sent
+            } else {
+                // Insert a new record into the notifications table
+                $message = "Member ID $memberID membership plan has expired. The Account Has Been Disabled.";
+                $type = 2;
+                $created_at = date('Y-m-d H:i:s');
+    
+                $sql10 = "INSERT INTO notifications(message, type, created_at) VALUES ('$message', '$type', '$created_at')";
+                $result10 = mysqli_query($conn, $sql10);
+    
+                if ($result10) {
+                    //getting previous inserted notification id
+                    $notificationID = mysqli_insert_id($conn);
+
+                    // Insert a new record into the user_notifications table 
+                    $sql11 = "INSERT INTO usernotifications(userID, notificationsID) VALUES ('$adminID', '$notificationID')";
+                    $result11 = mysqli_query($conn, $sql11);
+                }else{
+                    echo "Error: " . mysqli_error($conn);
+                }
+            }
+
+            // Disable user account
+            $sql12 = "UPDATE user SET statuses = 0 WHERE userID = $userID";
+            $result12 = mysqli_query($conn, $sql12);
+            
+            if ($result12) {
+                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please contact the admin for more information.');</script>";
+                header("Location: ../home/logout.php");
+                exit();
+            } else {
+                echo "Error: " . mysqli_error($conn);
+            }
+        }
+
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +137,6 @@ include '../connect.php';
                 </div>
             </div>
             <div class="content">
-                <div class="row">
-                    
-                </div>
                 <div class="row">
                     <p>Today’s Meal Plan</p>
                     <div class="row-2">

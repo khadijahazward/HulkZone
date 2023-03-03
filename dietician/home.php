@@ -1,6 +1,8 @@
 <?php
 
-include '../connect.php';
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
 
 ?>
 
@@ -26,7 +28,7 @@ include '../connect.php';
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -44,9 +46,9 @@ include '../connect.php';
                 <hr>
                 <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
-                <a href="profile.php"><i class="fa fa-cog"></i>My Profile</a>
+                <a href="profile.php"><i class="fa fa-user"></i>My Profile</a>
                 <hr>
-                <a href="complaint.php">Complaints</a>
+                <a href="complaint.php"><i class="fa fa-cog"></i>Complaints</a>
                 <hr>
                 <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
                 <hr>

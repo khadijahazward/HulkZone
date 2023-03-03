@@ -181,9 +181,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         </td>
                     </tr>
                 </table>
+                <button class="saveButton" name="next" type="submit"
+                    onclick="window.location.href='createDietPlanSunday.php'">Next</button>
             </form>
-            <button class="saveButton" name="next" type="submit"
-                onclick="window.location.href='createDietPlanSunday.php'">Next</button>
         </div>
     </div>
 </body>
