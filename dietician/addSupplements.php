@@ -5,59 +5,94 @@ include 'connect.php';
 include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+$query1 = "SELECT * FROM employee INNER JOIN user ON employee.userID = user.userID WHERE user.userID = '$userID'";
+$result1 = mysqli_query($conn, $query1);
+if(mysqli_num_rows($result1) == 1){
+    $row = mysqli_fetch_assoc($result1);
+    $employeeID = $row['employeeID'];
+}else{
+    echo '<script> window.alert("Error receiving employee ID!");</script>';
+}
+
 $memberID = "";
-
-if (isset($_GET['add'])) {
-    $memberID = $_GET['add'];
+if(isset($_GET['new'])){
+    $memberID = $_GET['new'];
 }
 
-$sql = "SELECT * FROM employee WHERE userID = '$userID'";
-$sqlResult = mysqli_query($conn, $sql);
-if (mysqli_num_rows($sqlResult) == 1) {
-    $employee = mysqli_fetch_assoc($sqlResult);
-    $employeeID = $employee['employeeID'];
-} else {
-    echo '<script> window.alert("Error of receiving employee ID!");</script>';
-}
+$supplement = $supplementType = "";
 
-if ($_SERVER["REQUEST_METHOD"] = "POST") {
+if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-    $supplement = $_POST['supplement'];
-    $supplementType = "";
+    $supplement = mysqli_real_escape_string($conn, $_POST['supplement']);
 
-    $query1 = "SELECT * FROM supplement WHERE memberID = '$memberID'";
-    $result1 = mysqli_query($conn, $query1);
-
-    if (mysqli_num_rows($result1) == 0) {
-
-        if (isset($_POST['submit'])) {
-
-            if (($supplement = "100% Whey Protein Professional") || ($supplement = "BSN Syntha 6") || ($supplement = "Combat Power 4.2lbs") || ($supplement = "Iso-Tropic Max Protein Isolate") || ($supplement = "Gold Standard Whey") || ($supplement = "Levro Whey Supreme")) {
-                $supplementType = "Protein";
-            } elseif (($supplement = "Animal Prime Pre Workout") || ($supplement = "Animal Rage XL") || ($supplement = "ASSAULT") || ($supplement = "C4 Ripped") || ($supplement = "Cirtrulline Malate 90 Servings") || ($supplement = "GAT Nitraflex")) {
-                $supplementType = "Pre-Workout";
-            } elseif (($supplement = "ANABOLIC PEAK") || ($supplement = "Carnivor Mass") || ($supplement = "Critical Mass") || ($supplement = "JUMBO HARDCORE") || ($supplement = "Serious Mas") || ($supplement = "Super Mass Gainer")) {
-                $supplementType = "Mass Gainer";
-            } elseif (($supplement = "Animal Cuts") || ($supplement = "CLA GOLD 1000") || ($supplement = "Hydroxycut Hardcore Elite") || ($supplement = "L-Carnitine XS Liquid 3000MG") || ($supplement = "Nutrex Lipo 6 Black Strim Free 60 TB") || ($supplement = "Shred JYM Fat Burner")) {
-                $supplementType = "Fat Burner";
-            } else {
-                echo '<script> window.alert("Error of receiving supplement type!");</script>';
-            }
-
-            $query = "INSERT INTO supplement (supplementName, supplementType, employeeID, memberID) VALUES ('$supplement', '$supplementType', '$employeeID', '$memberID')";
-            $result = mysqli_query($conn, $query);
-
-            if ($result) {
-                echo '<script> window.alert("Success"); window.location.href="dietPlan.php";</script>';
-                
-            } else {
-                echo '<script> window.alert("Error");</script>';
-            }
-        }
+    if (($supplement == "100% Whey Protein Professional") || ($supplement == "BSN Syntha 6") || ($supplement == "Combat Power 4.2lbs") || ($supplement == "Iso-Tropic Max Protein Isolate") || ($supplement == "Gold Standard Whey") || ($supplement == "Levro Whey Supreme")) {
+        $supplementType = "Protein";
+    } elseif (($supplement == "Animal Prime Pre Workout") || ($supplement == "Animal Rage XL") || ($supplement == "ASSAULT") || ($supplement == "C4 Ripped") || ($supplement == "Cirtrulline Malate 90 Servings") || ($supplement == "GAT Nitraflex")) {
+        $supplementType = "Pre-Workout";
+    } elseif (($supplement == "ANABOLIC PEAK") || ($supplement == "Carnivor Mass") || ($supplement == "Critical Mass") || ($supplement == "JUMBO HARDCORE") || ($supplement == "Serious Mas") || ($supplement == "Super Mass Gainer")) {
+        $supplementType = "Mass Gainer";
+    } elseif (($supplement == "Animal Cuts") || ($supplement == "CLA GOLD 1000") || ($supplement == "Hydroxycut Hardcore Elite") || ($supplement == "L-Carnitine XS Liquid 3000MG") || ($supplement == "Nutrex Lipo 6 Black Strim Free 60 TB") || ($supplement == "Shred JYM Fat Burner")) {
+        $supplementType = "Fat Burner";
     } else {
-        echo '<script> window.alert("Already assign a supplement");window.location.href="dietPlan.php";</script>';
+        echo '<script> window.alert("Error of receiving supplement type!");</script>';
     }
+        
+    if(isset($_POST['save'])){       
+
+        $query2 = "INSERT INTO supplement (employeeID, supplementName, supplementType, memberID) VALUES ('$employeeID', '$supplement', '$supplementType', '$memberID')";
+        $result2 = mysqli_query($conn, $query2);
+
+        if($result2){
+            echo "<script> window.alert('Inserting data id successful!');window.location.href='dietPlan.php'</script>";
+        }else{
+            echo "<script> window.alert('Error of Inserting data!');</script>";
+        }
+    }else{
+        echo "<script> window.alert('Error of isset !');</script>";
+    }
+    
+}else{
+    echo "<script> window.alert('Error of post method!');</script>";
 }
+// if ($_SERVER["REQUEST_METHOD"] = "POST") {
+
+//     $supplement = $_POST['supplement'];
+//     $supplementType = "";
+
+//     $query1 = "SELECT * FROM supplement WHERE memberID = '$memberID'";
+//     $result1 = mysqli_query($conn, $query1);
+
+//     if (mysqli_num_rows($result1) == 0) {
+
+//         if (isset($_POST['submit'])) {
+
+            // if (($supplement = "100% Whey Protein Professional") || ($supplement = "BSN Syntha 6") || ($supplement = "Combat Power 4.2lbs") || ($supplement = "Iso-Tropic Max Protein Isolate") || ($supplement = "Gold Standard Whey") || ($supplement = "Levro Whey Supreme")) {
+            //     $supplementType = "Protein";
+            // } elseif (($supplement = "Animal Prime Pre Workout") || ($supplement = "Animal Rage XL") || ($supplement = "ASSAULT") || ($supplement = "C4 Ripped") || ($supplement = "Cirtrulline Malate 90 Servings") || ($supplement = "GAT Nitraflex")) {
+            //     $supplementType = "Pre-Workout";
+            // } elseif (($supplement = "ANABOLIC PEAK") || ($supplement = "Carnivor Mass") || ($supplement = "Critical Mass") || ($supplement = "JUMBO HARDCORE") || ($supplement = "Serious Mas") || ($supplement = "Super Mass Gainer")) {
+            //     $supplementType = "Mass Gainer";
+            // } elseif (($supplement = "Animal Cuts") || ($supplement = "CLA GOLD 1000") || ($supplement = "Hydroxycut Hardcore Elite") || ($supplement = "L-Carnitine XS Liquid 3000MG") || ($supplement = "Nutrex Lipo 6 Black Strim Free 60 TB") || ($supplement = "Shred JYM Fat Burner")) {
+            //     $supplementType = "Fat Burner";
+            // } else {
+            //     echo '<script> window.alert("Error of receiving supplement type!");</script>';
+            // }
+
+//             $query = "INSERT INTO supplement (supplementName, supplementType, employeeID, memberID) VALUES ('$supplement', '$supplementType', '$employeeID', '$memberID')";
+//             $result = mysqli_query($conn, $query);
+
+//             if ($result) {
+//                 echo '<script> window.alert("Success"); window.location.href="dietPlan.php";</script>';
+                
+//             } else {
+//                 echo '<script> window.alert("Error");</script>';
+//             }
+//         }
+//     } else {
+//         echo '<script> window.alert("Already assign a supplement");window.location.href="dietPlan.php";</script>';
+//     }
+// }
 
 
 ?>
@@ -86,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] = "POST") {
         </div>
         <div class="content">
             <form method="POST"
-                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?add=<?php echo $memberID ?>">
+                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>?new=<?php echo $memberID ?>">
                 <div class="topic">
                     <p>Supplements</p>
                 </div>
@@ -364,7 +399,7 @@ if ($_SERVER["REQUEST_METHOD"] = "POST") {
                         </tr>
                     </table>
                 </div>
-                <button name="submit" class="saveButton">Save</button>
+                <button name="save" class="saveButton">Save</button>
             </form>
         </div>
 </body>

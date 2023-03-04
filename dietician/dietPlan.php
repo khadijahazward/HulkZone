@@ -1,10 +1,61 @@
 <?php
 
 include 'authorization.php';
-include 'connect.php'
+include 'connect.php';
+include 'setProfilePic.php';
+
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if(mysqli_num_rows($result1) == 1){
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID']; 
+}else{
+    echo '<script> window.alert("Error of receiving employee details!");</script>';
+}
+
+
+// care about the start and end date also
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID";
+$result2 = mysqli_query($conn, $query2);
+
+if(mysqli_num_rows($result2) > 0){
+    while($row2 = mysqli_fetch_assoc($result2)){
+        $memberID = $row2['memberID'];
+        
+        $query3 = "SELECT * FROM member WHERE memberID = $memberID";
+        $result3 = mysqli_query($conn, $query3);
+        
+        if($result3){
+            $row3 = mysqli_fetch_assoc($result3);
+            $memberUserID = $row3['userID'];
+
+            $query4 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
+            $result4 = mysqli_query($conn, $query4);
+            
+            if(mysqli_num_rows($result4) > 0){
+                while($row4 = mysqli_fetch_assoc($result4)){
+                    
+                    $memberFName = $row4['fName'];
+                    $memberLName = $row4['lName'];
+                    $memberProfilePic = $row4['profilePhoto'];
+                    
+                    if($row['statuses'] == '1'){
+                        $memberStatus = "Active";
+                    }else{
+                        $memberStatus = "Not Active";
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +76,7 @@ include 'connect.php'
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -67,61 +118,47 @@ include 'connect.php'
                             <th>Supplement</th>
                         </tr>
                     </thead>
-
-                    <?php
-
-                    $query =    "SELECT member.memberID, user.profilePhoto, user.fName, user.lName, user.statuses 
-                                FROM member 
-                                INNER JOIN user 
-                                ON member.userID = user.userID";
-    
-                    $result = mysqli_query($conn, $query);
-    
-                    if(mysqli_num_rows($result) > 0){
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            $selectedMemberID = $row['memberID'];
-                            $_SESSION['selectedMemberID'] = $selectedMemberID;
-            
-                            echo "<tbody>
-                                <tr>
-                                    <td>". $selectedMemberID ."</td>
-                                    <td><img src=".$row['profilePhoto']." alt='member DP'></td>
-                                    <td>". $row["fName"] ." ". $row["lName"] ."</td>
-                                    <td>";
-                                        if($row['statuses'] == '1'){
-                                            echo "Active";
-                                        }else{
-                                            echo "Not Active";
-                                        }
-                          
-                                    echo "</td>";
-            
+                    <?php echo ";
+                    <tbody>
+                        <tr>
+                            <td>".$memberID."</td>
+                            <td><img src=".$memberProfilePic." alt='member DP'></td>
+                            <td>".$memberFName." ".$memberLName."</td>
+                            <td>".$memberStatus."</td>";
                             
-                            $query1 = "SELECT * FROM dietplan WHERE day='monday' AND memberID= $selectedMemberID";
-                            $result1 = mysqli_query($conn, $query1);
 
-                            if(mysqli_num_rows($result1) == 0){
+                            
+                            $query5 = "SELECT * FROM dietplan WHERE day='monday' AND memberID= $memberID";
+                            $result5 = mysqli_query($conn, $query5);
+
+                            if(mysqli_num_rows($result5) == 0){
                                 echo "<td>
-                                    <a href='createDietPlanMonday.php?new=".$row['memberID']."'><button>New</button></a>
+                                    <a href='createDietPlanMonday.php?new=".$memberID."'><button>New</button></a>
+                                </td>";
+                                
+                            }else{
+                                echo "<td>
+                                        <a href='viewDietPlan.php?view=".$memberID."'><button>View</button></a>
+                                        <a href='updateDietPlan.php?update=".$memberID."'><button>Update</button></a>
+                                     </td>";
+                            }
+
+                            $query6 = "SELECT * FROM supplement WHERE memberID = $memberID AND employeeID = employeeID";
+                            $result6 = mysqli_query($conn, $query6);
+
+                            if(mysqli_num_rows($result6) == 0){
+                                echo "<td>
+                                    <a href='addSupplements.php?new=".$memberID."'><button>New</button></a>
                                 </td>";
                             }else{
                                 echo "<td>
-                                    <a href='viewDietPlan.php?view=".$row['memberID']."'><button>View</button></a>
-                                    <a href='updateDietPlan.php?update=".$row['memberID']."'><button>Update</button></a>
-                                    </td>";
+                                        <a href='viewDietPlan.php?view=".$memberID."'><button>View</button></a>
+                                        <a href='updateDietPlan.php?update=".$memberID."'><button>Update</button></a>
+                                     </td>";
                             }
-
-                            $query2 = "SELECT * FROM supplement WHERE memberID = $selectedMemberID";
-                            echo    
-                            "<td>
-                                <a href='supplements.php?add=".$row['memberID']."'><button>View</button></a>
-                            </td>
-                            </tr>
-                        </tbody>";
-                        }
-                    }
-                ?>
-
+                    echo"</tr>
+                    </tbody>";
+                    ?>
                 </table>
             </div>
         </div>
