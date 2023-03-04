@@ -1,5 +1,5 @@
 <?php
-include('authorization.php');
+/*include('authorization.php');
 include('../../HulkZone/connect.php');
 
 // Get the announcementID from the URL
@@ -27,8 +27,68 @@ if (isset($_POST['submit'])) {
 
     // Redirect the user to the view announcements page
     header("Location: manageComplaints.php");
+    exit();*/
+    include('authorization.php');
+include('../../HulkZone/connect.php');
+
+$complaintID = mysqli_real_escape_string($conn, $_GET['complaintID']);
+
+// Check for the form submission
+if (isset($_POST['submit'])) {
+    // Get the form data
+    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+    $description = mysqli_real_escape_string($conn, $_POST['description']);
+    $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
+    $status = mysqli_real_escape_string($conn, $_POST['status']);
+    $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
+    $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
+
+    // Update the complaint table
+    $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
+    $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
+    $stmt->execute();
+    $stmt->close();
+
+    if ($status == 'Completed') {
+        // Get the userID from the complaint table
+        $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
+        $stmt->bind_param("i", $complaintID);
+        $stmt->execute();
+        $stmt->bind_result($userID);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Insert data into the notifications table
+        $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
+        $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
+        $date = $currentDateTime->format('Y-m-d H:i:s');
+        $message = $actionTaken;
+
+        $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
+        $stmt->bind_param("ss", $message, $date);
+        $stmt->execute();
+        $notificationsID = $stmt->insert_id;
+        $stmt->close();
+
+        // Insert data into the usernotifications table
+        $status = 0;
+
+        $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
+        $stmt->bind_param("iii", $notificationsID, $userID, $status);
+        $stmt->execute();
+        $usernotificationsID = $stmt->insert_id;
+        $stmt->close();
+    }
+
+    // Close the database connection
+    $conn->close();
+
+    // Redirect the user to the manage complaints page
+    header("Location: manageComplaints.php");
     exit();
 }
+
+
 
 if(isset($_GET['complaintID'])) {
   $complaintID = $_GET['complaintID'];
@@ -133,12 +193,12 @@ include('../admin/sideBar.php');
                     <br>
                     <label class="formContent">Action Taken</label>
                     <br>
-                    <textarea name="actionTaken" id="" cols="60" rows="5" style="margin-left: 258px;"><?php echo $actionTaken; ?></textarea>
+                    <textarea name="actionTaken" id="" cols="60" rows="5" style="margin-left: 258px;" required><?php echo $actionTaken; ?></textarea>
                     <br>
                     <label class="formContent">Complaint Status</label>
-                    <select name="status" id="gender" style="margin-left: 98px;" >
-                        <option value="filed"  <?php echo $status=='filed'?'selected':''; ?>>Filed</option>
-                        <option value="completed"  <?php echo $status=='completed'?'selected':''; ?>>Completed</option>
+                    <select name="status" id="gender" style="margin-left: 98px;" required>
+                        <option value="Filed"  <?php echo $status=='filed'?'selected':''; ?>>Filed</option>
+                        <option value="Completed"  <?php echo $status=='completed'?'selected':''; ?>>Completed</option>
                       
                     </select>
                     <br>

@@ -319,7 +319,7 @@
                     $result = mysqli_query($conn, $sql);
                 }
 
-                $sql1 = "select userID from user where email = '$username'";
+                $sql1 = "select * from user where email = '$username'";
                     
                 $result1 = mysqli_query($conn, $sql1);
                 
@@ -331,13 +331,46 @@
                     $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
         
                     $result2 = mysqli_query($conn, $sql2);
+
+                    //for inserting payment expiry date
+                    $sql3 = "SELECT memberID FROM member WHERE userID = '$userid'";
+                    $result3 = mysqli_query($conn, $sql3);
+
+                    if ($result3 && mysqli_num_rows($result3) > 0) {
+                        $row3 = mysqli_fetch_assoc($result3);
+                        $memberID = $row3['memberID'];
+                        $createdDate = $row['created_at'];
+
+                        // Calculate expiry date based on plan type
+                        switch ($plans) {
+                            case 'oneMonth':
+                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 month'));
+                            break;
+                            case 'threeMonth':
+                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +3 months'));
+                            break;
+                            case 'sixMonth':
+                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +6 months'));
+                            break;
+                            case 'twelveMonth':
+                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 year'));
+                            break;
+                            default:
+                            $expiryDate = '';
+                            break;
+                        }
+
+
+                        $sql4 = "INSERT INTO paymentplan(memberID, expiryDate) VALUES ('$memberID', '$expiryDate')";
+                        $result4 = mysqli_query($conn, $sql4);
+                    }
                 }
                
 
                 //checking if both are correct 
-                if ($result == TRUE && isset($result2) && $result2 == true) {
+                if ($result == TRUE && isset($result2) && $result2 == true && $result4 == true) {
                     echo "<script> alert('Registration Successful!'); </script>";
-                    echo "<script>window.location.replace('index.html');</script>";
+                    echo "<script>window.location.replace('../index.html');</script>";
                 }else{
                     echo "<script> alert('Please Fill all the required Data!'); </script>";
                 }

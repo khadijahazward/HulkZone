@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 26, 2023 at 04:54 PM
+-- Generation Time: Mar 02, 2023 at 02:27 PM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -20,30 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `hulkzone`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `announcement`
---
-
-CREATE TABLE `announcement` (
-  `announcementID` int NOT NULL,
-  `date` date NOT NULL,
-  `message` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `announcement`
---
-
-INSERT INTO `announcement` (`announcementID`, `date`, `message`) VALUES
-(1, '2022-12-05', 'hi'),
-(3, '2022-12-22', 'hello today gym is closed.'),
-(4, '2022-12-16', 'Gym is going to close soon'),
-(5, '2022-12-16', 'Keep Gym clean'),
-(6, '2022-12-16', 'Hi'),
-(7, '2023-02-10', 'gym closed');
 
 -- --------------------------------------------------------
 
@@ -71,7 +47,7 @@ CREATE TABLE `complaint` (
   `dateReported` date NOT NULL,
   `actionTaken` text,
   `userID` int NOT NULL,
-  `evidence` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci
+  `evidence` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -79,8 +55,8 @@ CREATE TABLE `complaint` (
 --
 
 INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `status`, `dateReported`, `actionTaken`, `userID`, `evidence`) VALUES
-(28, 'Injured in the gym', 'i was working out and then suddenly the equipment fell off from the top and hit my leg.', 'Filed', '2023-02-15', 'completed', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676437108.jpg'),
-(29, 'i got beaten from my trainer', 'i was working out and was exhausted, so I took a rest. suddenly, my trainer came and slapped me.', 'Filed', '2023-02-19', NULL, 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676804757.jpg');
+(28, 'Injured in the gym', 'i was working out and then suddenly the equipment fell off from the top and hit my leg.', 'Ignored', '2023-02-15', 'completed', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676437108.jpg'),
+(29, 'i got beaten from my trainer', 'i was working out and was exhausted, so I took a rest. suddenly, my trainer came and slapped me.', 'completed', '2023-02-19', 'done', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676804757.jpg');
 
 -- --------------------------------------------------------
 
@@ -94,7 +70,7 @@ CREATE TABLE `dieticianappointment` (
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
-  `status` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0'
+  `status` varchar(100) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -106,7 +82,7 @@ CREATE TABLE `dieticianappointment` (
 CREATE TABLE `dietplan` (
   `employeeID` int NOT NULL,
   `dietplanDate` date NOT NULL,
-  `mealType` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `mealType` varchar(100) NOT NULL,
   `Qty` varchar(100) NOT NULL,
   `day` varchar(100) NOT NULL,
   `meal` varchar(100) NOT NULL,
@@ -123,9 +99,9 @@ CREATE TABLE `dietplan` (
 CREATE TABLE `emergencycontact` (
   `memberID` int NOT NULL,
   `contactName` varchar(100) NOT NULL,
-  `relationship` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `relationship` varchar(100) DEFAULT NULL,
   `telephone` int DEFAULT NULL,
-  `streetNumber` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `streetNumber` text,
   `addressLine1` text,
   `addressLine2` text,
   `city` text
@@ -246,7 +222,11 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 (16, '2023-02-19', 41, 1, 0),
 (17, '2023-02-20', 41, 2, 0),
 (18, '2023-02-22', 41, 1, 0),
-(28, '2023-02-26', 41, 1, 0);
+(28, '2023-02-26', 41, 1, 0),
+(29, '2023-02-28', 41, 1, 1),
+(30, '2023-03-01', 41, 1, 1),
+(31, '2023-03-05', 41, 2, 1),
+(32, '2023-03-02', 41, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -258,7 +238,7 @@ CREATE TABLE `medicalform` (
   `memberID` int NOT NULL,
   `isFatigue` varchar(10) NOT NULL,
   `isSmoke` varchar(10) NOT NULL,
-  `existing_conditions` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `existing_conditions` text NOT NULL,
   `isInjury` varchar(10) NOT NULL,
   `allergies` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -289,11 +269,10 @@ CREATE TABLE `member` (
 --
 
 INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALUES
-(41, 86, 100, 20, 'threeMonth'),
-(43, 98, 0, 0, 'twelveMonth'),
-(47, 102, 0, 0, 'oneMonth'),
-(52, 108, 0, 0, 'oneMonth'),
-(54, 128, 0, 0, 'oneMonth');
+(41, 86, 100, 20, 'sixMonth'),
+(55, 131, 100, 40, 'threeMonth'),
+(56, 132, 100, 35, 'threeMonth'),
+(57, 133, 73, 54, 'sixMonth');
 
 -- --------------------------------------------------------
 
@@ -327,6 +306,27 @@ CREATE TABLE `message` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `notificationsID` int NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `type` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`notificationsID`, `message`, `created_at`, `type`) VALUES
+(1, 'Gym is closed today after4.00p.m', '2023-03-02 08:29:45', 0),
+(5, 'Keep the gym clean', '2023-03-02 13:27:04', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `payment`
 --
 
@@ -354,10 +354,20 @@ INSERT INTO `payment` (`paymentID`, `paymentDate`, `amount`, `type`, `memberID`)
 --
 
 CREATE TABLE `paymentplan` (
+  `planID` int NOT NULL,
   `memberID` int NOT NULL,
-  `paymentID` int NOT NULL,
   `expiryDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `paymentplan`
+--
+
+INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
+(1, 55, '2023-06-02 00:00:00'),
+(2, 56, '2023-06-02 00:00:00'),
+(3, 57, '2023-09-02 00:00:00'),
+(4, 41, '2023-06-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -457,21 +467,21 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (5, 1, 5, 10),
 (6, 1, 6, 10),
 (7, 1, 7, 10),
-(8, 2, 1, 10),
+(8, 2, 1, 9),
 (9, 2, 2, 10),
 (10, 2, 3, 10),
 (11, 2, 4, 10),
 (12, 2, 5, 10),
 (13, 2, 6, 10),
 (14, 2, 7, 10),
-(15, 3, 1, 10),
+(15, 3, 1, 9),
 (16, 3, 2, 10),
 (17, 3, 3, 10),
 (18, 3, 4, 10),
 (19, 3, 5, 10),
 (20, 3, 6, 10),
 (21, 3, 7, 10),
-(22, 4, 1, 10),
+(22, 4, 1, 9),
 (23, 4, 2, 10),
 (24, 4, 3, 10),
 (25, 4, 4, 10),
@@ -493,7 +503,7 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (41, 6, 6, 10),
 (42, 6, 7, 10),
 (43, 7, 1, 9),
-(44, 7, 2, 10),
+(44, 7, 2, 9),
 (45, 7, 3, 10),
 (46, 7, 4, 10),
 (47, 7, 5, 10),
@@ -532,11 +542,11 @@ CREATE TABLE `user` (
   `roles` int NOT NULL,
   `statuses` int NOT NULL,
   `contactNumber` int NOT NULL,
-  `streetNumber` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `addressLine01` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `addressLine02` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `city` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `pw` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `streetNumber` varchar(255) DEFAULT NULL,
+  `addressLine01` text,
+  `addressLine02` text,
+  `city` text,
+  `pw` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
   `email` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -547,21 +557,42 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`, `dateOfBirth`, `roles`, `statuses`, `contactNumber`, `streetNumber`, `addressLine01`, `addressLine02`, `city`, `pw`, `created_at`, `email`) VALUES
 (86, 'Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.png', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
-(98, 'munsira', 'Mansoor', '123456789012', 'Female', NULL, '1998-07-09', 1, 1, 711541753, '', '', '', '', '$2y$10$qIy0CFE7KytNEGbPsQ/7ZugRzxliEiZUZ.EDkGeIUPhMwnbvDvZ4W', '2022-12-16', 'kj@gmail.com'),
 (99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
 (100, 'Saitharsan', 'Perera', '123456789012', 'Female', NULL, '2021-12-08', 2, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
 (101, 'kj', 'aj', '123456789V', 'Male', NULL, '1999-02-17', 3, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
-(102, 'Khadijah', 'Azward', '123456789V', 'Male', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$eUxzhlIJVy8LIPlDx2qUTOh6awKys29yPnDM/fu8zZTxa.kXcYJ/O', '2023-01-31', '123@gmail.com'),
 (105, 'jkj', 'jbjk', '123456789009', 'Male', NULL, '2004-12-15', 2, 1, 1234567890, '', '', '', '', '$2y$10$F3YTzaS6JYEw8G62AppFletRnC9kJKhc/zVOZwW.bow6x7OSPxKl2', '2023-01-31', 'kji@gmail.com'),
-(108, 'Rujhan', 'Khan', '123456789V', 'Male', NULL, '2004-12-01', 1, 1, 711541752, '', '', '', '', '$2y$10$R7UcP6DyHFL0HY48bBQ/4.f37nSfNmDsDFMBL85NeoNgM8N.LrhuO', '2023-02-03', 'rujhankhan@gmail.com'),
 (121, 'Eshitha', 'Kiribathgoda', '123098567432', 'Male', NULL, '2000-02-11', 2, 1, 776094223, '2', 'leyards Broadway', 'colombo', '', '$2y$10$Ukbnmw28hSRlQmVnM5JRsOC1/dZ.0lzD36e8P8DKhfTD75vtWARAi', '2023-02-09', 'eshitha@gmail.com'),
 (122, 'kaveesha', 'gunawardana', '123456789V', 'Male', NULL, '2000-01-01', 3, 1, 711541753, '10', 'flower road', '', 'colombo 10', '$2y$10$.7jusna.OggSxAJjoUdPDOaZkyfgMRUIMiUp1GKCqZVbbxeUMhg1W', '2023-02-10', 'kaveesha@gmail.com'),
 (125, 'hun', 'meh', '123456789V', 'Male', NULL, '2004-12-01', 2, 1, 71145689, '192', 'shoe road', '', 'colombo', '$2y$10$VI/sq8tw741aK2tdnpZS9.PEL8JLN2qvjrAlVd63v/E8p1PpVOpuu', '2023-02-10', 'hun@gmail.com'),
 (126, 'james', 'millie', '123456789V', 'Male', NULL, '2004-11-29', 3, 1, 1234567890, '', '', '', '', '$2y$10$mpcJll08KRJ814NC.3oxKeWjUUMjjqVGvgbV1HCri7du5ntUZqY6W', '2023-02-10', 'james@gmail.com'),
 (127, 'Juliet ', 'Khan', '123456789V', 'Female', NULL, '2004-12-01', 2, 1, 115467876, '', '', '', '', '$2y$10$nhnBvpmuRTPQGMejHCfCM.fsK64FyULvN/eKHAKdrB0ZdY1h0WXGS', '2023-02-10', 'juliet@gmail.com'),
-(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', '', '', 'Colombo', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2023-02-10', 'munchi@gmail.com'),
+(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', 'hemmathagama', '', 'Colombo', '$2y$10$7fCyAsl.cReU6BIgzhe81OFHBBMVuH/9qP1pYsYUJBtxyysxUkJBy', '2023-02-10', 'munchi@gmail.com'),
 (129, 'Edward', 'Gardin', '9855546232V', 'Male', NULL, '2004-12-03', 2, 1, 775087334, '3', '', '', 'Colombo', '$2y$10$1hCR19NL/PqarKGzfsLc3eQUNJhI6kRXWIiiz/s/Y9BpBe6KrTtYS', '2023-02-10', 'gardin@gmail.com'),
-(130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com');
+(130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com'),
+(131, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$wDE0s4uzlH/pFt4I8G.MaeHCcE6GUaMKSfmIsaA5.AuyQaIbnY3xK', '2023-03-02', 'kay40@gmail.com'),
+(132, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$R5WsAWOx9jtwwTIu2jN9VuoNS2dqLbWRM2C46urgDqoXjF3I9E2YS', '2023-03-02', 'kay35@gmail.com'),
+(133, 'amjad', 'azward', '200070903808', 'Male', NULL, '2001-01-08', 1, 1, 711541763, '172', 'leyards', 'broadway', 'colombo', '$2y$10$tfBOp99YGa/vsygAvvRRpOvRL5l9FYfIkfkoy/bdKyF9WRakR95Yu', '2023-03-02', 'amjad@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `usernotifications`
+--
+
+CREATE TABLE `usernotifications` (
+  `usernotificationsID` int NOT NULL,
+  `userID` int NOT NULL,
+  `notificationsID` int NOT NULL,
+  `status` int NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usernotifications`
+--
+
+INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notificationsID`, `status`) VALUES
+(1, 86, 1, 0),
+(2, 86, 5, 0);
 
 -- --------------------------------------------------------
 
@@ -607,12 +638,6 @@ CREATE TABLE `workoutplan` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `announcement`
---
-ALTER TABLE `announcement`
-  ADD PRIMARY KEY (`announcementID`);
 
 --
 -- Indexes for table `chat`
@@ -713,6 +738,12 @@ ALTER TABLE `message`
   ADD KEY `chatID` (`chatID`);
 
 --
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`notificationsID`);
+
+--
 -- Indexes for table `payment`
 --
 ALTER TABLE `payment`
@@ -723,9 +754,8 @@ ALTER TABLE `payment`
 -- Indexes for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  ADD PRIMARY KEY (`memberID`,`paymentID`),
-  ADD KEY `memberID` (`memberID`,`paymentID`),
-  ADD KEY `paymentID` (`paymentID`);
+  ADD PRIMARY KEY (`planID`),
+  ADD KEY `memberID` (`memberID`);
 
 --
 -- Indexes for table `service`
@@ -772,6 +802,14 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`userID`);
 
 --
+-- Indexes for table `usernotifications`
+--
+ALTER TABLE `usernotifications`
+  ADD PRIMARY KEY (`usernotificationsID`),
+  ADD KEY `usernotifications_ibfk_1` (`userID`),
+  ADD KEY `usernotifications_ibfk_2` (`notificationsID`);
+
+--
 -- Indexes for table `weekdays`
 --
 ALTER TABLE `weekdays`
@@ -789,12 +827,6 @@ ALTER TABLE `workoutplan`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `announcement`
---
-ALTER TABLE `announcement`
-  MODIFY `announcementID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `chat`
@@ -824,13 +856,13 @@ ALTER TABLE `exercise`
 -- AUTO_INCREMENT for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `message`
@@ -839,10 +871,22 @@ ALTER TABLE `message`
   MODIFY `messageID` int NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `notifications`
+--
+ALTER TABLE `notifications`
+  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
   MODIFY `paymentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `paymentplan`
+--
+ALTER TABLE `paymentplan`
+  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -866,7 +910,13 @@ ALTER TABLE `timeslots`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+
+--
+-- AUTO_INCREMENT for table `usernotifications`
+--
+ALTER TABLE `usernotifications`
+  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
@@ -967,8 +1017,7 @@ ALTER TABLE `payment`
 -- Constraints for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  ADD CONSTRAINT `paymentplan_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `paymentplan_ibfk_2` FOREIGN KEY (`paymentID`) REFERENCES `payment` (`paymentID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `paymentplan_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `servicecharge`
@@ -992,6 +1041,13 @@ ALTER TABLE `timeslots`
 ALTER TABLE `trainerappointment`
   ADD CONSTRAINT `trainerappointment_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `trainerappointment_ibfk_2` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `usernotifications`
+--
+ALTER TABLE `usernotifications`
+  ADD CONSTRAINT `usernotifications_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `usernotifications_ibfk_2` FOREIGN KEY (`notificationsID`) REFERENCES `notifications` (`notificationsID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `workoutplan`
