@@ -43,6 +43,13 @@ button:active {
     transform: scale(0.95);
 }
 
+.activeBtn button.active,
+.activeBtn button:hover {
+    background-color: red  !important;
+    color: white;
+    border: 1px solid red;
+}
+
 button:disabled {
     background-color: grey;
     border-color: grey;

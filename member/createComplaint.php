@@ -119,7 +119,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     COMPLAINTS
                 </div>
                 <div class="right">
-                    <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
+                    <div class="notification-bell">
+                        <?php include("notifications.php"); ?>
+                    </div>
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>

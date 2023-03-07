@@ -123,3 +123,54 @@ font-weight: bold;
     font-weight: lighter;
 }
 
+
+/*for notifications*/
+.bell-icon{
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.notification-popup {
+    display: none;
+    z-index: 1;
+    position: absolute;
+    top: 55px;
+    right: 20px;
+    width: 300px;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+  
+.notification-popup.show {
+    display: block;
+}
+
+.notification-popup .noti {
+    font-size: 12px;
+}
+
+.notification-popup .noti-message {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
+.notification-popup .noti-date {
+    display: inline-block;
+    font-size: 10px;
+    color: gray;
+}
+
+.notification-popup .mark-read {
+    display: block;
+    margin-top: 15px;
+    font-size: 12px;
+    text-align: center;
+    float: right;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
