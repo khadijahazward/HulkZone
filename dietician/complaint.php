@@ -2,26 +2,44 @@
 
 include 'authorization.php';
 include 'connect.php';
+include "setProfilePic.php";
 
-$userID = mysqli_real_escape_string($_SESSION['userID']);
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+$check = "";
+
+$subjectErr = $descriptionErr = $desiredOutcomeErr = "";
+
+    
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-    $subject = mysqli_real_connect($conn, $_POST['subject']);
+    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
     $status = "Pending";
 
     if(!empty($subject) && !empty($description) && !empty($desiredOutcome)){
         
-        $query1 = "INSERT INTO complaint(subject, description, desiredOutcome, status, userID) VALUES ('$subject' , '$description' , '$desiredOutcome' , '$status' , '$userID')";
+        $query1 = "INSERT INTO complaint(subject, description, desiredOutcome, status, dateReported, userID) VALUES ('$subject' , '$description' , '$desiredOutcome' , '$status' , current_timestamp() , '$userID')";
         $result1 = mysqli_query($conn, $query1);
 
         if($result1 == TRUE){
+            echo "<script> alert('Complaint Recorded Succesfully'); </script>";
+            $check = 0;
+        }else{
+            echo "<script> alert('Error'); </script>";
         }
+        
+    }elseif(empty($_POST['subject'])){
+        $subjectErr = "Subject is reqired";
+        
+    }elseif(empty($_POST['description'])){
+        $descriptionErr = "Description is required";
+        
+    }elseif(empty($_POST['desiredOutcome'])){
+        $desiredOutcomeErr = "Desired outcome is required";
     }
 }
-
 
 ?>
 
@@ -45,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic; ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -59,102 +77,62 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <hr>
                 <a href="schedule.php"><i class=" fa fa-clock-o"></i>Schedule</a>
                 <hr>
-                <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                 <hr>
                 <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
-                <a href="profile.php"><i class="fa fa-cog"></i>My Profile</a>
+                <a href="profile.php"><i class="fa fa-user"></i>My Profile</a>
                 <hr>
-                <a href="complaint.php" class="active">Complaints</a>
+                <a href="complaint.php" class="active"><i class="fa fa-cog"></i>Complaints</a>
                 <hr>
                 <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
                 <hr>
             </div>
         </div>
-        <div class="content">
-            <div class=" subtopic">
-                <p>Report a Complaint</p>
+        <div class="main">
+            <div class="topic">
+                <p>Complaints</p>
             </div>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <table class="reportingContent">
-                    <tr>
-                        <td><label for="subject">Complaints Subject</label></td>
-                        <td><input type="text" name="subject" id="subject" class="textBox"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="description">Complaints Description</label></td>
-                        <td>
-                            <textarea name="description" id="description" cols="75" rows="6"
-                                style="resize: none;"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="desiredOutcome">Desired Outcome</label></td>
-                        <td>
-                            <textarea name="desiredOutcome" id="desiredOutcome" cols="75" rows="6"
-                                style="resize: none;"></textarea>
-                        </td>
-                    </tr>
-                </table>
-                <button onclick="document.getElementById('popUp').style.display='block';"
-                    class="saveBtn">Submit</button>
-            </form>
+            <button class="complaintBtn" onclick="window.location.href='createComplaint.php'">Create a
+                complaint</button>
             <div class="gridContainer">
                 <table>
-                    <tr>
-                        <td colspan="4">
-                            <hr>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>Complaint ID</th>
-                        <th>Date Reported</th>
-                        <th>Subject</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td colspan="4">
-                            <hr>
-                        </td>
-                    </tr>
-                    <tbody>
+                    <thead>
                         <tr>
-                            <td>501</td>
-                            <td>20/05/2022</td>
-                            <td>System Breakdown</td>
-                            <td>Completed</td>
+                            <th>Complaint ID</th>
+                            <th>Date Reported</th>
+                            <th>Subject</th>
+                            <th>Status</th>
+                            <th>Action Taken</th>
                         </tr>
+                    </thead>
+
+                    <?php
+                        $query2 = "SELECT complaintID, subject, dateReported, status, actionTaken  FROM `complaint` where userID ='$userID' ";
+                        $result2 = mysqli_query($conn, $query2);
+
+                    ?>
+
+                    <tbody>
+                        <?php
+
+                        if(mysqli_num_rows($result2) > 0){
+                            while($row = mysqli_fetch_assoc($result2)){
+                                echo"<tr>
+                                        <td>".$row["complaintID"]."</td>
+                                        <td>".$row["dateReported"]."</td>
+                                        <td>".$row["subject"]."</td>
+                                        <td>".$row["status"]."</td>
+                                        <td>".$row["actionTaken"]."</td>
+                                    </tr>";
+                            }
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <!--
-
-    <div id="popUp" class="popUpContent">
-        <div class="popUpContainer">
-            <span class="close">&times;</span>
-            <img src="../../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
-            <p>Your Complaint has been Placed!</p>
-            <button class="acceptBtn" onclick="window.location.href='../Complaint/complaint.html'">OK</button>
-        </div>
-    </div>
-
-    <script>
-    var popUpContent = document.getElementById('popUp');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
-            popUpContent.style.display = "none";
-        }
-    }
-    </script>
--->
 </body>
 
 </html>

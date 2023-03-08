@@ -1,24 +1,21 @@
 <?php
-    include 'authorization.php';
-    include 'connect.php';
-    
-?>
-
-<?php
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
 $query = "SELECT * FROM user JOIN employee ON user.userID = employee.userID where user.userID = '$userID'";
-$result = mysqli_query($conn,$query);
-if(mysqli_num_rows($result) == 1){
+$result = mysqli_query($conn, $query);
+if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
-}else{
+} else {
     echo '<script> window.alert("Error receiving data!");</script>';
 }
 
-if(isset($row['profilePhoto'])){
+if (isset($row['profilePhoto'])) {
     $profilePic = $row['profilePhoto'];
-}else{
+} else {
     $profilePic = "Images/Profile.png";
 }
 
@@ -59,16 +56,17 @@ if(isset($row['profilePhoto'])){
                     <hr>
                     <a href="schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
                     <hr>
-                    <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                    <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                     <hr>
                     <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                     <hr>
-                    <a href="profile.php" class="active"><i class="fa fa-cog"></i>My Profile</a>
+                    <a href="profile.php" class="active"><i class="fa fa-user"></i>My Profile</a>
                     <hr>
-                    <a href="complaint.php">Complaints</a>
-                    <hr>
-                    <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
-                    <hr>
+                    <a href="complaint.php"><i class="fa fa-cog"></i>Complaints< /a>
+                            <hr>
+                            <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
+                            <hr>
+
                 </div>
             </div>
         </div>
@@ -78,7 +76,7 @@ if(isset($row['profilePhoto'])){
                 <img src="<?php echo $profilePic; ?>" alt="Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
-                        <?php echo $row['fName']." ".$row['lName']; ?>
+                        <?php echo $row['fName'] . " " . $row['lName']; ?>
                     </p>
                     <p style="font-weight: 400; font-size: 15px;">Dietician</p>
                 </div>
@@ -161,19 +159,19 @@ if(isset($row['profilePhoto'])){
                                 <td>
                                     <label for="city">City</label><br>
                                     <input type="text" id="city" name="city" class="textBox"
-                                        value="<?php echo $row['city'];?>" readonly>
+                                        value="<?php echo $row['city']; ?>" readonly>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label for="experiancedYears">Number of years of Experiance</label><br>
                                     <input type="number" id="experiancedYears" name="experiancedYears" class="textBox"
-                                        value="<?php echo $row['noOfYearsOfExperience'];?>" readonly>
+                                        value="<?php echo $row['noOfYearsOfExperience']; ?>" readonly>
                                 </td>
                                 <td>
                                     <label for="qualification">Qualification</label><br>
                                     <input type="text" id="qualification" name="qualification" class="textBox"
-                                        value="<?php echo $row['qualification'];?>" readonly>
+                                        value="<?php echo $row['qualification']; ?>" readonly>
                                 </td>
                             </tr>
                             <tr>
@@ -187,7 +185,7 @@ if(isset($row['profilePhoto'])){
                                 <td colspan="2">
                                     <label for="bio">Bio</label><br>
                                     <textarea name="bio" id="bio" cols="75" rows="5" style="resize: none;"
-                                        readonly><?php echo $row['description'];?></textarea>
+                                        readonly><?php echo $row['description']; ?></textarea>
                                 </td>
                             </tr>
                         </table>

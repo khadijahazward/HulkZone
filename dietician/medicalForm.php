@@ -225,9 +225,8 @@
                             </tr>
                         </table>
                     </form>
-                    <button type="button" onclick="window.location.href='../Edit Profile/editProfile.php';"
-                        class="backBtn">Update
-                        Profile</button>
+                    <button type="button" onclick="window.location.href='members.php';" class="backBtn"
+                        style="width: 100px;">Back</button>
                 </div>
             </div>
         </div>

@@ -43,19 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }else if($_SESSION['role'] == 2){
                 header("location: http://localhost/hulkzone/trainer/dashboard.php");
             }else if($_SESSION['role'] == 3){
-                header("location: ..\dietician\Home\home.php");
+                header("location: ..\dietician\home.php");
             }
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
         }
-
      
     } else {
         header("location:login.php?msg=failed");
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 

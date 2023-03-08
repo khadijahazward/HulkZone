@@ -89,7 +89,7 @@ include('authorization.php');
                   
                    <td>
                    <a href='viewDieticianProfile.php?employeeID=$row[employeeID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
-               
+                 </td>
                   
                 </tr>";
                     }

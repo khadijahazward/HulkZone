@@ -204,7 +204,17 @@
 .selector {
     width: 29px;
     height: 5px;
-    left: 100px;
+    left: 98px;
+    top: 0px;
+    background: rgba(0, 104, 55, 1);
+    border-radius: 19px;
+    position: absolute;
+}
+
+.editSelector{
+    width: 29px;
+    height: 5px;
+    left: 115px;
     top: 0px;
     background: rgba(0, 104, 55, 1);
     border-radius: 19px;
@@ -408,6 +418,12 @@ textarea {
     text-decoration: none;
     cursor: pointer;
     font-weight: 700;
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+    font-weight: 400;
 }
 
 

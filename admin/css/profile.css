@@ -133,3 +133,13 @@ input[type="file"] {
     background-color: #DEF9D7;
     padding: 0.5rem 0.75rem;
   }
+
+  textarea {
+    box-sizing: border-box;
+    border-radius: 6px;
+    border: none;
+    width: 60%;
+    background-color: #DEF9D7;
+    padding: 0.5rem 0.75rem;
+    border: 0.5px solid rgba(3, 114, 3,0.5);
+  }

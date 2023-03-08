@@ -12,13 +12,18 @@ if (isset($_POST['edit'])) {
 
 
     // retrieve the updated form data
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $contactNumber = $_POST['contactNumber'];
-    $streetNumber = $_POST['streetNumber'];
-    $addressLine01 = $_POST['addressLine01'];
-    $addressLine02 = $_POST['addressLine02'];
-    $city = $_POST['city'];
+   // $fName = $_POST['fName'];
+    $fName=isset($_POST['fName']) ? $_POST['fName'] : '';
+    //$lName = $_POST['lName'];
+    $lName=isset($_POST['lName']) ? $_POST['lName'] : '';
+    $contactNumber = isset($_POST['contactNumber']) ? $_POST['contactNumber'] : '';
+    $streetNumber = isset($_POST['streetNumber']) ? $_POST['streetNumber'] : '';
+    //$addressLine01 = $_POST['addressLine01'];
+    $addressLine01=isset($_POST['addressLine01']) ? $_POST['addressLine01'] : '';
+    //$addressLine02 = $_POST['addressLine02'];
+    $addressLine02=isset($_POST['addressLine02']) ? $_POST['addressLine02'] : '';
+    //$city = $_POST['city'];
+    $city=isset($_POST['city']) ? $_POST['city'] : '';
     $pw = $_POST['pw'];
     $confirmPassword = $_POST['confirmPassword'];
     // validate form data
@@ -113,42 +118,43 @@ if (isset($_POST['edit'])) {
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .error {
-            color: red;
-            font-size: 10px;
-        }
+    .error {
+        color: red;
+        font-size: 10px;
+    }
 
-        .back {
-            margin-top: 50px;
-            margin-left: 670px;
-            margin-bottom: 30px;
-            border: none;
-            outline: none;
-            height: 50px;
-            width: 200px;
-            background: #FF9F29;
-            font-size: 18px;
-            border-radius: 5px;
-            font-weight: normal;
-            text-align: center;
-            height: 40px;
-            margin-top: 8px;
-            color:#ffffff;
-            padding-top: 10px;
-        }
+    .back {
+        margin-top: 50px;
+        margin-left: 670px;
+        margin-bottom: 30px;
+        border: none;
+        outline: none;
+        height: 50px;
+        width: 200px;
+        background: #FF9F29;
+        font-size: 18px;
+        border-radius: 5px;
+        font-weight: normal;
+        text-align: center;
+        height: 40px;
+        margin-top: 8px;
+        color: #ffffff;
+        padding-top: 10px;
+    }
 
-        .link{
-            text-decoration: none;
-        }
+    .link {
+        text-decoration: none;
+    }
 
-        .buttonS{
-            cursor: pointer;
-            height: 50px;
-            margin-top: 30px;
-        }
-        .back:hover{
-            background-color: #006837;
-        }
+    .buttonS {
+        cursor: pointer;
+        height: 50px;
+        margin-top: 30px;
+    }
+
+    .back:hover {
+        background-color: #006837;
+    }
     </style>
 
 </head>
@@ -172,7 +178,8 @@ if (isset($_POST['edit'])) {
             <div class="edit-profile" ">
                     <div>
                         <!--dp-->
-                        <img src=" ../../HulkZone/asset/images/adminProfile.png" alt="dp" width="1200px" height="1200px">
+                        <img src=" ../../HulkZone/asset/images/adminProfile.png" alt="dp" width="1200px"
+                height="1200px">
             </div>
             <div>
                 <?php
@@ -181,11 +188,13 @@ if (isset($_POST['edit'])) {
                 ?>
                 <br>
 
-                Admin<!--User Type-->
+                Admin
+                <!--User Type-->
             </div>
             <div style="margin: 30px;">
                 <!--changing profile pic-->
-                <a href="editProfile.php"><button class="open-button" style="height: 35px;border-radius:5px;">Choose Photo</button></a>
+                <a href="editProfile.php"><button class="open-button" style="height: 35px;border-radius:5px;">Choose
+                        Photo</button></a>
             </div>
 
         </div>
@@ -199,40 +208,47 @@ if (isset($_POST['edit'])) {
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">First Name</label>
-                        <input type="text" name="fName" value="<?php echo "$fName" ?>" style="width:320px;margin-left:140px;">
+                        <input type="text" name="fName" value="<?php echo "$fName" ?>"
+                            style="width:320px;margin-left:140px;">
                         <span class="error">* <?php echo $fNameErr; ?></span>
 
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Last Name</label>
-                        <input type="text" name="lName" value="<?php echo "$lName" ?>" style="width:320px;margin-left:140px;">
+                        <input type="text" name="lName" value="<?php echo "$lName" ?>"
+                            style="width:320px;margin-left:140px;">
                         <span class="error">* <?php echo $lNameErr; ?></span>
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Phone Number</label>
-                        <input type="text" name="contactNumber" value="<?php echo "$contactNumber"; ?>" style="width:320px;margin-left:108px;">
+                        <input type="text" name="contactNumber" value="<?php echo "$contactNumber"; ?>"
+                            style="width:320px;margin-left:108px;">
                         <span class="error">* <?php echo $contactNumberErr; ?></span>
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Street Number</label>
-                        <input type="text" name="streetNumber" value="<?php echo "$streetNumber"; ?>" style="width:320px;margin-left:110px;">
+                        <input type="text" name="streetNumber" value="<?php echo "$streetNumber"; ?>"
+                            style="width:320px;margin-left:110px;">
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Address LIne 01</label>
-                        <input type="text" name="addressLine01" value="<?php echo "$addressLine01"; ?>" style="width:320px;margin-left:100px;">
+                        <input type="text" name="addressLine01" value="<?php echo "$addressLine01"; ?>"
+                            style="width:320px;margin-left:100px;">
                     </div>
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">Address LIne 02</label>
-                        <input type="text" name="addressLine02" value="<?php echo "$addressLine02"; ?>" style="width:320px;margin-left:100px;">
+                        <input type="text" name="addressLine02" value="<?php echo "$addressLine02"; ?>"
+                            style="width:320px;margin-left:100px;">
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">City</label>
-                        <input type="text" name="city" value="<?php echo "$city"; ?>" style="width:320px;margin-left:192px;">
+                        <input type="text" name="city" value="<?php echo "$city"; ?>"
+                            style="width:320px;margin-left:192px;">
                     </div>
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
@@ -248,33 +264,35 @@ if (isset($_POST['edit'])) {
 
                     </div>
                     <div><button class="buttonS" name="edit" style="margin-left:670px;">Save</button></div>
-                    <a href="viewProfile.php"  class="link"><div class="back"><span> Back</span></div></a>
-                    
+                    <a href="viewProfile.php" class="link">
+                        <div class="back"><span> Back</span></div>
+                    </a>
+
 
                 </form>
             </div>
             <script>
-                //client side validation
-                // get the password and confirm password fields
-                var password = document.getElementById("pw");
-                var confirmPassword = document.getElementById("confirmPassword");
+            //client side validation
+            // get the password and confirm password fields
+            var password = document.getElementById("pw");
+            var confirmPassword = document.getElementById("confirmPassword");
 
-                // add an event listener to check the passwords on form submit
-                document.getElementById("form-id").addEventListener("submit", function(event) {
-                    if (password.value != confirmPassword.value) {
-                        alert("Passwords do not match. Please try again.");
-                        event.preventDefault();
-                    }
-                });
+            // add an event listener to check the passwords on form submit
+            document.getElementById("form-id").addEventListener("submit", function(event) {
+                if (password.value != confirmPassword.value) {
+                    alert("Passwords do not match. Please try again.");
+                    event.preventDefault();
+                }
+            });
             </script>
             <script>
-                function confirmSubmission() {
-                    if (confirm("Are you sure you want to save the changes?")) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+            function confirmSubmission() {
+                if (confirm("Are you sure you want to save the changes?")) {
+                    return true;
+                } else {
+                    return false;
                 }
+            }
             </script>
         </div>
 

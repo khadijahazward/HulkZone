@@ -43,9 +43,9 @@ include 'connect.php'
                 <hr>
                 <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
-                <a href="profile.php"><i class="fa fa-cog"></i>My Profile</a>
+                <a href="profile.php"><i class="fa fa-user"></i>My Profile</a>
                 <hr>
-                <a href="complaint.php">Complaints</a>
+                <a href="complaint.php"><i class="fa fa-cog"></i>Complaints</a>
                 <hr>
                 <a href="../home/logout.php"><i class="fa fa-sign-out"></i>Log out</a>
                 <hr>
@@ -64,6 +64,7 @@ include 'connect.php'
                             <th>NAME</th>
                             <th>STATUS</th>
                             <th style="width: 350px;"></th>
+                            <th>Supplement</th>
                         </tr>
                     </thead>
 
@@ -84,7 +85,7 @@ include 'connect.php'
                             echo "<tbody>
                                 <tr>
                                     <td>". $selectedMemberID ."</td>
-                                    <td><img src='Images/Member.png' alt='member DP'></td>
+                                    <td><img src=".$row['profilePhoto']." alt='member DP'></td>
                                     <td>". $row["fName"] ." ". $row["lName"] ."</td>
                                     <td>";
                                         if($row['statuses'] == '1'){
@@ -95,15 +96,12 @@ include 'connect.php'
                           
                                     echo "</td>";
             
-                            $query1 = "SELECT * FROM dietplan WHERE day='monday' AND memberID=?";
-                            $stmt = mysqli_prepare($conn, $query1);
-                            mysqli_stmt_bind_param($stmt, "i", $selectedMemberID);
-                            mysqli_stmt_execute($stmt);
-                            $result1 = mysqli_stmt_get_result($stmt);
+                            
+                            $query1 = "SELECT * FROM dietplan WHERE day='monday' AND memberID= $selectedMemberID";
+                            $result1 = mysqli_query($conn, $query1);
 
                             if(mysqli_num_rows($result1) == 0){
                                 echo "<td>
-                                    <a href='viewDietPlan.php?view=".$row['memberID']."'><button>View</button></a>
                                     <a href='createDietPlanMonday.php?new=".$row['memberID']."'><button>New</button></a>
                                 </td>";
                             }else{
@@ -112,7 +110,13 @@ include 'connect.php'
                                     <a href='updateDietPlan.php?update=".$row['memberID']."'><button>Update</button></a>
                                     </td>";
                             }
-                            echo "</tr>
+
+                            $query2 = "SELECT * FROM supplement WHERE memberID = $selectedMemberID";
+                            echo    
+                            "<td>
+                                <a href='supplements.php?add=".$row['memberID']."'><button>View</button></a>
+                            </td>
+                            </tr>
                         </tbody>";
                         }
                     }

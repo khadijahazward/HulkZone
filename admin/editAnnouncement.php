@@ -3,17 +3,23 @@ include('authorization.php');
 // Connect to the database
 include('../../HulkZone/connect.php');
 // Get the announcementID from the URL
-$announcementID = mysqli_real_escape_string($conn, $_GET['announcementID']);
+$notificationsID = mysqli_real_escape_string($conn, $_GET['notificationsID']);
 
 // Check for the form submission
 if (isset($_POST['submit'])) {
     // Get the form data
-    $date = mysqli_real_escape_string($conn, $_POST['d']);
+    $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
+
+    // Set the timezone to Sri Lanka
+    $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
+
+    // Format the date and time as a string in a specific format
+    $date = $currentDateTime->format('Y-m-d H:i:s');
     $message = mysqli_real_escape_string($conn, $_POST['m']);
 
     // Prepare the update statement
-    $stmt = $conn->prepare("UPDATE announcement SET date = ?, message = ? WHERE announcementID = ?");
-    $stmt->bind_param("ssi", $date, $message, $announcementID);
+    $stmt = $conn->prepare("UPDATE notifications SET created_at = ?, message = ? WHERE notificationsID = ?");
+    $stmt->bind_param("ssi", $date, $message, $notificationsID);
 
     // Execute the statement
     $stmt->execute();
@@ -28,14 +34,14 @@ if (isset($_POST['submit'])) {
 }
 
 // Prepare the select statement
-$stmt = $conn->prepare("SELECT date, message FROM announcement WHERE announcementID = ?");
-$stmt->bind_param("i", $announcementID);
+$stmt = $conn->prepare("SELECT message FROM notifications WHERE notificationsID = ?");
+$stmt->bind_param("i", $notificationsID);
 
 // Execute the statement
 $stmt->execute();
 
 // Bind the result
-$stmt->bind_result($date, $message);
+$stmt->bind_result($message);
 
 // Fetch the result
 $stmt->fetch();
@@ -65,19 +71,19 @@ $conn->close();
 </head>
 
 <body>
-<?php 
-include('../admin/sideBar.php');
-?>
-        <div class="right">
+    <?php
+    include('../admin/sideBar.php');
+    ?>
+    <div class="right">
 
-        <div class="content" >
+        <div class="content">
             <div class="contentLeft">
                 <p class="title">Announcements</p>
             </div>
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
         </div>
 
         <div class="down">
@@ -88,13 +94,11 @@ include('../admin/sideBar.php');
             ?>
             <hr style="width: 98%;">
             <div class="addAnnouncementForm">
-                <form  method="POST" onsubmit="return confirmSubmission()">
+                <form method="POST" onsubmit="return confirmSubmission()">
                     <label class="formContent">Message</label>
                     <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required><?php echo $message; ?></textarea>
                     <br>
-                    <label class="formContent">Date</label>
-                    <input type="date" name="d" style=" width: 170px;margin-left: 160px;" value="<?php echo $date; ?>" required >
-                    <br>
+                   
 
 
                     <input type="submit" name="submit" value="submit">
@@ -103,22 +107,20 @@ include('../admin/sideBar.php');
             </form>
             <script>
                 function confirmSubmission() {
-                if (confirm("Are you sure you want to submit the form?")) {
-                return true;
-                } else {
-                return false;
+                    if (confirm("Are you sure you want to submit the form?")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-            }
             </script>
 
         </div>
     </div>
     </div>
 
-   
+
 
 </body>
 
 </html>
-
-

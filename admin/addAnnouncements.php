@@ -46,10 +46,7 @@ include('../admin/sideBar.php');
                 <form action="createAnnouncements.php" method="POST" onsubmit="return confirmSubmission()">
                     <label class="formContent">Message</label>
                     <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required></textarea>
-                    <br>
-                    <label class="formContent">Date</label>
-                    <input type="date" name="d" style=" width: 170px;margin-left: 160px;" required >
-                    <br>
+                   
 
 
                     <input type="submit" name="submit" value="submit">
