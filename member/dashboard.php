@@ -92,7 +92,7 @@ include '../connect.php';
             $result12 = mysqli_query($conn, $sql12);
             
             if ($result12) {
-                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please contact the admin for more information.');</script>";
+                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please Pay the Payment to enable your account.');</script>";
                 header("Location: ../home/logout.php");
                 exit();
             } else {

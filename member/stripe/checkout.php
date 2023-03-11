@@ -1,3 +1,7 @@
+<?php
+  include '../authorization.php';
+  include 'C:\xampp\htdocs\HulkZone\connect.php';
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,14 +12,40 @@
   <body>
     <section>
       <div class="product">
-        <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+        <img src="../images/pay.jpg" alt="payment pic" />
         <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
+          <?php
+            $paymentAmount = $_GET['amount'];
+
+            $type = $_GET['type'];
+
+            if (isset($_GET['employeeID'])) {
+              $employeeID = $_GET['employeeID'];
+            } else {
+              $employeeID = "";
+            }
+
+            echo "<h3>Payment</h3> <h5>Rs. $paymentAmount</h5>";
+          ?>
+
         </div>
       </div>
-      <form action="http://localhost/HulkZone/member/stripe/checkout_process.php" method="POST">
 
+      <form action="http://localhost/HulkZone/member/stripe/checkout_process.php" method="POST">
+        
+        <input type="hidden" name="paymentAmount" value="<?php echo $paymentAmount; ?>">
+        
+        <input type="hidden" name="type" value="<?php echo $type; ?>">
+        
+        <?php 
+          if (isset($_GET['employeeID'])) 
+          { 
+        ?>
+          <input type="hidden" name="employeeID" value="<?php echo $employeeID?>">
+        <?php 
+          } 
+        ?>
+        
         <button type="submit" id="checkout-button">Checkout</button>
       </form>
     </section>
