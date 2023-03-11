@@ -1,5 +1,6 @@
 <?php
 include('authorization.php');
+include('setAdminProfilePic.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +35,7 @@ include('authorization.php');
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
         <div class="down">
             <div class="topic">

@@ -1,13 +1,26 @@
 
 <?php
+
 include('authorization.php');
 include('../connect.php');
+
+
+// regenerate the session ID every 30 minutes
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
+    session_regenerate_id(true);
+    $_SESSION['last_activity'] = time();
+} else {
+    $_SESSION['last_activity'] = time();
+}
+
+// rest of the code that uses the session
+if (isset($_SESSION['userID'])) 
 
 // get the user ID from the session
 $userID = $_SESSION['userID'];
 
 // prepare the SQL query
-$query = "SELECT fName, lName, NIC, gender, dateOfBirth, contactNumber, streetNumber, addressLine01, addressLine02, city FROM user WHERE userID = ? AND roles = 0";
+$query = "SELECT fName, lName, NIC, gender, dateOfBirth, contactNumber, streetNumber, addressLine01, addressLine02, city,profilePhoto FROM user WHERE userID = ? AND roles = 0";
 
 // prepare the statement
 $stmt = mysqli_prepare($conn, $query);
@@ -19,11 +32,14 @@ mysqli_stmt_bind_param($stmt, "i", $userID);
 mysqli_stmt_execute($stmt);
 
 // bind the result variables
-mysqli_stmt_bind_result($stmt, $fName, $lName, $NIC, $gender, $dateOfBirth, $contactNumber, $streetNumber, $addressLine01, $addressLine02, $city);
+mysqli_stmt_bind_result($stmt, $fName, $lName, $NIC, $gender, $dateOfBirth, $contactNumber, $streetNumber, $addressLine01, $addressLine02, $city,$profilePictureLink);
 
 // fetch the results
-if (mysqli_stmt_fetch($stmt))
+if (mysqli_stmt_fetch($stmt));
+
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -58,13 +74,13 @@ include('../admin/sideBar.php');
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="<?php echo $profilePictureLink; ?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
         <div class="down" style="display:flex; flex-direction:row;">
-            <div class="edit-profile" ">
+            <div class="edit-profile" >
                     <div>
                         <!--dp-->
-                        <img src=" ../../HulkZone/asset/images/adminProfile.png" alt="dp" width="1200px" height="1200px">
+                        <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="200px" height="200px">
             </div>
             <div>
                 <?php

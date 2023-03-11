@@ -1,5 +1,6 @@
 <?php
 include('authorization.php');
+include('setAdminProfilePic.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,7 +59,7 @@ include('authorization.php');
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
         <div class="down">
             <?php
@@ -67,6 +68,26 @@ include('authorization.php');
             // get the current week's start and end dates
             $startDate = date('Y-m-d', strtotime('monday this week'));
             $endDate = date('Y-m-d', strtotime('sunday this week'));
+
+            // get the selected date from the form field
+            /*if (isset($_POST['date'])) {
+                $selectedDate = mysqli_real_escape_string($conn, $_POST['date']);
+            } else {
+                $selectedDate = date('Y-m-d');
+            }*/
+            if(isset($_POST['date']) && $_POST['date'] != '') {
+                $selectedDate = mysqli_real_escape_string($conn, $_POST['date']);
+            } else {
+                $today = date('Y-m-d');
+                $dayOfWeek = date('w', strtotime($today));
+                if($dayOfWeek == 0) { // 0 means Sunday
+                    $selectedDate = $today;
+                } else {
+                    $selectedDate = '';
+                }
+            }
+            
+
             // if date is not set, set it to the current date
             if (!isset($_POST['date'])) {
                 $date = date('Y-m-d');
@@ -100,14 +121,24 @@ include('authorization.php');
             }
 
             // display "reset" button if current week's end date is Sunday
-            if ($endDate == date('Y-m-d') && date('D', strtotime($endDate)) == 'Sun') {
+            /* if ($endDate == date('Y-m-d') && date('D', strtotime($endDate)) == 'Sun') {
                 echo '<form method="post" action="resetSlots.php">';
                 echo '<input type="hidden" name="date" value="' . date('Y-m-d') . '">';
                 echo '<button type="submit" style="width:150px;">Reset</button>';
                 echo '</form>';
             }
 
+            echo '</div>';*/
+            // display "reset" button if current week's end date is Sunday
+            if (date('D', strtotime($selectedDate)) == 'Sun') {
+                echo '<form method="post" action="resetSlots.php">';
+                echo '<input type="hidden" name="date" value="' . $selectedDate . '">';
+                echo '<button type="submit" style="width:150px;">Reset</button>';
+                echo '</form>';
+            }
+
             echo '</div>';
+
 
 
 

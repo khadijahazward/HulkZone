@@ -1,5 +1,6 @@
 <?php 
 include('authorization.php');
+include('setAdminProfilePic.php');
 ?>
 <?php
 include('../../HulkZone/connect.php');
@@ -221,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="contentMiddle">
             <p class="myProfile">My Profile</p>
         </div>
-        <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+        <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
 
     <!--Body|Form-->

@@ -3,6 +3,9 @@ include('authorization.php');
 //connect.php contains database connection details
 include('../../HulkZone/connect.php');
 
+
+
+
 // define form validation variables
 $fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = "";
 // check if the form has been submitted and update the details if necessary
@@ -98,6 +101,7 @@ if (isset($_POST['edit'])) {
     $city = $user['city'];
     $pw = $user['pw'];
     $email = $user['email'];
+    
 }
 
 ?>
@@ -162,6 +166,7 @@ if (isset($_POST['edit'])) {
 <body>
     <?php
     include('../admin/sideBar.php');
+    include('setAdminProfilePic.php');
     ?>
     <div class="right">
 
@@ -172,14 +177,14 @@ if (isset($_POST['edit'])) {
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="<?php echo $profilePictureLink; ?>"  alt="AdminLogo" class="adminLogo"></div>
         </div>
         <div class="down" style="display:flex; flex-direction:row;">
-            <div class="edit-profile" ">
+            <div class="edit-profile">
                     <div>
                         <!--dp-->
-                        <img src=" ../../HulkZone/asset/images/adminProfile.png" alt="dp" width="1200px"
-                height="1200px">
+                        <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="200px" height="200px">
+               
             </div>
             <div>
                 <?php
@@ -192,10 +197,28 @@ if (isset($_POST['edit'])) {
                 <!--User Type-->
             </div>
             <div style="margin: 30px;">
-                <!--changing profile pic-->
-                <a href="editProfile.php"><button class="open-button" style="height: 35px;border-radius:5px;">Choose
-                        Photo</button></a>
-            </div>
+                        <!--changing profile pic-->
+                        <button class="open-button" onclick="openForm()">Choose Photo</button>
+
+                        <div id="myForm" class="form-popup">
+
+                            <form action="../admin/updateProfilePic.php" class="form-container" method="post" enctype="multipart/form-data">
+                                <input type="file" name="image">
+                                <br>
+                                <button type="submit">Upload Image</button>
+                                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                            </form>
+                        </div>
+                        <script>
+                                function openForm() {
+                                document.getElementById("myForm").style.display = "block";
+                                }
+
+                                function closeForm() {
+                                document.getElementById("myForm").style.display = "none";
+                                }
+                        </script>
+                    </div>
 
         </div>
 

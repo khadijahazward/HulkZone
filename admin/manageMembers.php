@@ -1,5 +1,6 @@
 <?php
 include('authorization.php');
+include('setAdminProfilePic.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +34,7 @@ include('../admin/sideBar.php');
         <div class="contentMiddle">
             <p class="myProfile">My Profile</p>
         </div>
-        <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+        <div class="contentRight" ><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
         <div class="topic">
@@ -89,7 +90,7 @@ while ($row = $result->fetch_assoc()) {
                 </form>
             </td>
             <td>
-                <a href='viewMemberProfile.php?userID={$row['userID']}'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
+            <a href='viewMemberProfile.php?memberID=$row[memberID]'><button class='button2' style='width: 120px;margin-top:1px'>View more</button></a>
             </td>
         </tr>";
 }

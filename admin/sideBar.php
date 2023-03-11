@@ -27,9 +27,9 @@
             <hr>
             <div class="tab"><a href="viewAnnouncements.php"><i class='fas fa-bullhorn'></i>Announcements</a></div>
             <hr>
-            <div class="tab"><a href="#Reports"><i class=' fas fa-file-alt ' ></i>Reports</a></div>
+            <div class="tab"><a href="reports.php"><i class=' fas fa-file-alt ' ></i>Reports</a></div>
             <hr>
-            <div class="tab"><a href="#payments"><i class=' 	far fa-money-bill-alt ' ></i>Member Payments</a></div>
+            <div class="tab"><a href="Viewpayments.php"><i class=' 	far fa-money-bill-alt ' ></i>Member Payments</a></div>
             <hr>
             <div class="tab"><a href="../home/logout.php"><i class="fa fa-sign-out " ></i>Log Out</a></div>
             <hr>
