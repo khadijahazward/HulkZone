@@ -18,9 +18,9 @@ include 'script/config.php';
 
 <body>
     <?php
-    if (!$_SESSION['username']) {
-        header('location: http://localhost/hulkzone/');
-    }
+    // if (!$_SESSION['username']) {
+    //     // header('location: http://localhost/hulkzone/');
+    // }
     ?>
 
     <nav class="main-sidebar">
@@ -131,6 +131,13 @@ include 'script/config.php';
 
                             if ($count > 0) {
 
+                                // if (isset($myArray['workoutID'])) {
+                                //     // Access the value of the 'workoutID' key
+                                //     $workoutID = $myArray['workoutID'];
+                                // } else {
+                                //     // Handle the case where the key is not defined
+                                //     echo "The 'workoutID' key is not defined in the array.";
+                                // }
 
                                 while ($rows = mysqli_fetch_assoc($res)) {
                                     $workoutId = $rows['workoutID'];

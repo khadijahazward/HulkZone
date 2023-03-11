@@ -18,9 +18,9 @@ include 'script/config.php';
 
 <body>
     <?php
-    if (!$_SESSION['username']) {
-        header('location: http://localhost/hulkzone/');
-    }
+    // if (!$_SESSION['username']) {
+    //     header('location: http://localhost/hulkzone/');
+    // }
     ?>
     <nav class="main-sidebar">
         <img src="img/gymLogo 3.png" alt="Logo">
