@@ -59,7 +59,7 @@ include '../connect.php';
         if($dayUntilExpiry == 0){
 
             // Check if a notification has already been sent to admin
-            // for type: Announcement = 0, Complaint = 1, Payment = 2.
+            // for type: Announcement = 0, Complaint = 1, Payment = 2, service selection =3 
             $adminID = 128;
             $sql9 = "SELECT notificationsID FROM notifications WHERE type = 2 AND DATE(created_at) = '$cDate' AND notificationsID IN (SELECT notificationsID FROM usernotifications WHERE userID = $adminID)";
             $result9 = mysqli_query($conn, $sql9);

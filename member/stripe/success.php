@@ -57,6 +57,49 @@
     $sql7 = "INSERT INTO servicecharge (memberID, paymentID, serviceID, employeeID, startDate, endDate, rate	) VALUES ($memberID, $paymentID, $type, $employeeID, '$currentDate', '$endDate', 0)";
     $result7 = mysqli_query($conn, $sql7);
 
+    // Insert a new record into the notifications table
+    switch ($type) {
+      case 1:
+        $subtype = "CrossFit";
+        break;
+      case 2:
+        $subtype = "BodyBuilding";
+        break;
+      case 3:
+        $subtype = "Diet";
+        break;
+      case 4:
+        $subtype = "Strength";
+        break;
+      default:
+        // Handle invalid type
+        break;
+    }
+
+    $message = "Member ID $memberID Has Selected You to Train Them for $subtype Service";
+    $created_at = date('Y-m-d H:i:s');
+    $noti_type = 3;
+    $sql10 = "INSERT INTO notifications(message, type, created_at) VALUES ('$message', '$noti_type', '$created_at')";
+    $result10 = mysqli_query($conn, $sql10);
+
+    if ($result10) {
+        //getting previous inserted notification id
+        $notificationID = mysqli_insert_id($conn);
+
+        $sql12 = "SELECT userID FROM employee WHERE employeeID = $employeeID";
+        $result = mysqli_query($conn, $sql12);
+        if ($result && mysqli_num_rows($result) > 0) {
+          
+          $row = mysqli_fetch_assoc($result);
+          $uID = $row['userID'];
+
+          $sql11 = "INSERT INTO usernotifications(userID, notificationsID) VALUES ('$uID', '$notificationID')";
+          $result11 = mysqli_query($conn, $sql11);
+        } 
+       
+    }else{
+        echo "Error: " . mysqli_error($conn);
+    }
   }
 
   //for payment plan successful
