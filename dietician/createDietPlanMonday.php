@@ -102,11 +102,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
           
             $query4 = "INSERT INTO dietplan 
                         (employeeID, dietPlanDate, breakfastQty, breakfastMeal, breakfastCal, lunchQty, lunchMeal, lunchCal, dinnerQty, dinnerMeal, dinnerCal, day, status, memberID) VALUES
-                        ('$employeeID', '$date', '$breakfastQuantity', '$breakfastMeal', '$breakfastCalorie', '$lunchQuntity', '$lunchMeal', '$lunchCalorie', '$dinnerQuantity', '$dinnerMeal', '$dinnerCalorie', '$day', '$status', '$memberID')";
+                        ('$employeeID', '$date', '$breakfastQuantity', '$breakfastMeal', '$breakfastCalorie', '$lunchQuantity', '$lunchMeal', '$lunchCalorie', '$dinnerQuantity', '$dinnerMeal', '$dinnerCalorie', '$day', '$status', '$memberID')";
             $result4 = mysqli_query($conn, $query4);
             
             if($result4){
-                echo "<script> window.alert('Inserting data id successful!');window.location.href='createDietPlanTuesday.php?next=".$memberID."'</script>";
+                echo "<script> window.location.href='createDietPlanTuesday.php?next=".$memberID."'</script>";
             }else{
                 echo '<script> window.alert("Error of inserting data");</script>';
             }
@@ -196,7 +196,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             </div>
                         </td>
                         <td>
-                            <div class=" gridText"><input type="text" name="lunchQuantity" placeholder="Quantity"
+                            <div class=" gridText">
+                                <input type="text" name="lunchQuantity" placeholder="Quantity"
                                     value="<?php echo $lunchQuantity ?>">
                             </div>
                         </td>

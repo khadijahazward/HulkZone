@@ -10,13 +10,14 @@ if (isset($_GET['update'])) {
     $memberID = $_GET['update'];
 }
 
-$sql = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $memberID";
+$sql = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE member.memberID = $memberID";
 $sqlResult = mysqli_query($conn, $sql);
 if (mysqli_num_rows($sqlResult) == 1) {
     $member = mysqli_fetch_assoc($sqlResult);
 } else {
     echo '<script> window.alert("Error of receiving member details");</script>';
 }
+
 
 $query = "SELECT * FROM employee INNER JOIN user ON employee.userID = user.userID WHERE user.userID = '$userID'";
 $result = mysqli_query($conn, $query);
@@ -88,60 +89,84 @@ if (isset($_POST['update'])) {
 
     $mondayBreakfastMeal = $_POST['mondayBreakfastMeal'];
     $mondayBreakfastQuntity = $_POST['mondayBreakfastQuntity'];
+    $mondayBreakfastCalorie = $_POST['mondayBreakfastCalorie'];
     $mondayLunchMeal = $_POST['mondayLunchMeal'];
     $mondayLunchQuntity = $_POST['mondayLunchQuntity'];
+    $mondayLunchCalorie = $_POST['mondayLunchCalorie'];
     $mondayDinnerMeal = $_POST['mondayDinnerMeal'];
     $mondayDinnerQuntity = $_POST['mondayDinnerQuntity'];
+    $mondayDinnerCalorie = $_POST['mondayDinnerCalorie'];
 
     $tuesdayBreakfastMeal = $_POST['tuesdayBreakfastMeal'];
     $tuesdayBreakfastQuntity = $_POST['tuesdayBreakfastQuntity'];
+    $tuesdayBreakfastCalorie = $_POST['tuesdayBreakfastCalorie'];
     $tusedayLunchMeal = $_POST['tusedayLunchMeal'];
     $tusedayLunchQuntity = $_POST['tusedayLunchQuntity'];
+    $tusedayLunchCalorie = $_POST['tusedayLunchCalorie'];
     $tusedayDinnerMeal = $_POST['tusedayDinnerMeal'];
     $tusedayDinnerQuntity = $_POST['tusedayDinnerQuntity'];
+    $tusedayDinnerCalorie = $_POST['tusedayDinnerCalorie'];
 
     $wednesdayBreakfastMeal = $_POST['wednesdayBreakfastMeal'];
     $wednesdayBreakfastQuntity = $_POST['wednesdayBreakfastQuntity'];
+    $wednesdayBreakfastCalorie = $_POST['wednesdayBreakfastCalorie'];
     $wednesdayLunchMeal = $_POST['wednesdayLunchMeal'];
     $wednesdayLunchQuntity = $_POST['wednesdayLunchQuntity'];
+    $wednesdayLunchCalorie = $_POST['wednesdayLunchCalorie'];
     $wednesdayDinnerMeal = $_POST['wednesdayDinnerMeal'];
-    $wednesdayDinnerQuntity = $_POST['wednesdayDInnerQuntity'];
+    $wednesdayDinnerQuntity = $_POST['wednesdayDinnerQuntity'];
+    $wednesdayDinnerCalorie = $_POST['wednesdayDinnerCalorie'];
 
     $thursdayBreakfastMeal = $_POST['thursdayBreakfastMeal'];
     $thursdayBreakfastQuntity = $_POST['thursdayBreakfastQuntity'];
+    $thursdayBreakfastCalorie = $_POST['thursdayBreakfastCalorie'];
     $thursdayLunchMeal = $_POST['thursdayLunchMeal'];
     $thursdayLunchQuntity = $_POST['thursdayLunchQuntity'];
+    $thursdayLunchCalorie = $_POST['thursdayLunchCalorie'];
     $thursdayDinnerMeal = $_POST['thursdayDinnerMeal'];
     $thursdayDinnerQuntity = $_POST['thursdayDinnerQuntity'];
+    $thursdayDinnerCalorie = $_POST['thursdayDinnerCalorie'];
 
     $fridayBreakfastMeal = $_POST['fridayBreakfastMeal'];
     $fridayBreakfastQuntity = $_POST['fridayBreakfastQuntity'];
+    $fridayBreakfastCalorie = $_POST['fridayBreakfastCalorie'];
     $fridayLunchMeal = $_POST['fridayLunchMeal'];
     $fridayLunchQuntity = $_POST['fridayLunchQuntity'];
+    $fridayLunchCalorie = $_POST['fridayLunchCalorie'];
     $fridayDinnerMeal = $_POST['fridayDinnerMeal'];
     $fridayDinnerQuntity = $_POST['fridayDinnerQuntity'];
+    $fridayDinnerCalorie = $_POST['fridayDinnerCalorie'];
 
     $saturdayBreakfastMeal = $_POST['saturdayBreakfastMeal'];
     $saturdayBreakfastQuntity = $_POST['saturdayBreakfastQuntity'];
+    $saturdayBreakfastCalorie = $_POST['saturdayBreakfastCalorie'];
     $saturdayLunchMeal = $_POST['saturdayLunchMeal'];
     $saturdayLunchQuntity = $_POST['saturdayLunchQuntity'];
+    $saturdayLunchCalorie = $_POST['saturdayLunchCalorie'];
     $saturdayDinnerMeal = $_POST['saturdayDinnerMeal'];
     $saturdayDinnerQuntity = $_POST['saturdayDinnerQuntity'];
+    $saturdayDinnerCalorie = $_POST['saturdayDinnerCalorie'];
 
     $sundayBreakfastMeal = $_POST['sundayBreakfastMeal'];
     $sundayBreakfastQuntity = $_POST['sundayBreakfastQuntity'];
+    $sundayBreakfastCalorie = $_POST['sundayBreakfastCalorie'];
     $sundayLunchMeal = $_POST['sundayLunchMeal'];
     $sundayLunchQuntity = $_POST['sundayLunchQuntity'];
+    $sundayLunchCalorie = $_POST['sundayLunchCalorie'];
     $sundayDinnerMeal = $_POST['sundayDinnerMeal'];
     $sundayDinnerQuntity = $_POST['sundayDinnerQuntity'];
+    $sundayDinnerCalorie = $_POST['sundayDinnerCalorie'];
 
     $sql1 = "UPDATE dietplan 
             SET breakfastMeal = '$mondayBreakfastMeal',
             breakfastQty = '$mondayBreakfastQuntity',
+            breakfastCal = '$mondayBreakfastCalorie',
             lunchMeal = '$mondayLunchMeal',
             lunchQty = '$mondayLunchQuntity', 
+            lunchCal = '$mondayLunchCalorie',
             dinnerMeal = '$mondayDinnerMeal',
-            dinnerQty = '$mondayDinnerQuntity'
+            dinnerQty = '$mondayDinnerQuntity',
+            dinnerCal = '$mondayDinnerCalorie'
             WHERE employeeID = $employeeID
             AND day = 'Monday'
             AND memberID = $memberID";
@@ -153,10 +178,13 @@ if (isset($_POST['update'])) {
         $sql2 = "UPDATE dietplan 
             SET breakfastMeal = '$tuesdayBreakfastMeal',
             breakfastQty = '$tuesdayBreakfastQuntity',
+            breakfastCal = '$tuesdayBreakfastCalorie',
             lunchMeal = '$tusedayLunchMeal',
             lunchQty = '$tusedayLunchQuntity', 
+            lunchCal = '$tusedayLunchCalorie',
             dinnerMeal = '$tusedayDinnerMeal',
-            dinnerQty = '$tusedayDinnerQuntity'
+            dinnerQty = '$tusedayDinnerQuntity',
+            dinnerCal = '$tusedayDinnerCalorie'
             WHERE employeeID = $employeeID
             AND day = 'Tuesday'
             AND memberID = $memberID";
@@ -168,10 +196,13 @@ if (isset($_POST['update'])) {
             $sql3 = "UPDATE dietplan 
             SET breakfastMeal = '$wednesdayBreakfastMeal',
             breakfastQty = '$wednesdayBreakfastQuntity',
+            breakfastCal = '$wednesdayBreakfastCalorie',
             lunchMeal = '$wednesdayLunchMeal',
-            lunchQty = '$wednesdayLunchQuntity', 
+            lunchQty = '$wednesdayLunchQuntity',
+            lunchCal = '$wednesdayLunchCalorie',
             dinnerMeal = '$wednesdayDinnerMeal',
-            dinnerQty = '$wednesdayDinnerQuntity'
+            dinnerQty = '$wednesdayDinnerQuntity',
+            dinnerCal = '$wednesdayDinnerCalorie'
             WHERE employeeID = $employeeID
             AND day = 'Wednesday'
             AND memberID = $memberID";
@@ -183,10 +214,13 @@ if (isset($_POST['update'])) {
                 $sql4 = "UPDATE dietplan 
             SET breakfastMeal = '$thursdayBreakfastMeal',
             breakfastQty = '$thursdayBreakfastQuntity',
+            breakfastCal = '$thursdayBreakfastCalorie',
             lunchMeal = '$thursdayLunchMeal',
             lunchQty = '$thursdayLunchQuntity', 
+            lunchCal = '$thursdayLunchCalorie',
             dinnerMeal = '$thursdayDinnerMeal',
-            dinnerQty = '$thursdayDinnerQuntity'
+            dinnerQty = '$thursdayDinnerQuntity',
+            dinnerCal = '$thursdayDinnerCalorie'
             WHERE employeeID = $employeeID
             AND day = 'Thursday'
             AND memberID = $memberID";
@@ -197,10 +231,13 @@ if (isset($_POST['update'])) {
                     $sql5 = "UPDATE dietplan 
                 SET breakfastMeal = '$fridayBreakfastMeal',
                 breakfastQty = '$fridayBreakfastQuntity',
+                breakfastCal = '$fridayBreakfastCalorie',
                 lunchMeal = '$fridayLunchMeal',
-                lunchQty = '$fridayLunchQuntity', 
+                lunchQty = '$fridayLunchQuntity',
+                lunchCal = '$fridayLunchCalorie',
                 dinnerMeal = '$fridayDinnerMeal',
-                dinnerQty = '$fridayDinnerQuntity'
+                dinnerQty = '$fridayDinnerQuntity',
+                dinnerCal = '$fridayDinnerCalorie'
                 WHERE employeeID = $employeeID
                 AND day = 'Friday'
                 AND memberID = $memberID";
@@ -211,10 +248,13 @@ if (isset($_POST['update'])) {
                         $sql6 = "UPDATE dietplan 
                         SET breakfastMeal = '$saturdayBreakfastMeal',
                         breakfastQty = '$saturdayBreakfastQuntity',
+                        breakfastCal = '$saturdayBreakfastCalorie',
                         lunchMeal = '$saturdayLunchMeal',
                         lunchQty = '$saturdayLunchQuntity', 
+                        lunchCal = '$saturdayLunchCalorie',
                         dinnerMeal = '$saturdayDinnerMeal',
-                        dinnerQty = '$saturdayDinnerQuntity'
+                        dinnerQty = '$saturdayDinnerQuntity',
+                        dinnerCal = '$saturdayDinnerCalorie'
                         WHERE employeeID = $employeeID
                         AND day = 'Saturday'
                         AND memberID = $memberID";
@@ -225,10 +265,13 @@ if (isset($_POST['update'])) {
                             $sql7 = "UPDATE dietplan 
                             SET breakfastMeal = '$sundayBreakfastMeal',
                             breakfastQty = '$sundayBreakfastQuntity',
+                            breakfastCal = '$sundayBreakfastCalorie',
                             lunchMeal = '$sundayLunchMeal',
                             lunchQty = '$sundayLunchQuntity', 
+                            lunchCal = '$sundayLunchCalorie',
                             dinnerMeal = '$sundayDinnerMeal',
-                            dinnerQty = '$sundayDinnerQuntity'
+                            dinnerQty = '$sundayDinnerQuntity',
+                            dinnerCal = '$sundayDinnerCalorie'
                             WHERE employeeID = $employeeID
                             AND day = 'Sunday'
                             AND memberID = $memberID";
@@ -305,16 +348,22 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row1['breakfastMeal'] ?>">
                     <input type="text" name="mondayBreakfastQuntity" class="quntity"
                         value="<?php echo $row1['breakfastQty'] ?>">
+                    <input type="text" name="mondayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row1['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="mondayLunchMeal" class="meal" value="<?php echo $row1['lunchMeal'] ?>">
                     <input type="text" name="mondayLunchQuntity" class="quntity"
                         value="<?php echo $row1['lunchQty'] ?>">
+                    <input type="text" name="mondayLunchCalorie" class="calorie"
+                        value="<?php echo $row1['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="mondayDinnerMeal" class="meal" value="<?php echo $row1['dinnerMeal'] ?>">
                     <input type="text" name="mondayDinnerQuntity" class="quntity"
                         value="<?php echo $row1['dinnerQty'] ?>">
+                    <input type="text" name="mondayDinnerCalorie" class="calorie"
+                        value="<?php echo $row1['dinnerCal'] ?>">
                 </div>
 
 
@@ -325,16 +374,22 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row2['breakfastMeal'] ?>">
                     <input type="text" name="tuesdayBreakfastQuntity" class="quntity"
                         value="<?php echo $row2['breakfastQty'] ?>">
+                    <input type="text" name="tuesdayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row2['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="tusedayLunchMeal" class="meal" value="<?php echo $row2['lunchMeal'] ?>">
                     <input type="text" name="tusedayLunchQuntity" class="quntity"
                         value="<?php echo $row2['lunchQty'] ?>">
+                    <input type="text" name="tusedayLunchCalorie" class="calorie"
+                        value="<?php echo $row2['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="tusedayDinnerMeal" class="meal" value="<?php echo $row2['dinnerMeal'] ?>">
                     <input type="text" name="tusedayDinnerQuntity" class="quntity"
                         value="<?php echo $row2['dinnerQty'] ?>">
+                    <input type="text" name="tusedayDinnerCalorie" class="calorie"
+                        value="<?php echo $row2['dinnerCal'] ?>">
                 </div>
 
 
@@ -345,17 +400,23 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row3['breakfastMeal'] ?>">
                     <input type="text" name="wednesdayBreakfastQuntity" class="quntity"
                         value="<?php echo $row3['breakfastQty'] ?>">
+                    <input type="text" name="wednesdayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row3['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="wednesdayLunchMeal" class="meal" value="<?php echo $row3['lunchMeal'] ?>">
                     <input type="text" name="wednesdayLunchQuntity" class="quntity"
                         value="<?php echo $row3['lunchQty'] ?>">
+                    <input type="text" name="wednesdayLunchCalorie" class="calorie"
+                        value="<?php echo $row3['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="wednesdayDinnerMeal" class="meal"
                         value="<?php echo $row3['dinnerMeal'] ?>">
-                    <input type="text" name="wednesdayDInnerQuntity" class="quntity"
+                    <input type="text" name="wednesdayDinnerQuntity" class="quntity"
                         value="<?php echo $row3['dinnerQty'] ?>">
+                    <input type="text" name="wednesdayDinnerCalorie" class="calorie"
+                        value="<?php echo $row3['dinnerCal'] ?>">
                 </div>
 
 
@@ -366,16 +427,22 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row4['breakfastMeal'] ?>">
                     <input type="text" name="thursdayBreakfastQuntity" class="quntity"
                         value="<?php echo $row4['breakfastQty'] ?>">
+                    <input type="text" name="thursdayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row4['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="thursdayLunchMeal" class="meal" value="<?php echo $row4['lunchMeal'] ?>">
                     <input type="text" name="thursdayLunchQuntity" class="quntity"
                         value="<?php echo $row4['lunchQty'] ?>">
+                    <input type="text" name="thursdayLunchCalorie" class="calorie"
+                        value="<?php echo $row4['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="thursdayDinnerMeal" class="meal" value="<?php echo $row4['dinnerMeal'] ?>">
                     <input type="text" name="thursdayDinnerQuntity" class="quntity"
                         value="<?php echo $row4['dinnerQty'] ?>">
+                    <input type="text" name="thursdayDinnerCalorie" class="calorie"
+                        value="<?php echo $row4['dinnerCal'] ?>">
                 </div>
 
 
@@ -386,16 +453,22 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row5['breakfastMeal'] ?>">
                     <input type="text" name="fridayBreakfastQuntity" class="quntity"
                         value="<?php echo $row5['breakfastQty'] ?>">
+                    <input type="text" name="fridayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row5['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="fridayLunchMeal" class="meal" value="<?php echo $row5['lunchMeal'] ?>">
                     <input type="text" name="fridayLunchQuntity" class="quntity"
                         value="<?php echo $row5['lunchQty'] ?>">
+                    <input type="text" name="fridayLunchCalorie" class="calorie"
+                        value="<?php echo $row5['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="fridayDinnerMeal" class="meal" value="<?php echo $row5['dinnerMeal'] ?>">
                     <input type="text" name="fridayDinnerQuntity" class="quntity"
                         value="<?php echo $row5['dinnerQty'] ?>">
+                    <input type="text" name="fridayDinnerCalorie" class="calorie"
+                        value="<?php echo $row5['dinnerCal'] ?>">
                 </div>
 
 
@@ -406,16 +479,22 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row6['breakfastMeal'] ?>">
                     <input type="text" name="saturdayBreakfastQuntity" class="quntity"
                         value="<?php echo $row6['breakfastQty'] ?>">
+                    <input type="text" name="saturdayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row6['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="saturdayLunchMeal" class="meal" value="<?php echo $row6['lunchMeal'] ?>">
                     <input type="text" name="saturdayLunchQuntity" class="quntity"
                         value="<?php echo $row6['lunchQty'] ?>">
+                    <input type="text" name="saturdayLunchCalorie" class="calorie"
+                        value="<?php echo $row6['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="saturdayDinnerMeal" class="meal" value="<?php echo $row6['dinnerMeal'] ?>">
                     <input type="text" name="saturdayDinnerQuntity" class="quntity"
                         value="<?php echo $row6['dinnerQty'] ?>">
+                    <input type="text" name="saturdayDinnerCalorie" class="calorie"
+                        value="<?php echo $row6['dinnerCal'] ?>">
                 </div>
 
 
@@ -426,48 +505,28 @@ if (isset($_POST['update'])) {
                         value="<?php echo $row7['breakfastMeal'] ?>">
                     <input type="text" name="sundayBreakfastQuntity" class="quntity"
                         value="<?php echo $row7['breakfastQty'] ?>">
+                    <input type="text" name="sundayBreakfastCalorie" class="calorie"
+                        value="<?php echo $row7['breakfastCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="sundayLunchMeal" class="meal" value="<?php echo $row7['lunchMeal'] ?>">
                     <input type="text" name="sundayLunchQuntity" class="quntity"
                         value="<?php echo $row7['lunchQty'] ?>">
+                    <input type="text" name="sundayLunchCalorie" class="calorie"
+                        value="<?php echo $row7['lunchCal'] ?>">
                 </div>
                 <div class="gridText">
                     <input type="text" name="sundayDinnerMeal" class="meal" value="<?php echo $row7['dinnerMeal'] ?>">
                     <input type="text" name="sundayDinnerQuntity" class="quntity"
                         value="<?php echo $row7['dinnerQty'] ?>">
+                    <input type="text" name="sundayDinnerCalorie" class="calorie"
+                        value="<?php echo $row7['dinnerCal'] ?>">
                 </div>
 
-
+                <button name="update" class="saveButton">Save</button>
             </div>
-            <button name="update" class="saveButton">Save</button>
         </form>
     </div>
-
-
-    <div id="popUp" class="popUpContent">
-        <div class="popUpContainer">
-            <span class="close">&times;</span>
-            <img src="../../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
-            <p>Your Diet Plan has been Updated Successfully!</p>
-            <button class="acceptBtn" onclick="window.location.href='../DietPlan/dietPlan.html'">OK</button>
-        </div>
-    </div>
-
-    <script>
-    var popUpContent = document.getElementById('popUp');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
-            popUpContent.style.display = "none";
-        }
-    }
-    </script>
 
 </body>
 

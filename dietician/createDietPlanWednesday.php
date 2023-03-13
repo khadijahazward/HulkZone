@@ -106,7 +106,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $result4 = mysqli_query($conn, $query4);
             
             if($result4){
-                echo "<script> window.alert('Inserting data id successful!');window.location.href='createDietPlanThursday.php?next=".$memberID."'</script>";
+                echo "<script> window.location.href='createDietPlanThursday.php?next=".$memberID."'</script>";
             }else{
                 echo '<script> window.alert("Error of inserting data");</script>';
             }
@@ -217,14 +217,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             </div>
                         </td>
                         <td>
-                            <div class=" gridText"><input type="text" name="dinnerQuantity" placeholder="Quantity"
+                            <div class=" gridText">
+                                <input type="text" name="dinnerQuantity" placeholder="Quantity"
                                     value="<?php echo $dinnerQuantity ?>">
                             </div>
                         </td>
                         <td>
                             <div class="gridText">
-                                <input type="text" name="dinnerCalorie" placeholder="Calorie" value="
-                                    <?php echo $dinnerCalorie ?>">
+                                <input type="text" name="dinnerCalorie" placeholder="Calorie"
+                                    value="<?php echo $dinnerCalorie ?>">
                             </div>
                         </td>
                     </tr>

@@ -2,27 +2,27 @@
 include 'authorization.php';
 include "connect.php";
 include("setProfilePic.php");
-?>
 
-<!--checking for empty fields-->
-<?php
+
+// checking for empty fields
+
 $check = "";
-$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
-$subjectErr = $descriptionErr = "";
+$userid = $_SESSION["userID"];
+$subjectErr = $desErr = "";
+include "../connect.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    if (empty($_POST["subject"])) {
-        $subjectErr = "Subject is required";
-    }
-    if (empty($_POST["description"])) {
-        $descriptionErr = "Description is required";
-    }
+if (empty($_POST["subject"])) {
+$subjectErr = "Subject is required";
+}
+if (empty($_POST["des"])) {
+$desErr = "Description is required";
+}
 }
 ?>
 
 <!--inserting into table-->
 <?php
-
     function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
@@ -30,47 +30,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $data;
     }
 
-    $subject = $description =" ";
+    $subject = $des =" ";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
         $check = 1;
         $subject = test_input($_POST["subject"]);
-        $description = test_input($_POST['description']);
-        $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+        $des = test_input($_POST["des"]);
+        $userid = $_SESSION["userID"];
         $status = "Filed";
 
 
         //for file upload - if there is an image
-        if (isset($_FILES["evidanceImage"]) && $_FILES["evidanceImage"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($description)){
+        if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des)){
             $allowed_types = array("image/jpeg", "image/png");
             $allowed_size = 5242880; // 5MB - 5 * 1024 * 1024
 
             // Checking file types
-            if (!in_array($_FILES["evidanceImage"]["type"], $allowed_types)) {
+            if (!in_array($_FILES["Evi-image"]["type"], $allowed_types)) {
                 $fileErr = "Invalid file type. Only JPEG and PNG files are allowed.";
                 $check = 0;
             }
 
             // Checking size of the file uploaded
-            if ($_FILES["evidanceImage"]["size"] > $allowed_size) {
+            if ($_FILES["Evi-image"]["size"] > $allowed_size) {
                 $fileErr = "File size is too large. Maximum size is 5MB.";
                 $check = 0;
             }
 
             if ($check == 1) {
                 // splitting the file name into an array, where each element of the array is a substring of the original file name separated by the "." character. 
-                $temp = explode(".", $_FILES["evidanceImage"]["name"]);
+                $temp = explode(".", $_FILES["Evi-image"]["name"]);
                 //returns last element of the array
                 $extension = end($temp);
                 
 
-                $new_filename = $userID . "_" . time() .".$extension";
+                $new_filename = $_SESSION['userID'] . "_" . time() .".$extension";
                 //storing file in the Complaintevidence folder
-                $upload_path = "C:/Xampp/htdocs/HulkZone/Complaintevidence/" . $new_filename;
+                $upload_path = "C:/xampp/htdocs/HulkZone/Complaintevidence/" . $new_filename;
 
                 //moves an uploaded file to a new location. 
-                if (move_uploaded_file($_FILES["evidanceImage"]["tmp_name"], $upload_path)) {
-                    $sql = "INSERT INTO complaint (subject, description, status, dateReported, userID, evidence) VALUES ('$subject', '$description', '$status', current_timestamp(), '$userID', '$upload_path')";
+                if (move_uploaded_file($_FILES["Evi-image"]["tmp_name"], $upload_path)) {
+                    $sql = "INSERT INTO complaint (subject, description, status, dateReported, userID, evidence) VALUES ('$subject', '$des', '$status', current_timestamp(), '$userid', '$upload_path')";
                         
                     if (mysqli_query($conn, $sql)) {
                         echo "<script>alert('Complaint filed successfully!'); window.location.href='http://localhost/Hulkzone/dietician/complaint.php';</script>";     
@@ -79,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }else{
                 echo "<script>alert('$fileErr'); window.location.href='http://localhost/Hulkzone/dietician/createComplaint.php';</script>";
             }
-        } elseif (!empty($subject) && !empty($description)) {
-            $sql = "INSERT INTO complaint (subject, description, status, dateReported, userID) VALUES ('$subject', '$description', '$status', current_timestamp(), '$userID')";
+        } elseif (!empty($subject) && !empty($des)) {
+            $sql = "INSERT INTO complaint (subject, description, status, dateReported, userID) VALUES ('$subject', '$des', '$status', current_timestamp(), '$userid')";
 
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Complaint filed successfully!'); window.location.href='http://localhost/Hulkzone/dietician/complaint.php';</script>";
@@ -91,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }      
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,21 +125,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td>
                             <span class="error"><?php echo $subjectErr; ?></span><br>
                             <input type="text" name="subject" id="subject" class="textBox"
-                                placeholder="Enter your complaint subject">
+                                placeholder="Enter your complaint subject"
+                                value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
                         </td>
                     </tr>
                     <tr>
                         <td><label for="description">Complaints Description</label></td>
                         <td>
-                            <span class="error"><?php echo $descriptionErr; ?></span><br>
-                            <textarea name="description" id="description" cols="82" rows="6" style="resize: none;"
-                                placeholder="Enter your complaint briefly"></textarea>
+                            <span class="error"><?php echo $desErr; ?></span><br>
+                            <textarea name="des" id="des" cols="82" rows="6" style="resize: none;"
+                                placeholder="Enter your complaint briefly"><?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?></textarea>
                         </td>
                     </tr>
                     <tr class="evidenceContent">
-                        <td><label for="evidanceImage">Evidance: (Upload any proofs)</label></td>
+                        <td><label for="Evi-image">Evidance: (Upload any proofs)</label></td>
                         <td>
-                            <input type="file" id="evidanceImage" name="evidanceImage">
+                            <input type="file" name="Evi-image">
                         </td>
                     </tr>
                 </table>

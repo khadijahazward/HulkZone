@@ -43,7 +43,7 @@ if (isset($row['profilePhoto'])) {
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <?php echo "<img src=".$profilePic." alt='my profile' class='myProfile'>"; ?>
             </div>
             <div class="leftBar">
                 <div class="leftBarContent">

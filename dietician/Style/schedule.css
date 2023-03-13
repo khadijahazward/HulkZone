@@ -135,7 +135,7 @@
     font-weight: 400;
 }
 
-.chooseDate input[type="week"] {
+.chooseDate input[type="date"] {
     height: 36px;
     width: 260px;
     color: black;
@@ -146,8 +146,13 @@
     text-align: center;
 }
 
-.chooseDate input[type="month"]:focus {
+.chooseDate input[type="date"]:focus {
     outline: none;
+}
+
+.dateError{
+    position: absolute;
+    color: red;
 }
 
 .gridContainer {

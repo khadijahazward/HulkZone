@@ -1,6 +1,52 @@
 <?php
 
-include '../connect.php';
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
+
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if (mysqli_num_rows($result1) == 1) {
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID'];
+} else {
+    echo '<script> window.alert("Error of receiving employee details!");</script>';
+}
+
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= date('Y-m-d H:i:s')";
+$result2 = mysqli_query($conn, $query2);
+
+if (mysqli_num_rows($result2) > 0) {
+    while ($row2 = mysqli_fetch_assoc($result2)) {
+        $memberID = $row2['memberID'];
+
+        $query3 = "SELECT * FROM member WHERE memberID = $memberID";
+        $result3 = mysqli_query($conn, $query3);
+
+        if ($result3) {
+            $row3 = mysqli_fetch_assoc($result3);
+            $memberUserID = $row3['userID'];
+
+            $query4 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
+            $result4 = mysqli_query($conn, $query4);
+
+            if (mysqli_num_rows($result4) > 0) {
+                while ($row4 = mysqli_fetch_assoc($result4)) {
+
+                    $memberFName = $row4['fName'];
+                    $memberLName = $row4['lName'];
+                    $memberProfilePic = $row4['profilePhoto'];
+                    $gender = $row4['gender'];
+                    $contactNumber = $row4['contactNumber'];
+                    $planType = $row4['planType'];
+                }
+            }
+        }
+    }
+}
 
 ?>
 
@@ -24,7 +70,7 @@ include '../connect.php';
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -67,33 +113,17 @@ include '../connect.php';
                             <th></th>
                         </tr>
                     </thead>
-
-                    <?php
-                        $sql = "SELECT member.memberID, user.profilePhoto, user.fName, user.lName, user.gender, user.contactNumber, member.planType
-                                FROM member
-                                INNER JOIN user
-                                ON member.userID = user.userID";
-
-                        $result = mysqli_query($conn, $sql);
-
-                    ?>
-
                     <tbody>
                         <?php
-
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
                                 echo"<tr>
-                                        <td>".$row["memberID"]."</td>
-                                        <td><img src=".$row["profilePhoto"]." alt='member's DP'></td>
-                                        <td>".$row["fName"]." ".$row["lName"]."</td>
-                                        <td>".$row["gender"]."</td>
-                                        <td>".$row["contactNumber"]."</td>
-                                        <td>".$row["planType"]."</td>
-                                        <td><a href='memberProfile.php?view=".$row["memberID"]."'><button>View More</button></a></td>
+                                        <td>". $memberID ."</td>
+                                        <td><img src=". $memberProfilePic ." alt='member's DP'></td>
+                                        <td>". $memberFName ." ". $memberLName ."</td>
+                                        <td>". $gender ."</td>
+                                        <td>". $contactNumber."</td>
+                                        <td>".$planType."</td>
+                                        <td><a href='memberProfile.php?view=".$memberID."'><button>View More</button></a></td>
                                     </tr>";
-                            }
-                        }
                         ?>
                     </tbody>
                 </table>
