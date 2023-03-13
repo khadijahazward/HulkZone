@@ -32,7 +32,9 @@ include '../connect.php';
                     STRENGTH TRAINING
                 </div>
                 <div class="right">
-                    <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
+                    <div class="notification-bell">
+                        <?php include("notifications.php"); ?>
+                    </div>
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
@@ -250,8 +252,8 @@ include '../connect.php';
                                         $payNow = 'javascript:void(0);';
                                         $onclick = 'onclick="alert(\'You already have an ongoing service and cannot obtain another one until it ends.\'); return false;"';                                    
                                     } else {
-                                        $payNow = 'pay_now.php?employeeID='.$employeeID.'&serviceID=1';
-                                        $onclick = "";
+                                        $payNow = '../member/stripe/checkout.php?type='.$serviceID.'&amount=10000&employeeID='.$employeeID;
+                                        $onclick = 'onclick="window.location.href=\''.$payNow.'\';"';
                                     }
 
                                     $field3name = '<a href="'.$payNow.'" class = "button" '.$onclick.'>Pay Now</a>';

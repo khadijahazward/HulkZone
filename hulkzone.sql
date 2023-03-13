@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2023 at 02:27 PM
--- Server version: 8.0.27
--- PHP Version: 8.0.12
+-- Generation Time: Mar 04, 2023 at 07:05 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,10 +28,10 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chat` (
-  `chatID` int NOT NULL,
-  `senderID` int NOT NULL,
-  `receiverID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `chatID` int(11) NOT NULL,
+  `senderID` int(11) NOT NULL,
+  `receiverID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -40,15 +40,15 @@ CREATE TABLE `chat` (
 --
 
 CREATE TABLE `complaint` (
-  `complaintID` int NOT NULL,
+  `complaintID` int(11) NOT NULL,
   `subject` varchar(200) NOT NULL,
   `description` text NOT NULL,
   `status` varchar(100) NOT NULL,
   `dateReported` date NOT NULL,
-  `actionTaken` text,
-  `userID` int NOT NULL,
-  `evidence` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `actionTaken` text DEFAULT NULL,
+  `userID` int(11) NOT NULL,
+  `evidence` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `complaint`
@@ -65,13 +65,13 @@ INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `status`, `dat
 --
 
 CREATE TABLE `dieticianappointment` (
-  `employeeID` int NOT NULL,
-  `memberID` int DEFAULT NULL,
+  `employeeID` int(11) NOT NULL,
+  `memberID` int(11) DEFAULT NULL,
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
   `status` varchar(100) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -80,15 +80,34 @@ CREATE TABLE `dieticianappointment` (
 --
 
 CREATE TABLE `dietplan` (
-  `employeeID` int NOT NULL,
+  `employeeID` int(11) NOT NULL,
   `dietplanDate` date NOT NULL,
-  `mealType` varchar(100) NOT NULL,
-  `Qty` varchar(100) NOT NULL,
-  `day` varchar(100) NOT NULL,
-  `meal` varchar(100) NOT NULL,
-  `status` int NOT NULL DEFAULT '0',
-  `memberID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `breakfastQty` varchar(100) NOT NULL,
+  `breakfastMeal` varchar(100) NOT NULL,
+  `breakfastCal` varchar(11) NOT NULL,
+  `lunchQty` varchar(100) NOT NULL,
+  `lunchMeal` varchar(100) NOT NULL,
+  `lunchCal` varchar(100) NOT NULL,
+  `dinnerQty` varchar(100) NOT NULL,
+  `dinnerMeal` varchar(100) NOT NULL,
+  `dinnerCal` varchar(100) NOT NULL,
+  `day` varchar(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0,
+  `memberID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `dietplan`
+--
+
+INSERT INTO `dietplan` (`employeeID`, `dietplanDate`, `breakfastQty`, `breakfastMeal`, `breakfastCal`, `lunchQty`, `lunchMeal`, `lunchCal`, `dinnerQty`, `dinnerMeal`, `dinnerCal`, `day`, `status`, `memberID`) VALUES
+(10, '0000-00-00', 'hdj', 'nbnb', 'jdb', '', 'Green Gram', 'gyg', 'fgudgu', 'kwqhdk', 'errv', 'Tuesday', 1, 41),
+(10, '2023-03-05', 'hdj', 'Meat', 'dfvd', '01 bowl', 'djhvjd', 'fvdvd', 'fgudgu', 'beuwegu', 'dfvfd', 'Saturday', 1, 41),
+(10, '2023-03-14', 'hdj', 'Meat', 'dfvd', 'fnrj', 'Green Gram', 'fvdvd', 'fkvkfdd', 'ere', 'dfvfd', 'Thursday', 1, 41),
+(10, '2023-03-15', 'hdj', 'jn', 'dfvd', 'lhdk', 'djhvjd', 'fvdvd', 'wjhdk', 'ere', 'dcnwke                           ', 'Wednesday', 1, 41),
+(10, '2023-03-22', '02', 'jn', 'dfvd', '', 'djhvjd', 'fvdvd', 'jrheh', 'reheuy', 'dfvfd', 'Monday', 1, 41),
+(10, '2023-04-01', 'wjdiwj', 'Eggs', 'dfvd', 'fnrj', 'djhvjd', 'gyg', 'wjhdk', 'kwqhdk', 'dfvfd', 'Friday', 1, 41),
+(10, '2023-04-08', '02', 'Meat', 'jdb', '01 bowl', 'djhvjd', 'fvdvd', 'wehiu', 'ere', 'errv', 'Sunday', 1, 41);
 
 -- --------------------------------------------------------
 
@@ -97,15 +116,15 @@ CREATE TABLE `dietplan` (
 --
 
 CREATE TABLE `emergencycontact` (
-  `memberID` int NOT NULL,
+  `memberID` int(11) NOT NULL,
   `contactName` varchar(100) NOT NULL,
   `relationship` varchar(100) DEFAULT NULL,
-  `telephone` int DEFAULT NULL,
-  `streetNumber` text,
-  `addressLine1` text,
-  `addressLine2` text,
-  `city` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `telephone` int(11) DEFAULT NULL,
+  `streetNumber` text DEFAULT NULL,
+  `addressLine1` text DEFAULT NULL,
+  `addressLine2` text DEFAULT NULL,
+  `city` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `emergencycontact`
@@ -121,14 +140,14 @@ INSERT INTO `emergencycontact` (`memberID`, `contactName`, `relationship`, `tele
 --
 
 CREATE TABLE `employee` (
-  `employeeID` int NOT NULL,
-  `userID` int NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
   `noOfYearsOfExperience` varchar(100) NOT NULL,
-  `avgRating` double NOT NULL DEFAULT '0',
+  `avgRating` double NOT NULL DEFAULT 0,
   `qualification` text NOT NULL,
   `description` text NOT NULL,
   `language` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employee`
@@ -153,9 +172,9 @@ INSERT INTO `employee` (`employeeID`, `userID`, `noOfYearsOfExperience`, `avgRat
 --
 
 CREATE TABLE `employeeservice` (
-  `serviceID` int NOT NULL,
-  `employeeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `serviceID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `employeeservice`
@@ -163,16 +182,16 @@ CREATE TABLE `employeeservice` (
 
 INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
 (1, 5),
+(1, 7),
+(1, 9),
 (2, 5),
 (2, 6),
-(1, 7),
 (2, 7),
-(4, 7),
-(3, 8),
-(1, 9),
 (2, 9),
+(3, 8),
 (3, 10),
 (3, 11),
+(4, 7),
 (4, 14);
 
 -- --------------------------------------------------------
@@ -182,9 +201,9 @@ INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
 --
 
 CREATE TABLE `exercise` (
-  `exerciseID` int NOT NULL,
+  `exerciseID` int(11) NOT NULL,
   `exerciseName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `exercise`
@@ -206,12 +225,12 @@ INSERT INTO `exercise` (`exerciseID`, `exerciseName`) VALUES
 --
 
 CREATE TABLE `gymuseappointment` (
-  `appointmentID` int NOT NULL,
+  `appointmentID` int(11) NOT NULL,
   `date` date NOT NULL,
-  `memberID` int NOT NULL,
-  `slotID` int NOT NULL,
-  `attendance` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `memberID` int(11) NOT NULL,
+  `slotID` int(11) NOT NULL,
+  `attendance` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `gymuseappointment`
@@ -235,13 +254,13 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 --
 
 CREATE TABLE `medicalform` (
-  `memberID` int NOT NULL,
+  `memberID` int(11) NOT NULL,
   `isFatigue` varchar(10) NOT NULL,
   `isSmoke` varchar(10) NOT NULL,
   `existing_conditions` text NOT NULL,
   `isInjury` varchar(10) NOT NULL,
   `allergies` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `medicalform`
@@ -257,12 +276,12 @@ INSERT INTO `medicalform` (`memberID`, `isFatigue`, `isSmoke`, `existing_conditi
 --
 
 CREATE TABLE `member` (
-  `memberID` int NOT NULL,
-  `userID` int NOT NULL,
+  `memberID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
   `planType` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `member`
@@ -281,13 +300,13 @@ INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALU
 --
 
 CREATE TABLE `memberservice` (
-  `memberID` int NOT NULL,
-  `serviceID` int NOT NULL,
+  `memberID` int(11) NOT NULL,
+  `serviceID` int(11) NOT NULL,
   `startDate` datetime NOT NULL,
   `endDate` datetime NOT NULL,
   `status` varchar(100) NOT NULL,
-  `employeeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `employeeID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -296,12 +315,12 @@ CREATE TABLE `memberservice` (
 --
 
 CREATE TABLE `message` (
-  `messageID` int NOT NULL,
-  `chatID` int NOT NULL,
+  `messageID` int(11) NOT NULL,
+  `chatID` int(11) NOT NULL,
   `text` text NOT NULL,
   `status` varchar(100) NOT NULL,
   `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -310,11 +329,11 @@ CREATE TABLE `message` (
 --
 
 CREATE TABLE `notifications` (
-  `notificationsID` int NOT NULL,
+  `notificationsID` int(11) NOT NULL,
   `message` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
-  `type` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `type` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `notifications`
@@ -331,12 +350,12 @@ INSERT INTO `notifications` (`notificationsID`, `message`, `created_at`, `type`)
 --
 
 CREATE TABLE `payment` (
-  `paymentID` int NOT NULL,
+  `paymentID` int(11) NOT NULL,
   `paymentDate` datetime NOT NULL,
   `amount` double NOT NULL,
-  `type` int NOT NULL,
-  `memberID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `type` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `payment`
@@ -354,10 +373,10 @@ INSERT INTO `payment` (`paymentID`, `paymentDate`, `amount`, `type`, `memberID`)
 --
 
 CREATE TABLE `paymentplan` (
-  `planID` int NOT NULL,
-  `memberID` int NOT NULL,
+  `planID` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL,
   `expiryDate` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `paymentplan`
@@ -376,11 +395,11 @@ INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
 --
 
 CREATE TABLE `service` (
-  `serviceID` int NOT NULL,
+  `serviceID` int(11) NOT NULL,
   `serviceName` varchar(255) NOT NULL,
-  `servicePeriod` int NOT NULL,
+  `servicePeriod` int(11) NOT NULL,
   `servicePrice` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `service`
@@ -399,14 +418,14 @@ INSERT INTO `service` (`serviceID`, `serviceName`, `servicePeriod`, `servicePric
 --
 
 CREATE TABLE `servicecharge` (
-  `memberID` int NOT NULL,
-  `paymentID` int NOT NULL,
-  `serviceID` int NOT NULL,
-  `employeeID` int NOT NULL,
+  `memberID` int(11) NOT NULL,
+  `paymentID` int(11) NOT NULL,
+  `serviceID` int(11) NOT NULL,
+  `employeeID` int(11) NOT NULL,
   `startDate` datetime NOT NULL,
   `endDate` datetime NOT NULL,
-  `rate` int DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `rate` int(11) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `servicecharge`
@@ -424,10 +443,10 @@ INSERT INTO `servicecharge` (`memberID`, `paymentID`, `serviceID`, `employeeID`,
 --
 
 CREATE TABLE `slots` (
-  `slotID` int NOT NULL,
+  `slotID` int(11) NOT NULL,
   `sTime` time NOT NULL,
   `eTime` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `slots`
@@ -445,15 +464,36 @@ INSERT INTO `slots` (`slotID`, `sTime`, `eTime`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `supplement`
+--
+
+CREATE TABLE `supplement` (
+  `employeeID` int(11) NOT NULL,
+  `supplementID` int(11) NOT NULL,
+  `supplementName` varchar(100) NOT NULL,
+  `supplementType` varchar(100) NOT NULL,
+  `memberID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `supplement`
+--
+
+INSERT INTO `supplement` (`employeeID`, `supplementID`, `supplementName`, `supplementType`, `memberID`) VALUES
+(10, 5, 'BSN Syntha 6', 'Protein', 41);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timeslots`
 --
 
 CREATE TABLE `timeslots` (
-  `availableID` int NOT NULL,
-  `weekDayID` int NOT NULL,
-  `slotID` int NOT NULL,
-  `availableSlots` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `availableID` int(11) NOT NULL,
+  `weekDayID` int(11) NOT NULL,
+  `slotID` int(11) NOT NULL,
+  `availableSlots` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `timeslots`
@@ -517,13 +557,13 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 --
 
 CREATE TABLE `trainerappointment` (
-  `employeeID` int NOT NULL,
-  `memberID` int NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL,
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
   `status` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -532,24 +572,24 @@ CREATE TABLE `trainerappointment` (
 --
 
 CREATE TABLE `user` (
-  `userID` int NOT NULL,
+  `userID` int(11) NOT NULL,
   `fName` text NOT NULL,
   `lName` text NOT NULL,
   `NIC` text NOT NULL,
   `gender` varchar(50) NOT NULL,
-  `profilePhoto` text,
+  `profilePhoto` text DEFAULT NULL,
   `dateOfBirth` date NOT NULL,
-  `roles` int NOT NULL,
-  `statuses` int NOT NULL,
-  `contactNumber` int NOT NULL,
+  `roles` int(11) NOT NULL,
+  `statuses` int(11) NOT NULL,
+  `contactNumber` int(11) NOT NULL,
   `streetNumber` varchar(255) DEFAULT NULL,
-  `addressLine01` text,
-  `addressLine02` text,
-  `city` text,
+  `addressLine01` text DEFAULT NULL,
+  `addressLine02` text DEFAULT NULL,
+  `city` text DEFAULT NULL,
   `pw` varchar(255) NOT NULL,
   `created_at` date NOT NULL,
   `email` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user`
@@ -580,11 +620,11 @@ INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`,
 --
 
 CREATE TABLE `usernotifications` (
-  `usernotificationsID` int NOT NULL,
-  `userID` int NOT NULL,
-  `notificationsID` int NOT NULL,
-  `status` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `usernotificationsID` int(11) NOT NULL,
+  `userID` int(11) NOT NULL,
+  `notificationsID` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `usernotifications`
@@ -601,9 +641,9 @@ INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notifications
 --
 
 CREATE TABLE `weekdays` (
-  `weekDayID` int NOT NULL,
+  `weekDayID` int(11) NOT NULL,
   `weekDayName` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `weekdays`
@@ -625,15 +665,15 @@ INSERT INTO `weekdays` (`weekDayID`, `weekDayName`) VALUES
 --
 
 CREATE TABLE `workoutplan` (
-  `employeeID` int NOT NULL,
-  `memberID` int NOT NULL,
+  `employeeID` int(11) NOT NULL,
+  `memberID` int(11) NOT NULL,
   `workoutPlanMonth` datetime NOT NULL,
   `day` varchar(100) NOT NULL,
-  `duration` int NOT NULL,
-  `exerciseID` int NOT NULL,
-  `restTime` int NOT NULL,
-  `status` int NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `duration` int(11) NOT NULL,
+  `exerciseID` int(11) NOT NULL,
+  `restTime` int(11) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -666,7 +706,7 @@ ALTER TABLE `dieticianappointment`
 -- Indexes for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD PRIMARY KEY (`employeeID`,`dietplanDate`,`mealType`,`memberID`),
+  ADD PRIMARY KEY (`employeeID`,`dietplanDate`,`memberID`),
   ADD KEY `employeeID` (`employeeID`),
   ADD KEY `memberID` (`memberID`);
 
@@ -780,6 +820,14 @@ ALTER TABLE `slots`
   ADD PRIMARY KEY (`slotID`);
 
 --
+-- Indexes for table `supplement`
+--
+ALTER TABLE `supplement`
+  ADD PRIMARY KEY (`supplementID`),
+  ADD KEY `employeeID` (`employeeID`),
+  ADD KEY `memberID` (`memberID`);
+
+--
 -- Indexes for table `timeslots`
 --
 ALTER TABLE `timeslots`
@@ -832,97 +880,103 @@ ALTER TABLE `workoutplan`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `chatID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `chatID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `complaint`
 --
 ALTER TABLE `complaint`
-  MODIFY `complaintID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `complaintID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `employeeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `exercise`
 --
 ALTER TABLE `exercise`
-  MODIFY `exerciseID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `exerciseID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `appointmentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `memberID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `messageID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `messageID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `notificationsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `paymentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `paymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `planID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `service`
 --
 ALTER TABLE `service`
-  MODIFY `serviceID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `serviceID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `slots`
 --
 ALTER TABLE `slots`
-  MODIFY `slotID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `slotID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `supplement`
+--
+ALTER TABLE `supplement`
+  MODIFY `supplementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `timeslots`
 --
 ALTER TABLE `timeslots`
-  MODIFY `availableID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `availableID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
 
 --
 -- AUTO_INCREMENT for table `usernotifications`
 --
 ALTER TABLE `usernotifications`
-  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `usernotificationsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
 --
 ALTER TABLE `weekdays`
-  MODIFY `weekDayID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `weekDayID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -1027,6 +1081,13 @@ ALTER TABLE `servicecharge`
   ADD CONSTRAINT `servicecharge_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `servicecharge_ibfk_3` FOREIGN KEY (`paymentID`) REFERENCES `payment` (`paymentID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `servicecharge_ibfk_4` FOREIGN KEY (`serviceID`) REFERENCES `service` (`serviceID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `supplement`
+--
+ALTER TABLE `supplement`
+  ADD CONSTRAINT `employeeID` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `memberID` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `timeslots`

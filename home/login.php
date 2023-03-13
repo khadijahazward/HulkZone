@@ -1,6 +1,7 @@
 <?php
-include '../connect.php';
 
+include '../connect.php';
+$form_action = "login.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $pw = $_POST['password'];
@@ -41,18 +42,49 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }else if($_SESSION['role'] == 1){
                 header("location: ..\member\dashboard.php");
             }else if($_SESSION['role'] == 2){
-                header("location: ..\\trainer\dashboard.php");
+                header("location: http://localhost/hulkzone/trainer/dashboard.php");
             }else if($_SESSION['role'] == 3){
                 header("location: ..\dietician\home.php");
+            }  
+
+        }else if($row['statuses'] == 0 && $row['roles'] == 1){
+            session_start();
+            
+            $_SESSION["logged_in"] = true;
+            
+            $_SESSION['username'] = $username;
+            $_SESSION['firstName'] = $row['fName'];
+            $_SESSION['lastName'] = $row['lName'];
+            $_SESSION['userID'] = $row['userID'];
+            $_SESSION['role'] = $row['roles'];
+                    
+            // Get the user's plan type from the member table
+            $sql1 = "SELECT planType, memberID FROM member WHERE userID = {$row['userID']}";
+            $result1 = mysqli_query($conn, $sql1);
+            $row1 = mysqli_fetch_array($result1);
+            $memberID = $row1['memberID'];
+        
+            // Determine the payment amount based on the plan type
+            if ($row1['planType'] == "oneMonth") {
+                $paymentAmount = 1000;
+            } elseif ($row1['planType'] == "threeMonth") {
+                $paymentAmount = 2900;
+            } elseif ($row1['planType'] == "sixMonth") {
+                $paymentAmount = 5600;
+            } elseif ($row1['planType'] == "twelveMonth") {
+                $paymentAmount = 11000;
             }
+            header("Location: ../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount));
+
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
         }
-     
+        
     } else {
         header("location:login.php?msg=failed");
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,26 +124,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="content">
 
         <div class="loginbox">
-            <img src="../asset/images/gymLogo.png" alt="GymLogo" class="GymLogo">
-            <h1>Login</h1>
-            <form action="login.php" method="post" onsubmit="return validation()" id="loginForm">
+        
+        <img src="../asset/images/gymLogo.png" alt="GymLogo" class="GymLogo">
+        <h1>Login</h1>
+        <form action="<?php echo $form_action; ?>" method="post" onsubmit="return validation()" id="loginForm">
 
-                <?php
-                    if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
-                        echo ("<div class='msg'>Incorrect Username or password </div>");
-                    }  
-                ?>
+            <?php
+                if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                    echo ("<div class='msg'>Incorrect Username or password </div>");
+                }  
+            ?>
 
-                <p>Username</p>
-                <input type="text" name="username" id="username" placeholder="Enter Username">
+            <p>Username</p>
+            <input type="text" name="username" id="username" placeholder="Enter Username">
 
-                <p>Password</p>
-                <input type="password" name="password" id="pass" placeholder="Enter Password">
+            <p>Password</p>
+            <input type="password" name="password" id="pass" placeholder="Enter Password">
 
-                <input type="submit" name="" value="Login"><br>
-                <a href="#">Forgot your password?</a><br>
+            <input type="submit" name="" value="Login"><br>
+            <a href="#">Forgot your password?</a><br>
 
-            </form>
+        </form>
         </div>
     </div>
 

@@ -3,6 +3,7 @@
 include('../connect.php');
 include('authorization.php');
 
+
 // Total Members Query
 $totalMembersQuery = "SELECT COUNT(*) AS total FROM user where roles=1";
 $totalMembersResult = mysqli_query($conn, $totalMembersQuery);
@@ -54,6 +55,9 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
 mysqli_close($conn);
 
 ?>
+<?php
+include('setAdminProfilePic.php');
+?>
 
 
 <!DOCTYPE html>
@@ -96,7 +100,7 @@ mysqli_close($conn);
       <div class="contentMiddle">
         <p class="myProfile">My Profile</p>
       </div>
-      <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+      <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <!-- below the header -->
     <div class="down">

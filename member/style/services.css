@@ -1,15 +1,27 @@
 .row{
-    height:40%; margin: 40px; display:flex; flex-direction:row; justify-content:center;
+    height:40%; 
+    margin: 40px; 
+    display:flex; 
+    flex-direction:row; 
+    justify-content:center;
 }
 
 .col{
-    margin:10px; border-radius: 10px; width:30%;  border: 3px solid black ;
-    display:flex; flex-direction:column; 
+    margin:10px; 
+    border-radius: 10px; 
+    width:30%;  
+    border: 3px solid black ;
+    display:flex; 
+    flex-direction:column; 
 }
 
 .sub-content{
-    background-color: #DEF9D7; height:30%; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;
-    display: flex; flex-direction: row;
+    background-color: #DEF9D7; 
+    height:30%; 
+    border-bottom-left-radius: 8px; 
+    border-bottom-right-radius: 8px;
+    display: flex; 
+    flex-direction: row;
 }
 
 img{
@@ -32,7 +44,11 @@ button[type = button]{
 }
 
 .text-content{
-    margin: auto; width: 70%; font-weight:bold; color:#006837; text-align:center;
+    margin: auto; 
+    width: 70%; 
+    font-weight:bold; 
+    color:#006837; 
+    text-align:center;
 }
 
 .content{

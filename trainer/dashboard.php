@@ -128,7 +128,9 @@ if (!$_SESSION['username']) {
 
         <div class="middle-container">
 
-            <h2>Hello <?php echo  $_SESSION['firstName']; ?> !</h2>
+            <h2>Hello                     <?php
+                          echo $_SESSION["firstName"];
+                    ?>  !</h2>
             <p>The only person you are destined to become is the person you decide to be.</p>
         </div>
 

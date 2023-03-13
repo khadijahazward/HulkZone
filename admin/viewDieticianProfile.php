@@ -16,6 +16,9 @@ include('authorization.php');
     $result = $conn->query($sql);
     $userDetails = $result->fetch_assoc();
 ?>
+<?php
+include('setAdminProfilePic.php');
+?>
 
 
 
@@ -52,13 +55,18 @@ include('../admin/sideBar.php');
     <div class="contentMiddle">
         <p class="myProfile">My Profile</p>
     </div>
-    <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+    <div class="contentRight" ><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
 </div>
     <div class="down" style="display:flex; flex-direction:row;">
                 <div class="edit-profile">
                     <div>
                         <!--dp-->
-                        <img src="../../HulkZone/asset/images/adminProfile.png" alt="dp" width="200px" height="200px">
+                         <!--dp-->
+                    <?php if (isset($userDetails['profilePhoto']) && $userDetails['profilePhoto'] != NULL) : ?>
+                        <img src="<?php echo $userDetails['profilePhoto']; ?>" alt="dp" width="200px" height="200px">
+                    <?php else : ?>
+                        <img src="../profileImages/default.png" alt="default dp" width="200px" height="200px">
+                    <?php endif; ?>
                     </div>
                     <div>
                         <?php 
@@ -69,6 +77,7 @@ include('../admin/sideBar.php');
                         Dietician<!--User Type-->
                         <br>
                     </div>
+                   
                    
                         
                     <div style="margin: 20px;">

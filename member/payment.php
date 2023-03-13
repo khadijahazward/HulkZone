@@ -7,6 +7,19 @@ include '../connect.php';
     include("setProfilePic.php");
 ?>
 
+<?php
+    $memberID = $row1['memberID'];
+    $planType = $row1['planType'];
+    $sql4 = "SELECT DATE(paymentDate) FROM payment WHERE memberID = $memberID and type = 0 ORDER BY paymentDate DESC LIMIT 1";
+    $result4 = mysqli_query($conn, $sql4);
+    if (mysqli_num_rows($result4) > 0) {
+        $row4 = mysqli_fetch_assoc($result4);
+        $latestPaymentDate =  $row4['DATE(paymentDate)'];
+    } else {
+        $latestPaymentDate =  "NO PAYMENTS DONE";
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +43,9 @@ include '../connect.php';
                     PAYMENTS
                 </div>
                 <div class="right">
-                    <img src="..\asset\images\bell.png" alt="notification" width="35px" height="35px">
+                    <div class="notification-bell">
+                        <?php include("notifications.php"); ?>
+                    </div>
                     <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="50px" height="50px" style="border-radius: 20px;">
                 </div>
             </div>
@@ -39,13 +54,84 @@ include '../connect.php';
                     <div class="sub-content">
                         <p>Total Payable</p>
                         <!--retreive-->
-                        <div>Rs. X</div>
-                        <button>Pay Bill</button>
+                        <div>
+                            <?php
+                                // Set default payment amount to 0
+                                $paymentAmount = 0;
+                                $currentDate = strtotime(date("Y-m-d"));
+                                $paymentType = 0;
+                                // Get the last two expiry dates for the plan type
+                                $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 2";
+                                $result5 = mysqli_query($conn, $sql5);
+ 
+                                $expiryDates = array();
+                                while ($row5 = mysqli_fetch_assoc($result5)) {
+                                    $expiryDates[] = strtotime($row5['expiryDate']);
+                                }
+                                
+                                if (mysqli_num_rows($result5) > 0) {
+                                    //for subsequent payments
+                                    if (count($expiryDates) == 2 && $currentDate < $expiryDates[1] && $currentDate >= $expiryDates[0]) {
+                                        
+                                        if ($planType == "oneMonth") {
+                                            $paymentAmount = 1000;
+                                        } elseif ($planType == "threeMonth") {
+                                            $paymentAmount = 2900;
+                                        } elseif ($planType == "sixMonth") {
+                                            $paymentAmount = 5600;
+                                        } elseif ($planType == "twelveMonth") {
+                                            $paymentAmount = 11000;
+                                        }
+                                        //for initial payment in new member
+                                    } elseif (count($expiryDates) == 1 && $currentDate < $expiryDates[0]) {
+                                        if ($planType == "oneMonth") {
+                                            $paymentAmount = 1000;
+                                        } elseif ($planType == "threeMonth") {
+                                            $paymentAmount = 2900;
+                                        } elseif ($planType == "sixMonth") {
+                                            $paymentAmount = 5600;
+                                        } elseif ($planType == "twelveMonth") {
+                                            $paymentAmount = 11000;
+                                        }
+                                    } elseif (count($expiryDates) == 2 && $currentDate < $expiryDates[0]) {
+                                        $paymentAmount = 0;
+                                    }
+                                }
+                                echo "Rs. " . $paymentAmount;
+
+                            ?>
+                        </div>
+                        <div style = "font-size:15px; margin:0;">Pay Before: 
+                            <?php 
+                                
+                                $sql5 = "SELECT DATE(expiryDate) FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 1";
+                                $result5 = mysqli_query($conn, $sql5);
+                                if (mysqli_num_rows($result5) > 0) {
+                                    $row5 = mysqli_fetch_assoc($result5);
+                                    echo $row5['DATE(expiryDate)'];
+                                } else {
+                                    echo " ";
+                                }
+
+                            ?>
+                        </div>
+                    <!-- disable button when payment = 0 -->
+                    <?php
+                        $disabled = '';
+                        if ($paymentAmount == 0) {
+                            $disabled = 'disabled';
+                        }
+                    ?>
+                       <button <?php echo $disabled; ?> onclick="window.location.href='../member/stripe/checkout.php?amount=<?php echo $paymentAmount; ?>&type=<?php echo $paymentType; ?>'">Pay Bill</button>
                     </div>
                     <div class="sub-content">
                         <p>Last Payment</p>
                         <!--retreive-->
-                        <div>X</div>
+                        <div>
+                            <?php
+                               echo $latestPaymentDate;   
+                            ?>
+                        </div>
                     </div>
                 </div>
                 <div class="middle-r">
