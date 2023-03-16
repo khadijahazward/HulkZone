@@ -3,7 +3,6 @@
 include 'authorization.php';
 include 'connect.php';
 include 'setProfilePic.php';
-include 'updatePic.php';
 
 $fnameErr = $lnameErr = $nicErr = $DOBErr = $phoneErr = $genderErr = $streetNumErr = $addressLineOneErr = $addressLineTwoErr = $cityErr = $experiencedYearsErr = $qualificationErr = $languageErr = $bioErr = "";
 
@@ -30,7 +29,7 @@ if (isset($_POST['edite'])) {
     $language = $_POST['language'];
     $bio = $_POST['bio'];
 
-    
+
     if (empty($fname)) {
         $fnameErr = "First Name is required";
     }
@@ -48,13 +47,13 @@ if (isset($_POST['edite'])) {
         $nicErr = "Invalid NIC number";
     }
 
-    if(empty($DOB)){
+    if (empty($DOB)) {
         $DOBErr = "Date of Birth is required";
     }
 
     if (empty($phone)) {
         $phoneErr = "Phone number is required";
-    } 
+    }
 
     if (empty($gender)) {
         $genderErr = "Gender is required";
@@ -97,7 +96,6 @@ if (isset($_POST['edite'])) {
 
 
 <!-- Change Profile Picture -->
-
 <?php
 if (isset($_FILES['image'])) {
     $errors = array();
@@ -120,24 +118,41 @@ if (isset($_FILES['image'])) {
     if ($file_size > 2097152) {
         $errors[] = 'File size must be exactly 2 MB';
     }
+
     if (empty($errors)) {
+        // Get the user ID from the session
         $userID = $_SESSION['userID'];
+
+        // Create a new file name using the user ID and the file extension
         $newFileName = $userID . '.' . $file_ext;
+
+        // Set the folder where the uploaded file will be stored
         $folder = "../profileImages/";
+
+        // Set the full path of the uploaded file
         $file_path = $folder . $newFileName;
+
+        // Move the uploaded file to the target directory
         move_uploaded_file($file_tmp, $file_path);
 
+        // Update the user's profile photo path in the database
         $query = "UPDATE user SET profilePhoto='$file_path' WHERE userID='$userID'";
         $result = mysqli_query($conn, $query);
 
         if (!$result) {
             echo "Error: " . mysqli_error($conn);
         } else {
-            echo "<script>window.location.href = 'profile.php';</script>";
+            // Redirect the user to their profile page
+            header("Location: profile.php");
+            exit();
         }
     } else {
-        echo "<script>alert('" . implode("\\n", $errors) . "');</script>";
-        echo "<script>window.location.href = 'profile.php';</script>";
+        // Display the error messages and redirect the user back to their profile page
+        echo "<script>
+alert('" . implode("\\n", $errors) . "');
+</script>";
+        header("Location: profile.php");
+        exit();
     }
 }
 ?>
@@ -193,7 +208,7 @@ if (isset($_FILES['image'])) {
                 <img src="<?php echo $profilePic ?>" alt="Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
-                        <?php echo $row1['fName'] ." ". $row1['lName']; ?></p>
+                        <?php echo $row1['fName'] . " " . $row1['lName']; ?></p>
                     <p style="font-weight: 400; font-size: 15px;">Dietician</p>
                 </div>
                 <button onclick="document.getElementById('image').style.display='block'"><i
@@ -223,7 +238,7 @@ if (isset($_FILES['image'])) {
                                 <td>
                                     <label for="fname">First Name</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$fnameErr ?>
+                                        <?php echo "*" . $fnameErr ?>
                                     </span><br>
                                     <input type="text" id="fname" name="fname" class="textBox"
                                         value="<?php echo $row1['fName'] ?>">
@@ -231,7 +246,7 @@ if (isset($_FILES['image'])) {
                                 <td>
                                     <label for="lname">Last Name</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$lnameErr ?>
+                                        <?php echo "*" . $lnameErr ?>
                                     </span><br>
                                     <input type="text" id="lname" name="lname" class="textBox"
                                         value="<?php echo $row1['lName'] ?>">
@@ -241,7 +256,7 @@ if (isset($_FILES['image'])) {
                                 <td>
                                     <label for="nic">NIC</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$nicErr ?>
+                                        <?php echo "*" . $nicErr ?>
                                     </span><br>
                                     <input type="text" id="nic" name="nic" class="textBox"
                                         value="<?php echo $row1['NIC'] ?>" readonly>
@@ -250,7 +265,7 @@ if (isset($_FILES['image'])) {
                                     <label for="DOB">Date of Birth</label>
                                     &nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$DOBErr ?>
+                                        <?php echo "*" . $DOBErr ?>
                                     </span><br>
                                     <input type="date" id="DOB" name="DOB" class="textBox"
                                         value="<?php echo $row1['dateOfBirth'] ?>" readonly>
@@ -261,7 +276,7 @@ if (isset($_FILES['image'])) {
                                     <label for="phone">Phone</label>
                                     &nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$phoneErr ?>
+                                        <?php echo "*" . $phoneErr ?>
                                     </span><br>
                                     <input type="text" id="phone" name="phone" class="textBox"
                                         value="<?php echo $row1['contactNumber'] ?>">
@@ -336,13 +351,13 @@ if (isset($_FILES['image'])) {
             <form method="post" enctype="multipart/form-data">
                 <span class="close">&times;</span>
                 <br>
-                <label for="profilePic">Change Profile Photo</label>
+                <label for="image">Change Profile Photo</label>
                 <br>
                 <br>
-                <input type="file" id="profilePic" name="profilePic">
+                <input type="file" id="image" name="image">
                 <br>
                 <br>
-                <button class="acceptBtn" onclick="document.getElementById('popUp').style.display='none';">OK</button>
+                <button class="acceptBtn" type="submit">OK</button>
             </form>
         </div>
     </div>

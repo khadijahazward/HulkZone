@@ -33,6 +33,11 @@ if (mysqli_num_rows($result2) > 0) {
             $query4 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
             $result4 = mysqli_query($conn, $query4);
 
+            $query5 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+            $result5 = mysqli_query($conn, $query5);
+            $row5 = mysqli_fetch_assoc($result5);
+            $expiredON = date('Y-m-d', strtotime($row5['endDate']));
+
             if (mysqli_num_rows($result4) > 0) {
                 while ($row4 = mysqli_fetch_assoc($result4)) {
 
@@ -84,7 +89,7 @@ if (mysqli_num_rows($result2) > 0) {
                 <hr>
                 <a href="schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
                 <hr>
-                <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                 <hr>
                 <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
@@ -110,6 +115,7 @@ if (mysqli_num_rows($result2) > 0) {
                             <th>GENDER</th>
                             <th>CONTACT NUMBER</th>
                             <th>PLAN</th>
+                            <th>Expired on</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -122,6 +128,7 @@ if (mysqli_num_rows($result2) > 0) {
                                         <td>". $gender ."</td>
                                         <td>". $contactNumber."</td>
                                         <td>".$planType."</td>
+                                        <td>".$expiredON."</td>
                                         <td><a href='memberProfile.php?view=".$memberID."'><button>View More</button></a></td>
                                     </tr>";
                         ?>

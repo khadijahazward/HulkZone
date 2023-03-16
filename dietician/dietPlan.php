@@ -132,9 +132,21 @@ if (mysqli_num_rows($result2) > 0) {
                                     <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
                                 </td>";
                     } else {
-                        echo "<td>
+
+                        $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+                        $result7 = mysqli_query($conn, $query7);
+
+                        $row7 = mysqli_fetch_assoc($result7);
+                        
+                        if($row7['endDate'] >= date('Y-m-d H:i:s')){
+                            echo    "<td>
                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
-                                     </td>";
+                                    </td>";
+                        }else{
+                            echo    "<td>
+                                        <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
+                                    </td>";
+                        }
                     }
 
                     $query6 = "SELECT * FROM supplement WHERE memberID = $memberID AND employeeID = employeeID";
@@ -145,10 +157,15 @@ if (mysqli_num_rows($result2) > 0) {
                                     <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
                                 </td>";
                     } else {
-                        echo "<td>
-                                         
-                        <a href='viewSupplements.php?new=" . $memberID . "'><button>View</button></a>
-                                     </td>";
+                        if($row7['endDate'] >= date('Y-m-d H:i:s')){
+                            echo    "<td>
+                                        <a href='viewSupplements.php?new=" . $memberID . "'><button>View</button></a>
+                                    </td>";
+                        }else{
+                            echo    "<td>
+                                        <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
+                                    </td>";
+                        }
                     }
                     echo "</tr>
                     </tbody>";
