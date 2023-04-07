@@ -143,15 +143,15 @@ if (isset($_FILES['image'])) {
             echo "Error: " . mysqli_error($conn);
         } else {
             // Redirect the user to their profile page
-            header("Location: profile.php");
+            echo "<script>window.location.href = 'profile.php'; location.reload();</script>";
             exit();
         }
     } else {
         // Display the error messages and redirect the user back to their profile page
         echo "<script>
-alert('" . implode("\\n", $errors) . "');
-</script>";
-        header("Location: profile.php");
+            alert('" . implode("\\n", $errors) . "');
+        </script>";
+        echo "<script>window.location.href = 'profile.php';</script>";
         exit();
     }
 }

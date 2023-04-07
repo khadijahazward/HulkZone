@@ -52,6 +52,14 @@
     border-radius: 50%;
 }
 
+.notification{
+    left: 1330px;
+    top: 25px;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
+}
+
 .notification {
     font-size: 20px;
     color: rgba(0, 104, 55, 1);
@@ -886,11 +894,11 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #82B1A9;
+    background: none;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #446A76;
+    background: none;
 }

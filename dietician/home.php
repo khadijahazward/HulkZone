@@ -104,6 +104,7 @@ $precetageOfRate05 = $rate05 / $totalOfRates * 100;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -114,6 +115,11 @@ $precetageOfRate05 = $rate05 / $totalOfRates * 100;
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
@@ -186,7 +192,8 @@ $precetageOfRate05 = $rate05 / $totalOfRates * 100;
                             <a href="profile.php">
                                 <div class="ratesCountCard">
                                     <div class="left">
-                                        <p class="count"><?php echo $formattedAvarageOfRates ?></p>
+                                        <p class="count"><?php echo $formattedAvarageOfRates ?>
+                                        </p>
                                         <p class="cardTopic">Ratings</p>
                                     </div>
                                     <div class="right">

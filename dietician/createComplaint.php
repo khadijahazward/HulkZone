@@ -1,7 +1,7 @@
 <?php 
 include 'authorization.php';
 include "connect.php";
-include("setProfilePic.php");
+include "setProfilePic.php";
 
 
 // checking for empty fields
