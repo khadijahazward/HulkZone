@@ -241,7 +241,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 
-            if (isset($_POST[''])) {
+            if (isset($_POST['sundayTime-slot'])) {
                 $sundayTimeSlots = $_POST['sundayTime-slot'];
 
                 foreach ($sundayTimeSlots as $sundayTimeSlot) {
