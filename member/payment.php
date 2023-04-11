@@ -101,7 +101,7 @@ include '../connect.php';
 
                             ?>
                         </div>
-                        <div style = "font-size:15px; margin:0;">Pay Before: 
+                        <div style = "font-size:15px; margin:0;">Plan Expires On: 
                             <?php 
                                 
                                 $sql5 = "SELECT DATE(expiryDate) FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 1";
