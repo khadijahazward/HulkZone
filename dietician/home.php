@@ -82,14 +82,41 @@ $totalOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
 $avarageOfRates = $totalOfRates / 6;
 $formattedAvarageOfRates = number_format($avarageOfRates, 2);
 
-$precetageOfRate00 = $rate00 / $totalOfRates * 100;
-$precetageOfRate01 = $rate01 / $totalOfRates * 100;
-$precetageOfRate02 = $rate02 / $totalOfRates * 100;
-$precetageOfRate03 = $rate03 / $totalOfRates * 100;
-$precetageOfRate04 = $rate04 / $totalOfRates * 100;
-$precetageOfRate05 = $rate05 / $totalOfRates * 100;
+if($rate00 != 0){
+    $precetageOfRate00 = $rate00 / $totalOfRates * 100;
+}else{
+    $precetageOfRate00 = 0;
+}
 
+if($rate01 != 0){
+    $precetageOfRate01 = $rate01 / $totalOfRates * 100;
+}else{
+    $precetageOfRate01 = 0;
+}
 
+if($rate02 != 0){
+    $precetageOfRate02 = $rate02 / $totalOfRates * 100;
+}else{
+    $precetageOfRate02 = 0;
+}
+
+if($rate03 != 0){
+    $precetageOfRate03 = $rate03 / $totalOfRates * 100;
+}else{
+    $precetageOfRate03 = 0;
+}
+
+if($rate04 != 0){
+    $precetageOfRate04 = $rate04 / $totalOfRates * 100;
+}else{
+    $precetageOfRate04 = 0;
+}
+
+if($rate05 != 0){
+    $precetageOfRate05 = $rate05 / $totalOfRates * 100;
+}else{
+    $precetageOfRate05 = 0;
+}
 ?>
 
 

@@ -14,11 +14,38 @@ if (mysqli_num_rows($result1) == 1) {
 } else {
     echo '<script> window.alert("Error receiving employee ID!");</script>';
 }
+
+$query9 = "SELECT MAX(date) AS lastAppointmentDate FROM dieticianappointment";
+$result9 = mysqli_query($conn, $query9);
+$row9 = mysqli_fetch_assoc($result9);
+
+$lastAppointmentDate = $row9['lastAppointmentDate'];
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    if (isset($_POST['date'])) {
+    $monday = $_POST['date'];
 
-        $monday = $_POST['date']; 
+    $isValid = true;
+
+    if (empty($monday)) {
+        $isValid = false;
+    } else {
+        if ($monday <= $lastAppointmentDate) {
+            $isValid = false;
+        }
+
+        $today = new DateTime();
+        $currentWeekMonday = $today->modify('this week')->format('Y-m-d');
+
+        if ($monday < $currentWeekMonday) {
+            $isValid = false;
+        }
+    }
+
+    if ($isValid) {
+
         $is_monday = (date('N', strtotime($monday)) == 1); // 1 represents Monday in the 'N' format
 
         if ($is_monday) {
@@ -51,174 +78,200 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['mondayTime-slot'])) {
                 $mondayTimeSlots = $_POST['mondayTime-slot'];
-        
+
                 foreach ($mondayTimeSlots as $mondayTimeSlot) {
+
                     $mondayTimes = explode("-", $mondayTimeSlot);
                     $mondayStartTimeString = $mondayTimes[0];
                     $mondayEndTimeString = $mondayTimes[1];
-        
-                    $mondayStartTime = strtotime($mondayStartTimeString);
-                    $mondayStartTimeString = date("H:i:s", $mondayStartTime);
-        
-                    $mondayEndTime = strtotime($mondayEndTimeString);
-                    $mondayEndTimeString = date("H:i:s", $mondayEndTime);
-        
+
+                    $mondayStartTime = new DateTime("$monday $mondayStartTimeString");
+                    $mondayStartTimeString = $mondayStartTime->format('Y-m-d H:i:s');
+
+                    $mondayEndTime = new DateTime("$monday $mondayEndTimeString");
+                    $mondayEndTimeString = $mondayEndTime->format('Y-m-d H:i:s');
+
                     $query2 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$monday', '$mondayStartTimeString', '$mondayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$monday', '$mondayStartTimeString', '$mondayEndTimeString', 0)";
+
                     $result2 = mysqli_query($conn, $query2);
+
+                    if (!$result2) {
+                        echo '<script> window.alert("Error of entering monday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
             if (isset($_POST['tuesdayTime-slot'])) {
                 $tuesdayTimeSlots = $_POST['tuesdayTime-slot'];
-        
+
                 foreach ($tuesdayTimeSlots as $tuesdayTimeSlot) {
                     $tuesdayTimes = explode("-", $tuesdayTimeSlot);
                     $tuesdayStartTimeString = $tuesdayTimes[0];
                     $tuesdayEndTimeString = $tuesdayTimes[1];
-        
-                    $tuesdayStartTime = strtotime($tuesdayStartTimeString);
-                    $tuesdayStartTimeString = date("H:i:s", $tuesdayStartTime);
-        
-                    $tuesdayEndTime = strtotime($tuesdayEndTimeString);
-                    $tuesdayEndTimeString = date("H:i:s", $tuesdayEndTime);
-        
+
+                    $tuesdayStartTime = new DateTime("$tuesday $tuesdayStartTimeString");
+                    $tuesdayStartTimeString = $tuesdayStartTime->format('Y-m-d H:i:s');
+
+                    $tuesdayEndTime = new DateTime("$tuesday $tuesdayEndTimeString");
+                    $tuesdayEndTimeString = $tuesdayEndTime->format('Y-m-d H:i:s');
+
                     $query3 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$tuesday', '$tuesdayStartTimeString', '$tuesdayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$tuesday', '$tuesdayStartTimeString', '$tuesdayEndTimeString', 0)";
+
                     $result3 = mysqli_query($conn, $query3);
+
+                    if (!$result3) {
+                        echo '<script> window.alert("Error of entering tuesday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
             if (isset($_POST['wednesdayTime-slot'])) {
                 $wednesdayTimeSlots = $_POST['wednesdayTime-slot'];
-        
+
                 foreach ($wednesdayTimeSlots as $wednesdayTimeSlot) {
                     $wednesdayTimes = explode("-", $wednesdayTimeSlot);
                     $wednesdayStartTimeString = $wednesdayTimes[0];
                     $wednesdayEndTimeString = $wednesdayTimes[1];
-        
-                    $wednesdayStartTime = strtotime($wednesdayStartTimeString);
-                    $wednesdayStartTimeString = date("H:i:s", $wednesdayStartTime);
-        
-                    $wednesdayEndTime = strtotime($wednesdayEndTimeString);
-                    $wednesdayEndTimeString = date("H:i:s", $wednesdayEndTime);
-        
+
+                    $wednesdayStartTime = new DateTime("$wednesday $wednesdayStartTimeString");
+                    $wednesdayStartTimeString = $wednesdayStartTime->format('Y-m-d H:i:s');
+
+                    $wednesdayEndTime = new DateTime("$wednesday $wednesdayEndTimeString");
+                    $wednesdayEndTimeString = $wednesdayEndTime->format('Y-m-d H:i:s');
+
                     $query4 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$wednesday', '$wednesdayStartTimeString', '$wednesdayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$wednesday', '$wednesdayStartTimeString', '$wednesdayEndTimeString', 0)";
+
                     $result4 = mysqli_query($conn, $query4);
+
+                    if (!$result4) {
+                        echo '<script> window.alert("Error of entering wednesday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
             if (isset($_POST['thursdayTime-slot'])) {
                 $thursdayTimeSlots = $_POST['thursdayTime-slot'];
-        
+
                 foreach ($thursdayTimeSlots as $thursdayTimeSlot) {
                     $thursdayTimes = explode("-", $thursdayTimeSlot);
                     $thursdayStartTimeString = $thursdayTimes[0];
                     $thursdayEndTimeString = $thursdayTimes[1];
-        
-                    $thursdayStartTime = strtotime($thursdayStartTimeString);
-                    $thursdayStartTimeString = date("H:i:s", $thursdayStartTime);
-        
-                    $thursdayEndTime = strtotime($thursdayEndTimeString);
-                    $thursdayEndTimeString = date("H:i:s", $thursdayEndTime);
-        
+
+                    $thursdayStartTime = new DateTime("$thursday $thursdayStartTimeString");
+                    $thursdayStartTimeString = $thursdayStartTime->format('Y-m-d H:i:s');
+
+                    $thursdayEndTime = new DateTime("$thursday $thursdayEndTimeString");
+                    $thursdayEndTimeString = $thursdayEndTime->format('Y-m-d H:i:s');
+
                     $query5 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$thursday', '$thursdayStartTimeString', '$thursdayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$thursday', '$thursdayStartTimeString', '$thursdayEndTimeString', 0)";
+
                     $result5 = mysqli_query($conn, $query5);
+
+                    if (!$result5) {
+                        echo '<script> window.alert("Error of entering thursday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
+
             if (isset($_POST['fridayTime-slot'])) {
                 $fridayTimeSlots = $_POST['fridayTime-slot'];
-        
+
                 foreach ($fridayTimeSlots as $fridayTimeSlot) {
                     $fridayTimes = explode("-", $fridayTimeSlot);
                     $fridayStartTimeString = $fridayTimes[0];
                     $fridayEndTimeString = $fridayTimes[1];
-        
-                    $fridayStartTime = strtotime($fridayStartTimeString);
-                    $fridayStartTimeString = date("H:i:s", $fridayStartTime);
-        
-                    $fridayEndTime = strtotime($fridayEndTimeString);
-                    $fridayEndTimeString = date("H:i:s", $fridayEndTime);
-        
+
+                    $fridayStartTime = new DateTime("$friday $fridayStartTimeString");
+                    $fridayStartTimeString = $fridayStartTime->format('Y-m-d H:i:s');
+
+                    $fridayEndTime = new DateTime("$friday $fridayEndTimeString");
+                    $fridayEndTimeString = $fridayEndTime->format('Y-m-d H:i:s');
+
                     $query6 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$friday', '$fridayStartTimeString', '$fridayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$friday', '$fridayStartTimeString', '$fridayEndTimeString', 0)";
+
                     $result6 = mysqli_query($conn, $query6);
+
+                    if (!$result6) {
+                        echo '<script> window.alert("Error of entering friday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
             if (isset($_POST['saturdayTime-slot'])) {
                 $saturdayTimeSlots = $_POST['saturdayTime-slot'];
-        
+
                 foreach ($saturdayTimeSlots as $saturdayTimeSlot) {
                     $saturdayTimes = explode("-", $saturdayTimeSlot);
                     $saturdayStartTimeString = $saturdayTimes[0];
                     $saturdayEndTimeString = $saturdayTimes[1];
-        
-                    $saturdayStartTime = strtotime($saturdayStartTimeString);
-                    $saturdayStartTimeString = date("H:i:s", $saturdayStartTime);
-        
-                    $saturdayEndTime = strtotime($saturdayEndTimeString);
-                    $saturdayEndTimeString = date("H:i:s", $saturdayEndTime);
-        
+
+                    $saturdayStartTime = new DateTime("$saturday $saturdayStartTimeString");
+                    $saturdayStartTimeString = $saturdayStartTime->format('Y-m-d H:i:s');
+
+                    $saturdayEndTime = new DateTime("$saturday $saturdayEndTimeString");
+                    $saturdayEndTimeString = $saturdayEndTime->format('Y-m-d H:i:s');
+
                     $query7 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$saturday', '$saturdayStartTimeString', '$saturdayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$saturday', '$saturdayStartTimeString', '$saturdayEndTimeString', 0)";
+
                     $result7 = mysqli_query($conn, $query7);
+
+                    if (!$result7) {
+                        echo '<script> window.alert("Error of entering saturday time slots!");</script>';
+                    }
                 }
             }
-        
-        
+
+
+
             if (isset($_POST[''])) {
                 $sundayTimeSlots = $_POST['sundayTime-slot'];
-        
+
                 foreach ($sundayTimeSlots as $sundayTimeSlot) {
                     $sundayTimes = explode("-", $sundayTimeSlot);
                     $sundayStartTimeString = $sundayTimes[0];
                     $sundayEndTimeString = $sundayTimes[1];
-        
-                    $sundayStartTime = strtotime($sundayStartTimeString);
-                    $sundayStartTimeString = date("H:i:s", $sundayStartTime);
-        
-                    $sundayEndTime = strtotime($sundayEndTimeString);
-                    $sundayEndTimeString = date("H:i:s", $sundayEndTime);
-        
+
+                    $sundayStartTime = new DateTime("$sunday $sundayStartTimeString");
+                    $sundayStartTimeString = $sundayStartTime->format('Y-m-d H:i:s');
+
+                    $sundayEndTime = new DateTime("$sunday $sundayEndTimeString");
+                    $sundayEndTimeString = $sundayEndTime->format('Y-m-d H:i:s');
+
                     $query8 = "INSERT INTO dieticianappointment 
                             (employeeID, date, startTime, endTime, status) VALUES
-                            ('$employeeID', '$sunday', '$sundayStartTimeString', '$sundayEndTimeString', 'Pending')";
-        
+                            ('$employeeID', '$sunday', '$sundayStartTimeString', '$sundayEndTimeString', 0)";
+
                     $result8 = mysqli_query($conn, $query8);
+
+                    if (!$result8) {
+                        echo '<script> window.alert("Error of entering sunday time slots!");</script>';
+                    }
                 }
             }
-
-            
         } else {
             echo '<script> window.alert("Please enter monday date!");</script>';
         }
     } else {
-        echo '<script> window.alert("Enter the date!");</script>';
+        echo '<script> window.alert("Enter a valid date!");</script>';
     }
-
-
-    
 }
 
 ?>
@@ -233,6 +286,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="Style/schedule.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -243,6 +297,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                    include 'notifications.php';
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt=" my profile" class="myProfile">
             </div>
         </div>
@@ -276,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST">
                 <div class="chooseDate">
                     <label for="date">Choose the 1st date of the Week: </label>
-                    <input type="date" name="date" id="date" value="<?php echo $monday ?>">
+                    <input type="date" name="date" id="date" value="<?php echo $monday ?>" require>
                     <p class="dateError">*jhkh</p>
                 </div>
                 <div class=" gridContainer">
@@ -490,33 +549,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 
-    <div id="popUp" class="popUpContent">
-        <div class="popUpContainer">
-            <span class="close">&times;</span>
-            <img src="../Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
-            <p>Your TimeSlots Placed Succesfully!</p>
-            <button class="acceptBtn" onclick="window.location.href='../Schedule/schedule.php';">OK</button>
-        </div>
-    </div>
-
-    <script>
-    var popUpContent = document.getElementById('popUp');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
-            popUpContent.style.display = "none";
-        }
-    }
-    </script>
-
-
-    </div>
-    </div>
 </body>
 
 </html>

@@ -177,6 +177,11 @@ if (isset($_FILES['image'])) {
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>

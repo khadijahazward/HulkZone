@@ -130,6 +130,7 @@ if (isset($_POST['edite'])) {
         Update Supplement
     </title>
     <link href="Style/supplements.css" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -141,6 +142,11 @@ if (isset($_POST['edite'])) {
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>

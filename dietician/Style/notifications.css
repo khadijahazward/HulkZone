@@ -6,9 +6,10 @@
     position: absolute;
     top: 10px;
     left: 20px;
+    cursor: pointer;
 }
 
-.popUpContent {
+.notiContent {
     display: none;
     position: fixed;
     z-index: 1;
@@ -18,7 +19,7 @@
     height: 100%;
 }
 
-.popUpContainer {
+.notiContainer {
     background-color: white;
     border: 1px solid black;
     width: 270px;
@@ -31,19 +32,19 @@
     overflow-y: auto;
 }
 
-.popUpContainer hr{
+.notiContainer hr{
     margin: 0px;
 }
 
-.popUpContainer table{
+.notiContainer table{
     width: 100%;
 }
 
-.popUpContainer table tr{
+.notiContainer table tr{
     vertical-align: middle;
 }
 
-.popUpContainer .message{
+.notiContainer .message{
     width: 60%;
     float: left;
     font-size: 16px;
@@ -51,7 +52,7 @@
     vertical-align: middle;
 }
 
-.popUpContainer .time{
+.notiContainer .time{
     width: 30%;
     float: right;
     color: rgba(0, 0, 0, 0.5);
@@ -59,11 +60,18 @@
     vertical-align: middle;
 }
 
-.popUpContainer .read a{
+.notiContainer .read a{
     font-size: 14px;
     text-decoration: none;
     color: rgba(26, 79, 131, 1);
     font-weight: 700;
+    vertical-align: middle;
+}
+
+.noMessage{
+    text-align: center;
+    font-size: 16px;
+    color: black;
     vertical-align: middle;
 }
 

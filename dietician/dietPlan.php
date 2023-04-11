@@ -29,6 +29,7 @@ if (mysqli_num_rows($result1) == 1) {
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="Style/dietPlan.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -39,6 +40,11 @@ if (mysqli_num_rows($result1) == 1) {
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
@@ -309,7 +315,7 @@ if (mysqli_num_rows($result1) == 1) {
                             </td>
                         </tr>
                     </table>
-                    <button type="submit" class="acceptBtn" onclick="return Alertfunction()">Submit</button>
+                    <button type="submit" class="acceptBtn"> Submit</button>
                 </form>
             </div>
         </div>

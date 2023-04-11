@@ -53,6 +53,14 @@
     border-radius: 50%;
 }
 
+.notification{
+    left: 1310px;
+    top: 15px;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
+}
+
 .leftBar {
     position: fixed;
     width: 250px;

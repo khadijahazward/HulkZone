@@ -53,20 +53,11 @@
 }
 
 .notification{
-    left: 1330px;
-    top: 25px;
-    font-size: 20px;
-    position: absolute;
-    color: rgba(0, 104, 55, 1);
-}
-
-.notification {
-    font-size: 20px;
-    color: rgba(0, 104, 55, 1);
-    position: absolute;
+    left: 1310px;
     top: 15px;
-    left: 1300px;
-    z-index: 6;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
 }
 
 .leftBar {

@@ -60,6 +60,7 @@ $result2 = mysqli_query($conn, $query2);
     <title>Member's Medical Form</title>
     <link href="Style/medicalForm.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -70,6 +71,11 @@ $result2 = mysqli_query($conn, $query2);
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="Images/Profile.png" alt="my profile" class="myProfile">
             </div>
         </div>

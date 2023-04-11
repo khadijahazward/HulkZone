@@ -68,6 +68,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <title>Change Password</title>
     <link href="Style/changePassword.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -78,7 +79,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -92,9 +98,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 <hr>
                 <a href="schedule.php"><i class=" fa fa-clock-o"></i>Schedule</a>
                 <hr>
-                <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                 <hr>
-                <a href="chatBox.html"><i class="fa fa-comments"></i>Chat Box</a>
+                <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
                 <a href="changePassword.php" class="active"><i class="fa fa-user"></i>My Profile</a>
                 <hr>
@@ -139,32 +145,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         </div>
     </div>
 
-    <div id="popUp" class="popUpContent">
-        <div class="popUpContainer">
-            <span class="close">&times;</span>
-            <img src="Images/Ok.png" alt="Done" style="width: 50px; height: 60px; top: 40px;">
-            <p>Your Password has been Placed Successfully!</p>
-            <button class="acceptBtn" onclick="document.getElementById('popUp').style.display='none';">OK</button>
-        </div>
-    </div>
-
-    <script>
-    var popUpContent = document.getElementById('popUp');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
-            popUpContent.style.display = "none";
-        }
-    }
-    </script>
-
 </body>
 
 </html>
-
-<a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
