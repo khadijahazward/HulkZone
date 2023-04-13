@@ -62,6 +62,7 @@ include '../connect.php';
     <title> Profile | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/team.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container">
@@ -131,7 +132,18 @@ include '../connect.php';
 
                 <div class="middle-r">
                     AVERAGE RATINGS: 
-                    <?php echo $rating; ?>
+                    <?php 
+                        $stars = '';
+                        for ($i = 1; $i <= 5; $i++) {
+                            if ($i <= round($rating)) {
+                                $stars .= '<span class="fas fa-star" style="color: gold;  text-shadow: 0px 0px 3px #FFFFFF; font-size: 25px; display: inline-block;"></span>';
+                            } else {
+                                $stars .= '<span class="far fa-star" style="color: gold; text-shadow: 0px 0px 3px #FFFFFF; font-size: 25px;display: inline-block;"></span>';
+                            }
+                        }
+
+                        echo $stars;
+                    ?>
                 </div>
                 
             </div>
