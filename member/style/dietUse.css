@@ -19,36 +19,65 @@
 }
 
 .row{
-    display: flex;
-    flex-direction: row;
-    margin: 25px;
-    font-size: 18px;
-    color: #006837;
+  display: flex;
+  flex-direction: row;
+  margin: 25px;
+  font-size: 18px;
+  color: #006837;
 
+}
+
+button{
+  background-color: #FF9F29;
+  border-radius: 5px;
+  padding: 10px 10px 10px 10px;
+  border: #FF9F29 solid 2px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+
+button:active {
+  transform: scale(0.95);
+}
+
+.activeBtn button.active,
+.activeBtn button:hover {
+  background-color: red;
+  color: white;
+  border: 1px solid red;
+}
+
+button:disabled {
+  background-color: grey;
+  border-color: grey;
+  cursor: default;
 }
 
 table{
-    width: 100%;
-    border-collapse:separate;
-    border-spacing:0 15px;
+  width: 100%;
+  border-collapse:separate;
+  border-spacing:0 15px;
 }
 
 th{
-    background-color: white;
-    border-top: 2px solid rgb(132, 128, 128);
-    border-bottom: 2px solid rgb(132, 128, 128);
-    padding-top: 10px;
-    padding-bottom: 10px;
+  background-color: white;
+  border-top: 2px solid rgb(132, 128, 128);
+  border-bottom: 2px solid rgb(132, 128, 128);
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 tr{
-   background-color: #DEF9D7;
+  background-color: #DEF9D7;
 }
 
 td{
-    padding:7px;
-    text-align: center;
-    width: 25%;
+  padding:7px;
+  text-align: center;
+  width: 25%;
 }
 
 /*top left and bottom left*/
@@ -61,4 +90,16 @@ td:first-child {
 td:last-child,
 td:last-child {
   border-radius: 0 10px 10px 0;
+}
+
+.row2{
+  display: flex;
+  flex-direction: row;
+  margin: 25px;
+  font-size: 18px;
+  color: #006837;
+}
+
+#availableSlots {
+  width: 100%;
 }
