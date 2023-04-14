@@ -185,6 +185,18 @@
     overflow-y: auto;
 }
 
+.formArea .checkboxs input[type=checkbox][disabled]:checked {
+    background-color: #cccccc;
+  border: 2px solid black; 
+  color: #555555; 
+  cursor: not-allowed; 
+}
+
+.formArea .checkboxs input[type=checkbox][disabled]:not(:checked) {
+    border: 1px solid black;
+    background-color: blue;
+}
+
 .formArea table{
     width: 100%;
 }

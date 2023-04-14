@@ -16,7 +16,7 @@
 
 .backgroundImage {
     width: 100%;
-    height: 900px;
+    height: 1350px;
     top: 71%;
     left: 0%;
     opacity: 0.25;
@@ -83,28 +83,27 @@
 
 .gridContainer {
     width: 1400px;
-    height: 900px;
+    height: 1600px;
     left: 50px;
     top: 150px;
     position: absolute;
-    display: grid;
-    grid-template-columns: auto auto auto auto;
+}
+
+.gridContainer table{
+    width: 100%;
 }
 
 .gridTopic {
-    width: 15%;
-    height: 20px;
     font-size: 18px;
     font-weight: 700;
     font-style: normal;
     line-height: 32px;
     color: black;
-    padding-left: 100px;
     text-align: center;
 }
 
 .meal {
-    width: 100px;
+    width: 125px;
     height: 15px;
     background-color: white;
     border: 2px solid #006837;
@@ -117,7 +116,7 @@
 
 .quantity, 
 .calorie {
-    width: 50px;
+    width: 70px;
     height: 15px;
     background-color: white;
     border: 2px solid #006837;
@@ -131,11 +130,50 @@
     margin-right: 10px;
 }
 
+.progressTable{
+    width: 80%;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.progressTable td{
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.progressTopic{
+    color: #006837;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.progress{
+    border: 1px solid black;
+    width: 850px;
+    border-radius: 4px;
+    box-shadow: 0 0 3px #B0B0;
+    backdrop-filter: blur(2px) brightness(101%);
+    height: fit-content;
+    padding: 0px;
+    height: 45px;
+}
+
+.bar{
+    background: rgba(255, 159, 41, 1);
+    box-shadow: inset 0px 12px 1.7px #FFFFFF33;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    position: absolute;
+    height: 45px;
+}
+
 .saveButton {
-    background-color: rgba(255, 159, 41, 0.75);
+    background-color: rgba(255, 159, 41, 1);
     width: 139px;
     height: 45px;
-    bottom: 0px;
+    bottom: 20px;
     right: -50px;
     box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
     border-radius: 4px;
@@ -149,9 +187,22 @@
     text-align: center;
 }
 
-.saveButton:hover {
+.backButton{
     background-color: rgba(255, 159, 41, 1);
-    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05) inset;
+    width: 139px;
+    height: 45px;
+    bottom: 20px;
+    left: 0px;
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
+    border-radius: 4px;
+    border: 0px;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    text-align: center;
 }
 
 
@@ -179,61 +230,3 @@
 
 
 
-
-.popUpContent {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0px;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.popUpContainer {
-    background-color: white;
-    margin: 15% auto 15% auto;
-    border: 1px solid black;
-    width: 40%;
-    padding: 1%;
-    text-align: center;
-    color: rgba(0, 104, 55, 1);
-    font-weight: bold;
-    font-size: 25px;
-}
-
-.acceptBtn {
-    background-color: rgba(255, 159, 41, 1);
-    width: 129px;
-    height: 47px;
-    margin: 1% auto 1% auto;
-    position: relative;
-    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
-    border-radius: 4px;
-    border: 0px;
-    cursor: pointer;
-    color: white;
-    font-weight: 700;
-    font-style: normal;
-    font-size: 15px;
-    text-align: center;
-}
-
-.close {
-    color: black;
-    float: right;
-    font-size: 28px;
-    font-weight: 400;
-    position: relative;
-    top: 0px;
-    right: 0px;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-    font-weight: 700;
-}

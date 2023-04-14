@@ -76,7 +76,7 @@ $result2 = mysqli_query($conn, $query2);
                         include 'notifications.php'; 
                     ?>
                 </div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
 

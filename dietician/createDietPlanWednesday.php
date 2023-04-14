@@ -87,11 +87,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $dinnerCalorieErr = "Calorie of dinner meal is required";
     }
+
+    $query5 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+    $result5= mysqli_query($conn, $query5);
+    $row5 = mysqli_fetch_assoc($result5);
+
+    $startDateTime = $row5['startDate'];
+
+    // $query6 = "SELECT * FROM weekdays WHERE weekDayID = 2";
+    // $result6 = mysqli_query($conn, $query6);
+    // $row6 = mysqli_fetch_assoc($result6);
+
+    // $day = $row6['weekDayID'];
     
 
     if (isset($_POST['next'])) {
-
-        $day = "Wednesday";
 
         $query2 = "SELECT * FROM member WHERE memberID = $memberID";
         $result2 = mysqli_query($conn, $query2);
@@ -102,13 +112,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $query3 = "SELECT * FROM user WHERE userID = $memberUserID";
             $result3 = mysqli_query($conn, $query3);
-
-            if ($result3) {
-                $row3 = mysqli_fetch_assoc($result3);
-                $status = $row3['statuses'];
-            } else {
-                echo '<script> window.alert("Error of receiving member status!");</script>';
-            }
+            $row3 = mysqli_fetch_assoc($result3);
+            
         } else {
             echo '<script> window.alert("Error of receiving member userID!");</script>';
         }
@@ -116,8 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($breakfastMealErr) && empty($breakfastQuntityErr) && empty($breakfastCalorieErr) && empty($lunchMealErr) && empty($lunchQuntityErr) && empty($lunchCalorieErr) && empty($dinnerMealErr) && empty($dinnerQuntityErr) && empty($dinnerQuntityErr)) {
 
             $query4 = "INSERT INTO dietplan 
-                        (employeeID, breakfastQty, breakfastMeal, breakfastCal, lunchQty, lunchMeal, lunchCal, dinnerQty, dinnerMeal, dinnerCal, day, status, memberID) VALUES
-                        ('$employeeID', '$breakfastQuantity', '$breakfastMeal', '$breakfastCalorie', '$lunchQuantity', '$lunchMeal', '$lunchCalorie', '$dinnerQuantity', '$dinnerMeal', '$dinnerCalorie', '$day', '$status', '$memberID')";
+                (employeeID, memberID, startDate, breakfastMeal, breakfastQty, breakfastCal, lunchMeal, lunchQty, lunchCal, dinnerMeal, dinnerQty, dinnerCal, day) VALUES
+                ('$employeeID', '$memberID', '$startDateTime', '$breakfastMeal', '$breakfastQuantity', '$breakfastCalorie', '$lunchMeal', '$lunchQuantity', '$lunchCalorie', '$dinnerMeal', '$dinnerQuantity','$dinnerCalorie', 3)";
+            
             $result4 = mysqli_query($conn, $query4);
 
             if ($result4) {

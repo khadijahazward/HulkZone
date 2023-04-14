@@ -137,7 +137,7 @@ if (mysqli_num_rows($result1) == 1) {
                                         $row7 = mysqli_fetch_assoc($result7);
 
 
-                                        $query5 = "SELECT * FROM dietplan WHERE day='Monday' AND memberID= $memberID AND employeeID = $employeeID";
+                                        $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID= $memberID AND employeeID = $employeeID";
                                         $result5 = mysqli_query($conn, $query5);
 
                                         if (mysqli_num_rows($result5) == 0) {
@@ -149,6 +149,7 @@ if (mysqli_num_rows($result1) == 1) {
                                                 
                                                 echo    "<td>
                                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
+                                                        <a href='updateDietPlan.php?update=" . $memberID . "'><button>Update</button></a>
                                                     </td>";
                                             } else {
                                                 

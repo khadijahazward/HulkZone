@@ -266,6 +266,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                 }
             }
+        
+        echo '<script> window.alert("Time slots for dietician appointments have been successfully added!");</script>';
+        echo '<script> window.location.href = "viewSchedule.php?date= '.$monday.'"</script>';
+
         } else {
             echo '<script> window.alert("Please enter monday date!");</script>';
         }
