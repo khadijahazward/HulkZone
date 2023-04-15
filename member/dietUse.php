@@ -1,3 +1,4 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php 
 include 'authorization.php';
 include '../connect.php';
@@ -101,60 +102,66 @@ include '../connect.php';
                         <div style="font-size:15px; margin-top:10px;">Qualification: <?php echo $qualification;?> </div>
                     </div>
                 </div>
-                <div class="row">
-                <?php
-                    echo '<table> 
-                        <tr> 
-                            <th>Date</th> 
-                            <th>Start Time</th> 
-                            <th>End Time</th> 
-                            <th> Status </th> 
-                        </tr>';
-                        //edit this query - wrong
-                        if (!empty($employeeID)) {
-                            $sql3 = "SELECT * FROM dieticianappointment WHERE employeeID = ". $employeeID . " AND date = CURDATE() AND startTime > CURTIME()";
 
-                            $result3 = mysqli_query($conn, $sql3);
-
-                            if (mysqli_num_rows($result3) > 0) {
-                                while ($row3 = mysqli_fetch_assoc($result3)) {
-                                    
-                                    $field1name = $row4["date"];
-                                    $field2name = $row3["startTime"];
-                                    $field3name = $row3["endTime"];
-                                    $field4name = $row3["status"];
-
-                                    echo '<tr> 
-                                        <td>'.$field1name.'</td> 
-                                        <td>'.$field2name.'</td> 
-                                        <td>'.$field3name.'</td> 
-                                        <td>';
-                                        
-                                        if ($field4name == 0) {
-                                            echo '<button type="button" class="btn btn-primary" onclick="confirmBooking('.$appointmentID.', '.$row1['memberID'].')">Confirm Booking</button>';
-                                        } else {
-                                            echo '<input type="button" name="booked" value="Booked" disabled>';
-                                        }
-                                        echo '</td> 
-                                    </tr>';
-                                }
-                            }else{
-                                echo '<tr>
-                                    <td colspan="4" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
-
-                                </tr>'; 
-                            }
+                <div class="row2" style="justify-content:space-between; background-color:#006837; padding:10px; ">
+                    <?php
+                        // Get the previous Monday's date
+                        if (date('N') == 1) { // If today is Monday
+                            $previousMonday = date('Y-m-d'); // Use today's date instead
                         } else {
-                            echo '<tr>
-                                    <td colspan="4" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
-
-                                </tr>'; 
+                            $previousMonday = date('Y-m-d', strtotime('last Monday'));
                         }
-                        
 
-                        
-                        echo '</table>';
+                        // Loop through each day of the week (Monday to Sunday)
+                        for ($i = 1; $i <= 7; $i++) {
+                            $dayOfWeekDate = date('Y-m-d', strtotime($previousMonday . ' +' . ($i-1) . ' day'));
+                            
+                            // Check if the button date is before today's date
+                            if (strtotime($dayOfWeekDate) < strtotime(date('Y-m-d'))) {
+                                // If so, disable the button
+                                $buttonHtml = '<button disabled>' . date('D, M j', strtotime($dayOfWeekDate)). '</button>';
+                                echo $buttonHtml;
+                            } else {
+                                // Otherwise, create a clickable button
+                                $buttonHtml = '<button data-index="' . $i . '" onclick="displayAvailableSlots(\'' . $dayOfWeekDate . '\')">' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>';
+                                echo "<div class ='activeBtn'>";
+                                echo $buttonHtml;
+                                echo "</div>";
+                            }
+                        }
                     ?>
+                </div>
+                <div class="row2">
+                    <div id="availableSlots"></div>
+
+                    <script>
+                        //onload the page will show current date's slot
+                        $(document).ready(function() {
+                            var currentDate = '<?php echo date('Y-m-d'); ?>';
+                            $.ajax({
+                                type: "POST",
+                                url: "./getdietcianSlots.php",
+                                data: { date: currentDate },
+                                success: function(response) {
+                                    // Update the contents of the availableSlots div with the response from the server
+                                    $("#availableSlots").html(response);
+                                }
+                            });
+                        });
+
+                        // Get the available slots using the selected date and weekdayID 
+                        function displayAvailableSlots(selectedDate) {
+                        $.ajax({
+                            type: "POST",
+                            url: "./getdietcianSlots.php",
+                            data: { date: selectedDate},
+                            success: function(response) {
+                            // Update the contents of the availableSlots div with the response from the server
+                            $("#availableSlots").html(response);
+                            }
+                        });
+                        }
+                    </script>
                 </div>
             </div>
         </div>

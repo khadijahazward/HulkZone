@@ -61,57 +61,9 @@
     color: rgba(0, 104, 55, 1);
 }
 
-.leftBar {
-    position: fixed;
-    width: 250px;
-    height: 100%;
-    left: 0%;
-    top: 70px;
-    background-color: rgba(0, 104, 55, 1);
-    align-items: center;
-    z-index: 2;
-}
-
-.leftBarContent {
-    position: absolute;
-    width: 225px;
-    left: 10px;
-    top: 30px;
-    text-align: left;
-}
-
-.leftBarContent a {
-    display: block;
-    color: white;
-    /*padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 10px;
-    padding-bottom: 10px;*/
-    padding: 10px;
-    text-decoration: none;
-    margin: 5px;
-}
-
-.leftBarContent a:hover,
-.leftBarContent a.active {
-    background-color: white;
-    color: rgba(0, 104, 55, 1);
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.leftBarContent hr {
-    border: 0.5px solid white;
-}
-
-.leftBarContent i {
-    font-size: 20px;
-    margin-right: 10px;
-}
-
 .main {
-    width: calc(100% - 245px);
-    left: 245px;
+    width: 100%;
+    left: 0px;
     height: calc(100% - 70px);
     position: relative;
     top: 71px;
@@ -143,7 +95,7 @@
     font-weight: 400;
 }
 
-.chooseDate input[type="date"] {
+.chooseDate input[type="text"] {
     height: 36px;
     width: 260px;
     color: black;
@@ -154,7 +106,7 @@
     text-align: center;
 }
 
-.chooseDate input[type="date"]:focus {
+.chooseDate input[type="text"]:focus {
     outline: none;
 }
 
@@ -167,7 +119,7 @@
     width: 90%;
     height: 500px;
     position: absolute;
-    left: 50px;
+    left: 100px;
     top: 75px;
     overflow-y: auto;
     background-color: rgba(222, 249, 215, 1);
@@ -196,6 +148,10 @@
     font-style: normal;
 }
 
+.selected thead th{
+    width: calc(100% / 7);
+}
+
 .selected td {
     font-size: 13px;
     font-weight: 500;
@@ -206,6 +162,7 @@
     padding: 5px;
     border-bottom: 1px solid rgba(26, 79, 131, 0.1);
     height: 50px;
+    vertical-align: top;
 }
 
 .checkbox-button span {
@@ -231,6 +188,20 @@
 .checkbox-button input[type="checkbox"]:checked+.checkbox-button-label {
     background-color: white;
     color: rgba(0, 104, 55, 0.8);
+}
+
+.selected input[type = "text"]{
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 0.25em;
+    background-color: rgba(0, 104, 55, 0.8);
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+    width: 100px;
+    text-align: center;
+    height: 20px;
 }
 
 .saveBtn {

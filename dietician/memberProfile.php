@@ -10,7 +10,7 @@ if(isset($_GET['view'])){
     $memberID = $_GET['view'];
 }
 
-$sql = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $memberID";
+$sql = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE member.memberID = $memberID";
 $sqlResult = mysqli_query($conn,$sql);
 if(mysqli_num_rows($sqlResult) == 1){
     $member = mysqli_fetch_assoc($sqlResult);
@@ -42,6 +42,7 @@ if(mysqli_num_rows($result) == 1){
     <title>Member's Profile</title>
     <link href="Style/memberProfile.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -52,13 +53,18 @@ if(mysqli_num_rows($result) == 1){
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
 
         <div class="main">
             <div class="profileCard">
-                <img src="Images/Member.png" alt="Member's Profile Picture" class="profileCardPic">
+                <img src="<?php echo $row['profilePhoto'] ?>" alt="Member's Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
                         <?php echo $row['fName']." ". $row['lName'] ?></p>
@@ -80,8 +86,8 @@ if(mysqli_num_rows($result) == 1){
                 <div class="dateBar">
                     <div class="selector"></div>
                     <div class="dateRow">
-                        <a href="memberProfile.html" style="color: rgba(0, 104, 55, 1);">Profile</a>
-                        <a href="medicalForm.php">Medical Form</a>
+                        <a href="memberProfile.php" style="color: rgba(0, 104, 55, 1);">Profile</a>
+                        <?php echo "<a href='medicalForm.php?view=".$row["memberID"]."'>Medical Form</a>";?>
                     </div>
                 </div>
                 <div class="formArea">

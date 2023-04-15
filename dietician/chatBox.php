@@ -1,6 +1,8 @@
 <?php
 
-include '../connect.php';
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
 
 ?>
 
@@ -14,6 +16,7 @@ include '../connect.php';
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="Style/members.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -24,6 +27,11 @@ include '../connect.php';
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="Images/Profile.png" alt="my profile" class="myProfile">
             </div>
         </div>
@@ -38,7 +46,7 @@ include '../connect.php';
                 <hr>
                 <a href="schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
                 <hr>
-                <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                 <hr>
                 <a href="chatBox.php" class="active"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>

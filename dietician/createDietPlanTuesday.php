@@ -2,85 +2,138 @@
 
 include 'authorization.php';
 include 'connect.php';
+include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-if(isset($_GET['next'])){
+if (isset($_GET['next'])) {
     $memberID = $_GET['next'];
 }
 
 $query1 = "SELECT * FROM employee INNER JOIN user ON employee.userID = user.userID WHERE user.userID = '$userID'";
 $result1 = mysqli_query($conn, $query1);
-if(mysqli_num_rows($result1) == 1){
+if (mysqli_num_rows($result1) == 1) {
     $row = mysqli_fetch_assoc($result1);
     $employeeID = $row['employeeID'];
-}else{
+} else {
     echo '<script> window.alert("Error receiving employee ID!");</script>';
 }
 
-$breakfastMeal = $breakfastQuantity = $lunchMeal = $lunchQuantity = $dinnerMeal = $dinnerQuantity = "";
-$breakfastMealErr = $breakfastQuantityErr = $lunchMealErr = $lunchQuantityErr = $dinnerMealErr = $dinnerQuantityErr = "";
+$breakfastMeal = $breakfastQuantity = $breakfastCalorie = $lunchMeal = $lunchQuantity = $lunchCalorie = $dinnerMeal = $dinnerQuantity = $dinnerCalorie = "";
+$breakfastMealErr = $breakfastQuantityErr = $breakfastCalorieErr = $lunchMealErr = $lunchQuantityErr = $lunchCalorieErr = $dinnerMealErr = $dinnerQuantityErr = $dinnerCalorieErr = "";
 
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    if(empty($_POST['breakfastMeal'])){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if (isset($_POST['breakfastMeal'])) {
+        $breakfastMeal = $_POST['breakfastMeal'];
+        $breakfastMeal = implode(",", $breakfastMeal);
+    } else {
         $breakfastMealErr = "Breakfast meal is required";
     }
-    
-    if(empty($_POST['breakfastQuantity'])){
-        $breakfastQuantityErr = "Quantity of breakfast meal is required";
+
+    if (isset($_POST['breakfastQuantity'])) {
+        $breakfastQuantity = $_POST['breakfastQuantity'];
+        $breakfastQuantity = implode(",", $breakfastQuantity);
+    } else {
+        $$breakfastQuantityErr = "Quantity of breakfast meal is required";
     }
-    
-    if(empty($_POST['lunchMeal'])){
+
+    if (isset($_POST['breakfastCalorie'])) {
+        $breakfastCalorie = $_POST['breakfastCalorie'];
+        $breakfastCalorie = implode(",", $breakfastCalorie);
+    } else {
+        $breakfastCalorieErr = "Calorie of breakfast meal is required";
+    }
+
+    if (isset($_POST['lunchMeal'])) {
+        $lunchMeal = $_POST['lunchMeal'];
+        $lunchMeal = implode(",", $lunchMeal);
+    } else {
         $lunchMealErr = "Lunch meal is required";
     }
-    
-    if(empty($_POST['lunchQuantity'])){
+   
+    if (isset($_POST['lunchQuantity'])) {
+        $lunchQuantity = $_POST['lunchQuantity'];
+        $lunchQuantity = implode(",", $lunchQuantity);
+    } else {
         $lunchQuantityErr = "Quantity of lunch meal is required";
     }
-    
-    if(empty($_POST['dinnerMeal'])){
+       
+    if (isset($_POST['lunchCalorie'])) {
+        $lunchCalorie = $_POST['lunchCalorie'];
+        $lunchCalorie = implode(",", $lunchCalorie);
+    } else {
+        $lunchCalorieErr = "Calorie of lunch meal is required";
+    }
+
+    if (isset($_POST['dinnerMeal'])) {
+        $dinnerMeal = $_POST['dinnerMeal'];
+        $dinnerMeal = implode(",", $dinnerMeal);
+    } else {
         $dinnerMealErr = "Dinner meal is required";
     }
     
-    if(empty($_POST['dinnerQuantity'])){
+    if (isset($_POST['dinnerQuantity'])) {
+        $dinnerQuantity = $_POST['dinnerQuantity'];
+        $dinnerQuantity = implode(",", $dinnerQuantity);
+    } else {
         $dinnerQuantityErr = "Quantity of dinner meal is required";
     }
-
-}
-
-if($_SERVER["REQUEST_METHOD"] == "POST"){
     
-    $breakfastMeal = mysqli_real_escape_string($conn, $_POST['breakfastMeal']);
-    $breakfastQuantity = mysqli_real_escape_string($conn, $_POST['breakfastQuantity']);
-    $lunchMeal = mysqli_real_escape_string($conn, $_POST['lunchMeal']);
-    $lunchQuantity = mysqli_real_escape_string($conn, $_POST['lunchQuantity']);
-    $dinnerMeal = mysqli_real_escape_string($conn, $_POST['dinnerMeal']);
-    $dinnerQuantity = mysqli_real_escape_string($conn, $_POST['dinnerQuantity']);
+    if (isset($_POST['dinnerCalorie'])) {
+        $dinnerCalorie = $_POST['dinnerCalorie'];
+        $dinnerCalorie = implode(",", $dinnerCalorie);
+    } else {
+        $dinnerCalorieErr = "Calorie of dinner meal is required";
+    }
 
-    $day = "Tuesday";
+    $query5 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+    $result5= mysqli_query($conn, $query5);
+    $row5 = mysqli_fetch_assoc($result5);
 
-    $query2 = "SELECT * FROM dietplan WHERE memberID = '$memberID' AND day = 'Tuesday' ";
-    $result2 = mysqli_query($conn, $query2);
+    $startDateTime = $row5['startDate'];
 
-    if(mysqli_num_rows($result2) == 0){
-        
-        $query3 = "INSERT INTO dietplan(employeeID, breakfastMeal, breakfastQty, lunchMeal, lunchQty, dinnerMeal, dinnerQty, day, memberID) VALUES ('$employeeID', '$breakfastMeal', '$breakfastQuantity', '$lunchMeal', '$lunchQuantity', '$dinnerMeal', '$dinnerQuantity', '$day', '$memberID')";
+    // $query6 = "SELECT * FROM weekdays WHERE weekDayID = 2";
+    // $result6 = mysqli_query($conn, $query6);
+    // $row6 = mysqli_fetch_assoc($result6);
 
-        if(!empty($breakfastMeal) && !empty($breakfastQuantity) && !empty($lunchMeal) && !empty($lunchQuantity) && !empty($dinnerMeal) && !empty($dinnerQuantity)){
+    // $day = $row6['weekDayID'];
+    
+
+    if (isset($_POST['next'])) {
+
+        $query2 = "SELECT * FROM member WHERE memberID = $memberID";
+        $result2 = mysqli_query($conn, $query2);
+
+        if ($result2) {
+            $row2 = mysqli_fetch_assoc($result2);
+            $memberUserID = $row2['userID'];
+
+            $query3 = "SELECT * FROM user WHERE userID = $memberUserID";
             $result3 = mysqli_query($conn, $query3);
+            $row3 = mysqli_fetch_assoc($result3);
+            
+        } else {
+            echo '<script> window.alert("Error of receiving member userID!");</script>';
         }
 
-        if($result3 == TRUE){
-            echo "<script> window.location.href='createDietPlanWednesday.php?next=".$memberID."'; </script>";
-        }else{
-            echo "<script> alert('Please fill all required data!'); </script>";
+        if (empty($breakfastMealErr) && empty($breakfastQuntityErr) && empty($breakfastCalorieErr) && empty($lunchMealErr) && empty($lunchQuntityErr) && empty($lunchCalorieErr) && empty($dinnerMealErr) && empty($dinnerQuntityErr) && empty($dinnerQuntityErr)) {
+
+            $query4 = "INSERT INTO dietplan 
+                (employeeID, memberID, startDate, breakfastMeal, breakfastQty, breakfastCal, lunchMeal, lunchQty, lunchCal, dinnerMeal, dinnerQty, dinnerCal, day) VALUES
+                ('$employeeID', '$memberID', '$startDateTime', '$breakfastMeal', '$breakfastQuantity', '$breakfastCalorie', '$lunchMeal', '$lunchQuantity', '$lunchCalorie', '$dinnerMeal', '$dinnerQuantity','$dinnerCalorie', 2)";
+            
+            $result4 = mysqli_query($conn, $query4);
+
+            if ($result4) {
+                echo "<script> window.location.href='createDietPlanWednesday.php?next=" . $memberID . "'</script>";
+            } else {
+                echo '<script> window.alert("Error of inserting data");</script>';
+            }
         }
     }
 }
-
-
 ?>
 
 
@@ -91,7 +144,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Diet Plan - Tuesday</title>
-    <link href="Style/createDietPlanTuesday.css" rel="stylesheet">
+    <link href="Style/createDietPlan.css" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -103,26 +157,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="topic">
-            <p>Create Diet Plan</p>
+            <p>Create Diet Plan - Tuesday</p>
         </div>
-        <div class="dateBar">
-            <div class="selector"></div>
-            <div class="dateRow">
-                <a>Monday</a>
-                <a style="color: rgba(0, 104, 55, 1);">Tuesday</a>
-                <a>Wednesday</a>
-                <a>Thursday</a>
-                <a>Friday</a>
-                <a>Saturday</a>
-                <a>Sunday</a>
-            </div>
-        </div>
-        <div class="gridContainer">
-            <form method="post">
+        <form method="post">
+            <div class="gridContainer">
                 <table>
                     <tr>
                         <td>
@@ -134,57 +181,299 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         <td>
                             <div class="gridTopic">Quantity per day</div>
                         </td>
+                        <td>
+                            <div class="gridTopic">Calories</div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="gridTopic">Breakfast</div>
                         </td>
-                        <td>
-                            <div class="gridText"><input type="text" name="breakfastMeal" placeholder="Meal" ]
-                                    value="<?php echo $breakfastMeal ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $breakfastMealErr ?>
+                                        </span>
+                                        <div class="gridText"><input type="text" name="breakfastMeal[]"
+                                                placeholder="Meal" value="<?php echo $breakfastMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText"><input type="text" name="breakfastMeal[]"
+                                                placeholder="Meal" value="<?php echo $breakfastMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText"><input type="text" name="breakfastMeal[]"
+                                                placeholder="Meal" value="<?php echo $breakfastMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td>
-                            <div class="gridText"><input type="text" name="breakfastQuantity" placeholder="Quantity"
-                                    value="<?php echo $breakfastQuantity ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $breakfastQuantityErr ?>
+                                        </span>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $breakfastQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $breakfastQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $breakfastQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $breakfastCalorieErr ?>
+                                        </span>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $breakfastCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $breakfastCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $breakfastCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class="gridTopic">Lunch</div>
                         </td>
-                        <td>
-                            <div class="gridText"><input type="text" name="lunchMeal" placeholder="Meal"
-                                    value="<?php echo $lunchMeal ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $lunchMealErr ?>
+                                        </span>
+                                        <div class="gridText"><input type="text" name="lunchMeal[]" placeholder="Meal"
+                                                value="<?php echo $lunchMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText"><input type="text" name="lunchMeal[]" placeholder="Meal"
+                                                value="<?php echo $lunchMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText"><input type="text" name="lunchMeal[]" placeholder="Meal"
+                                                value="<?php echo $lunchMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td>
-                            <div class=" gridText"><input type="text" name="lunchQuantity" placeholder="Quantity"
-                                    value="<?php echo $lunchQuantity ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $lunchQuantityErr ?>
+                                        </span>
+                                        <div class=" gridText">
+                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $lunchQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class=" gridText">
+                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $lunchQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class=" gridText">
+                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity"
+                                                value="<?php echo $lunchQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $lunchCalorieErr ?>
+                                        </span>
+                                        <div class="gridText">
+                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $lunchCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $lunchCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $lunchCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <div class=" gridTopic">Dinner</div>
                         </td>
-                        <td>
-                            <div class="gridText">
-                                <input type="text" name="dinnerMeal" placeholder="Meal"
-                                    value="<?php echo $dinnerMeal ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $dinnerMealErr ?>
+                                        </span>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerMeal[]" placeholder="Meal"
+                                                value="<?php echo $dinnerMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerMeal[]" placeholder="Meal"
+                                                value="<?php echo $dinnerMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerMeal[]" placeholder="Meal"
+                                                value="<?php echo $dinnerMeal ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
-                        <td>
-                            <div class=" gridText"><input type="text" name="dinnerQuantity" placeholder="Quantity"
-                                    value="<?php echo $dinnerQuantity ?>">
-                            </div>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $dinnerQuantityErr ?>
+                                        </span>
+                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
+                                                placeholder="Quantity" value="<?php echo $dinnerQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
+                                                placeholder="Quantity" value="<?php echo $dinnerQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
+                                                placeholder="Quantity" value="<?php echo $dinnerQuantity ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td class="gridTextColumn">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <span class="error">
+                                            <?php echo "*" . $dinnerCalorieErr ?>
+                                        </span>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $dinnerCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $dinnerCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="gridText">
+                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie"
+                                                value="<?php echo $dinnerCalorie ?>">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>
-                <button type="submit" class="saveButton" name="next">Next</button>
-            </form>
-        </div>
+                <button class="saveButton" name="next">Next</button>
+            </div>
+        </form>
     </div>
 </body>
 

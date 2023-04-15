@@ -4,6 +4,119 @@ include 'authorization.php';
 include 'connect.php';
 include 'setProfilePic.php';
 
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+$query = "SELECT * FROM user WHERE userID = $userID";
+$result = mysqli_query($conn, $query);
+if($result){
+    $row = mysqli_fetch_assoc($result);
+}else{
+    echo '<script> window.alert("Error receiving user data!");</script>';
+}
+
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if (mysqli_num_rows($result1) == 1) {
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID'];
+} else {
+    echo '<script> window.alert("Error of receiving employee details!");</script>';
+}
+
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= date('Y-m-d H:i:s')";
+$result2 = mysqli_query($conn, $query2);
+
+if (mysqli_num_rows($result2) > 0) {
+    while ($row2 = mysqli_fetch_assoc($result2)) {
+        $memberID = $row2['memberID'];
+
+        $query3 = "SELECT * FROM member WHERE memberID = $memberID";
+        $result3 = mysqli_query($conn, $query3);
+
+        if ($result3) {
+            $row3 = mysqli_fetch_assoc($result3);
+            $memberUserID = $row3['userID'];
+
+            $query4 = "SELECT COUNT(*) as count FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
+            $result4 = mysqli_query($conn, $query4);
+
+            $row4 = mysqli_fetch_assoc($result4);
+            $memberCount = $row4['count'];
+        }
+    }
+}
+
+
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
+$result5 = mysqli_query($conn, $query5);
+$row5 = mysqli_fetch_assoc($result5);
+$rate01 = $row5['count'];
+
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
+$result6 = mysqli_query($conn, $query6);
+$row6 = mysqli_fetch_assoc($result6);
+$rate02 = $row6['count'];
+
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
+$result7 = mysqli_query($conn, $query7);
+$row7 = mysqli_fetch_assoc($result7);
+$rate03 = $row7['count'];
+
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
+$result8 = mysqli_query($conn, $query8);
+$row8 = mysqli_fetch_assoc($result8);
+$rate04 = $row8['count'];
+
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
+$result9 = mysqli_query($conn, $query9);
+$row9 = mysqli_fetch_assoc($result9);
+$rate05 = $row9['count'];
+
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
+$result10 = mysqli_query($conn, $query10);
+$row10 = mysqli_fetch_assoc($result10);
+$rate00 = $row10['count'];
+
+$totalOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
+$avarageOfRates = $totalOfRates / 6;
+$formattedAvarageOfRates = number_format($avarageOfRates, 2);
+
+if($rate00 != 0){
+    $precetageOfRate00 = $rate00 / $totalOfRates * 100;
+}else{
+    $precetageOfRate00 = 0;
+}
+
+if($rate01 != 0){
+    $precetageOfRate01 = $rate01 / $totalOfRates * 100;
+}else{
+    $precetageOfRate01 = 0;
+}
+
+if($rate02 != 0){
+    $precetageOfRate02 = $rate02 / $totalOfRates * 100;
+}else{
+    $precetageOfRate02 = 0;
+}
+
+if($rate03 != 0){
+    $precetageOfRate03 = $rate03 / $totalOfRates * 100;
+}else{
+    $precetageOfRate03 = 0;
+}
+
+if($rate04 != 0){
+    $precetageOfRate04 = $rate04 / $totalOfRates * 100;
+}else{
+    $precetageOfRate04 = 0;
+}
+
+if($rate05 != 0){
+    $precetageOfRate05 = $rate05 / $totalOfRates * 100;
+}else{
+    $precetageOfRate05 = 0;
+}
 ?>
 
 
@@ -18,6 +131,7 @@ include 'setProfilePic.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" />
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -28,6 +142,11 @@ include 'setProfilePic.php';
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
@@ -56,7 +175,9 @@ include 'setProfilePic.php';
         </div>
         <div class="main">
             <div class="topic">
-                <p>Welcome, Dr. Vindinu</p>
+                <p>
+                    Welcome, <?php echo $row['fName']." ".$row['lName']?>
+                </p>
             </div>
             <div class="subTopic">
                 <p>Have a nice day at great work</p>
@@ -68,7 +189,7 @@ include 'setProfilePic.php';
                             <a href="members.php">
                                 <div class="memberCountCard">
                                     <div class="left">
-                                        <p class="count">100</p>
+                                        <p class="count"><?php echo $memberCount ?></p>
                                         <p class="cardTopic">Members</p>
                                     </div>
                                     <div class="right">
@@ -98,7 +219,8 @@ include 'setProfilePic.php';
                             <a href="profile.php">
                                 <div class="ratesCountCard">
                                     <div class="left">
-                                        <p class="count">4.9</p>
+                                        <p class="count"><?php echo $formattedAvarageOfRates ?>
+                                        </p>
                                         <p class="cardTopic">Ratings</p>
                                     </div>
                                     <div class="right">
@@ -124,29 +246,29 @@ include 'setProfilePic.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="height:85%">
+                        <tr style="height:<?php echo $precetageOfRate05 ?>%">
                             <th scope="row">5</th>
-                            <td><span>85%</span></td>
+                            <td><span><?php echo $precetageOfRate05 ?>%</span></td>
                         </tr>
-                        <tr style="height:23%">
+                        <tr style="height:<?php echo $precetageOfRate04 ?>%">
                             <th scope="row">4</th>
-                            <td><span>23%</span></td>
+                            <td><span><?php echo $precetageOfRate04 ?>%</span></td>
                         </tr>
-                        <tr style="height:7%">
+                        <tr style="height:<?php echo $precetageOfRate03 ?>%">
                             <th scope="row">3</th>
-                            <td><span>7%</span></td>
+                            <td><span><?php echo $precetageOfRate03 ?>%</span></td>
                         </tr>
-                        <tr style="height:38%">
+                        <tr style="height:<?php echo $precetageOfRate02 ?>%">
                             <th scope="row">2</th>
-                            <td><span>38%</span></td>
+                            <td><span><?php echo $precetageOfRate02 ?>%</span></td>
                         </tr>
-                        <tr style="height:35%">
+                        <tr style="height:<?php echo $precetageOfRate01 ?>%">
                             <th scope="row">1</th>
-                            <td><span>35%</span></td>
+                            <td><span><?php echo $precetageOfRate01 ?>%</span></td>
                         </tr>
-                        <tr style="height:30%">
+                        <tr style="height:<?php echo $precetageOfRate00 ?>%">
                             <th scope="row">0</th>
-                            <td><span>30%</span></td>
+                            <td><span><?php echo $precetageOfRate00 ?>%</span></td>
                         </tr>
                     </tbody>
 

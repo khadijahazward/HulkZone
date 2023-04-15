@@ -58,7 +58,6 @@ include '../connect.php';
                                 $buttonHtml = '<button disabled>' . date('D, M j', strtotime($dayOfWeekDate)). '</button>';
                             } else {
                                 // Otherwise, create a clickable button
-                                //$buttonHtml = '<button onclick="displayAvailableSlots(' . $i . ', \'' . $dayOfWeekDate . '\')">' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>';
                                 $buttonHtml = '<button data-index="' . $i . '" onclick="displayAvailableSlots(' . $i . ', \'' . $dayOfWeekDate . '\')">' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>';
                             }
 
@@ -107,22 +106,6 @@ include '../connect.php';
         </div>
 
     </div>
-    <script>
-        // Add active class to the current button (highlight it)
-        var buttons = document.querySelectorAll('.activeBtn button');
-        for (var i = 0; i < buttons.length; i++) {
-            buttons[i].addEventListener('click', function() {
-            // Remove active class from any previously active button
-            var active = document.querySelector('.activeBtn button.active');
-            if (active) {
-            active.classList.remove('active');
-            }
-
-            // Add active class to the clicked button
-            this.classList.add('active');
-        });
-        }
-    </script>
 </body>
 
 </html>

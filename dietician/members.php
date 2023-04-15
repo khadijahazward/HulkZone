@@ -1,6 +1,22 @@
 <?php
 
-include '../connect.php';
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
+
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if (mysqli_num_rows($result1) == 1) {
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID'];
+} else {
+    echo '<script> window.alert("Error of receiving employee details!");</script>';
+}
+
+
 
 ?>
 
@@ -14,6 +30,7 @@ include '../connect.php';
     <meta name="Viewport" content="width=device-width, initial-scale= 1.0">
     <link href="Style/members.css" rel="StyleSheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -24,7 +41,12 @@ include '../connect.php';
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <img src="Images/Profile.png" alt="my profile" class="myProfile">
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
+                <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
@@ -38,7 +60,7 @@ include '../connect.php';
                 <hr>
                 <a href="schedule.php"><i class="fa fa-clock-o"></i>Schedule</a>
                 <hr>
-                <a href="Diet Plan/DietPlan/dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
+                <a href="dietPlan.php"><i class="fa fa-heartbeat"></i>Diet Plans</a>
                 <hr>
                 <a href="chatBox.php"><i class="fa fa-comments"></i>Chat Box</a>
                 <hr>
@@ -64,36 +86,69 @@ include '../connect.php';
                             <th>GENDER</th>
                             <th>CONTACT NUMBER</th>
                             <th>PLAN</th>
+                            <th>Expired on</th>
                             <th></th>
                         </tr>
                     </thead>
-
-                    <?php
-                        $sql = "SELECT member.memberID, user.profilePhoto, user.fName, user.lName, user.gender, user.contactNumber, member.planType
-                                FROM member
-                                INNER JOIN user
-                                ON member.userID = user.userID";
-
-                        $result = mysqli_query($conn, $sql);
-
-                    ?>
-
                     <tbody>
                         <?php
 
-                        if(mysqli_num_rows($result) > 0){
-                            while($row = mysqli_fetch_assoc($result)){
-                                echo"<tr>
-                                        <td>".$row["memberID"]."</td>
-                                        <td><img src=".$row["profilePhoto"]." alt='member's DP'></td>
-                                        <td>".$row["fName"]." ".$row["lName"]."</td>
-                                        <td>".$row["gender"]."</td>
-                                        <td>".$row["contactNumber"]."</td>
-                                        <td>".$row["planType"]."</td>
-                                        <td><a href='memberProfile.php?view=".$row["memberID"]."'><button>View More</button></a></td>
-                                    </tr>";
+                        $query2 = "SELECT * FROM servicecharge WHERE employeeID = $employeeID AND endDate >= SYSDATE()";
+                        $result2 = mysqli_query($conn, $query2);
+
+                        if (mysqli_num_rows($result2) > 0) {
+                            while ($row2 = mysqli_fetch_assoc($result2)) {
+                                $memberID = $row2['memberID'];
+
+                                $query3 = "SELECT * FROM member WHERE memberID = $memberID";
+                                $result3 = mysqli_query($conn, $query3);
+
+                                if ($result3) {
+                                    $row3 = mysqli_fetch_assoc($result3);
+                                    $memberUserID = $row3['userID'];
+
+                                    $query4 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
+                                    $result4 = mysqli_query($conn, $query4);
+
+                                    $query5 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+                                    $result5 = mysqli_query($conn, $query5);
+                                    $row5 = mysqli_fetch_assoc($result5);
+                                    $expiredON = date('Y-m-d', strtotime($row5['endDate']));
+
+                                    if (mysqli_num_rows($result4) > 0) {
+                                        while ($row4 = mysqli_fetch_assoc($result4)) {
+
+                                            $memberFName = $row4['fName'];
+                                            $memberLName = $row4['lName'];
+                                            $memberProfilePic = $row4['profilePhoto'];
+                                            $gender = $row4['gender'];
+                                            $contactNumber = $row4['contactNumber'];
+                                            $planType = $row4['planType'];
+
+
+                                            echo "<tr>
+                                                <td>" . $memberID . "</td>
+                                                <td><img src=" . $memberProfilePic . " alt='member's DP'></td>
+                                                <td>" . $memberFName . " " . $memberLName . "</td>
+                                                <td>" . $gender . "</td>
+                                                <td>" . $contactNumber . "</td>
+                                                <td>" . $planType . "</td>
+                                                <td>" . $expiredON . "</td>
+                                                <td><a href='memberProfile.php?view=" . $memberID . "'><button class='view'>View More</button></a></td>
+                                            </tr>";
+                                        }
+                                    }
+                                }
                             }
+                        }else{
+                            echo "
+                            <tr>
+                                <td colspan='7'>Still you don't have members</td>
+                            </tr>
+                        ";
                         }
+
+
                         ?>
                     </tbody>
                 </table>

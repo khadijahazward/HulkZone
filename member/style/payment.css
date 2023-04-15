@@ -41,6 +41,16 @@ button {
     transition: all 0.3s;
 }
 
+button:disabled {
+    padding: 10px 25px;
+    border: 1px solid gray;
+    border-radius: 5px 5px 5px 5px;
+    background-color: gray;
+    color: white;
+    cursor: default;
+    transition: all 0.3s;
+}
+
 .middle-r{
     margin-left: 50px;
     font-weight: bold;

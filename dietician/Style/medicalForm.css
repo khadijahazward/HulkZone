@@ -51,6 +51,14 @@
     border-radius: 50%;
 }
 
+.notification{
+    left: 1310px;
+    top: 15px;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
+}
+
 
 .profileCard {
     width: 300px;
@@ -175,6 +183,18 @@
     top: 100px;
     position: absolute;
     overflow-y: auto;
+}
+
+.formArea .checkboxs input[type=checkbox][disabled]:checked {
+    background-color: #cccccc;
+  border: 2px solid black; 
+  color: #555555; 
+  cursor: not-allowed; 
+}
+
+.formArea .checkboxs input[type=checkbox][disabled]:not(:checked) {
+    border: 1px solid black;
+    background-color: blue;
 }
 
 .formArea table{

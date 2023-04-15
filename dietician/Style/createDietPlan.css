@@ -61,66 +61,56 @@
     border-radius: 50%;
 }
 
+.notification{
+    left: 1310px;
+    top: 15px;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
+}
+
 .topic {
-    width: 281px;
-    height: 44px;
-    left: 121px;
-    top: 70px;
+    height: fit-content;
+    width: fit-content;
+    left: 50px;
+    top: 60px;
     font-style: normal;
     font-weight: 600;
     font-size: 36px;
-    line-height: 44px;
     position: absolute;
     color: rgba(26, 79, 131, 1);
 }
 
-.dateBar {
-    width: 864px;
-    height: 48px;
-    left: 375px;
-    top: 175px;
-    box-shadow: 0px -3px 12px rgba(35, 0, 76, 0.05);
+.chooseDate {
+    right: 70px;
+    top: 110px;
     position: absolute;
-    background-color: white;
+    color: rgba(26, 79, 131, 1);
+    font-size: 18px;
+    font-weight: 400;
 }
 
-.selector {
-    width: 29px;
-    height: 5px;
-    left: 310px;
-    top: 0px;
-    background: rgba(0, 104, 55, 1);
-    border-radius: 19px;
-    position: absolute;
+.chooseDate input[type="date"] {
+    height: 36px;
+    width: 260px;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    background: none;
+    border: none;
+    text-align: center;
 }
 
-.dateRow {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 41px;
-    top: 15px;
-    left: 40px;
-    position: absolute;
+.chooseDate input[type="date"]:focus {
+    outline: none;
 }
 
-.dateRow a {
-    font-style: normal;
-    line-height: 100%;
-    font-size: 20px;
-    font-weight: 500;
-}
-
-.dateRow a:active {
-    color: rgba(0, 104, 55, 1);
-}
 
 .gridContainer {
-    width: 1154px;
-    height: 386px;
-    left: 150px;
-    top: 250px;
+    width: 1250px;
+    height: 400px;
+    left: 70px;
+    top: 130px;
     position: absolute;
     display: grid;
     grid-template-columns: auto auto auto;
@@ -140,11 +130,14 @@
     line-height: 32px;
     color: black;
     align-items: center;
-    padding-top: 15px;
+}
+
+.gridTextColumn{
+    padding: 7px;
 }
 
 .gridText input {
-    width: 350px;
+    width: 250px;
     height: 20px;
     background-color: white;
     border: 2px solid #006837;
@@ -157,8 +150,8 @@
     background-color: rgba(255, 159, 41, 0.75);
     width: 189px;
     height: 57px;
-    right: -150px;
-    bottom: -40px;
+    right: -200px;
+    bottom: -180px;
     box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
     border-radius: 4px;
     border: 0px;
@@ -174,4 +167,10 @@
 .saveButton:hover {
     background-color: rgba(255, 159, 41, 1);
     box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05) inset;
+}
+
+.error{
+    color: red;
+    font-size: 12px;
+    font-weight: 400;
 }

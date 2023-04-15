@@ -59,7 +59,7 @@ include '../connect.php';
         if($dayUntilExpiry == 0){
 
             // Check if a notification has already been sent to admin
-            // for type: Announcement = 0, Complaint = 1, Payment = 2.
+            // for type: Announcement = 0, Complaint = 1, Payment = 2, service selection =3 
             $adminID = 128;
             $sql9 = "SELECT notificationsID FROM notifications WHERE type = 2 AND DATE(created_at) = '$cDate' AND notificationsID IN (SELECT notificationsID FROM usernotifications WHERE userID = $adminID)";
             $result9 = mysqli_query($conn, $sql9);
@@ -92,7 +92,7 @@ include '../connect.php';
             $result12 = mysqli_query($conn, $sql12);
             
             if ($result12) {
-                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please contact the admin for more information.');</script>";
+                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please Pay the Payment to enable your account.');</script>";
                 header("Location: ../home/logout.php");
                 exit();
             } else {
