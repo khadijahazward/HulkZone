@@ -228,7 +228,7 @@ include('setAdminProfilePic.php');
                   backgroundColor: 'rgba(255, 0, 0, 0.5)',
                   borderColor: 'rgba(0, 0, 255, 0.7)',
                   data: [
-                    <?php echo isset($data2[1]['Male']) ? $data[1]['Male'] : 0 ?>,
+                    <?php echo isset($data[1]['Male']) ? $data[1]['Male'] : 0 ?>,
                     <?php echo isset($data[2]['Male']) ? $data[2]['Male'] : 0 ?>,
                     <?php echo isset($data[3]['Male']) ? $data[3]['Male'] : 0 ?>
                   ]
