@@ -9,6 +9,9 @@ $empid = $_POST["empid"];
 //booking date
 $bDate = $_POST["bDate"];
 
+//booking start time
+$startTime = $_POST["startTime"];
+
 //getting member id using session
 $query = "SELECT * from member where userID = " . $_SESSION['userID'];
 $result = mysqli_query($conn, $query); 
@@ -29,21 +32,22 @@ if (mysqli_num_rows($result1) > 0) {
     echo "<script>window.location = 'dietUse.php';</script>";
 
 }else{
-    $sql = "UPDATE dieticianappointment SET memberID = '$memberID', status = 1 WHERE date = '$bDate' And employeeID = '$empid'";
+    $sql = "UPDATE dieticianappointment SET memberID = '$memberID', status = 1 WHERE date = '$bDate' AND employeeID = '$empid' AND startTime = '$startTime'";
     
     $result2 = mysqli_query($conn, $sql);
 
     if($result2){
             
         //getting start time and end time from the slots table
-        $sql3 = "SELECT startTime,endTime FROM dieticianappointment WHERE memberID = '$memberID' and employeeID = '$empid' and date = '$bDate'";
+        $sql3 = "SELECT endTime FROM dieticianappointment WHERE memberID = '$memberID' AND employeeID = '$empid' AND date = '$bDate' AND startTime = '$startTime'";
         $result4 = mysqli_query($conn, $sql3);
 
         $row = mysqli_fetch_assoc($result4);
-        $startTime = date('H:i:s', strtotime($row["startTime"]));
+
+        $st = date('H:i:s', strtotime($startTime));
         $endTime = date('H:i:s', strtotime($row["endTime"]));
 
-        echo "<script>alert('Appointment confirmed! Your Appointment is from $startTime to $endTime on $bDate.');</script>";
+        echo "<script>alert('Appointment confirmed! Your Appointment is from $st to $endTime on $bDate.');</script>";
         echo "<script>window.location = 'dietUse.php';</script>";
 
     }else{
