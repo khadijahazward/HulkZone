@@ -7,7 +7,7 @@ include('authorization.php');
     // Retrieve employee details using employeeID
     $employeeID = $_GET['employeeID'];
     $sql = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
-    $result = $conn->query($sql);
+    $result = mysqli_query($conn, $sql);;
     $employeeDetails = $result->fetch_assoc();
     
     // Retrieve user details using userID from employee table

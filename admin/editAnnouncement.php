@@ -6,7 +6,7 @@ include('../../HulkZone/connect.php');
 $notificationsID = mysqli_real_escape_string($conn, $_GET['notificationsID']);
 
 // Check for the form submission
-if (isset($_POST['submit'])) {
+/*if (isset($_POST['submit'])) {
     // Get the form data
     $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
 
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
     // Redirect the user to the view announcements page
     header("Location: viewAnnouncements.php");
     exit();
-}
+}*/
 
 // Prepare the select statement
 $stmt = $conn->prepare("SELECT message FROM notifications WHERE notificationsID = ?");
@@ -97,7 +97,7 @@ include('setAdminProfilePic.php');
             ?>
             <hr style="width: 98%;">
             <div class="addAnnouncementForm">
-                <form method="POST" onsubmit="return confirmSubmission()">
+                <form method="POST" action="createAnnouncements.php" onsubmit="return confirmSubmission()">
                     <label class="formContent">Message</label>
                     <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required><?php echo $message; ?></textarea>
                     <br>
