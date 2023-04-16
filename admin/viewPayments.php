@@ -54,6 +54,7 @@ include('setAdminProfilePic.php');
                    <th>MemberID</th>
                    <th>Member Name</th>
                    <th>Gender</th>
+                   <th>Payment Plan</th>
                    <th>Payment History</th>
                 </tr>
 
@@ -61,7 +62,7 @@ include('setAdminProfilePic.php');
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    $sql="SELECT m.memberID, u.fName, u.gender
+                    $sql="SELECT m.memberID,m.planType, u.fName, u.gender
                     FROM payment p
                     JOIN member m ON p.memberID = m.memberID
                     JOIN user u ON m.userID = u.userID
@@ -79,6 +80,8 @@ include('setAdminProfilePic.php');
                    <td>$row[memberID]</td>
                    <td>$row[fName]</td>
                    <td>$row[gender]</td>
+                   <td>$row[planType]</td>
+
                   
                    
                    <td>
