@@ -9,7 +9,7 @@ include('setAdminProfilePic.php');
         // Retrieve employee details using employeeID
         $memberID = $_GET['memberID'];
         $sql = "SELECT * FROM member WHERE memberID = '$memberID'";
-        $result = $conn->query($sql);
+        $result = mysqli_query($conn, $sql);;
 
         if ($result && $result->num_rows > 0) {
             $memberDetails = $result->fetch_assoc();

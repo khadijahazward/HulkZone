@@ -35,11 +35,11 @@ if (mysqli_num_rows($result2) > 0) {
             $field1name = date('H:i:s', strtotime($row["startTime"]));
             $field2name = date('H:i:s', strtotime($row["endTime"]));
             //$field4name = $date;
-    
+            $st = $row["startTime"];
             if ($row["status"] == 1) {
                 $field3name = "<button disabled>Not Available</button></td>";
             } else {
-                $field3name = "<button onclick=\"bookAppointment('".$date."', '".$empid."')\">Book Now</button></td>";
+                $field3name = "<button onclick=\"bookAppointment('".$date."', '".$empid."', '".$st."')\">Book Now</button></td>";
             }
     
             echo '<tr> 
@@ -65,7 +65,7 @@ if (mysqli_num_rows($result2) > 0) {
 ?>
 
 <script>
-function bookAppointment(bDate, empid) {
+function bookAppointment(bDate, empid, startTime) {
     // Confirm the booking with the user
     if (confirm("Are you sure you want to book this slot?")) {
 
@@ -85,11 +85,18 @@ function bookAppointment(bDate, empid) {
         empidField.setAttribute("name", "empid");
         empidField.setAttribute("value", empid);
 
+        var startTimeField = document.createElement("input");
+        startTimeField.setAttribute("type", "hidden");
+        startTimeField.setAttribute("name", "startTime");
+        startTimeField.setAttribute("value", startTime);
+
         form.appendChild(dateField);
         form.appendChild(empidField);
+        form.appendChild(startTimeField);
         document.body.appendChild(form);
         form.submit();
     }
 }
+
 </script>
 

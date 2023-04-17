@@ -85,7 +85,7 @@ include('../admin/sideBar.php');
             <div>
                 <?php
 
-                echo "fName";
+                echo $fName;
                 ?>
                 <br>
 
