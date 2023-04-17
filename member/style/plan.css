@@ -7,6 +7,11 @@
 
 }
 
+.content{
+    background-color: #e5e7e8;
+    opacity: 1;
+    background-image:  repeating-radial-gradient( circle at 0 0, transparent 0, #e5e7e8 11px ), repeating-linear-gradient( #b3d8aa55, #b3d8aa );
+}
 table{
     width: 100%;
     border-collapse:separate;
@@ -33,7 +38,7 @@ td{
     text-align: center;
     width: 25%;
     font-size: 14px;
-    border: 1px solid white; 
+    border: 2px solid white; 
 }
 
 /*top left and bottom left*/
@@ -80,5 +85,12 @@ button{
     color: white;
     cursor: pointer;
     transition: transform 0.2s;
-  }
+}
+
+button[disabled] {
+    background-color: grey;
+    color: white;
+    cursor: default;
+    border: grey 1px solid;
+}
   

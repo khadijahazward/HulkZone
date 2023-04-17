@@ -16,6 +16,7 @@ include '../connect.php';
     <title>Diet plan | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/plan.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -39,18 +40,95 @@ include '../connect.php';
             </div>
             <div class="content">
 
-                <div class="row">
-                    <p style="font-size:20px; margin:0;font-weight:bold;">PROGRESS</p>
+                <div class="row" style="margin-bottom: 0;">
+                    <p style="font-size:20px; margin:0;font-weight:bold;">PROGRESS BAR</p>
+                </div>
+                <div class="row" style="margin-top: 0;">
+                    Visualize Your Progress with a Progress Indicator!
                 </div>
                 <!--for the progress bar-->
-                <div class="row">
-                    <div id="bar">
-                        <div id="progress"></div>
-                        <div id="percentage"></div>
+                <div class="row" style="margin-top: 0;">
+                    <?php
+                        $sql2 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
+                        $result2 = mysqli_query($conn, $sql2);
+                        if (mysqli_num_rows($result2) > 0) {
+                            $row2 = mysqli_fetch_assoc($result2);
+
+                            $startDate = date('Y-m-d', strtotime($row2['startDate']));
+                            $endDate = date('Y-m-d', strtotime($row2['endDate']));  
+                            //echo $startDate . "  " . $endDate;
+                            $empid = $row2["employeeID"];  
+                            //echo $empid;                        
+
+                            $sql3 = "SELECT DATEDIFF(endDate, startDate) AS numDays FROM serviceCharge WHERE  memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
+                            $result3 = mysqli_query($conn, $sql3);
+                            $row3 = mysqli_fetch_assoc($result3);
+                            $differenceBetweenStartAndEnd = $row3["numDays"];
+
+                            $sql4 = "SELECT COUNT(*) AS numCompletedDays FROM diet_plan_status WHERE member_id = $row1[memberID] AND dietID IN (
+                                SELECT DISTINCT diet_id FROM dietplan WHERE memberID = $row1[memberID] AND employeeID = $empid AND startDate = '$row2[startDate]') AND CompletedDate BETWEEN ' $startDate' AND '$endDate'";
+                            $result4 = mysqli_query($conn, $sql4);
+                            $row4 = mysqli_fetch_assoc($result4);
+
+                            $numCompletedDays = $row4['numCompletedDays'];
+                            //echo $numCompletedDays;
+                            
+                        }else{
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service charge found for memberID </p>{$row1['memberID']} and serviceID 3.";
+                        }
+                        
+                    ?>
+                    <div style="display:flex; justify-content:center; align-items: center;padding:2%; margin: auto;">
+                        <canvas id="myChart" style="max-width:400px"></canvas>
                     </div>
+
+
+                    <script>
+                        var progress = <?php echo $numCompletedDays; ?>;
+                        var total = <?php echo $differenceBetweenStartAndEnd; ?>;
+                        var xValues = ["Completed", "Not Completed"];
+                        new Chart("myChart", {
+                            type: "doughnut",
+                            data: {
+                                labels: xValues,
+                                datasets: [{
+                                    data: [progress, total - progress],
+                                    backgroundColor: ['#006837', '#FF9F29']
+                                }]
+                            },
+                            options: {
+                                tooltips: { //text when hover over the chart
+                                    callbacks: {
+                                        label: function(tooltipItem, data) { // to call each section of the chart that the mouse is hovering over
+                                        var value = data.datasets[0].data[tooltipItem.index]; //the actual number of day
+                                        return data.labels[tooltipItem.index] + ': ' + value + ' days';
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                    
                 </div>
                 <div class="row">
-                    <p style="font-size:20px; margin:0;font-weight:bold; margin-bottom:0;">Diet Plan</p>
+                <?php
+                        $sql2 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
+                        $result2 = mysqli_query($conn, $sql2);
+                        
+
+                        if (mysqli_num_rows($result2) > 0) {
+                            $row2 = mysqli_fetch_assoc($result2);
+                            $startDate = date_create($row2["startDate"]);
+                            $endDate = date_create($row2["endDate"]);
+                            $currentDate = date_create(); // get the current date
+                            $interval = date_diff($startDate, $currentDate); // calculate the interval between the start date and current date
+                            $weeks = ceil($interval->days / 7); // calculate the number of weeks
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'> DIET PLAN FOR WEEK: {$weeks} </p>";
+                        } else {
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service charge found for memberID </p>{$row1['memberID']} and serviceID 3.";
+                        }
+                    ?> 
+
                 </div>
                 <div class="row">
                     <?php
@@ -131,7 +209,7 @@ include '../connect.php';
                                             $buttonHtml[$i] = "<button type='button' value='completed' disabled>Completed</button>";
                                         } else {
                                             // The plan for this member has not been completed yet today
-                                            $buttonHtml[$i] = "<button type='button' value='completed' onclick='submitForm(" . $row3['diet_id'] . ", \"" . $dayOfWeekDate . "\")'>Completed</button>";
+                                            $buttonHtml[$i] = "<button type='button' value='completed' onclick='submitForm(" . $row3['diet_id'] . ", \"" . $dayOfWeekDate . "\")'>Mark as Completed</button>";
                                         }
                                     }
 
