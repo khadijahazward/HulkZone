@@ -1,3 +1,13 @@
+<?php
+
+include 'authorization.php';
+include 'connect.php';
+include 'setProfilePic.php';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,10 +37,11 @@
         if (isset($_POST['supType'])) {
             $supType = $_POST['supType'];
         } else {
-            $supTypeErr = "Sypplement Type is required";
+            $supTypeErr = "Supplement Type is required";
         }
-
+        
         if (isset($_FILES['image'])) {
+            
             $errors = array();
             $file_name = $_FILES['image']['name'];
             $file_size = $_FILES['image']['size'];
@@ -54,24 +65,24 @@
 
             if (empty($errors)) {
                 // Get the user ID from the session
-                $userID = $_SESSION['userID'];
-
+                $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+            
                 // Create a new file name using the user ID and the file extension
                 $newFileName = $userID . '.' . $file_ext;
-
+            
                 // Set the folder where the uploaded file will be stored
-                $folder = "Images/supplements";
-
+                $folder = "Images/supplements/";
+            
                 // Set the full path of the uploaded file
                 $file_path = $folder . $newFileName;
-
+            
                 // Move the uploaded file to the target directory
                 move_uploaded_file($file_tmp, $file_path);
-
+            
                 // Update the user's profile photo path in the database
-                $query = "INSERT INTO supplementlist(supplementName, supplemenetType, supplementPhoto) VALUES ('$supName', '$supType', '$file_path')";
+                $query = "INSERT INTO supplementlist(supplementName, supplementType, supplementPhoto) VALUES ('$supName', '$supType', '$file_path')";
                 $result = mysqli_query($conn, $query);
-
+            
                 if (!$result) {
                     echo "Error: " . mysqli_error($conn);
                 } else {
@@ -80,20 +91,22 @@
                     exit();
                 }
             } else {
-                $query1 = "INSERT INTO supplementlist(supplementName, supplemenetType) VALUES ('$supName', '$supType')";
-                $result1 = mysqli_query($conn, $query1);
+                echo 'error';
+                // $query1 = "INSERT INTO supplementlist(supplementName, supplementType) VALUES ('$supName', '$supType')";
+                // $result1 = mysqli_query($conn, $query1);
 
-                if (!$result1) {
-                    echo "Error: " . mysqli_error($conn);
-                } else {
-                    // Redirect the user to their profile page
-                    header("Location: dietplan.php");
-                    exit();
-                }
+                // if (!$result1) {
+                //     echo "Error: " . mysqli_error($conn);
+                // } else {
+                //     // Redirect the user to their profile page
+                //     header("Location: dietplan.php");
+                //     exit();
+                // }
             }
         }
-    }
 
+        
+    }
     ?>
 
 
@@ -105,7 +118,7 @@
                 <div class=" subtopic">
                     <p>Add a Supplement</p>
                 </div>
-                <form id="supplementForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <form id="supplementForm" method="post" enctype="multipart/form-data">
                     <table class="reportingContent">
                         <tr>
                             <td><label for="supName">Supplement Name</label></td>
@@ -130,7 +143,7 @@
                             </td>
                         </tr>
                     </table>
-                    <button type="submit" class="acceptBtn" onclick="return Alertfunction()">Submit</button>
+                    <button type="submit" name="submit" class="acceptBtn">Submit</button>
                 </form>
             </div>
         </div>

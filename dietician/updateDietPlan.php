@@ -10,7 +10,8 @@ if (isset($_GET['update'])) {
     $memberID = $_GET['update'];
 }
 
-$query1 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = '$memberID'";
+
+$query1 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE member.memberID = $memberID";
 $result1 = mysqli_query($conn, $query1);
 if (mysqli_num_rows($result1) == 1) {
     $member = mysqli_fetch_assoc($result1);
@@ -27,7 +28,7 @@ if (mysqli_num_rows($result2) == 1) {
     echo '<script> window.alert("Error of receiving employee ID!");</script>';
 }
 
-$query3 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID ORDER BY startDate DESC LIMIT 1;" ;
+$query3 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND serviceID = 3 AND endDate >= NOW()" ;
 $result3 = mysqli_query($conn, $query3);
 $row3 = mysqli_fetch_assoc($result3);
 
@@ -35,20 +36,21 @@ $startDateTime = $row3['startDate'];
 
 $query4 = "SELECT * from dietplan WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 1";
 $result4 = mysqli_query($conn, $query4);
+
 if(mysqli_num_rows($result4) == 1){
     $row4 = mysqli_fetch_assoc($result4);
 
-    $mondayBreakfastMeal = explode("," , $row4['breakfastMeal']);
-    $mondayBreakfastQuantity = explode("," , $row4['breakfastQty']);
-    $mondayBreakfastCalorie = explode("," , $row4['breakfastCal']);
+    $mondayBreakfastMealShow = explode("," , $row4['breakfastMeal']);
+    $mondayBreakfastQuantityShow = explode("," , $row4['breakfastQty']);
+    $mondayBreakfastCalorieShow = explode("," , $row4['breakfastCal']);
 
-    $mondayLunchMeal = explode("," , $row4['lunchMeal']);
-    $mondayLunchQuantity = explode("," , $row4['lunchQty']);
-    $mondayLunchCalorie = explode("," , $row4['lunchCal']);
+    $mondayLunchMealShow = explode("," , $row4['lunchMeal']);
+    $mondayLunchQuantityShow = explode("," , $row4['lunchQty']);
+    $mondayLunchCalorieShow = explode("," , $row4['lunchCal']);
 
-    $mondayDinnerMeal = explode("," , $row4['dinnerMeal']);
-    $mondayDinnerQuantity = explode("," , $row4['dinnerQty']);
-    $mondayDinnerCalorie = explode("," , $row4['dinnerCal']);
+    $mondayDinnerMealShow = explode("," , $row4['dinnerMeal']);
+    $mondayDinnerQuantityShow = explode("," , $row4['dinnerQty']);
+    $mondayDinnerCalorieShow = explode("," , $row4['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving monday dietplan data!");</script>';
@@ -59,17 +61,17 @@ $result5 = mysqli_query($conn, $query5);
 if(mysqli_num_rows($result5) == 1){
     $row5 = mysqli_fetch_assoc($result5);
 
-    $tuesdayBreakfastMeal = explode("," , $row5['breakfastMeal']);
-    $tuesdayBreakfastQuantity = explode("," , $row5['breakfastQty']);
-    $tuesdayBreakfastCalorie = explode("," , $row5['breakfastCal']);
+    $tuesdayBreakfastMealShow = explode("," , $row5['breakfastMeal']);
+    $tuesdayBreakfastQuantityShow = explode("," , $row5['breakfastQty']);
+    $tuesdayBreakfastCalorieShow = explode("," , $row5['breakfastCal']);
 
-    $tuesdayLunchMeal = explode("," , $row5['lunchMeal']);
-    $tuesdayLunchQuantity = explode("," , $row5['lunchQty']);
-    $tuesdayLunchCalorie = explode("," , $row5['lunchCal']);
+    $tuesdayLunchMealShow = explode("," , $row5['lunchMeal']);
+    $tuesdayLunchQuantityShow = explode("," , $row5['lunchQty']);
+    $tuesdayLunchCalorieShow = explode("," , $row5['lunchCal']);
 
-    $tuesdayDinnerMeal = explode("," , $row5['dinnerMeal']);
-    $tuesdayDinnerQuantity = explode("," , $row5['dinnerQty']);
-    $tuesdayDinnerCalorie = explode("," , $row5['dinnerCal']);
+    $tuesdayDinnerMealShow = explode("," , $row5['dinnerMeal']);
+    $tuesdayDinnerQuantityShow = explode("," , $row5['dinnerQty']);
+    $tuesdayDinnerCalorieShow = explode("," , $row5['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving tuesday dietplan data!");</script>';
@@ -80,17 +82,17 @@ $result6 = mysqli_query($conn, $query6);
 if(mysqli_num_rows($result6) == 1){
     $row6 = mysqli_fetch_assoc($result6);
 
-    $wednesdayBreakfastMeal = explode("," , $row6['breakfastMeal']);
-    $wednesdayBreakfastQuantity = explode("," , $row6['breakfastQty']);
-    $wednesdayBreakfastCalorie = explode("," , $row6['breakfastCal']);
+    $wednesdayBreakfastMealShow = explode("," , $row6['breakfastMeal']);
+    $wednesdayBreakfastQuantityShow = explode("," , $row6['breakfastQty']);
+    $wednesdayBreakfastCalorieShow = explode("," , $row6['breakfastCal']);
 
-    $wednesdayLunchMeal = explode("," , $row6['lunchMeal']);
-    $wednesdayLunchQuantity = explode("," , $row6['lunchQty']);
-    $wednesdayLunchCalorie = explode("," , $row6['lunchCal']);
+    $wednesdayLunchMealShow = explode("," , $row6['lunchMeal']);
+    $wednesdayLunchQuantityShow = explode("," , $row6['lunchQty']);
+    $wednesdayLunchCalorieShow = explode("," , $row6['lunchCal']);
 
-    $wednesdayDinnerMeal = explode("," , $row6['dinnerMeal']);
-    $wednesdayDinnerQuantity = explode("," , $row6['dinnerQty']);
-    $wednesdayDinnerCalorie = explode("," , $row6['dinnerCal']);
+    $wednesdayDinnerMealShow = explode("," , $row6['dinnerMeal']);
+    $wednesdayDinnerQuantityShow = explode("," , $row6['dinnerQty']);
+    $wednesdayDinnerCalorieShow = explode("," , $row6['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving wednesday dietplan data!");</script>';
@@ -101,17 +103,17 @@ $result7 = mysqli_query($conn, $query7);
 if(mysqli_num_rows($result7) == 1){
     $row7 = mysqli_fetch_assoc($result7);
 
-    $thursdayBreakfastMeal = explode("," , $row7['breakfastMeal']);
-    $thursdayBreakfastQuantity = explode("," , $row7['breakfastQty']);
-    $thursdayBreakfastCalorie = explode("," , $row7['breakfastCal']);
+    $thursdayBreakfastMealShow = explode("," , $row7['breakfastMeal']);
+    $thursdayBreakfastQuantityShow = explode("," , $row7['breakfastQty']);
+    $thursdayBreakfastCalorieShow = explode("," , $row7['breakfastCal']);
 
-    $thursdayLunchMeal = explode("," , $row7['lunchMeal']);
-    $thursdayLunchQuantity = explode("," , $row7['lunchQty']);
-    $thursdayLunchCalorie = explode("," , $row7['lunchCal']);
+    $thursdayLunchMealShow = explode("," , $row7['lunchMeal']);
+    $thursdayLunchQuantityShow= explode("," , $row7['lunchQty']);
+    $thursdayLunchCalorieShow = explode("," , $row7['lunchCal']);
 
-    $thursdayDinnerMeal = explode("," , $row7['dinnerMeal']);
-    $thursdayDinnerQuantity = explode("," , $row7['dinnerQty']);
-    $thursdayDinnerCalorie = explode("," , $row7['dinnerCal']);
+    $thursdayDinnerMealShow = explode("," , $row7['dinnerMeal']);
+    $thursdayDinnerQuantityShow = explode("," , $row7['dinnerQty']);
+    $thursdayDinnerCalorieShow = explode("," , $row7['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving thursday dietplan data!");</script>';
@@ -122,17 +124,17 @@ $result8 = mysqli_query($conn, $query8);
 if(mysqli_num_rows($result8) == 1){
     $row8 = mysqli_fetch_assoc($result8);
 
-    $fridayBreakfastMeal = explode("," , $row8['breakfastMeal']);
-    $fridayBreakfastQuantity = explode("," , $row8['breakfastQty']);
-    $fridayBreakfastCalorie = explode("," , $row8['breakfastCal']);
+    $fridayBreakfastMealShow = explode("," , $row8['breakfastMeal']);
+    $fridayBreakfastQuantityShow = explode("," , $row8['breakfastQty']);
+    $fridayBreakfastCalorieShow = explode("," , $row8['breakfastCal']);
 
-    $fridayLunchMeal = explode("," , $row8['lunchMeal']);
-    $fridayLunchQuantity = explode("," , $row8['lunchQty']);
-    $fridayLunchCalorie = explode("," , $row8['lunchCal']);
+    $fridayLunchMealShow = explode("," , $row8['lunchMeal']);
+    $fridayLunchQuantityShow = explode("," , $row8['lunchQty']);
+    $fridayLunchCalorieShow = explode("," , $row8['lunchCal']);
 
-    $fridayDinnerMeal = explode("," , $row8['dinnerMeal']);
-    $fridayDinnerQuantity = explode("," , $row8['dinnerQty']);
-    $fridayDinnerCalorie = explode("," , $row8['dinnerCal']);
+    $fridayDinnerMealShow = explode("," , $row8['dinnerMeal']);
+    $fridayDinnerQuantityShow = explode("," , $row8['dinnerQty']);
+    $fridayDinnerCalorieShow = explode("," , $row8['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving friday dietplan data!");</script>';
@@ -143,17 +145,17 @@ $result9 = mysqli_query($conn, $query9);
 if(mysqli_num_rows($result9) == 1){
     $row9 = mysqli_fetch_assoc($result9);
 
-    $saturdayBreakfastMeal = explode("," , $row9['breakfastMeal']);
-    $saturdayBreakfastQuantity = explode("," , $row9['breakfastQty']);
-    $saturdayBreakfastCalorie = explode("," , $row9['breakfastCal']);
+    $saturdayBreakfastMealShow = explode("," , $row9['breakfastMeal']);
+    $saturdayBreakfastQuantityShow = explode("," , $row9['breakfastQty']);
+    $saturdayBreakfastCalorieShow = explode("," , $row9['breakfastCal']);
 
-    $saturdayLunchMeal = explode("," , $row9['lunchMeal']);
-    $saturdayLunchQuantity = explode("," , $row9['lunchQty']);
-    $saturdayLunchCalorie = explode("," , $row9['lunchCal']);
+    $saturdayLunchMealShow = explode("," , $row9['lunchMeal']);
+    $saturdayLunchQuantityShow = explode("," , $row9['lunchQty']);
+    $saturdayLunchCalorieShow = explode("," , $row9['lunchCal']);
 
-    $saturdayDinnerMeal = explode("," , $row9['dinnerMeal']);
-    $saturdayDinnerQuantity = explode("," , $row9['dinnerQty']);
-    $saturdayDinnerCalorie = explode("," , $row9['dinnerCal']);
+    $saturdayDinnerMealShow = explode("," , $row9['dinnerMeal']);
+    $saturdayDinnerQuantityShow = explode("," , $row9['dinnerQty']);
+    $saturdayDinnerCalorieShow = explode("," , $row9['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving saturday dietplan data!");</script>';
@@ -164,240 +166,473 @@ $result10 = mysqli_query($conn, $query10);
 if(mysqli_num_rows($result10) == 1){
     $row10 = mysqli_fetch_assoc($result10);
 
-    $sundayBreakfastMeal = explode("," , $row10['breakfastMeal']);
-    $sundayBreakfastQuantity = explode("," , $row10['breakfastQty']);
-    $sundayBreakfastCalorie = explode("," , $row10['breakfastCal']);
+    $sundayBreakfastMealShow = explode("," , $row10['breakfastMeal']);
+    $sundayBreakfastQuantityShow = explode("," , $row10['breakfastQty']);
+    $sundayBreakfastCalorieShow = explode("," , $row10['breakfastCal']);
 
-    $sundayLunchMeal = explode("," , $row10['lunchMeal']);
-    $sundayLunchQuantity = explode("," , $row10['lunchQty']);
-    $sundayLunchCalorie = explode("," , $row10['lunchCal']);
+    $sundayLunchMealShow = explode("," , $row10['lunchMeal']);
+    $sundayLunchQuantityShow = explode("," , $row10['lunchQty']);
+    $sundayLunchCalorieShow = explode("," , $row10['lunchCal']);
 
-    $sundayDinnerMeal = explode("," , $row10['dinnerMeal']);
-    $sundayDinnerQuantity = explode("," , $row10['dinnerQty']);
-    $sundayDinnerCalorie = explode("," , $row10['dinnerCal']);
+    $sundayDinnerMealShow = explode("," , $row10['dinnerMeal']);
+    $sundayDinnerQuantityShow = explode("," , $row10['dinnerQty']);
+    $sundayDinnerCalorieShow = explode("," , $row10['dinnerCal']);
     
 }else{
     echo '<script> window.alert("Error of retieving sunday dietplan data!");</script>';
 }
 
-// if (isset($_POST['update'])) {
+$mondayBreakfastErr = $mondayLunchErr = $mondayDinnerErr = $tuesdayBreakfastErr = $tuesdayLunchErr = $tuesdayDinnertErr = $wednesdayBreakfastErr = $wednesdayLunchErr = $wednesdayDinnerErr = $thursdayBreakfastErr = $thursdayLunchErr = $thursdayDinnerErr = $fridayBreakfastErr = $fridayLunchErr = $fridayDinnerErr = $saturdayBreakfastErr = $saturdayLunchErr = $saturdayDinnerErr = $sundayBreakfastErr = $sundayLunchErr = $sundayDinnerErr = "";
 
-//     $mondayBreakfastMeal = $_POST['mondayBreakfastMeal'];
-//     $mondayBreakfastQuntity = $_POST['mondayBreakfastQuntity'];
-//     $mondayBreakfastCalorie = $_POST['mondayBreakfastCalorie'];
-//     $mondayLunchMeal = $_POST['mondayLunchMeal'];
-//     $mondayLunchQuntity = $_POST['mondayLunchQuntity'];
-//     $mondayLunchCalorie = $_POST['mondayLunchCalorie'];
-//     $mondayDinnerMeal = $_POST['mondayDinnerMeal'];
-//     $mondayDinnerQuntity = $_POST['mondayDinnerQuntity'];
-//     $mondayDinnerCalorie = $_POST['mondayDinnerCalorie'];
 
-//     $tuesdayBreakfastMeal = $_POST['tuesdayBreakfastMeal'];
-//     $tuesdayBreakfastQuntity = $_POST['tuesdayBreakfastQuntity'];
-//     $tuesdayBreakfastCalorie = $_POST['tuesdayBreakfastCalorie'];
-//     $tusedayLunchMeal = $_POST['tusedayLunchMeal'];
-//     $tusedayLunchQuntity = $_POST['tusedayLunchQuntity'];
-//     $tusedayLunchCalorie = $_POST['tusedayLunchCalorie'];
-//     $tusedayDinnerMeal = $_POST['tusedayDinnerMeal'];
-//     $tusedayDinnerQuntity = $_POST['tusedayDinnerQuntity'];
-//     $tusedayDinnerCalorie = $_POST['tusedayDinnerCalorie'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-//     $wednesdayBreakfastMeal = $_POST['wednesdayBreakfastMeal'];
-//     $wednesdayBreakfastQuntity = $_POST['wednesdayBreakfastQuntity'];
-//     $wednesdayBreakfastCalorie = $_POST['wednesdayBreakfastCalorie'];
-//     $wednesdayLunchMeal = $_POST['wednesdayLunchMeal'];
-//     $wednesdayLunchQuntity = $_POST['wednesdayLunchQuntity'];
-//     $wednesdayLunchCalorie = $_POST['wednesdayLunchCalorie'];
-//     $wednesdayDinnerMeal = $_POST['wednesdayDinnerMeal'];
-//     $wednesdayDinnerQuntity = $_POST['wednesdayDinnerQuntity'];
-//     $wednesdayDinnerCalorie = $_POST['wednesdayDinnerCalorie'];
+    $monday_Breakfast_Meal = $_POST['mondayBreakfastMeal'];
+    $mondayBreakfastMeal = implode(",", $monday_Breakfast_Meal);
 
-//     $thursdayBreakfastMeal = $_POST['thursdayBreakfastMeal'];
-//     $thursdayBreakfastQuntity = $_POST['thursdayBreakfastQuntity'];
-//     $thursdayBreakfastCalorie = $_POST['thursdayBreakfastCalorie'];
-//     $thursdayLunchMeal = $_POST['thursdayLunchMeal'];
-//     $thursdayLunchQuntity = $_POST['thursdayLunchQuntity'];
-//     $thursdayLunchCalorie = $_POST['thursdayLunchCalorie'];
-//     $thursdayDinnerMeal = $_POST['thursdayDinnerMeal'];
-//     $thursdayDinnerQuntity = $_POST['thursdayDinnerQuntity'];
-//     $thursdayDinnerCalorie = $_POST['thursdayDinnerCalorie'];
+    $monday_Breakfast_Quantity = $_POST['mondayBreakfastQuantity'];
+    $mondayBreakfastQuantity = implode(",", $monday_Breakfast_Quantity);
 
-//     $fridayBreakfastMeal = $_POST['fridayBreakfastMeal'];
-//     $fridayBreakfastQuntity = $_POST['fridayBreakfastQuntity'];
-//     $fridayBreakfastCalorie = $_POST['fridayBreakfastCalorie'];
-//     $fridayLunchMeal = $_POST['fridayLunchMeal'];
-//     $fridayLunchQuntity = $_POST['fridayLunchQuntity'];
-//     $fridayLunchCalorie = $_POST['fridayLunchCalorie'];
-//     $fridayDinnerMeal = $_POST['fridayDinnerMeal'];
-//     $fridayDinnerQuntity = $_POST['fridayDinnerQuntity'];
-//     $fridayDinnerCalorie = $_POST['fridayDinnerCalorie'];
+    $monday_Breakfast_Calorie = $_POST['mondayBreakfastCalorie'];
+    $mondayBreakfastCalorie = implode(",", $monday_Breakfast_Calorie);
+    
+    if (count(array_filter($monday_Breakfast_Meal)) == 0 && count(array_filter($monday_Breakfast_Quantity)) == 0 && count(array_filter($monday_Breakfast_Calorie)) == 0) {
+        $mondayBreakfastErr = "Fill required fields";
+    } 
 
-//     $saturdayBreakfastMeal = $_POST['saturdayBreakfastMeal'];
-//     $saturdayBreakfastQuntity = $_POST['saturdayBreakfastQuntity'];
-//     $saturdayBreakfastCalorie = $_POST['saturdayBreakfastCalorie'];
-//     $saturdayLunchMeal = $_POST['saturdayLunchMeal'];
-//     $saturdayLunchQuntity = $_POST['saturdayLunchQuntity'];
-//     $saturdayLunchCalorie = $_POST['saturdayLunchCalorie'];
-//     $saturdayDinnerMeal = $_POST['saturdayDinnerMeal'];
-//     $saturdayDinnerQuntity = $_POST['saturdayDinnerQuntity'];
-//     $saturdayDinnerCalorie = $_POST['saturdayDinnerCalorie'];
 
-//     $sundayBreakfastMeal = $_POST['sundayBreakfastMeal'];
-//     $sundayBreakfastQuntity = $_POST['sundayBreakfastQuntity'];
-//     $sundayBreakfastCalorie = $_POST['sundayBreakfastCalorie'];
-//     $sundayLunchMeal = $_POST['sundayLunchMeal'];
-//     $sundayLunchQuntity = $_POST['sundayLunchQuntity'];
-//     $sundayLunchCalorie = $_POST['sundayLunchCalorie'];
-//     $sundayDinnerMeal = $_POST['sundayDinnerMeal'];
-//     $sundayDinnerQuntity = $_POST['sundayDinnerQuntity'];
-//     $sundayDinnerCalorie = $_POST['sundayDinnerCalorie'];
+    $monday_Lunch_Meal = $_POST['mondayLunchMeal'];
+    $mondayLunchMeal = implode(",", $monday_Lunch_Meal);
 
-//     $sql1 = "UPDATE dietplan 
-//             SET breakfastMeal = '$mondayBreakfastMeal',
-//             breakfastQty = '$mondayBreakfastQuntity',
-//             breakfastCal = '$mondayBreakfastCalorie',
-//             lunchMeal = '$mondayLunchMeal',
-//             lunchQty = '$mondayLunchQuntity', 
-//             lunchCal = '$mondayLunchCalorie',
-//             dinnerMeal = '$mondayDinnerMeal',
-//             dinnerQty = '$mondayDinnerQuntity',
-//             dinnerCal = '$mondayDinnerCalorie'
-//             WHERE employeeID = $employeeID
-//             AND day = 'Monday'
-//             AND memberID = $memberID";
+    $monday_Lunch_Quantity= $_POST['mondayLunchQuantity'];
+    $mondayLunchQuantity = implode(",", $monday_Lunch_Quantity);
+    
+    $monday_Lunch_Calorie = $_POST['mondayLunchCalorie'];
+    $mondayLunchCalorie = implode(",", $monday_Lunch_Calorie);
+    
+    if (count(array_filter($monday_Lunch_Meal)) == 0 && count(array_filter($monday_Lunch_Quantity)) == 0 && count(array_filter($monday_Lunch_Calorie)) == 0) {
+        $mondayLunchErr = "Fill required fields";
+    }
+    
+    
+    $monday_Dinner_Meal = $_POST['mondayDinnerMeal'];
+    $mondayDinnerMeal = implode(",", $monday_Dinner_Meal);
 
-//     $dietPlan1 = mysqli_query($conn, $sql1);
+    $monday_Dinner_Quantity= $_POST['mondayDinnerQuantity'];
+    $mondayDinnerQuantity = implode(",", $monday_Dinner_Quantity);
+    
+    $monday_Dinner_Calorie = $_POST['mondayDinnerCalorie'];
+    $mondayDinnerCalorie = implode(",", $monday_Dinner_Calorie);
+    
+    if (count(array_filter($monday_Dinner_Meal)) == 0 && count(array_filter($monday_Dinner_Quantity)) == 0 && count(array_filter($monday_Dinner_Calorie)) == 0) {
+        $mondayDinnerErr = "Fill required fields";
+    }
 
-//     if ($dietPlan1) {
+    
+    $tuesday_Breakfast_Meal = $_POST['tuesdayBreakfastMeal'];
+    $tuesdayBreakfastMeal = implode(",", $tuesday_Breakfast_Meal);
 
-//         $sql2 = "UPDATE dietplan 
-//             SET breakfastMeal = '$tuesdayBreakfastMeal',
-//             breakfastQty = '$tuesdayBreakfastQuntity',
-//             breakfastCal = '$tuesdayBreakfastCalorie',
-//             lunchMeal = '$tusedayLunchMeal',
-//             lunchQty = '$tusedayLunchQuntity', 
-//             lunchCal = '$tusedayLunchCalorie',
-//             dinnerMeal = '$tusedayDinnerMeal',
-//             dinnerQty = '$tusedayDinnerQuntity',
-//             dinnerCal = '$tusedayDinnerCalorie'
-//             WHERE employeeID = $employeeID
-//             AND day = 'Tuesday'
-//             AND memberID = $memberID";
+    $tuesday_Breakfast_Quantity = $_POST['tuesdayBreakfastQuantity'];
+    $tuesdayBreakfastQuantity = implode(",", $tuesday_Breakfast_Quantity);
 
-//         $dietPlan2 = mysqli_query($conn, $sql2);
+    $tuesday_Breakfast_Calorie = $_POST['tuesdayBreakfastCalorie'];
+    $tuesdayBreakfastCalorie = implode(",", $tuesday_Breakfast_Calorie);
+    
+    if (count(array_filter($tuesday_Breakfast_Meal)) == 0 && count(array_filter($tuesday_Breakfast_Quantity)) == 0 && count(array_filter($tuesday_Breakfast_Calorie)) == 0) {
+        $tuesdayBreakfastErr = "Fill required fields";
+    }
 
-//         if ($dietPlan2) {
 
-//             $sql3 = "UPDATE dietplan 
-//             SET breakfastMeal = '$wednesdayBreakfastMeal',
-//             breakfastQty = '$wednesdayBreakfastQuntity',
-//             breakfastCal = '$wednesdayBreakfastCalorie',
-//             lunchMeal = '$wednesdayLunchMeal',
-//             lunchQty = '$wednesdayLunchQuntity',
-//             lunchCal = '$wednesdayLunchCalorie',
-//             dinnerMeal = '$wednesdayDinnerMeal',
-//             dinnerQty = '$wednesdayDinnerQuntity',
-//             dinnerCal = '$wednesdayDinnerCalorie'
-//             WHERE employeeID = $employeeID
-//             AND day = 'Wednesday'
-//             AND memberID = $memberID";
+    $tuesday_Lunch_Meal = $_POST['tuesdayLunchMeal'];
+    $tuesdayLunchMeal = implode(",", $tuesday_Lunch_Meal);
 
-//             $dietPlan3 = mysqli_query($conn, $sql3);
+    $tuesday_Lunch_Quantity = $_POST['tuesdayLunchQuantity'];
+    $tuesdayLunchQuantity = implode(",", $tuesday_Lunch_Quantity);
 
-//             if ($dietPlan3) {
+    $tuesday_Lunch_Calorie = $_POST['tuesdayLunchCalorie'];
+    $tuesdayLunchCalorie = implode(",", $tuesday_Lunch_Calorie);
+    
+    if (count(array_filter($tuesday_Lunch_Meal)) == 0 && count(array_filter($tuesday_Lunch_Quantity)) == 0 && count(array_filter($tuesday_Lunch_Calorie)) == 0) {
+        $tuesdayLunchErr = "Fill required fields";
+    }
 
-//                 $sql4 = "UPDATE dietplan 
-//             SET breakfastMeal = '$thursdayBreakfastMeal',
-//             breakfastQty = '$thursdayBreakfastQuntity',
-//             breakfastCal = '$thursdayBreakfastCalorie',
-//             lunchMeal = '$thursdayLunchMeal',
-//             lunchQty = '$thursdayLunchQuntity', 
-//             lunchCal = '$thursdayLunchCalorie',
-//             dinnerMeal = '$thursdayDinnerMeal',
-//             dinnerQty = '$thursdayDinnerQuntity',
-//             dinnerCal = '$thursdayDinnerCalorie'
-//             WHERE employeeID = $employeeID
-//             AND day = 'Thursday'
-//             AND memberID = $memberID";
+    
+    $tuesday_Dinner_Meal = $_POST['tuesdayDinnerMeal'];
+    $tuesdayDinnerMeal = implode(",", $tuesday_Dinner_Meal);
 
-//                 $dietPlan4 = mysqli_query($conn, $sql4);
+    $tuesday_Dinner_Quantity = $_POST['tuesdayDinnerQuantity'];
+    $tuesdayDinnerQuantity = implode(",", $tuesday_Dinner_Quantity);
 
-//                 if ($dietPlan4) {
-//                     $sql5 = "UPDATE dietplan 
-//                 SET breakfastMeal = '$fridayBreakfastMeal',
-//                 breakfastQty = '$fridayBreakfastQuntity',
-//                 breakfastCal = '$fridayBreakfastCalorie',
-//                 lunchMeal = '$fridayLunchMeal',
-//                 lunchQty = '$fridayLunchQuntity',
-//                 lunchCal = '$fridayLunchCalorie',
-//                 dinnerMeal = '$fridayDinnerMeal',
-//                 dinnerQty = '$fridayDinnerQuntity',
-//                 dinnerCal = '$fridayDinnerCalorie'
-//                 WHERE employeeID = $employeeID
-//                 AND day = 'Friday'
-//                 AND memberID = $memberID";
+    $tuesday_Dinner_Calorie = $_POST['tuesdayDinnerCalorie'];
+    $tuesdayDinnerCalorie = implode(",", $tuesday_Dinner_Calorie);
+    
+    if (count(array_filter($tuesday_Dinner_Meal)) == 0 && count(array_filter($tuesday_Dinner_Quantity)) == 0 && count(array_filter($tuesday_Dinner_Calorie)) == 0) {
+        $tuesdayDinnertErr = "Fill required fields";
+    }
 
-//                     $dietPlan5 = mysqli_query($conn, $sql5);
 
-//                     if ($dietPlan5) {
-//                         $sql6 = "UPDATE dietplan 
-//                         SET breakfastMeal = '$saturdayBreakfastMeal',
-//                         breakfastQty = '$saturdayBreakfastQuntity',
-//                         breakfastCal = '$saturdayBreakfastCalorie',
-//                         lunchMeal = '$saturdayLunchMeal',
-//                         lunchQty = '$saturdayLunchQuntity', 
-//                         lunchCal = '$saturdayLunchCalorie',
-//                         dinnerMeal = '$saturdayDinnerMeal',
-//                         dinnerQty = '$saturdayDinnerQuntity',
-//                         dinnerCal = '$saturdayDinnerCalorie'
-//                         WHERE employeeID = $employeeID
-//                         AND day = 'Saturday'
-//                         AND memberID = $memberID";
+    $wednesday_Breakfast_Meal = $_POST['wednesdayBreakfastMeal'];
+    $wednesdayBreakfastMeal = implode(",", $wednesday_Breakfast_Meal);
 
-//                         $dietPlan6 = mysqli_query($conn, $sql6);
+    $wednesday_Breakfast_Quantity = $_POST['wednesdayBreakfastQuantity'];
+    $wednesdayBreakfastQuantity = implode(",", $wednesday_Breakfast_Quantity);
 
-//                         if ($dietPlan6) {
-//                             $sql7 = "UPDATE dietplan 
-//                             SET breakfastMeal = '$sundayBreakfastMeal',
-//                             breakfastQty = '$sundayBreakfastQuntity',
-//                             breakfastCal = '$sundayBreakfastCalorie',
-//                             lunchMeal = '$sundayLunchMeal',
-//                             lunchQty = '$sundayLunchQuntity', 
-//                             lunchCal = '$sundayLunchCalorie',
-//                             dinnerMeal = '$sundayDinnerMeal',
-//                             dinnerQty = '$sundayDinnerQuntity',
-//                             dinnerCal = '$sundayDinnerCalorie'
-//                             WHERE employeeID = $employeeID
-//                             AND day = 'Sunday'
-//                             AND memberID = $memberID";
+    $wednesday_Breakfast_Calorie = $_POST['wednesdayBreakfastCalorie'];
+    $wednesdayBreakfastCalorie = implode(",", $wednesday_Breakfast_Calorie);
+    
+    if (count(array_filter($wednesday_Breakfast_Meal)) == 0 && count(array_filter($wednesday_Breakfast_Quantity)) == 0 && count(array_filter($wednesday_Breakfast_Calorie)) == 0) {
+        $wednesdayBreakfastErr = "Fill required fields";
+    }
 
-//                             $dietPlan7 = mysqli_query($conn, $sql7);
 
-//                             if ($dietPlan7) {
-//                                 // echo "<script> alert('Updated Successfully!'); window.location='updateSupplements.php?update = ".$memberID."'; </script>";
-//                                 echo "<script> alert('Updated Successfully!'); window.location='dietPlan.php'; </script>";
-//                             } else {
-//                                 echo "<script> alert('Error of updating sunday details');</script>";
-//                             }
-//                         } else {
-//                             echo "<script> alert('Error of updating saturday details');</script>";
-//                         }
-//                     } else {
-//                         echo "<script> alert('Error of updating friday details');</script>";
-//                     }
-//                 } else {
-//                     echo "<script> alert('Error of updating thursday details');</script>";
-//                 }
-//             } else {
-//                 echo "<script> alert('Error of updating wednesday details');</script>";
-//             }
-//         } else {
-//             echo "<script> alert('Error of updating tuesday details');</script>";
-//         }
-//     } else {
-//         echo "<script> alert('Error of updating monday details');</script>";
-//     }
-// }
+    $wednesday_Lunch_Meal = $_POST['wednesdayLunchMeal'];
+    $wednesdayLunchMeal = implode(",", $wednesday_Lunch_Meal);
+
+    $wednesday_Lunch_Quantity = $_POST['wednesdayLunchQuantity'];
+    $wednesdayLunchQuantity = implode(",", $wednesday_Lunch_Quantity);
+
+    $wednesday_Lunch_Calorie = $_POST['wednesdayLunchCalorie'];
+    $wednesdayLunchCalorie = implode(",", $wednesday_Lunch_Calorie);
+    
+    if (count(array_filter($wednesday_Lunch_Meal)) == 0 && count(array_filter($wednesday_Lunch_Quantity)) == 0 && count(array_filter($wednesday_Lunch_Calorie)) == 0) {
+        $wednesdayLunchErr = "Fill required fields";
+    }
+
+
+    $wednesday_Dinner_Meal = $_POST['wednesdayDinnerMeal'];
+    $wednesdayDinnerMeal = implode(",", $wednesday_Dinner_Meal);
+
+    $wednesday_Dinner_Quantity = $_POST['wednesdayDinnerQuantity'];
+    $wednesdayDinnerQuantity = implode(",", $wednesday_Dinner_Quantity);
+
+    $wednesday_Dinner_Calorie = $_POST['wednesdayDinnerCalorie'];
+    $wednesdayDinnerCalorie = implode(",", $wednesday_Dinner_Calorie);
+    
+    if (count(array_filter($wednesday_Dinner_Meal)) == 0 && count(array_filter($wednesday_Dinner_Quantity)) == 0 && count(array_filter($wednesday_Dinner_Calorie)) == 0) {
+        $wednesdayDinnerErr = "Fill required fields";
+    }
+    
+
+    $thursday_Breakfast_Meal = $_POST['thursdayBreakfastMeal'];
+    $thursdayBreakfastMeal = implode(",", $thursday_Breakfast_Meal);
+
+    $thursday_Breakfast_Quantity = $_POST['thursdayBreakfastQuantity'];
+    $thursdayBreakfastQuantity = implode(",", $thursday_Breakfast_Quantity);
+
+    $thursday_Breakfast_Calorie = $_POST['thursdayBreakfastCalorie'];
+    $thursdayBreakfastCalorie = implode(",", $thursday_Breakfast_Calorie);
+    
+    if (count(array_filter($thursday_Breakfast_Meal)) == 0 && count(array_filter($thursday_Breakfast_Quantity)) == 0 && count(array_filter($thursday_Breakfast_Calorie)) == 0) {
+        $thursdayBreakfastErr = "Fill required fields";
+    }
+
+
+    $thursday_Lunch_Meal = $_POST['thursdayLunchMeal'];
+    $thursdayLunchMeal = implode(",", $thursday_Lunch_Meal);
+
+    $thursday_Lunch_Quantity= $_POST['thursdayLunchQuantity'];
+    $thursdayLunchQuantity = implode(",", $thursday_Lunch_Quantity);
+    
+    $thursday_Lunch_Calorie = $_POST['thursdayLunchCalorie'];
+    $thursdayLunchCalorie = implode(",", $thursday_Lunch_Calorie);
+    
+    if (count(array_filter($thursday_Lunch_Meal)) == 0 && count(array_filter($thursday_Lunch_Quantity)) == 0 && count(array_filter($thursday_Lunch_Calorie)) == 0) {
+        $thursdayLunchErr = "Fill required fields";
+    }
+
+
+    $thursday_Dinner_Meal = $_POST['thursdayDinnerMeal'];
+    $thursdayDinnerMeal = implode(",", $thursday_Dinner_Meal);
+
+    $thursday_Dinner_Quantity= $_POST['thursdayDinnerQuantity'];
+    $thursdayDinnerQuantity = implode(",", $thursday_Dinner_Quantity);
+    
+    $thursday_Dinner_Calorie = $_POST['thursdayDinnerCalorie'];
+    $thursdayDinnerCalorie = implode(",", $thursday_Dinner_Calorie);
+    
+    if (count(array_filter($thursday_Dinner_Meal)) == 0 && count(array_filter($thursday_Dinner_Quantity)) == 0 && count(array_filter($thursday_Dinner_Calorie)) == 0) {
+        $thursdayDinnerErr = "Fill required fields";
+    }
+
+
+    $friday_Breakfast_Meal = $_POST['fridayBreakfastMeal'];
+    $fridayBreakfastMeal = implode(",", $friday_Breakfast_Meal);
+
+    $friday_Breakfast_Quantity = $_POST['fridayBreakfastQuantity'];
+    $fridayBreakfastQuantity = implode(",", $friday_Breakfast_Quantity);
+
+    $friday_Breakfast_Calorie = $_POST['fridayBreakfastCalorie'];
+    $fridayBreakfastCalorie = implode(",", $friday_Breakfast_Calorie);
+    
+    if (count(array_filter($friday_Breakfast_Meal)) == 0 && count(array_filter($friday_Breakfast_Quantity)) == 0 && count(array_filter($friday_Breakfast_Calorie)) == 0) {
+        $fridayBreakfastErr = "Fill required fields";
+    } 
+
+
+    $friday_Lunch_Meal = $_POST['fridayLunchMeal'];
+    $fridayLunchMeal = implode(",", $friday_Lunch_Meal);
+
+    $friday_Lunch_Quantity= $_POST['fridayLunchQuantity'];
+    $fridayLunchQuantity = implode(",", $friday_Lunch_Quantity);
+    
+    $friday_Lunch_Calorie = $_POST['fridayLunchCalorie'];
+    $fridayLunchCalorie = implode(",", $friday_Lunch_Calorie);
+    
+    if (count(array_filter($friday_Lunch_Meal)) == 0 && count(array_filter($friday_Lunch_Quantity)) == 0 && count(array_filter($friday_Lunch_Calorie)) == 0) {
+        $fridayLunchErr = "Fill required fields";
+    }
+
+
+    $friday_Dinner_Meal = $_POST['fridayDinnerMeal'];
+    $fridayDinnerMeal = implode(",", $friday_Dinner_Meal);
+
+    $friday_Dinner_Quantity= $_POST['fridayDinnerQuantity'];
+    $fridayDinnerQuantity = implode(",", $friday_Dinner_Quantity);
+    
+    $friday_Dinner_Calorie = $_POST['fridayDinnerCalorie'];
+    $fridayDinnerCalorie = implode(",", $friday_Dinner_Calorie);
+    
+    if (count(array_filter($friday_Dinner_Meal)) == 0 && count(array_filter($friday_Dinner_Quantity)) == 0 && count(array_filter($friday_Dinner_Calorie)) == 0) {
+        $fridayDinnerErr = "Fill required fields";
+    }
+
+
+    $saturday_Breakfast_Meal = $_POST['saturdayBreakfastMeal'];
+    $saturdayBreakfastMeal = implode(",", $saturday_Breakfast_Meal);
+
+    $saturday_Breakfast_Quantity = $_POST['saturdayBreakfastQuantity'];
+    $saturdayBreakfastQuantity = implode(",", $saturday_Breakfast_Quantity);
+
+    $saturday_Breakfast_Calorie = $_POST['saturdayBreakfastCalorie'];
+    $saturdayBreakfastCalorie = implode(",", $saturday_Breakfast_Calorie);
+    
+    if (count(array_filter($saturday_Breakfast_Meal)) == 0 && count(array_filter($saturday_Breakfast_Quantity)) == 0 && count(array_filter($saturday_Breakfast_Calorie)) == 0) {
+        $saturdayBreakfastErr = "Fill required fields";
+    }
+
+
+    $saturday_Lunch_Meal = $_POST['saturdayLunchMeal'];
+    $saturdayLunchMeal = implode(",", $saturday_Lunch_Meal);
+
+    $saturday_Lunch_Quantity= $_POST['saturdayLunchQuantity'];
+    $saturdayLunchQuantity = implode(",", $saturday_Lunch_Quantity);
+    
+    $saturday_Lunch_Calorie = $_POST['saturdayLunchCalorie'];
+    $saturdayLunchCalorie = implode(",", $saturday_Lunch_Calorie);
+    
+    if (count(array_filter($saturday_Lunch_Meal)) == 0 && count(array_filter($saturday_Lunch_Quantity)) == 0 && count(array_filter($saturday_Lunch_Calorie)) == 0) {
+        $saturdayLunchErr = "Fill required fields";
+    }
+
+
+    $saturday_Dinner_Meal = $_POST['saturdayDinnerMeal'];
+    $saturdayDinnerMeal = implode(",", $saturday_Dinner_Meal);
+
+    $saturday_Dinner_Quantity= $_POST['saturdayDinnerQuantity'];
+    $saturdayDinnerQuantity = implode(",", $saturday_Dinner_Quantity);
+    
+    $saturday_Dinner_Calorie = $_POST['saturdayDinnerCalorie'];
+    $saturdayDinnerCalorie = implode(",", $saturday_Dinner_Calorie);
+    
+    if (count(array_filter($saturday_Dinner_Meal)) == 0 && count(array_filter($saturday_Dinner_Quantity)) == 0 && count(array_filter($saturday_Dinner_Calorie)) == 0) {
+        $saturdayDinnerErr = "Fill required fields";
+    }
+
+    $sunday_Breakfast_Meal = $_POST['sundayBreakfastMeal'];
+    $sundayBreakfastMeal = implode(",", $sunday_Breakfast_Meal);
+
+    $sunday_Breakfast_Quantity = $_POST['sundayBreakfastQuantity'];
+    $sundayBreakfastQuantity = implode(",", $sunday_Breakfast_Quantity);
+
+    $sunday_Breakfast_Calorie = $_POST['sundayBreakfastCalorie'];
+    $sundayBreakfastCalorie = implode(",", $sunday_Breakfast_Calorie);
+    
+    if (count(array_filter($sunday_Breakfast_Meal)) == 0 && count(array_filter($sunday_Breakfast_Quantity)) == 0 && count(array_filter($sunday_Breakfast_Calorie)) == 0) {
+        $sundayBreakfastErr = "Fill required fields";
+    } 
+
+
+    $sunday_Lunch_Meal = $_POST['sundayLunchMeal'];
+    $sundayLunchMeal = implode(",", $sunday_Lunch_Meal);
+
+    $sunday_Lunch_Quantity= $_POST['sundayLunchQuantity'];
+    $sundayLunchQuantity = implode(",", $sunday_Lunch_Quantity);
+    
+    $sunday_Lunch_Calorie = $_POST['sundayLunchCalorie'];
+    $sundayLunchCalorie = implode(",", $sunday_Lunch_Calorie);
+    
+    if (count(array_filter($sunday_Lunch_Meal)) == 0 && count(array_filter($sunday_Lunch_Quantity)) == 0 && count(array_filter($sunday_Lunch_Calorie)) == 0) {
+        $sundayLunchErr = "Fill required fields";
+    }
+    
+
+    $sunday_Dinner_Meal = $_POST['sundayDinnerMeal'];
+    $sundayDinnerMeal = implode(",", $sunday_Dinner_Meal);
+
+    $sunday_Dinner_Quantity= $_POST['sundayDinnerQuantity'];
+    $sundayDinnerQuantity = implode(",", $sunday_Dinner_Quantity);
+    
+    $sunday_Dinner_Calorie = $_POST['sundayDinnerCalorie'];
+    $sundayDinnerCalorie = implode(",", $sunday_Dinner_Calorie);
+    
+    if (count(array_filter($sunday_Dinner_Meal)) == 0 && count(array_filter($sunday_Dinner_Quantity)) == 0 && count(array_filter($sunday_Dinner_Calorie)) == 0) {
+        $sundayDinnerErr = "Fill required fields";
+    }
+
+
+    if(empty($mondayBreakfastErr) && empty($mondayLunchErr) && empty($mondayDinnerErr)){
+        
+        $query11 = "UPDATE dietplan SET 
+        breakfastMeal = '$mondayBreakfastMeal',
+        breakfastQty = '$mondayBreakfastQuantity',
+        breakfastCal = '$mondayBreakfastCalorie',
+        lunchMeal = '$mondayLunchMeal',
+        lunchQty = '$mondayLunchQuantity',
+        lunchCal = '$mondayLunchCalorie',
+        dinnerMeal = '$mondayDinnerMeal',
+        dinnerQty = '$mondayDinnerQuantity', 
+        dinnerCal = '$mondayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 1";
+
+        $result11 = mysqli_query($conn, $query11);
+            
+        if(!$result11){
+            echo '<script> window.alert("Error of updating monday diet plan!");</script>';
+        }    
+    }
+            
+
+
+    if(empty($tuesdayBreakfastErr) && empty($tuesdayLunchErr) && empty($tuesdayDinnertErr)){
+        
+        $query12 = "UPDATE dietplan SET 
+        breakfastMeal = '$tuesdayBreakfastMeal',
+        breakfastQty = '$tuesdayBreakfastQuantity',
+        breakfastCal = '$tuesdayBreakfastCalorie',
+        lunchMeal = '$tuesdayLunchMeal',
+        lunchQty = '$tuesdayLunchQuantity',
+        lunchCal = '$tuesdayLunchCalorie',
+        dinnerMeal = '$tuesdayDinnerMeal',
+        dinnerQty = '$tuesdayDinnerQuantity', 
+        dinnerCal = '$tuesdayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 2";
+
+        $result12 = mysqli_query($conn, $query12);
+            
+        if(!$result12){
+            echo '<script> window.alert("Error of updating tuesday diet plan!");</script>';
+        }
+    }
+
+    if(empty($wednesdayBreakfastErr) && empty($wednesdayLunchErr) && empty($wednesdayDinnerErr)){
+        
+        $query13 = "UPDATE dietplan SET 
+        breakfastMeal = '$wednesdayBreakfastMeal',
+        breakfastQty = '$wednesdayBreakfastQuantity',
+        breakfastCal = '$wednesdayBreakfastCalorie',
+        lunchMeal = '$wednesdayLunchMeal',
+        lunchQty = '$wednesdayLunchQuantity',
+        lunchCal = '$wednesdayLunchCalorie',
+        dinnerMeal = '$wednesdayDinnerMeal',
+        dinnerQty = '$wednesdayDinnerQuantity', 
+        dinnerCal = '$wednesdayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 3";
+
+        $result13 = mysqli_query($conn, $query13);
+            
+        if(!$result13){
+            echo '<script> window.alert("Error of updating wednesday diet plan!");</script>';
+        } 
+    }
+    
+    if(empty($thursdayBreakfastErr) && empty($thursdayLunchErr) && empty($thursdayDinnerErr)){
+        
+        $query14 = "UPDATE dietplan SET 
+        breakfastMeal = '$thursdayBreakfastMeal',
+        breakfastQty = '$thursdayBreakfastQuantity',
+        breakfastCal = '$thursdayBreakfastCalorie',
+        lunchMeal = '$thursdayLunchMeal',
+        lunchQty = '$thursdayLunchQuantity',
+        lunchCal = '$thursdayLunchCalorie',
+        dinnerMeal = '$thursdayDinnerMeal',
+        dinnerQty = '$thursdayDinnerQuantity', 
+        dinnerCal = '$thursdayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 4";
+
+        $result14 = mysqli_query($conn, $query14);
+            
+        if(!$result14){
+            echo '<script> window.alert("Error of updating thursday diet plan!");</script>';
+        }
+    }
+
+    if(empty($fridayBreakfastErr) && empty($fridayLunchErr) && empty($fridayDinnerErr)){
+        
+        $query15 = "UPDATE dietplan SET 
+        breakfastMeal = '$fridayBreakfastMeal',
+        breakfastQty = '$fridayBreakfastQuantity',
+        breakfastCal = '$fridayBreakfastCalorie',
+        lunchMeal = '$fridayLunchMeal',
+        lunchQty = '$fridayLunchQuantity',
+        lunchCal = '$fridayLunchCalorie',
+        dinnerMeal = '$fridayDinnerMeal',
+        dinnerQty = '$fridayDinnerQuantity', 
+        dinnerCal = '$fridayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 5";
+
+        $result15 = mysqli_query($conn, $query15);
+            
+        if(!$result15){
+            echo '<script> window.alert("Error of updating friday diet plan!");</script>';
+        }
+    }
+
+    if(empty($saturdayBreakfastErr) && empty($saturdayLunchErr) && empty($saturdayDinnerErr)){
+        
+        $query16 = "UPDATE dietplan SET 
+        breakfastMeal = '$saturdayBreakfastMeal',
+        breakfastQty = '$saturdayBreakfastQuantity',
+        breakfastCal = '$saturdayBreakfastCalorie',
+        lunchMeal = '$saturdayLunchMeal',
+        lunchQty = '$saturdayLunchQuantity',
+        lunchCal = '$saturdayLunchCalorie',
+        dinnerMeal = '$saturdayDinnerMeal',
+        dinnerQty = '$saturdayDinnerQuantity', 
+        dinnerCal = '$saturdayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 6";
+
+        $result16 = mysqli_query($conn, $query16);
+            
+        if(!$result16){
+            echo '<script> window.alert("Error of updating saturday diet plan!");</script>';
+        } 
+    }
+
+    if(empty($sundayBreakfastErr) && empty($sundayLunchErr) && empty($sundayDinnerErr)){
+        
+        $query17 = "UPDATE dietplan SET 
+        breakfastMeal = '$sundayBreakfastMeal',
+        breakfastQty = '$sundayBreakfastQuantity',
+        breakfastCal = '$sundayBreakfastCalorie',
+        lunchMeal = '$sundayLunchMeal',
+        lunchQty = '$sundayLunchQuantity',
+        lunchCal = '$sundayLunchCalorie',
+        dinnerMeal = '$sundayDinnerMeal',
+        dinnerQty = '$sundayDinnerQuantity', 
+        dinnerCal = '$sundayDinnerCalorie'
+        WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDateTime' AND day = 7";
+
+        $result17 = mysqli_query($conn, $query17);
+            
+        if(!$result17){
+            echo '<script> window.alert("Error of updating saturday diet plan!");</script>';
+        } 
+    }
+
+    
+}
+
+
 
 
 ?>
@@ -440,13 +675,67 @@ if(mysqli_num_rows($result10) == 1){
             "; ?>
         </div>
         <div class="gridContainer">
-            <form action="">
+            <form method="post">
                 <table>
                     <tr>
                         <td class="gridTopic"></td>
                         <td class="gridTopic">Breafastk</td>
                         <td class="gridTopic">Lunch</td>
                         <td class="gridTopic">Dinner</td>
+                    </tr>
+                    <tr>
+                        <td class="gridTopic"></td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="4">
@@ -457,47 +746,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Monday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $mondayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $mondayBreakfastMeal[0] ?>">
+                                                value="<?php echo $mondayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $mondayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $mondayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $mondayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $mondayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type=" text" name="mondayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $mondayBreakfastMeal[1] ?>">
+                                                value="<?php echo $mondayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $mondayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $mondayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $mondayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $mondayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $mondayBreakfastMeal[2] ?>">
+                                                value="<?php echo $mondayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $mondayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $mondayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $mondayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $mondayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -505,47 +797,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $mondayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayLunchMeal[]" class="meal"
-                                                value="<?php echo $mondayLunchMeal[0] ?>">
+                                                value="<?php echo $mondayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $mondayLunchQuantity[0] ?>">
+                                                value="<?php echo $mondayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $mondayLunchCalorie[0] ?>">
+                                                value="<?php echo $mondayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayLunchMeal[]" class="meal"
-                                                value="<?php echo $mondayLunchMeal[1] ?>">
+                                                value="<?php echo $mondayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $mondayLunchQuantity[1] ?>">
+                                                value="<?php echo $mondayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $mondayLunchCalorie[1] ?>">
+                                                value="<?php echo $mondayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayLunchMeal[]" class="meal"
-                                                value="<?php echo $mondayLunchMeal[2] ?>">
+                                                value="<?php echo $mondayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $mondayLunchQuantity[2] ?>">
+                                                value="<?php echo $mondayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $mondayLunchCalorie[2] ?>">
+                                                value="<?php echo $mondayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -553,47 +848,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $mondayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayDinnerMeal[]" class="meal"
-                                                value="<?php echo $mondayDinnerMeal[0] ?>">
+                                                value="<?php echo $mondayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $mondayDinnerQuantity[0] ?>">
+                                                value="<?php echo $mondayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $mondayDinnerCalorie[0] ?>">
+                                                value="<?php echo $mondayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayDinnerMeal[]" class="meal"
-                                                value="<?php echo $mondayDinnerMeal[1] ?>">
+                                                value="<?php echo $mondayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $mondayDinnerQuantity[1] ?>">
+                                                value="<?php echo $mondayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $mondayDinnerCalorie[1] ?>">
+                                                value="<?php echo $mondayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="mondayDinnerMeal[]" class="meal"
-                                                value="<?php echo $mondayDinnerMeal[2] ?>">
+                                                value="<?php echo $mondayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $mondayDinnerQuantity[2] ?>">
+                                                value="<?php echo $mondayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="mondayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $mondayDinnerCalorie[2] ?>">
+                                                value="<?php echo $mondayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -609,47 +907,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Tuesday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $tuesdayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $tuesdayBreakfastMeal[0] ?>">
+                                                value="<?php echo $tuesdayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $tuesdayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $tuesdayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $tuesdayBreakfastMeal[1] ?>">
+                                                value="<?php echo $tuesdayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $tuesdayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $tuesdayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $tuesdayBreakfastMeal[2] ?>">
+                                                value="<?php echo $tuesdayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $tuesdayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $tuesdayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -657,47 +958,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $tuesdayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $tuesdayLunchMeal[0] ?>">
+                                                value="<?php echo $tuesdayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayLunchQuantity[0] ?>">
+                                                value="<?php echo $tuesdayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayLunchCalorie[0] ?>">
+                                                value="<?php echo $tuesdayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $tuesdayLunchMeal[1] ?>">
+                                                value="<?php echo $tuesdayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayLunchQuantity[1] ?>">
+                                                value="<?php echo $tuesdayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayLunchCalorie[1] ?>">
+                                                value="<?php echo $tuesdayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $tuesdayLunchMeal[2] ?>">
+                                                value="<?php echo $tuesdayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayLunchQuantity[2] ?>">
+                                                value="<?php echo $tuesdayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayLunchCalorie[2] ?>">
+                                                value="<?php echo $tuesdayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -705,47 +1009,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $tuesdayDinnertErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $tuesdayDinnerMeal[0] ?>">
+                                                value="<?php echo $tuesdayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayDinnerQuantity[0] ?>">
+                                                value="<?php echo $tuesdayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayDinnerCalorie[0] ?>">
+                                                value="<?php echo $tuesdayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $tuesdayDinnerMeal[1] ?>">
+                                                value="<?php echo $tuesdayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayDinnerQuantity[1] ?>">
+                                                value="<?php echo $tuesdayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayDinnerCalorie[1] ?>">
+                                                value="<?php echo $tuesdayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="tuesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $tuesdayDinnerMeal[2] ?>">
+                                                value="<?php echo $tuesdayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $tuesdayDinnerQuantity[2] ?>">
+                                                value="<?php echo $tuesdayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="tuesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $tuesdayDinnerCalorie[2] ?>">
+                                                value="<?php echo $tuesdayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -761,47 +1068,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Wednesday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $wednesdayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $wednesdayBreakfastMeal[0] ?>">
+                                                value="<?php echo $wednesdayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $wednesdayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $wednesdayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $wednesdayBreakfastMeal[1] ?>">
+                                                value="<?php echo $wednesdayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $wednesdayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $wednesdayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $wednesdayBreakfastMeal[2] ?>">
+                                                value="<?php echo $wednesdayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $wednesdayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $wednesdayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -809,47 +1119,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $wednesdayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $wednesdayLunchMeal[0] ?>">
+                                                value="<?php echo $wednesdayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayLunchQuantity[0] ?>">
+                                                value="<?php echo $wednesdayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayLunchCalorie[0] ?>">
+                                                value="<?php echo $wednesdayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $wednesdayLunchMeal[1] ?>">
+                                                value="<?php echo $wednesdayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayLunchQuantity[1] ?>">
+                                                value="<?php echo $wednesdayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayLunchCalorie[1] ?>">
+                                                value="<?php echo $wednesdayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayLunchMeal[]" class="meal"
-                                                value="<?php echo $wednesdayLunchMeal[2] ?>">
+                                                value="<?php echo $wednesdayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayLunchQuantity[2] ?>">
+                                                value="<?php echo $wednesdayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayLunchCalorie[2] ?>">
+                                                value="<?php echo $wednesdayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -857,47 +1170,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $wednesdayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $wednesdayDinnerMeal[0] ?>">
+                                                value="<?php echo $wednesdayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayDinnerQuantity[0] ?>">
+                                                value="<?php echo $wednesdayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayDinnerCalorie[0] ?>">
+                                                value="<?php echo $wednesdayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $wednesdayDinnerMeal[1] ?>">
+                                                value="<?php echo $wednesdayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayDinnerQuantity[1] ?>">
+                                                value="<?php echo $wednesdayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayDinnerCalorie[1] ?>">
+                                                value="<?php echo $wednesdayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="wednesdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $wednesdayDinnerMeal[2] ?>">
+                                                value="<?php echo $wednesdayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $wednesdayDinnerQuantity[2] ?>">
+                                                value="<?php echo $wednesdayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="wednesdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $wednesdayDinnerCalorie[2] ?>">
+                                                value="<?php echo $wednesdayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -913,47 +1229,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Thursday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $thursdayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $thursdayBreakfastMeal[0] ?>">
+                                                value="<?php echo $thursdayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $thursdayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $thursdayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $thursdayBreakfastMeal[1] ?>">
+                                                value="<?php echo $thursdayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $thursdayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $thursdayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $thursdayBreakfastMeal[2] ?>">
+                                                value="<?php echo $thursdayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $thursdayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $thursdayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -961,47 +1280,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $thursdayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayLunchMeal[]" class="meal"
-                                                value="<?php echo $thursdayLunchMeal[0] ?>">
+                                                value="<?php echo $thursdayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayLunchQuantity[0] ?>">
+                                                value="<?php echo $thursdayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayLunchCalorie[0] ?>">
+                                                value="<?php echo $thursdayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayLunchMeal[]" class="meal"
-                                                value="<?php echo $thursdayLunchMeal[1] ?>">
+                                                value="<?php echo $thursdayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayLunchQuantity[1] ?>">
+                                                value="<?php echo $thursdayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayLunchCalorie[1] ?>">
+                                                value="<?php echo $thursdayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayLunchMeal[]" class="meal"
-                                                value="<?php echo $thursdayLunchMeal[2] ?>">
+                                                value="<?php echo $thursdayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayLunchQuantity[2] ?>">
+                                                value="<?php echo $thursdayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayLunchCalorie[2] ?>">
+                                                value="<?php echo $thursdayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1009,47 +1331,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $thursdayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $thursdayDinnerMeal[0] ?>">
+                                                value="<?php echo $thursdayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayDinnerQuantity[0] ?>">
+                                                value="<?php echo $thursdayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayDinnerCalorie[0] ?>">
+                                                value="<?php echo $thursdayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $thursdayDinnerMeal[1] ?>">
+                                                value="<?php echo $thursdayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayDinnerQuantity[1] ?>">
+                                                value="<?php echo $thursdayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayDinnerCalorie[1] ?>">
+                                                value="<?php echo $thursdayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="thursdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $thursdayDinnerMeal[2] ?>">
+                                                value="<?php echo $thursdayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $thursdayDinnerQuantity[2] ?>">
+                                                value="<?php echo $thursdayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="thursdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $thursdayDinnerCalorie[2] ?>">
+                                                value="<?php echo $thursdayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1065,47 +1390,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Friday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $fridayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $fridayBreakfastMeal[0] ?>">
+                                                value="<?php echo $fridayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $fridayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $fridayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $fridayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $fridayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $fridayBreakfastMeal[1] ?>">
+                                                value="<?php echo $fridayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $fridayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $fridayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $fridayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $fridayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $fridayBreakfastMeal[2] ?>">
+                                                value="<?php echo $fridayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $fridayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $fridayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $fridayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $fridayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1113,47 +1441,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $fridayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayLunchMeal[]" class="meal"
-                                                value="<?php echo $fridayLunchMeal[0] ?>">
+                                                value="<?php echo $fridayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $fridayLunchQuantity[0] ?>">
+                                                value="<?php echo $fridayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $fridayLunchCalorie[0] ?>">
+                                                value="<?php echo $fridayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayLunchMeal[]" class="meal"
-                                                value="<?php echo $fridayLunchMeal[1] ?>">
+                                                value="<?php echo $fridayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $fridayLunchQuantity[1] ?>">
+                                                value="<?php echo $fridayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $fridayLunchCalorie[1] ?>">
+                                                value="<?php echo $fridayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayLunchMeal[]" class="meal"
-                                                value="<?php echo $fridayLunchMeal[2] ?>">
+                                                value="<?php echo $fridayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $fridayLunchQuantity[2] ?>">
+                                                value="<?php echo $fridayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $fridayLunchCalorie[2] ?>">
+                                                value="<?php echo $fridayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1161,47 +1492,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $fridayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayDinnerMeal[]" class="meal"
-                                                value="<?php echo $fridayDinnerMeal[0] ?>">
+                                                value="<?php echo $fridayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $fridayDinnerQuantity[0] ?>">
+                                                value="<?php echo $fridayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $fridayDinnerCalorie[0] ?>">
+                                                value="<?php echo $fridayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayDinnerMeal[]" class="meal"
-                                                value="<?php echo $fridayDinnerMeal[1] ?>">
+                                                value="<?php echo $fridayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $fridayDinnerQuantity[1] ?>">
+                                                value="<?php echo $fridayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $fridayDinnerCalorie[1] ?>">
+                                                value="<?php echo $fridayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="fridayDinnerMeal[]" class="meal"
-                                                value="<?php echo $fridayDinnerMeal[2] ?>">
+                                                value="<?php echo $fridayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $fridayDinnerQuantity[2] ?>">
+                                                value="<?php echo $fridayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="fridayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $fridayDinnerCalorie[2] ?>">
+                                                value="<?php echo $fridayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1217,47 +1551,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Staurday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $saturdayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $saturdayBreakfastMeal[0] ?>">
+                                                value="<?php echo $saturdayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $saturdayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $saturdayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $saturdayBreakfastMeal[1] ?>">
+                                                value="<?php echo $saturdayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $saturdayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $saturdayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $saturdayBreakfastMeal[2] ?>">
+                                                value="<?php echo $saturdayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $saturdayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $saturdayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1265,47 +1602,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $saturdayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayLunchMeal[]" class="meal"
-                                                value="<?php echo $saturdayLunchMeal[0] ?>">
+                                                value="<?php echo $saturdayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayLunchQuantity[0] ?>">
+                                                value="<?php echo $saturdayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayLunchCalorie[0] ?>">
+                                                value="<?php echo $saturdayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayLunchMeal[]" class="meal"
-                                                value="<?php echo $saturdayLunchMeal[1] ?>">
+                                                value="<?php echo $saturdayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayLunchQuantity[1] ?>">
+                                                value="<?php echo $saturdayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayLunchCalorie[1] ?>">
+                                                value="<?php echo $saturdayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayLunchMeal[]" class="meal"
-                                                value="<?php echo $saturdayLunchMeal[2] ?>">
+                                                value="<?php echo $saturdayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayLunchQuantity[2] ?>">
+                                                value="<?php echo $saturdayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayLunchCalorie[2] ?>">
+                                                value="<?php echo $saturdayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1313,47 +1653,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $saturdayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $saturdayDinnerMeal[0] ?>">
+                                                value="<?php echo $saturdayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayDinnerQuantity[0] ?>">
+                                                value="<?php echo $saturdayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayDinnerCalorie[0] ?>">
+                                                value="<?php echo $saturdayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $saturdayDinnerMeal[1] ?>">
+                                                value="<?php echo $saturdayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayDinnerQuantity[1] ?>">
+                                                value="<?php echo $saturdayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayDinnerCalorie[1] ?>">
+                                                value="<?php echo $saturdayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="saturdayDinnerMeal[]" class="meal"
-                                                value="<?php echo $saturdayDinnerMeal[2] ?>">
+                                                value="<?php echo $saturdayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $saturdayDinnerQuantity[2] ?>">
+                                                value="<?php echo $saturdayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="saturdayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $saturdayDinnerCalorie[2] ?>">
+                                                value="<?php echo $saturdayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1369,47 +1712,50 @@ if(mysqli_num_rows($result10) == 1){
                         <td class="gridTopic">Sunday</td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $sundayBreakfastErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $sundayBreakfastMeal[0] ?>">
+                                                value="<?php echo $sundayBreakfastMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $sundayBreakfastQuantity[0] ?>">
+                                                value="<?php echo $sundayBreakfastQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $sundayBreakfastCalorie[0] ?>">
+                                                value="<?php echo $sundayBreakfastCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $sundayBreakfastMeal[1] ?>">
+                                                value="<?php echo $sundayBreakfastMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $sundayBreakfastQuantity[1] ?>">
+                                                value="<?php echo $sundayBreakfastQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $sundayBreakfastCalorie[1] ?>">
+                                                value="<?php echo $sundayBreakfastCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayBreakfastMeal[]" class="meal"
-                                                value="<?php echo $sundayBreakfastMeal[2] ?>">
+                                                value="<?php echo $sundayBreakfastMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastQuantity[]" class="quantity"
-                                                value="<?php echo $sundayBreakfastQuantity[2] ?>">
+                                                value="<?php echo $sundayBreakfastQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayBreakfastCalorie[]" class="calorie"
-                                                value="<?php echo $sundayBreakfastCalorie[2] ?>">
+                                                value="<?php echo $sundayBreakfastCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1417,47 +1763,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $sundayLunchErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayLunchMeal[]" class="meal"
-                                                value="<?php echo $sundayLunchMeal[0] ?>">
+                                                value="<?php echo $sundayLunchMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $sundayLunchQuantity[0] ?>">
+                                                value="<?php echo $sundayLunchQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $sundayLunchCalorie[0] ?>">
+                                                value="<?php echo $sundayLunchCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayLunchMeal[]" class="meal"
-                                                value="<?php echo $sundayLunchMeal[1] ?>">
+                                                value="<?php echo $sundayLunchMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $sundayLunchQuantity[1] ?>">
+                                                value="<?php echo $sundayLunchQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $sundayLunchCalorie[1] ?>">
+                                                value="<?php echo $sundayLunchCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayLunchMeal[]" class="meal"
-                                                value="<?php echo $sundayLunchMeal[2] ?>">
+                                                value="<?php echo $sundayLunchMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchQuantity[]" class="quantity"
-                                                value="<?php echo $sundayLunchQuantity[2] ?>">
+                                                value="<?php echo $sundayLunchQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayLunchCalorie[]" class="calorie"
-                                                value="<?php echo $sundayLunchCalorie[2] ?>">
+                                                value="<?php echo $sundayLunchCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>
@@ -1465,47 +1814,50 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                         <td>
                             <div>
+                                <span class="error">
+                                    <?php echo "*" . $sundayDinnerErr ?>
+                                </span>
                                 <table>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayDinnerMeal[]" class="meal"
-                                                value="<?php echo $sundayDinnerMeal[0] ?>">
+                                                value="<?php echo $sundayDinnerMealShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $sundayDinnerQuantity[0] ?>">
+                                                value="<?php echo $sundayDinnerQuantityShow[0] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $sundayDinnerCalorie[0] ?>">
+                                                value="<?php echo $sundayDinnerCalorieShow[0] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayDinnerMeal[]" class="meal"
-                                                value="<?php echo $sundayDinnerMeal[1] ?>">
+                                                value="<?php echo $sundayDinnerMealShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $sundayDinnerQuantity[1] ?>">
+                                                value="<?php echo $sundayDinnerQuantityShow[1] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $sundayDinnerCalorie[1] ?>">
+                                                value="<?php echo $sundayDinnerCalorieShow[1] ?>">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
                                             <input type="text" name="sundayDinnerMeal[]" class="meal"
-                                                value="<?php echo $sundayDinnerMeal[2] ?>">
+                                                value="<?php echo $sundayDinnerMealShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerQuantity[]" class="quantity"
-                                                value="<?php echo $sundayDinnerQuantity[2] ?>">
+                                                value="<?php echo $sundayDinnerQuantityShow[2] ?>">
                                         </td>
                                         <td>
                                             <input type="text" name="sundayDinnerCalorie[]" class="calorie"
-                                                value="<?php echo $sundayDinnerCalorie[2] ?>">
+                                                value="<?php echo $sundayDinnerCalorieShow[2] ?>">
                                         </td>
                                     </tr>
                                 </table>

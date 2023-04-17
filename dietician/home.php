@@ -41,8 +41,12 @@ if (mysqli_num_rows($result2) > 0) {
             $query4 = "SELECT COUNT(*) as count FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
             $result4 = mysqli_query($conn, $query4);
 
-            $row4 = mysqli_fetch_assoc($result4);
-            $memberCount = $row4['count'];
+            if(mysqli_num_rows($result4) < 0){
+                $row4 = mysqli_fetch_assoc($result4);
+                $memberCount = $row4['count'];
+            }else{
+                $memberCount = 0;
+            }
         }
     }
 }

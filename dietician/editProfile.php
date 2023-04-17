@@ -121,7 +121,7 @@ if (isset($_FILES['image'])) {
 
     if (empty($errors)) {
         // Get the user ID from the session
-        $userID = $_SESSION['userID'];
+        $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
         // Create a new file name using the user ID and the file extension
         $newFileName = $userID . '.' . $file_ext;
@@ -188,7 +188,7 @@ if (isset($_FILES['image'])) {
         <div class="leftBar">
             <div class="leftBarContent">
                 <hr>
-                <a href="home.html"><i class="fa fa-home"></i>Home</a>
+                <a href="home.php"><i class="fa fa-home"></i>Home</a>
                 <hr>
                 <a href="members.php"><i class="fa fa-group"></i>Members</a>
                 <hr>

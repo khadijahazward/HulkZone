@@ -86,8 +86,8 @@ if (mysqli_num_rows($result1) == 1) {
                             <th>DIET PLAN</th>
                             <th>
                                 Supplement&nbsp;&nbsp;&nbsp;
-                                <button onclick="document.getElementById('image').style.display='block'"
-                                    class="addSupplementBtn"><i class="fa fa-plus-square"></i></button>
+                                <a href="newSupplement.php"><button class="addSupplementBtn"><i
+                                            class="fa fa-plus-square"></i></button></a>
                             </th>
                         </tr>
                     </thead>
@@ -131,13 +131,13 @@ if (mysqli_num_rows($result1) == 1) {
                                                 <td>" . $memberFName . " " . $memberLName . "</td>
                                                 <td>" . $memberStatus . "</td>";
 
-                                        $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+                                                
+                                        $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND serviceID = 3 AND endDate >= NOW()";
                                         $result7 = mysqli_query($conn, $query7);
 
                                         $row7 = mysqli_fetch_assoc($result7);
 
-
-                                        $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID= $memberID AND employeeID = $employeeID";
+                                        $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID = $memberID AND employeeID = $employeeID";
                                         $result5 = mysqli_query($conn, $query5);
 
                                         if (mysqli_num_rows($result5) == 0) {

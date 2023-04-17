@@ -1,4 +1,5 @@
 <?php 
+
 include 'authorization.php';
 include "connect.php";
 include "setProfilePic.php";
@@ -6,19 +7,9 @@ include "setProfilePic.php";
 
 // checking for empty fields
 
-$check = "";
-$userid = $_SESSION["userID"];
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 $subjectErr = $desErr = "";
-include "../connect.php";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if (empty($_POST["subject"])) {
-$subjectErr = "Subject is required";
-}
-if (empty($_POST["des"])) {
-$desErr = "Description is required";
-}
-}
 ?>
 
 <!--inserting into table-->
@@ -30,15 +21,23 @@ $desErr = "Description is required";
         return $data;
     }
 
-    $subject = $des =" ";
+    $subject = $des ="";
+    die($subject);
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $check = 1;
+
+        if (empty($_POST["subject"])) {
+            $subjectErr = "Subject is required";
+        }
+        if (empty($_POST["des"])) {
+            $desErr = "Description is required";
+        }
+
+    
         $subject = test_input($_POST["subject"]);
         $des = test_input($_POST["des"]);
-        $userid = $_SESSION["userID"];
+        $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
         $status = "Filed";
-
 
         //for file upload - if there is an image
         if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des)){
@@ -105,7 +104,7 @@ $desErr = "Description is required";
 
 <body>
     <div class="container">
-        <!-- <img src="Images/complaint.jpg" alt="complaint" class="backgroundImage"> -->
+        <img src="Images/complaint.jpg" alt="complaint" class="backgroundImage">
         <div class="topBar">
             <div class="gymLogo"><img src="Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
             <div class="gymName">
@@ -124,15 +123,14 @@ $desErr = "Description is required";
             <div class=" subtopic">
                 <p>Report a Complaint</p>
             </div>
-            <form id="complaintForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <form id="complaintForm" method="post" enctype="multipart/form-data">
                 <table class="reportingContent">
                     <tr>
                         <td><label for="subject">Complaints Subject</label></td>
                         <td>
                             <span class="error"><?php echo $subjectErr; ?></span><br>
                             <input type="text" name="subject" id="subject" class="textBox"
-                                placeholder="Enter your complaint subject"
-                                value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
+                                placeholder="Enter your complaint subject">
                         </td>
                     </tr>
                     <tr>
@@ -140,7 +138,7 @@ $desErr = "Description is required";
                         <td>
                             <span class="error"><?php echo $desErr; ?></span><br>
                             <textarea name="des" id="des" cols="82" rows="6" style="resize: none;"
-                                placeholder="Enter your complaint briefly"><?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?></textarea>
+                                placeholder="Enter your complaint briefly"></textarea>
                         </td>
                     </tr>
                     <tr class="evidenceContent">
@@ -150,7 +148,7 @@ $desErr = "Description is required";
                         </td>
                     </tr>
                 </table>
-                <button type="submit" class="saveBtn" onclick="return Alertfunction()">Submit</button>
+                <button type="submit" class="saveBtn">Submit</button>
             </form>
         </div>
     </div>
