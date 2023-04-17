@@ -4,24 +4,6 @@ include 'authorization.php';
 include 'connect.php';
 include 'setProfilePic.php';
 
-?>
-
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Supplement</title>
-    <link href="Style/complaint.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-</head>
-
-<body>
-    <?php
 
     $supName = $supType = "";
     $supNameErr = $supTypeErr = "";
@@ -66,12 +48,14 @@ include 'setProfilePic.php';
             if (empty($errors)) {
                 // Get the user ID from the session
                 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+                $supNameFile = str_replace(' ', '', $supName);
             
                 // Create a new file name using the user ID and the file extension
-                $newFileName = $userID . '.' . $file_ext;
+                $newFileName = $supNameFile . '.' . $file_ext;
             
                 // Set the folder where the uploaded file will be stored
-                $folder = "Images/supplements/";
+                $folder = "../dietician/Images/supplements/";
             
                 // Set the full path of the uploaded file
                 $file_path = $folder . $newFileName;
@@ -91,63 +75,89 @@ include 'setProfilePic.php';
                     exit();
                 }
             } else {
-                echo 'error';
-                // $query1 = "INSERT INTO supplementlist(supplementName, supplementType) VALUES ('$supName', '$supType')";
-                // $result1 = mysqli_query($conn, $query1);
+                $query1 = "INSERT INTO supplementlist(supplementName, supplementType) VALUES ('$supName', '$supType')";
+                $result1 = mysqli_query($conn, $query1);
 
-                // if (!$result1) {
-                //     echo "Error: " . mysqli_error($conn);
-                // } else {
-                //     // Redirect the user to their profile page
-                //     header("Location: dietplan.php");
-                //     exit();
-                // }
+                if (!$result1) {
+                    echo "Error: " . mysqli_error($conn);
+                } else {
+                    // Redirect the user to their profile page
+                    header("Location: dietplan.php");
+                    exit();
+                }
             }
         }
 
         
     }
+    
     ?>
 
 
 
-    <div id="image" class="popUpContent">
-        <div class="popUpContainer">
-            <div class="content">
-                <span class="close">&times;</span>
-                <div class=" subtopic">
-                    <p>Add a Supplement</p>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Supplement</title>
+    <link href="Style/newSupplement.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="topBar">
+            <div class="gymLogo"><img src="Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
+            <div class="gymName">
+                <p>HULK ZONE</p>
+            </div>
+            <div>
+                <div class="notification">
+                    <?php
+                    include 'notifications.php';
+                    ?>
                 </div>
-                <form id="supplementForm" method="post" enctype="multipart/form-data">
-                    <table class="reportingContent">
-                        <tr>
-                            <td><label for="supName">Supplement Name</label></td>
-                            <td>
-                                <!-- <span class="error"></span><br> -->
-                                <input type="text" name="supName" id="supName" class="textBox"
-                                    placeholder="Enter the supplement name">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="supType">Supplement Type</label></td>
-                            <td>
-                                <!-- <span class="error"></span><br> -->
-                                <input type="text" name="supType" id="supType" class="textBox"
-                                    placeholder="Enter the supplement type">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="image">Image of Supplement</label></td>
-                            <td>
-                                <input type="file" name="image">
-                            </td>
-                        </tr>
-                    </table>
-                    <button type="submit" name="submit" class="acceptBtn">Submit</button>
-                </form>
+                <img src="<?php echo $profilePic ?>" alt=" my profile" class="myProfile">
             </div>
         </div>
+        <div class="main">
+            <div class="topic">
+                <p>Add a Supplement</p>
+            </div>
+            <form class="supplementForm" method="post" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td><label for="supName">Supplement Name</label></td>
+                        <td>
+                            <!-- <span class="error"></span><br> -->
+                            <input type="text" name="supName" id="supName" class="textBox"
+                                placeholder="Enter the supplement name">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="supType">Supplement Type</label></td>
+                        <td>
+                            <!-- <span class="error"></span><br> -->
+                            <input type="text" name="supType" id="supType" class="textBox"
+                                placeholder="Enter the supplement type">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="image">Image of Supplement</label></td>
+                        <td>
+                            <input type="file" name="image" class="imageBox">
+                        </td>
+                    </tr>
+                </table>
+                <button type="submit" name="submit" class="acceptBtn">Submit</button>
+            </form>
+        </div>
     </div>
+
 
 </body>
 

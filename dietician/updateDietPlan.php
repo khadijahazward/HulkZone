@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $monday_Breakfast_Calorie = $_POST['mondayBreakfastCalorie'];
     $mondayBreakfastCalorie = implode(",", $monday_Breakfast_Calorie);
     
-    if (count(array_filter($monday_Breakfast_Meal)) == 0 && count(array_filter($monday_Breakfast_Quantity)) == 0 && count(array_filter($monday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($monday_Breakfast_Meal)) == 0 || count(array_filter($monday_Breakfast_Quantity)) == 0 || count(array_filter($monday_Breakfast_Calorie)) == 0) {
         $mondayBreakfastErr = "Fill required fields";
     } 
 
@@ -210,7 +210,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $monday_Lunch_Calorie = $_POST['mondayLunchCalorie'];
     $mondayLunchCalorie = implode(",", $monday_Lunch_Calorie);
     
-    if (count(array_filter($monday_Lunch_Meal)) == 0 && count(array_filter($monday_Lunch_Quantity)) == 0 && count(array_filter($monday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($monday_Lunch_Meal)) == 0 || count(array_filter($monday_Lunch_Quantity)) == 0 || count(array_filter($monday_Lunch_Calorie)) == 0) {
         $mondayLunchErr = "Fill required fields";
     }
     
@@ -224,7 +224,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $monday_Dinner_Calorie = $_POST['mondayDinnerCalorie'];
     $mondayDinnerCalorie = implode(",", $monday_Dinner_Calorie);
     
-    if (count(array_filter($monday_Dinner_Meal)) == 0 && count(array_filter($monday_Dinner_Quantity)) == 0 && count(array_filter($monday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($monday_Dinner_Meal)) == 0 || count(array_filter($monday_Dinner_Quantity)) == 0 || count(array_filter($monday_Dinner_Calorie)) == 0) {
         $mondayDinnerErr = "Fill required fields";
     }
 
@@ -238,7 +238,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $tuesday_Breakfast_Calorie = $_POST['tuesdayBreakfastCalorie'];
     $tuesdayBreakfastCalorie = implode(",", $tuesday_Breakfast_Calorie);
     
-    if (count(array_filter($tuesday_Breakfast_Meal)) == 0 && count(array_filter($tuesday_Breakfast_Quantity)) == 0 && count(array_filter($tuesday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($tuesday_Breakfast_Meal)) == 0 || count(array_filter($tuesday_Breakfast_Quantity)) == 0 || count(array_filter($tuesday_Breakfast_Calorie)) == 0) {
         $tuesdayBreakfastErr = "Fill required fields";
     }
 
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $tuesday_Lunch_Calorie = $_POST['tuesdayLunchCalorie'];
     $tuesdayLunchCalorie = implode(",", $tuesday_Lunch_Calorie);
     
-    if (count(array_filter($tuesday_Lunch_Meal)) == 0 && count(array_filter($tuesday_Lunch_Quantity)) == 0 && count(array_filter($tuesday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($tuesday_Lunch_Meal)) == 0 || count(array_filter($tuesday_Lunch_Quantity)) == 0 || count(array_filter($tuesday_Lunch_Calorie)) == 0) {
         $tuesdayLunchErr = "Fill required fields";
     }
 
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $tuesday_Dinner_Calorie = $_POST['tuesdayDinnerCalorie'];
     $tuesdayDinnerCalorie = implode(",", $tuesday_Dinner_Calorie);
     
-    if (count(array_filter($tuesday_Dinner_Meal)) == 0 && count(array_filter($tuesday_Dinner_Quantity)) == 0 && count(array_filter($tuesday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($tuesday_Dinner_Meal)) == 0 || count(array_filter($tuesday_Dinner_Quantity)) == 0 || count(array_filter($tuesday_Dinner_Calorie)) == 0) {
         $tuesdayDinnertErr = "Fill required fields";
     }
 
@@ -280,7 +280,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $wednesday_Breakfast_Calorie = $_POST['wednesdayBreakfastCalorie'];
     $wednesdayBreakfastCalorie = implode(",", $wednesday_Breakfast_Calorie);
     
-    if (count(array_filter($wednesday_Breakfast_Meal)) == 0 && count(array_filter($wednesday_Breakfast_Quantity)) == 0 && count(array_filter($wednesday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($wednesday_Breakfast_Meal)) == 0 || count(array_filter($wednesday_Breakfast_Quantity)) == 0 || count(array_filter($wednesday_Breakfast_Calorie)) == 0) {
         $wednesdayBreakfastErr = "Fill required fields";
     }
 
@@ -294,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $wednesday_Lunch_Calorie = $_POST['wednesdayLunchCalorie'];
     $wednesdayLunchCalorie = implode(",", $wednesday_Lunch_Calorie);
     
-    if (count(array_filter($wednesday_Lunch_Meal)) == 0 && count(array_filter($wednesday_Lunch_Quantity)) == 0 && count(array_filter($wednesday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($wednesday_Lunch_Meal)) == 0 || count(array_filter($wednesday_Lunch_Quantity)) == 0 || count(array_filter($wednesday_Lunch_Calorie)) == 0) {
         $wednesdayLunchErr = "Fill required fields";
     }
 
@@ -308,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $wednesday_Dinner_Calorie = $_POST['wednesdayDinnerCalorie'];
     $wednesdayDinnerCalorie = implode(",", $wednesday_Dinner_Calorie);
     
-    if (count(array_filter($wednesday_Dinner_Meal)) == 0 && count(array_filter($wednesday_Dinner_Quantity)) == 0 && count(array_filter($wednesday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($wednesday_Dinner_Meal)) == 0 || count(array_filter($wednesday_Dinner_Quantity)) == 0 || count(array_filter($wednesday_Dinner_Calorie)) == 0) {
         $wednesdayDinnerErr = "Fill required fields";
     }
     
@@ -322,7 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $thursday_Breakfast_Calorie = $_POST['thursdayBreakfastCalorie'];
     $thursdayBreakfastCalorie = implode(",", $thursday_Breakfast_Calorie);
     
-    if (count(array_filter($thursday_Breakfast_Meal)) == 0 && count(array_filter($thursday_Breakfast_Quantity)) == 0 && count(array_filter($thursday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($thursday_Breakfast_Meal)) == 0 || count(array_filter($thursday_Breakfast_Quantity)) == 0 || count(array_filter($thursday_Breakfast_Calorie)) == 0) {
         $thursdayBreakfastErr = "Fill required fields";
     }
 
@@ -336,7 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $thursday_Lunch_Calorie = $_POST['thursdayLunchCalorie'];
     $thursdayLunchCalorie = implode(",", $thursday_Lunch_Calorie);
     
-    if (count(array_filter($thursday_Lunch_Meal)) == 0 && count(array_filter($thursday_Lunch_Quantity)) == 0 && count(array_filter($thursday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($thursday_Lunch_Meal)) == 0 || count(array_filter($thursday_Lunch_Quantity)) == 0 || count(array_filter($thursday_Lunch_Calorie)) == 0) {
         $thursdayLunchErr = "Fill required fields";
     }
 
@@ -350,7 +350,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $thursday_Dinner_Calorie = $_POST['thursdayDinnerCalorie'];
     $thursdayDinnerCalorie = implode(",", $thursday_Dinner_Calorie);
     
-    if (count(array_filter($thursday_Dinner_Meal)) == 0 && count(array_filter($thursday_Dinner_Quantity)) == 0 && count(array_filter($thursday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($thursday_Dinner_Meal)) == 0 || count(array_filter($thursday_Dinner_Quantity)) == 0 || count(array_filter($thursday_Dinner_Calorie)) == 0) {
         $thursdayDinnerErr = "Fill required fields";
     }
 
@@ -364,7 +364,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $friday_Breakfast_Calorie = $_POST['fridayBreakfastCalorie'];
     $fridayBreakfastCalorie = implode(",", $friday_Breakfast_Calorie);
     
-    if (count(array_filter($friday_Breakfast_Meal)) == 0 && count(array_filter($friday_Breakfast_Quantity)) == 0 && count(array_filter($friday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($friday_Breakfast_Meal)) == 0 || count(array_filter($friday_Breakfast_Quantity)) == 0 || count(array_filter($friday_Breakfast_Calorie)) == 0) {
         $fridayBreakfastErr = "Fill required fields";
     } 
 
@@ -378,7 +378,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $friday_Lunch_Calorie = $_POST['fridayLunchCalorie'];
     $fridayLunchCalorie = implode(",", $friday_Lunch_Calorie);
     
-    if (count(array_filter($friday_Lunch_Meal)) == 0 && count(array_filter($friday_Lunch_Quantity)) == 0 && count(array_filter($friday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($friday_Lunch_Meal)) == 0 || count(array_filter($friday_Lunch_Quantity)) == 0 || count(array_filter($friday_Lunch_Calorie)) == 0) {
         $fridayLunchErr = "Fill required fields";
     }
 
@@ -392,7 +392,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $friday_Dinner_Calorie = $_POST['fridayDinnerCalorie'];
     $fridayDinnerCalorie = implode(",", $friday_Dinner_Calorie);
     
-    if (count(array_filter($friday_Dinner_Meal)) == 0 && count(array_filter($friday_Dinner_Quantity)) == 0 && count(array_filter($friday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($friday_Dinner_Meal)) == 0 || count(array_filter($friday_Dinner_Quantity)) == 0 || count(array_filter($friday_Dinner_Calorie)) == 0) {
         $fridayDinnerErr = "Fill required fields";
     }
 
@@ -406,7 +406,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $saturday_Breakfast_Calorie = $_POST['saturdayBreakfastCalorie'];
     $saturdayBreakfastCalorie = implode(",", $saturday_Breakfast_Calorie);
     
-    if (count(array_filter($saturday_Breakfast_Meal)) == 0 && count(array_filter($saturday_Breakfast_Quantity)) == 0 && count(array_filter($saturday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($saturday_Breakfast_Meal)) == 0 || count(array_filter($saturday_Breakfast_Quantity)) == 0 || count(array_filter($saturday_Breakfast_Calorie)) == 0) {
         $saturdayBreakfastErr = "Fill required fields";
     }
 
@@ -420,7 +420,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $saturday_Lunch_Calorie = $_POST['saturdayLunchCalorie'];
     $saturdayLunchCalorie = implode(",", $saturday_Lunch_Calorie);
     
-    if (count(array_filter($saturday_Lunch_Meal)) == 0 && count(array_filter($saturday_Lunch_Quantity)) == 0 && count(array_filter($saturday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($saturday_Lunch_Meal)) == 0 || count(array_filter($saturday_Lunch_Quantity)) == 0 || count(array_filter($saturday_Lunch_Calorie)) == 0) {
         $saturdayLunchErr = "Fill required fields";
     }
 
@@ -434,7 +434,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $saturday_Dinner_Calorie = $_POST['saturdayDinnerCalorie'];
     $saturdayDinnerCalorie = implode(",", $saturday_Dinner_Calorie);
     
-    if (count(array_filter($saturday_Dinner_Meal)) == 0 && count(array_filter($saturday_Dinner_Quantity)) == 0 && count(array_filter($saturday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($saturday_Dinner_Meal)) == 0 || count(array_filter($saturday_Dinner_Quantity)) == 0 || count(array_filter($saturday_Dinner_Calorie)) == 0) {
         $saturdayDinnerErr = "Fill required fields";
     }
 
@@ -447,7 +447,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $sunday_Breakfast_Calorie = $_POST['sundayBreakfastCalorie'];
     $sundayBreakfastCalorie = implode(",", $sunday_Breakfast_Calorie);
     
-    if (count(array_filter($sunday_Breakfast_Meal)) == 0 && count(array_filter($sunday_Breakfast_Quantity)) == 0 && count(array_filter($sunday_Breakfast_Calorie)) == 0) {
+    if (count(array_filter($sunday_Breakfast_Meal)) == 0 || count(array_filter($sunday_Breakfast_Quantity)) == 0 || count(array_filter($sunday_Breakfast_Calorie)) == 0) {
         $sundayBreakfastErr = "Fill required fields";
     } 
 
@@ -461,7 +461,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $sunday_Lunch_Calorie = $_POST['sundayLunchCalorie'];
     $sundayLunchCalorie = implode(",", $sunday_Lunch_Calorie);
     
-    if (count(array_filter($sunday_Lunch_Meal)) == 0 && count(array_filter($sunday_Lunch_Quantity)) == 0 && count(array_filter($sunday_Lunch_Calorie)) == 0) {
+    if (count(array_filter($sunday_Lunch_Meal)) == 0 || count(array_filter($sunday_Lunch_Quantity)) == 0 || count(array_filter($sunday_Lunch_Calorie)) == 0) {
         $sundayLunchErr = "Fill required fields";
     }
     
@@ -475,7 +475,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $sunday_Dinner_Calorie = $_POST['sundayDinnerCalorie'];
     $sundayDinnerCalorie = implode(",", $sunday_Dinner_Calorie);
     
-    if (count(array_filter($sunday_Dinner_Meal)) == 0 && count(array_filter($sunday_Dinner_Quantity)) == 0 && count(array_filter($sunday_Dinner_Calorie)) == 0) {
+    if (count(array_filter($sunday_Dinner_Meal)) == 0 || count(array_filter($sunday_Dinner_Quantity)) == 0 || count(array_filter($sunday_Dinner_Calorie)) == 0) {
         $sundayDinnerErr = "Fill required fields";
     }
 
@@ -628,6 +628,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             echo '<script> window.alert("Error of updating saturday diet plan!");</script>';
         } 
     }
+
+    echo '<script> window.alert("You have bean updated dietplan successfully!");</script>';
+    echo '<script> window.location.href="dietPlan.php"</script>';
 
     
 }
