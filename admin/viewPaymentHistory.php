@@ -38,7 +38,25 @@ include('setAdminProfilePic.php');
 
         <div class="content">
             <div class="contentLeft">
-                <p class="title">MEMBER PAYMENTS</p>
+            <?php 
+    include('../../HulkZone/connect.php');
+                    
+    //read all row from database table
+    $memberID = $_GET['memberID'];
+    $sql = "SELECT u.fName
+            FROM payment 
+            JOIN member ON payment.memberID = member.memberID
+            JOIN user AS u ON member.userID = u.userID
+            WHERE payment.memberID = '$memberID'";
+             
+    $result = mysqli_query($conn, $sql);
+    $details = $result->fetch_assoc();
+  
+?> 
+            
+                <p class="title">PAYMENT HISTORY - <?php  echo $details['fName'];?> </p>
+   
+
             </div>
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
@@ -51,42 +69,47 @@ include('setAdminProfilePic.php');
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>MemberID</th>
-                   <th>Member Name</th>
-                   <th>Gender</th>
-                   <th>Payment Plan</th>
-                   <th>Payment History</th>
+                   <th>paymentID</th>
+                   <th>paymentDate</th>
+                   <th>amount</th>
+                   <th>type</th>
                 </tr>
 
                 <?php 
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    $sql="SELECT m.memberID,m.planType, u.fName, u.gender
-                    FROM payment p
-                    JOIN member m ON p.memberID = m.memberID
-                    JOIN user u ON m.userID = u.userID
-                    GROUP BY m.memberID
-                    ";
+                    $memberID = $_GET['memberID'];
+                    $sql = "SELECT *,
+                    CASE payment.type
+                      WHEN 0 THEN 'Payment plan'
+                      WHEN 1 THEN 'Crossfit Training'
+                      WHEN 2 THEN 'Bodybuilding training'
+                      WHEN 3 THEN 'Diet Service'
+                      WHEN 4 THEN 'Strength Training'
+                      ELSE 'Unknown' 
+                    END as payment_type
+                  FROM payment 
+                  WHERE memberID='$memberID'";
+                 
+          
                     $result=mysqli_query($conn, $sql);
 
                     if (!$result) {
                          die("invalid query: " .$conn->error);
                     }
+                  
+            
+                    
 
                     while ($row = $result->fetch_assoc()) {
                         echo"
+                        
                     <tr>
-                   <td>$row[memberID]</td>
-                   <td>$row[fName]</td>
-                   <td>$row[gender]</td>
-                   <td>$row[planType]</td>
-
-                  
-                   
-                   <td>
-                   <a href='viewPaymentHistory.php?memberID=$row[memberID]' ><button class='button2' style='width: 120px;margin-top:1px'>View</button></a>
-                   </td>
+                   <td>$row[paymentID]</td>
+                   <td>$row[paymentDate]</td>
+                   <td>$row[amount]</td>
+                   <td>$row[payment_type]</td>
                   
                 </tr>";
                     }
