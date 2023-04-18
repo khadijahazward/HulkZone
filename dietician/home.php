@@ -24,7 +24,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of receiving employee details!");</script>';
 }
 
-$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= date('Y-m-d H:i:s')";
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > date('Y-m-d H:i:s')";
 $result2 = mysqli_query($conn, $query2);
 
 if (mysqli_num_rows($result2) > 0) {
@@ -41,7 +41,7 @@ if (mysqli_num_rows($result2) > 0) {
             $query4 = "SELECT COUNT(*) as count FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
             $result4 = mysqli_query($conn, $query4);
 
-            if(mysqli_num_rows($result4) < 0){
+            if(mysqli_num_rows($result4) > 0){
                 $row4 = mysqli_fetch_assoc($result4);
                 $memberCount = $row4['count'];
             }else{
@@ -121,6 +121,16 @@ if($rate05 != 0){
 }else{
     $precetageOfRate05 = 0;
 }
+
+
+
+$query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND date = date('Y-m-d')";
+$result11 = mysqli_query($conn, $query11);
+
+if(!$result11){
+    echo '<script> window.alert("Error receiving dietician appointment date!");</script>';
+}
+
 ?>
 
 
@@ -285,7 +295,56 @@ if($rate05 != 0){
                 </a>
                 <div class="appointmentGridContainer">
                     <table>
-                        <tr>
+                        <?php
+                        
+                        if(mysqli_num_rows($result11) > 0){
+                            while($row11 = mysqli_fetch_assoc($result11)){
+                                
+                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $memberID";
+                                $result12 = mysqli_query($conn, $query12);
+                                $row12 = mysqli_fetch_assoc($result12);
+
+                                $memberPhoto = $row12['profilePhoto'];
+                                $memberName = $row12['fName']." ".$row12['lName'];
+                                
+                                $appointmentStartDateTime = $row11['startTime'];
+                                $appointmentStartTime = date("h:i a", strtotime($appointmentDateTime));
+
+                                $appointmentEndDateTime = $row11['endTime'];
+
+                                if($appointmentStartDateTime <  date('Y-m-d H:i:s') && $appointmentEndDateTime > date('Y-m-d H:i:s')){
+                                    $appointmentStartDateTimeShow = 'Ongoing';
+                                }else{
+                                    $appointmentStartDateTimeShow = $appointmentStartTime;
+                                }
+                                
+                                echo '
+                                <tr>
+                                    <td><img src="'.$memberPhoto.'"></td>
+                                    <td class="name">
+                                        <p>'.$memberName.'</p>
+                                    </td>
+                                    <td class="time">
+                                        <p>'.$appointmentStartDateTimeShow.'</p>
+                                    </td>
+                                </tr>       
+                                
+                                ';
+                                
+                            }
+                            
+                        }else{
+                            echo '
+                            <tr>
+                                <td colspan="3" class="name">
+                                    <p>No appointments for today</p>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                        
+                        ?>
+                        <!-- <tr>
                             <td><img src="Images/Member.png"></td>
                             <td class="name">
                                 <p>Venenatis montes</p>
@@ -338,105 +397,10 @@ if($rate05 != 0){
                             <td class="time">
                                 <p>11:00</p>
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
             </div>
-            <!--<div class="memberArea">
-                <p class="topic">Members</p>
-                <select id="yearPicker" class="yearPicker">
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                </select>
-                <div class="content">
-                    <table>
-                        <tr>
-                            <td style="width: 100px;">
-                                <i class="material-icons"
-                                    style="color: rgba(239, 91, 3, 1); border: 1px solid rgba(239, 91, 3, 1); background-color: rgba(239, 91, 3, 0.3);">groups</i>
-                            </td>
-                            <td>
-                                <p class="count">100</p>
-                                <p class="countName">New Members</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="material-icons"
-                                    style="color: rgba(0, 56, 101, 1); border: 1px solid rgba(0, 56, 101, 1); background-color: rgba(0, 56, 101, 0.3);">groups</i>
-                            </td>
-                            <td>
-                                <p class="count">1000</p>
-                                <p class="countName">All Members</p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="genderArea">
-                <p class="topic">Gender</p>
-                <select id="yearPicker" class="yearPicker">
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                </select>
-                <figure class="pie-chart">
-                    <figcaption>
-                        Coal 38<span style="color:#003865"></span>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        Natural Gas 23<span style="color:#EF5B03"></span>
-                    </figcaption>
-                </figure>
-            </div>
-            <div class="recentMemberArea">
-                <p class="topic">Recent Members</p>
-                <a href="../Members/members.html">
-                    <p class="seeMore">View All <i class="fa fa-angle-right"></i></p>
-                </a>
-                <div class="gridContainer">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>PROFILE</th>
-                                <th>NAME</th>
-                                <th>GENDER</th>
-                                <th>CONTACT NUMBER</th>
-                                <th>PLAN</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01</td>
-                                <td><img src="../Images/Member.png" alt="member's DP"></td>
-                                <td>Lina Johnson</td>
-                                <td>Female</td>
-                                <td>0710870961</td>
-                                <td>3 months</td>
-                            </tr>
-                            <tr>
-                                <td>01</td>
-                                <td><img src="../Images/Member.png" alt="member's DP"></td>
-                                <td>Lina Johnson</td>
-                                <td>Female</td>
-                                <td>0710870961</td>
-                                <td>3 months</td>
-                            </tr>
-                            <tr>
-                                <td>01</td>
-                                <td><img src="../Images/Member.png" alt="member's DP"></td>
-                                <td>Lina Johnson</td>
-                                <td>Female</td>
-                                <td>0710870961</td>
-                                <td>3 months</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>-->
         </div>
     </div>
 

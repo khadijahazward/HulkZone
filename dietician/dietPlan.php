@@ -134,8 +134,10 @@ if (mysqli_num_rows($result1) == 1) {
                                                 
                                         $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND serviceID = 3 AND endDate >= NOW()";
                                         $result7 = mysqli_query($conn, $query7);
-
                                         $row7 = mysqli_fetch_assoc($result7);
+
+                                        $query8 = "SELECT * FROM supplement WHERE memberID = $memberID and employeeID = $employeeID";
+                                        $result8 = mysqli_query($conn, $query8);
 
                                         $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID = $memberID AND employeeID = $employeeID";
                                         $result5 = mysqli_query($conn, $query5);
@@ -145,16 +147,20 @@ if (mysqli_num_rows($result1) == 1) {
                                                     <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
                                                 </td>";
                                         } else {
-                                            if ($row7['endDate'] >= date('Y-m-d H:i:s')) {
+                                            if (mysqli_num_rows($result8) == 1) {
                                                 
                                                 echo    "<td>
                                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
                                                         <a href='updateDietPlan.php?update=" . $memberID . "'><button>Update</button></a>
                                                     </td>";
-                                            } else {
+                                            } elseif(mysqli_num_rows($result8) == 0) {
                                                 
                                                 echo    "<td>
                                                             <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
+                                                        </td>";
+                                            }else{
+                                                echo    "<td>
+                                                            <p>There is an error with retrieving supplement data</p>
                                                         </td>";
                                             }
                                         }

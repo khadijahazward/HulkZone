@@ -69,6 +69,14 @@
     top: 71px;
 }
 
+.content{
+    width: 100%;
+    left: 0px;
+    height: calc(100% - 70px);
+    position: relative;
+    top: 60px;
+}
+
 .main img {
     width: 100%;
     height: 100%;
@@ -76,8 +84,16 @@
     opacity: 0.2;
 }
 
+.content .topic{
+    left: 70px;
+    top: 20px;
+    position: absolute;
+    color: rgba(26, 79, 131, 1);
+    font-weight: 600;
+    font-size: 36px;
+}
 
-.topic {
+.main .topic {
     left: 70px;
     top: -20px;
     position: absolute;
@@ -102,6 +118,15 @@
 .supplementForm table td .textBox{
     width: 300px;
     height: 15px;
+    background-color: white;
+    border: 1px solid #006837;
+    border-radius: 6px;
+    padding: 12px;
+    margin: 5px;
+    margin-left: 10px;
+}
+
+.supplementForm table td textarea{
     background-color: white;
     border: 1px solid #006837;
     border-radius: 6px;
