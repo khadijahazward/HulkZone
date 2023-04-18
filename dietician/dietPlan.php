@@ -93,7 +93,7 @@ if (mysqli_num_rows($result1) == 1) {
                     </thead>
                     <?php
 
-                    $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= SYSDATE()";
+                    $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= NOW()";
                     $result2 = mysqli_query($conn, $query2);
 
                     if (mysqli_num_rows($result2) > 0) {
@@ -132,37 +132,27 @@ if (mysqli_num_rows($result1) == 1) {
                                                 <td>" . $memberStatus . "</td>";
 
                                                 
-                                        $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND serviceID = 3 AND endDate >= NOW()";
+                                        $query7 = "SELECT * FROM dietplan JOIN servicecharge ON dietplan.memberID = servicecharge.memberID WHERE servicecharge.memberID = $memberID AND servicecharge.employeeID = $employeeID AND dietplan.day = 1 AND servicecharge.endDate >= NOW()";
                                         $result7 = mysqli_query($conn, $query7);
                                         $row7 = mysqli_fetch_assoc($result7);
 
-                                        $query8 = "SELECT * FROM supplement WHERE memberID = $memberID and employeeID = $employeeID";
-                                        $result8 = mysqli_query($conn, $query8);
-
-                                        $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID = $memberID AND employeeID = $employeeID";
-                                        $result5 = mysqli_query($conn, $query5);
-
-                                        if (mysqli_num_rows($result5) == 0) {
+                                        if (mysqli_num_rows($result7) == 0) {
+                                            
                                             echo "<td>
                                                     <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
                                                 </td>";
-                                        } else {
-                                            if (mysqli_num_rows($result8) == 1) {
                                                 
+                                        } elseif (mysqli_num_rows($result7) == 1) 
+                                        {                                                
                                                 echo    "<td>
                                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
                                                         <a href='updateDietPlan.php?update=" . $memberID . "'><button>Update</button></a>
                                                     </td>";
-                                            } elseif(mysqli_num_rows($result8) == 0) {
-                                                
+                                            
+                                        }else{
                                                 echo    "<td>
-                                                            <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
+                                                            <p>There is an error with retrieving dietpla data</p>
                                                         </td>";
-                                            }else{
-                                                echo    "<td>
-                                                            <p>There is an error with retrieving supplement data</p>
-                                                        </td>";
-                                            }
                                         }
 
                                         $query6 = "SELECT * FROM supplement WHERE memberID = $memberID AND employeeID = employeeID";
@@ -172,17 +162,16 @@ if (mysqli_num_rows($result1) == 1) {
                                             echo "<td>
                                                 <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
                                             </td>";
-                                        } else {
-                                            if ($row7['endDate'] >= date('Y-m-d H:i:s')) {
+                                        } elseif(mysqli_num_rows($result6) == 1) {
                                                 echo    "<td>
                                                             <a href='viewSupplements.php?new=" . $memberID . "'><button>View</button></a>
                                                             <a href='updateSupplements.php?update=" . $memberID . "'><button>Update</button></a>
                                                         </td>";
-                                            } else {
-                                                echo    "<td>
-                                                                <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
-                                                        </td>";
-                                            }
+                                            
+                                        }else{
+                                            echo "<td>
+                                                <p>There is an error with retrieving supplement data</p>
+                                            </td>";
                                         }
                                         echo "</tr>
                                         </tbody>";

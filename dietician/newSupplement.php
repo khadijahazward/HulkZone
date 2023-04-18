@@ -55,7 +55,7 @@ include 'setProfilePic.php';
                 $newFileName = $supNameFile . '.' . $file_ext;
             
                 // Set the folder where the uploaded file will be stored
-                $folder = "../dietician/Images/supplements/";
+                $folder = "../supplement/";
             
                 // Set the full path of the uploaded file
                 $file_path = $folder . $newFileName;

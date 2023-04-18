@@ -344,60 +344,6 @@ if(!$result11){
                         }
                         
                         ?>
-                        <!-- <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>Ongoing</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>11:00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>11:00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>11:00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>11:00</p>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="Images/Member.png"></td>
-                            <td class="name">
-                                <p>Venenatis montes</p>
-                            </td>
-                            <td class="time">
-                                <p>11:00</p>
-                            </td>
-                        </tr> -->
                     </table>
                 </div>
             </div>
