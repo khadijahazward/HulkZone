@@ -125,15 +125,17 @@ $formattedAvarageOfRates = number_format($avarageOfRates, 2);
                 <button onclick="window.location.href ='editProfile.php';"><i class="fa fa-pencil"></i>Edit
                     Profile</button>
                 <div class="rates">
-                    <p style="font-weight: 700; font-size: 15px;">100 Rates</p>
+                    <p style="font-weight: 700; font-size: 15px;">
+                        <?php echo $formattedAvarageOfRates ?> Rates
+                    </p>
                     <?php
                     
 
                     for ($i = 1; $i <= 5; $i++) {
                         if ($i <= $formattedAvarageOfRates) {
-                            echo '<i class="fa fa-star"></i>'; // Output a filled star icon
+                            echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
                         } else {
-                            echo '<i class="fa fa-star-o"></i>'; // Output an empty star icon
+                            echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
                         }
                     }
                     ?>

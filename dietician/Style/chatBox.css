@@ -135,3 +135,162 @@
     margin-right: 10px;
 }
 
+.main {
+    width: calc(100% - 250px);
+    left: 245px;
+    height: calc(100% - 70px);
+    position: absolute;
+    top: 71px;
+}
+
+.topic {
+    font-weight: 600;
+    font-style: normal;
+    font-size: 36px;
+    line-height: 44px;
+    color: rgba(0, 104, 55, 1);
+    left: 35px;
+    top: -15px;
+    position: absolute;
+}
+
+/*
+.addBtn {
+    background-color: rgba(255, 159, 41, 0.75);
+    width: 129px;
+    height: 47px;
+    left: 1000px;
+    top: 35px;
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05);
+    border-radius: 4px;
+    border: 0px;
+    position: absolute;
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+    text-align: center;
+}
+
+.addBtn:hover {
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 5px 20px 0px rgba(26, 79, 131, 0.05) inset;
+}
+*/
+.gridContainer {
+    width: 1225px;
+    height: 550px;
+    top: 75px;
+    left: 15px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    box-shadow: 0px 5px 20px rgba(26, 79, 131, 0.05);
+    border-radius: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.gridContainer table {
+    width: 1225px;
+}
+
+.gridContainer img {
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+    margin-right: 10px;
+    border-radius: 50%;
+    float: right;
+}
+
+.gridContainer .name{
+    font-weight: 600;
+    text-align: left;
+}
+
+.gridContainer .message{
+    width: 350px;
+    text-align: left;
+}
+
+.gridContainer .unreadMsg{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-weight: 600;
+    color: white;
+    background-color: rgba(255, 159, 41, 1);
+    vertical-align: middle;
+}
+
+.gridContainer table thead {
+    background: linear-gradient(0deg, rgba(246, 251, 244, 0.5), rgba(246, 251, 244, 0.5)), #DEF9D7;
+    box-shadow: 0px 1px 0px rgba(26, 79, 131, 0.1);
+    height: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(26, 79, 131, 1);
+    line-height: 16px;
+    font-style: normal;
+}
+
+.gridContainer table td {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 21px;
+    text-align: center;
+    color: rgba(26, 79, 131, 1);
+    font-style: normal;
+    padding: 5px;
+    border-bottom: 1px solid rgba(26, 79, 131, 0.1);
+    height: 50px;
+}
+
+
+.view {
+    height: 35px;
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    padding: 8px 20px;
+    border: none;
+    margin-left: 10px;
+    color: rgba(26, 79, 131, 1);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 20px;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.view:hover {
+    background-color: rgba(255, 159, 41, 1);
+}
+
+.view:active {
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #82B1A9;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #446A76;
+}

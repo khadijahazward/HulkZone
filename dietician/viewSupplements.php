@@ -126,7 +126,8 @@ if(mysqli_num_rows($result5) == 1){
                                             <label for="memberName">Member Name</label>
                                         </td>
                                         <td>
-                                            <input type="text" name="memberName" value="<?php echo $memberName ?>">
+                                            <input type="text" name="memberName" value="<?php echo $memberName ?>"
+                                                readonly>
                                         </td>
                                     </tr>
                                     <tr>
@@ -135,7 +136,7 @@ if(mysqli_num_rows($result5) == 1){
                                         </td>
                                         <td>
                                             <input type="text" name="supplementName"
-                                                value="<?php echo $supplementName ?>">
+                                                value="<?php echo $supplementName ?>" readonly>
                                         </td>
                                     </tr>
                                     <tr>
@@ -144,7 +145,7 @@ if(mysqli_num_rows($result5) == 1){
                                         </td>
                                         <td>
                                             <input type="text" name="supplementType"
-                                                value="<?php echo $supplementType ?>">
+                                                value="<?php echo $supplementType ?>" readonly>
                                         </td>
                                     </tr>
 

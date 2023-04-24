@@ -122,13 +122,25 @@ if($rate05 != 0){
     $precetageOfRate05 = 0;
 }
 
+// $query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND date = date('Y-m-d')";
+// $result11 = mysqli_query($conn, $query11);
 
+// if(!$result11){
+//     echo '<script> window.alert("Error receiving dietician appointment date!");</script>';
+// }
 
-$query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND date = date('Y-m-d')";
+$query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND endTime >= NOW() AND status = 1";
 $result11 = mysqli_query($conn, $query11);
 
-if(!$result11){
-    echo '<script> window.alert("Error receiving dietician appointment date!");</script>';
+$query12 = "SELECT COUNT(*) as count FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
+$result12 = mysqli_query($conn, $query12);
+
+if($result12){
+    $row12 = mysqli_fetch_assoc($result12);
+    $appointmentCount = $row12['count'];
+}else{
+    echo '<script> window.alert("Error receiving dietician appointment details!");</script>';
+    $appointmentCount = 0;
 }
 
 ?>
@@ -218,7 +230,7 @@ if(!$result11){
                             <a href="appointments.php">
                                 <div class="appointmentCountCard">
                                     <div class="left">
-                                        <p class="count">100</p>
+                                        <p class="count"><?php echo $appointmentCount ?></p>
                                         <p class="cardTopic">Appointments</p>
                                     </div>
                                     <div class="right">
@@ -308,7 +320,7 @@ if(!$result11){
                                 $memberName = $row12['fName']." ".$row12['lName'];
                                 
                                 $appointmentStartDateTime = $row11['startTime'];
-                                $appointmentStartTime = date("h:i a", strtotime($appointmentDateTime));
+                                $appointmentStartTime = date("h:i a", strtotime($appointmentStartDateTime));
 
                                 $appointmentEndDateTime = $row11['endTime'];
 

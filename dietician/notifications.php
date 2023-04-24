@@ -4,7 +4,7 @@ include 'connect.php';
 
 global $userID;
 
-$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = '$userID' AND usernotifications.status = '0'";
+$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = '$userID' AND usernotifications.status = '0' AND notifications.type = '3'";
 $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
 
 

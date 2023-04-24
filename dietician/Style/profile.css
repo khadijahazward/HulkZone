@@ -186,8 +186,12 @@
     line-height: 0px;
 }
 
-.rates i {
+.checked {
     color: rgba(255, 206, 49, 1);
+}
+
+.notChecked{
+    color: black;
 }
 
 .content {

@@ -21,6 +21,13 @@ include 'setProfilePic.php';
         } else {
             $supTypeErr = "Supplement Type is required";
         }
+
+        // $query2 = "SELECT * FROM supplementlist WHERE supplementName = $supName AND supplementType = $supType";
+        // $result2 = mysqli_query($conn, $query2);
+
+        // if(mysqli_num_rows($result2) > 0){
+        //     $supNameErr = "This supplement already exists in the list";
+        // }
         
         if (isset($_FILES['image'])) {
             
@@ -133,7 +140,9 @@ include 'setProfilePic.php';
                     <tr>
                         <td><label for="supName">Supplement Name</label></td>
                         <td>
-                            <!-- <span class="error"></span><br> -->
+                            <span class="error">
+                                <?php echo $supNameErr?>
+                            </span><br>
                             <input type="text" name="supName" id="supName" class="textBox"
                                 placeholder="Enter the supplement name">
                         </td>
@@ -141,7 +150,7 @@ include 'setProfilePic.php';
                     <tr>
                         <td><label for="supType">Supplement Type</label></td>
                         <td>
-                            <!-- <span class="error"></span><br> -->
+                            <span class="error"><?php echo $supTypeErr ?></span><br>
                             <input type="text" name="supType" id="supType" class="textBox"
                                 placeholder="Enter the supplement type">
                         </td>
@@ -155,6 +164,7 @@ include 'setProfilePic.php';
                 </table>
                 <button type="submit" name="submit" class="acceptBtn">Submit</button>
             </form>
+            <button class="backBtn" onclick="window.location.href = 'dietplan.php'">Back</button>
         </div>
     </div>
 

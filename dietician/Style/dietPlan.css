@@ -170,10 +170,6 @@
     background-color: transparent;
 }
 
-.gridContainer table tr:hover {
-    background-color: rgba(246, 251, 244, 1);
-}
-
 .gridContainer table td {
     font-size: 13px;
     font-weight: 500;

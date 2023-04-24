@@ -158,6 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </table>
                 <button type="submit" class="acceptBtn">Submit</button>
             </form>
+            <button class="backButton" onclick="window.location.href = 'complaint.php'">Back</button>
         </div>
     </div>
 </body>

@@ -16,23 +16,8 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of retrieving employee details!");</script>';
 }
 
-
-$query2 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW()";
+$query2 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
 $result2 = mysqli_query($conn, $query2);
-
-$query3 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime = NOW()";
-$result3 = mysqli_query($conn, $query3);
-
-
-if (mysqli_num_rows($result3) == 1) {
-    $row3 = mysqli_fetch_assoc($result3);
-    
-    if(isset($_POST['appointment'])){
-        $row3['status'] = 1;
-    }else{
-        $row3['status'] = 0;
-    }
-}
 
 ?>
 
@@ -96,7 +81,6 @@ if (mysqli_num_rows($result3) == 1) {
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 70px;"></th>
                             <th>DATE</th>
                             <th>TIME</th>
                             <th>PROFILE</th>
@@ -122,7 +106,6 @@ if (mysqli_num_rows($result3) == 1) {
 
                                     echo "
                                 <tr>
-                                    <td><input type='checkbox' name='appointment'></td>
                                     <td>" . $row2['date'] . "</td>
                                     <td>" . $startTime . " - " . $endTime . "</td>
                                     <td><img src=" . $row3['profilePhoto'] . " alt='member's DP'></td>
