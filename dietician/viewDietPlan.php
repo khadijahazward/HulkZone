@@ -182,7 +182,7 @@ if(mysqli_num_rows($result10) == 1){
 
 $mondayCurrentWeek = date("Y-m-d", strtotime('monday this week'));
 
-$query11 = "SELECT COUNT(*) as count FROM diet_plan_status WHERE member_id = $memberID AND CompletedDate >= $mondayCurrentWeek AND CompletedDate <= NOW()";
+$query11 = "SELECT COUNT(*) as count FROM diet_plan_status WHERE status = 1 AND member_id = $memberID AND CompletedDate >= $mondayCurrentWeek AND CompletedDate <= NOW()";
 $result11 = mysqli_query($conn, $query11);
 
 if($result11){

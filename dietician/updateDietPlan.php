@@ -185,7 +185,7 @@ if(mysqli_num_rows($result10) == 1){
 $mondayBreakfastErr = $mondayLunchErr = $mondayDinnerErr = $tuesdayBreakfastErr = $tuesdayLunchErr = $tuesdayDinnertErr = $wednesdayBreakfastErr = $wednesdayLunchErr = $wednesdayDinnerErr = $thursdayBreakfastErr = $thursdayLunchErr = $thursdayDinnerErr = $fridayBreakfastErr = $fridayLunchErr = $fridayDinnerErr = $saturdayBreakfastErr = $saturdayLunchErr = $saturdayDinnerErr = $sundayBreakfastErr = $sundayLunchErr = $sundayDinnerErr = "";
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $monday_Breakfast_Meal = $_POST['mondayBreakfastMeal'];
     $mondayBreakfastMeal = implode(",", $monday_Breakfast_Meal);
@@ -629,8 +629,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         } 
     }
 
-    echo '<script> window.alert("You have bean updated dietplan successfully!");</script>';
-    echo '<script> window.location.href="dietPlan.php"</script>';
+    // echo '<script> window.alert("You have bean updated dietplan successfully!");</script>';
+    // echo '<script> window.location.href="dietPlan.php"</script>';
 
     
 }
