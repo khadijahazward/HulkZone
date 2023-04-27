@@ -236,7 +236,7 @@ if($result11){
                 <table>
                     <tr>
                         <td class="gridTopic"></td>
-                        <td class="gridTopic">Breafastk</td>
+                        <td class="gridTopic">Breafast</td>
                         <td class="gridTopic">Lunch</td>
                         <td class="gridTopic">Dinner</td>
                     </tr>
@@ -1060,7 +1060,7 @@ if($result11){
                         </td>
                     </tr>
                     <tr>
-                        <td class="gridTopic">Staurday</td>
+                        <td class="gridTopic">Saturday</td>
                         <td>
                             <div>
                                 <table>
