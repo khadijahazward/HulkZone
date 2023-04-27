@@ -40,12 +40,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $result3 = mysqli_query($conn, $query3);
 
         if(!$result3){
-            echo '<script> window.alert("Error!");</script>';
+            echo '<script> window.alert("Error of sending messages!");</script>';
         }
     }
 }
 
-$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat ORDER BY dateTime ASC";
+$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $memberUserID) OR (senderID = $memberUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
 $result4 = mysqli_query($conn, $query4);
 
 if(!$result4){
@@ -124,13 +124,19 @@ if(!$result6){
                                 }
                             }
                         }
+                    }else{
+                        echo '
+                            <li class="day">
+                                <p>Start a coversation</p>
+                            </li>  
+                            ';
                     }
                     ?>
                 </ul>
             </div>
         </div>
         <div class="replyBar">
-            <form method="post">
+            <form method="POST">
                 <input type="text" name="sendingMessage" id="sendingMessage" class="sendingMessage"
                     placeholder="Write your message...">
                 <button name="sendBtn" class="sendBtn" id="sendBtn">Send</button>

@@ -26,13 +26,23 @@ if(!$result2){
     echo '<script> window.alert("Error of receiving supplement List!");</script>';
 }
 
+$query4 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND endDate >= NOW()";
+$result4 = mysqli_query($conn, $query4);
+
+if(!$result4){
+    echo '<script> window.alert("Error of receiving start date!");</script>';
+}else{
+    $row4 = mysqli_fetch_assoc($result4);
+    $startDate = $row4['startDate'];
+}
+
 if(isset($_POST['save']) && isset($_POST['supplementNo'])){
 
     $supplementNo = mysqli_real_escape_string($conn, $_POST['supplementNo']);
     
     $query3 = "INSERT INTO supplement 
-                (supplementID, memberID, employeeID) VALUES 
-                ('$supplementNo', '$memberID', '$employeeID')";
+                (supplementID, memberID, employeeID, startDate) VALUES 
+                ('$supplementNo', '$memberID', '$employeeID', '$startDate')";
 
     $result3 = mysqli_query($conn, $query3);
 
