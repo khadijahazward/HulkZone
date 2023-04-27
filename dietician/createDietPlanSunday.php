@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // $day = $row6['weekDayID'];
 
-    if (isset($_POST['next'])) {
+    if (isset($_POST['save'])) {
 
         $query2 = "SELECT * FROM servicecharge JOIN member ON servicecharge.memberID = member.memberID WHERE servicecharge.memberID = $memberID AND servicecharge.employeeID = $employeeID AND servicecharge.endDate >= NOW()";
         $result2 = mysqli_query($conn, $query2);
@@ -450,7 +450,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </td>
                     </tr>
                 </table>
-                <button class="saveButton" name="next">Next</button>
+                <button class="saveButton" name="save">Save</button>
             </div>
         </form>
     </div>

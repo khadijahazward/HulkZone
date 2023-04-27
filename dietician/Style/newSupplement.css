@@ -226,5 +226,11 @@
     position: absolute;
 }
 
+.error{
+    color: red;
+    font-size: 13px;
+    font-weight: 600;
+}
+
 
 
