@@ -1,7 +1,7 @@
-<?php 
+<?php
 include('authorization.php');
 include('setAdminProfilePic.php');
-
+include('notiCount.php');
 ?>
 
 <!DOCTYPE html>
@@ -23,19 +23,31 @@ include('setAdminProfilePic.php');
 </head>
 
 <body>
-<?php 
-include('../admin/sideBar.php');
-?>
+    <?php
+    include('../admin/sideBar.php');
+    ?>
     <div class="right">
 
-        <div class="content" >
+        <div class="content">
             <div class="contentLeft">
                 <p class="title">Announcements</p>
             </div>
-            <div class="contentMiddle">
+
+            <div>
+                <div class="notification" style="margin-left: 705px;">
+                    <?php
+                    include 'notifications.php';
+                    ?>
+                </div>
+            </div>
+            <div class="notiCount" style="padding-left: 743px;padding-top:7.5px;">
+                <p><?php echo $count; ?></p>
+            </div>
+
+            <div class="contentMiddle" style="margin-left: 35px;">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight" ><img src="<?php echo "$profilePictureLink"?>" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight"><img src="<?php echo "$profilePictureLink" ?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
 
         <div class="down">
@@ -49,7 +61,7 @@ include('../admin/sideBar.php');
                 <form action="createAnnouncements.php" method="POST" onsubmit="return confirmSubmission()">
                     <label class="formContent">Message</label>
                     <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required></textarea>
-                   
+
 
 
                     <input type="submit" name="submit" value="submit">
@@ -58,22 +70,22 @@ include('../admin/sideBar.php');
             </form>
             <script>
                 function confirmSubmission() {
-                if (confirm("Are you sure you want to submit the form?")) {
-                return true;
-                } else {
-                return false;
+                    if (confirm("Are you sure you want to submit the form?")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
-            }
             </script>
 
         </div>
     </div>
-</div>
+    </div>
 
+   
 
 
 
 </body>
 
 </html>
-

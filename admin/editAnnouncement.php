@@ -2,6 +2,7 @@
 include('authorization.php');
 // Connect to the database
 include('../../HulkZone/connect.php');
+include('notiCount.php');
 // Get the announcementID from the URL
 $notificationsID = mysqli_real_escape_string($conn, $_GET['notificationsID']);
 
@@ -83,12 +84,23 @@ include('setAdminProfilePic.php');
             <div class="contentLeft">
                 <p class="title">Announcements</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 716px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:755px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
 
+
+      <div class="contentMiddle" style="margin-left:30px;">
+        <p class="myProfile">My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down">
             <div class="topic">
                 <h1>Add Announcement</h1>

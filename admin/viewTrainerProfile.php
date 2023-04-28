@@ -1,6 +1,7 @@
 <?php
 include('authorization.php');
 include('setAdminProfilePic.php');
+include('notiCount.php');
 ?>
 <?php
 include('../connect.php');
@@ -44,13 +45,28 @@ $userDetails = $result->fetch_assoc();
 
         <div class="content">
             <div class="contentLeft">
-                <p class="title">Trainer Name</p>
+                <p class="title"><?php 
+                            
+                            echo $userDetails['fName'] . ' ' . $userDetails['lName']; 
+                        ?></p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 710px;top:14px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:750px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:10px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down" style="display:flex; flex-direction:row;">
             <div class="edit-profile">
                 <div>

@@ -3,6 +3,7 @@
 
 include('authorization.php');
 include('../connect.php');
+include('notiCount.php');
 
 
 // regenerate the session ID every 30 minutes
@@ -52,7 +53,7 @@ if (mysqli_stmt_fetch($stmt));
     <title>Admin Profile | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
-    <link rel="stylesheet" href="css/AnnouncementTable.css">
+    
     <link rel="stylesheet" type="text/css" href="css/profile.css">
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
@@ -69,13 +70,25 @@ include('../admin/sideBar.php');
 
         <div class="content">
             <div class="contentLeft">
-                <p class="title">Admin Profile</p>
+                <p class="title" style="width: 200px;">Admin Profile</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink; ?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 690px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:730px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down" style="display:flex; flex-direction:row;">
             <div class="edit-profile" >
                     <div>

@@ -2,6 +2,7 @@
 // Connect to database
 include('../connect.php');
 include('authorization.php');
+include('notiCount.php');
 
 
 
@@ -68,11 +69,23 @@ include('setAdminProfilePic.php');
             <div class="contentLeft">
                 <p class="title">REPORTS</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 770px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:808px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:35px;">
+        <p class="myProfile">My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <!-- below the header -->
         <div class="down">
             <!-- Dashboard -->

@@ -220,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="title">ADD TRAINER</p>
         </div>
         <div class="contentMiddle">
-            <p class="myProfile">My Profile</p>
+            <p class="myProfile" style="margin-left: 1080px;">My Profile</p>
         </div>
         <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
