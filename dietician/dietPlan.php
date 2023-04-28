@@ -86,14 +86,14 @@ if (mysqli_num_rows($result1) == 1) {
                             <th>DIET PLAN</th>
                             <th>
                                 Supplement&nbsp;&nbsp;&nbsp;
-                                <button onclick="document.getElementById('image').style.display='block'"
-                                    class="addSupplementBtn"><i class="fa fa-plus-square"></i></button>
+                                <a href="newSupplement.php"><button class="addSupplementBtn"><i
+                                            class="fa fa-plus-square"></i></button></a>
                             </th>
                         </tr>
                     </thead>
                     <?php
 
-                    $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= SYSDATE()";
+                    $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= NOW()";
                     $result2 = mysqli_query($conn, $query2);
 
                     if (mysqli_num_rows($result2) > 0) {
@@ -131,32 +131,28 @@ if (mysqli_num_rows($result1) == 1) {
                                                 <td>" . $memberFName . " " . $memberLName . "</td>
                                                 <td>" . $memberStatus . "</td>";
 
-                                        $query7 = "SELECT * FROM servicecharge WHERE memberID = $memberID";
+                                                
+                                        $query7 = "SELECT * FROM dietplan JOIN servicecharge ON dietplan.memberID = servicecharge.memberID WHERE servicecharge.memberID = $memberID AND servicecharge.employeeID = $employeeID AND dietplan.day = 1 AND servicecharge.endDate >= NOW()";
                                         $result7 = mysqli_query($conn, $query7);
-
                                         $row7 = mysqli_fetch_assoc($result7);
 
-
-                                        $query5 = "SELECT * FROM dietplan WHERE day=1 AND memberID= $memberID AND employeeID = $employeeID";
-                                        $result5 = mysqli_query($conn, $query5);
-
-                                        if (mysqli_num_rows($result5) == 0) {
+                                        if (mysqli_num_rows($result7) == 0) {
+                                            
                                             echo "<td>
                                                     <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
                                                 </td>";
-                                        } else {
-                                            if ($row7['endDate'] >= date('Y-m-d H:i:s')) {
                                                 
+                                        } elseif (mysqli_num_rows($result7) == 1) 
+                                        {                                                
                                                 echo    "<td>
                                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
                                                         <a href='updateDietPlan.php?update=" . $memberID . "'><button>Update</button></a>
                                                     </td>";
-                                            } else {
-                                                
+                                            
+                                        }else{
                                                 echo    "<td>
-                                                            <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
+                                                            <p>There is an error with retrieving dietpla data</p>
                                                         </td>";
-                                            }
                                         }
 
                                         $query6 = "SELECT * FROM supplement WHERE memberID = $memberID AND employeeID = employeeID";
@@ -166,16 +162,16 @@ if (mysqli_num_rows($result1) == 1) {
                                             echo "<td>
                                                 <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
                                             </td>";
-                                        } else {
-                                            if ($row7['endDate'] >= date('Y-m-d H:i:s')) {
+                                        } elseif(mysqli_num_rows($result6) == 1) {
                                                 echo    "<td>
                                                             <a href='viewSupplements.php?new=" . $memberID . "'><button>View</button></a>
+                                                            <a href='updateSupplements.php?update=" . $memberID . "'><button>Update</button></a>
                                                         </td>";
-                                            } else {
-                                                echo    "<td>
-                                                                <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
-                                                        </td>";
-                                            }
+                                            
+                                        }else{
+                                            echo "<td>
+                                                <p>There is an error with retrieving supplement data</p>
+                                            </td>";
                                         }
                                         echo "</tr>
                                         </tbody>";
@@ -198,144 +194,6 @@ if (mysqli_num_rows($result1) == 1) {
         </div>
     </div>
 
-
-
-    <?php
-
-    $supName = $supType = "";
-    $supNameErr = $supTypeErr = "";
-
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        
-        if(isset($_POST['supName'])){
-            $supName = $_POST['supName'];
-        }else{
-            $supNameErr = "Supplement name is required";
-        }
-
-        if(isset($_POST['supType'])){
-            $supType = $_POST['supType'];
-        }else{
-            $supTypeErr = "Sypplement Type is required";
-        }
-        echo $supName;
-
-        if (isset($_FILES['image'])) {
-            $errors = array();
-            $file_name = $_FILES['image']['name'];
-            $file_size = $_FILES['image']['size'];
-            $file_tmp = $_FILES['image']['tmp_name'];
-            $file_type = $_FILES['image']['type'];
-        
-            $file_ext_array = explode('.', $file_name);
-            if (count($file_ext_array) > 1) {
-                $file_ext = strtolower(end($file_ext_array));
-            } else {
-                $errors[] = "File extension could not be determined.";
-            }
-        
-            $expensions = array("jpeg", "jpg", "png");
-            if (!in_array($file_ext, $expensions)) {
-                $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
-            }
-            if ($file_size > 2097152) {
-                $errors[] = 'File size must be exactly 2 MB';
-            }
-        
-            if (empty($errors)) {
-                // Get the user ID from the session
-                $userID = $_SESSION['userID'];
-        
-                // Create a new file name using the user ID and the file extension
-                $newFileName = $userID . '.' . $file_ext;
-        
-                // Set the folder where the uploaded file will be stored
-                $folder = "Images/supplements";
-        
-                // Set the full path of the uploaded file
-                $file_path = $folder . $newFileName;
-        
-                // Move the uploaded file to the target directory
-                move_uploaded_file($file_tmp, $file_path);
-        
-                // Update the user's profile photo path in the database
-                $query = "INSERT INTO supplementlist(supplementName, supplemenetType, supplementPhoto) VALUES ('$supName', '$supType', '$file_path')";
-                $result = mysqli_query($conn, $query);
-        
-                if (!$result) {
-                    echo "Error: " . mysqli_error($conn);
-                } else {
-                    // Redirect the user to their profile page
-                    header("Location: dietplan.php");
-                    exit();
-                }
-            } else {
-                // Display the error messages and redirect the user back to their profile page
-                echo "<script>
-                    alert('" . implode("\\n", $errors) . "');
-                </script>";
-                echo "<script>window.location.href = 'dietplan.php';</script>";
-                exit();
-            }
-        }
-    }
-    
-    ?>
-
-
-
-    <div id="image" class="popUpContent">
-        <div class="popUpContainer">
-            <div class="content">
-                <span class="close">&times;</span>
-                <div class=" subtopic">
-                    <p>Add a Supplement</p>
-                </div>
-                <form id="supplementForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                    <table class="reportingContent">
-                        <tr>
-                            <td><label for="supName">Supplement Name</label></td>
-                            <td>
-                                <!-- <span class="error"></span><br> -->
-                                <input type="text" name="supName" id="supName" class="textBox"
-                                    placeholder="Enter the supplement name">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="supType">Supplement Type</label></td>
-                            <td>
-                                <!-- <span class="error"></span><br> -->
-                                <input type="text" name="supType" id="supType" class="textBox"
-                                    placeholder="Enter the supplement type">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label for="image">Image of Supplement</label></td>
-                            <td>
-                                <input type="file" name="image">
-                            </td>
-                        </tr>
-                    </table>
-                    <button type="submit" class="acceptBtn"> Submit</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script>
-    var popUpContent = document.getElementById('image');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-        popUpContent.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target == popUpContent) {
-            popUpContent.style.display = "none";
-        }
-    }
-    </script>
 </body>
 
 </html>

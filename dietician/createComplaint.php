@@ -1,10 +1,11 @@
 <?php 
 include 'authorization.php';
-include "connect.php";
-include "setProfilePic.php";
+include 'connect.php';
+include 'setProfilePic.php';
+?>
 
-
-// checking for empty fields
+<!--checking for empty fields-->
+<?php
 
 $check = "";
 $userid = $_SESSION["userID"];
@@ -12,12 +13,12 @@ $subjectErr = $desErr = "";
 include "../connect.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if (empty($_POST["subject"])) {
-$subjectErr = "Subject is required";
-}
-if (empty($_POST["des"])) {
-$desErr = "Description is required";
-}
+    if (empty($_POST["subject"])) {
+        $subjectErr = "Subject is required";
+    }
+    if (empty($_POST["des"])) {
+        $desErr = "Description is required";
+    }
 }
 ?>
 
@@ -66,7 +67,7 @@ $desErr = "Description is required";
 
                 $new_filename = $_SESSION['userID'] . "_" . time() .".$extension";
                 //storing file in the Complaintevidence folder
-                $upload_path = "C:/xampp/htdocs/HulkZone/Complaintevidence/" . $new_filename;
+                $upload_path = "../Complaintevidence/" . $new_filename;
 
                 //moves an uploaded file to a new location. 
                 if (move_uploaded_file($_FILES["Evi-image"]["tmp_name"], $upload_path)) {
@@ -91,6 +92,8 @@ $desErr = "Description is required";
         }
     }      
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,15 +101,14 @@ $desErr = "Description is required";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Complaint</title>
-    <link href="Style/complaint.css" rel="stylesheet">
+    <link href="Style/newSupplement.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
     <div class="container">
-        <!-- <img src="Images/complaint.jpg" alt="complaint" class="backgroundImage"> -->
-        <div class="topBar">
+        <!-- <div class="topBar">
             <div class="gymLogo"><img src="Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
             <div class="gymName">
                 <p>HULK ZONE</p>
@@ -114,18 +116,18 @@ $desErr = "Description is required";
             <div>
                 <div class="notification">
                     <?php
-                        include 'notifications.php'; 
+                    include 'notifications.php';
                     ?>
                 </div>
-                <img src="<?php echo $profilePic; ?>" alt="my profile" class="myProfile">
+                <img src="<?php echo $profilePic ?>" alt=" my profile" class="myProfile">
             </div>
-        </div>
+        </div> -->
         <div class="content">
-            <div class=" subtopic">
-                <p>Report a Complaint</p>
+            <div class="topic">
+                <p>Add a Supplement</p>
             </div>
-            <form id="complaintForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <table class="reportingContent">
+            <form class="supplementForm" method="post" enctype="multipart/form-data">
+                <table>
                     <tr>
                         <td><label for="subject">Complaints Subject</label></td>
                         <td>
@@ -140,18 +142,23 @@ $desErr = "Description is required";
                         <td>
                             <span class="error"><?php echo $desErr; ?></span><br>
                             <textarea name="des" id="des" cols="82" rows="6" style="resize: none;"
-                                placeholder="Enter your complaint briefly"><?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?></textarea>
+                                placeholder="Enter your complaint briefly">
+
+                                <?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?>
+                                
+                            </textarea>
                         </td>
                     </tr>
                     <tr class="evidenceContent">
                         <td><label for="Evi-image">Evidance: (Upload any proofs)</label></td>
                         <td>
-                            <input type="file" name="Evi-image">
+                            <input type="file" name="Evi-image" class="imageBox">
                         </td>
                     </tr>
                 </table>
-                <button type="submit" class="saveBtn" onclick="return Alertfunction()">Submit</button>
+                <button type="submit" class="acceptBtn">Submit</button>
             </form>
+            <button class="backButton" onclick="window.location.href = 'complaint.php'">Back</button>
         </div>
     </div>
 </body>

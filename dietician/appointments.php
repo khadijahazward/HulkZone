@@ -13,14 +13,11 @@ if (mysqli_num_rows($result1) == 1) {
     $row1 = mysqli_fetch_assoc($result1);
     $employeeID = $row1['employeeID'];
 } else {
-    echo '<script> window.alert("Error of receiving employee details!");</script>';
+    echo '<script> window.alert("Error of retrieving employee details!");</script>';
 }
 
-
-$query2 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0'";
+$query2 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
 $result2 = mysqli_query($conn, $query2);
-
-
 
 ?>
 
@@ -47,7 +44,7 @@ $result2 = mysqli_query($conn, $query2);
             <div>
                 <div class="notification">
                     <?php
-                        include 'notifications.php'; 
+                    include 'notifications.php';
                     ?>
                 </div>
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
@@ -84,7 +81,6 @@ $result2 = mysqli_query($conn, $query2);
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 70px;"></th>
                             <th>DATE</th>
                             <th>TIME</th>
                             <th>PROFILE</th>
@@ -93,44 +89,43 @@ $result2 = mysqli_query($conn, $query2);
                         </tr>
                     </thead>
                     <tbody>
+                        <form method="POST">
+                            <?php
 
-                        <?php
-                        
-                        if(mysqli_num_rows($result2) > 0){
-                            while($row2 = mysqli_fetch_assoc($result2)){
-                                
-                                $memberID = $row2['memberID'];
+                            if (mysqli_num_rows($result2) > 0) {
+                                while ($row2 = mysqli_fetch_assoc($result2)) {
 
-                                $query3 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE member.memberID = $memberID";
-                                $result3 = mysqli_query($conn, $query3);
-                                $row3 = mysqli_fetch_assoc($result3);
+                                    $memberID = $row2['memberID'];
 
-                                $startTime = date('h:i A', strtotime($row2['startTime']));
-                                $endTime = date('h:i A', strtotime($row2['endTime']));
-                                
-                                echo "
+                                    $query3 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE member.memberID = $memberID";
+                                    $result3 = mysqli_query($conn, $query3);
+                                    $row3 = mysqli_fetch_assoc($result3);
+
+                                    $startTime = date('h:i A', strtotime($row2['startTime']));
+                                    $endTime = date('h:i A', strtotime($row2['endTime']));
+
+                                    echo "
                                 <tr>
-                                    <td><input type='checkbox'></td>
-                                    <td>".$row2['date']."</td>
-                                    <td>".$startTime." - ".$endTime."</td>
-                                    <td><img src=".$row3['profilePhoto']." alt='member's DP'></td>
-                                    <td>".$row3['fName']." ".$row3['lName']."</td>
-                                    <td>".$row3['contactNumber']."</td>
+                                    <td>" . $row2['date'] . "</td>
+                                    <td>" . $startTime . " - " . $endTime . "</td>
+                                    <td><img src=" . $row3['profilePhoto'] . " alt='member's DP'></td>
+                                    <td>" . $row3['fName'] . " " . $row3['lName'] . "</td>
+                                    <td>" . $row3['contactNumber'] . "</td>
                                 </tr>
                                 ";
-                                
-                            }
-                        }else{
-                            echo"
+                                }
+                            } else {
+                                echo "
                             <tr>
                                 <td colspan='6'>
                                     <p>Still you don't have any appointments</p>
                                 </td>
                             </tr>
                             ";
-                        }
-                        
-                        ?>
+                            }
+
+                            ?>
+                        </form>
                     </tbody>
                 </table>
             </div>

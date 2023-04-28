@@ -99,9 +99,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="topic">
                 <p>Complaints</p>
             </div>
-            <button class="complaintBtn" onclick="window.location.href='createComplaint.php'">Create a
+            <button class="complaintBtn" onclick="window.location.href='createComplaint.php'"> Create a
                 complaint</button>
-            <div class="gridContainer">
+            <div class=" gridContainer">
                 <table>
                     <thead>
                         <tr>

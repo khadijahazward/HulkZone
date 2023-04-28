@@ -51,8 +51,9 @@ $result10 = mysqli_query($conn, $query10);
 $row10 = mysqli_fetch_assoc($result10);
 $rate00 = $row10['count'];
 
-$totalOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
-$avarageOfRates = $totalOfRates / 6;
+$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
+$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
+$avarageOfRates = $totalOfRates / $totalCountOfRates;
 $formattedAvarageOfRates = number_format($avarageOfRates, 2);
 
 
@@ -125,15 +126,17 @@ $formattedAvarageOfRates = number_format($avarageOfRates, 2);
                 <button onclick="window.location.href ='editProfile.php';"><i class="fa fa-pencil"></i>Edit
                     Profile</button>
                 <div class="rates">
-                    <p style="font-weight: 700; font-size: 15px;">100 Rates</p>
+                    <p style="font-weight: 700; font-size: 15px;">
+                        <?php echo $formattedAvarageOfRates ?> Rates
+                    </p>
                     <?php
                     
 
                     for ($i = 1; $i <= 5; $i++) {
                         if ($i <= $formattedAvarageOfRates) {
-                            echo '<i class="fa fa-star"></i>'; // Output a filled star icon
+                            echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
                         } else {
-                            echo '<i class="fa fa-star-o"></i>'; // Output an empty star icon
+                            echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
                         }
                     }
                     ?>

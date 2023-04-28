@@ -14,8 +14,8 @@ $row1 = mysqli_fetch_assoc($result1);
 
 if (isset($_POST['edite'])) {
 
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
+    $fname = ucwords($_POST['fname']);
+    $lname = ucwords($_POST['lname']);
     $nic = $_POST['nic'];
     $DOB = $_POST['DOB'];
     $phone = $_POST['phone'];
@@ -90,6 +90,48 @@ if (isset($_POST['edite'])) {
     }
 }
 
+$query4 = "SELECT * FROM employee WHERE userID = $userID";
+$result4 = mysqli_query($conn, $query4);
+$row4 = mysqli_fetch_assoc($result4);
+$employeeID = $row4['employeeID'];
+
+
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
+$result5 = mysqli_query($conn, $query5);
+$row5 = mysqli_fetch_assoc($result5);
+$rate01 = $row5['count'];
+
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
+$result6 = mysqli_query($conn, $query6);
+$row6 = mysqli_fetch_assoc($result6);
+$rate02 = $row6['count'];
+
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
+$result7 = mysqli_query($conn, $query7);
+$row7 = mysqli_fetch_assoc($result7);
+$rate03 = $row7['count'];
+
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
+$result8 = mysqli_query($conn, $query8);
+$row8 = mysqli_fetch_assoc($result8);
+$rate04 = $row8['count'];
+
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
+$result9 = mysqli_query($conn, $query9);
+$row9 = mysqli_fetch_assoc($result9);
+$rate05 = $row9['count'];
+
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
+$result10 = mysqli_query($conn, $query10);
+$row10 = mysqli_fetch_assoc($result10);
+$rate00 = $row10['count'];
+
+$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
+$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
+$avarageOfRates = $totalOfRates / $totalCountOfRates;
+$formattedAvarageOfRates = number_format($avarageOfRates, 2);
+
+
 ?>
 
 
@@ -121,7 +163,7 @@ if (isset($_FILES['image'])) {
 
     if (empty($errors)) {
         // Get the user ID from the session
-        $userID = $_SESSION['userID'];
+        $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
         // Create a new file name using the user ID and the file extension
         $newFileName = $userID . '.' . $file_ext;
@@ -155,6 +197,8 @@ if (isset($_FILES['image'])) {
         exit();
     }
 }
+
+
 ?>
 
 
@@ -177,18 +221,18 @@ if (isset($_FILES['image'])) {
                 <p>HULK ZONE</p>
             </div>
             <div>
-                <div class="notification">
+                <!-- <div class="notification">
                     <?php
-                        include 'notifications.php'; 
+                        // include 'notifications.php'; 
                     ?>
-                </div>
+                </div> -->
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
             <div class="leftBarContent">
                 <hr>
-                <a href="home.html"><i class="fa fa-home"></i>Home</a>
+                <a href="home.php"><i class="fa fa-home"></i>Home</a>
                 <hr>
                 <a href="members.php"><i class="fa fa-group"></i>Members</a>
                 <hr>
@@ -220,12 +264,21 @@ if (isset($_FILES['image'])) {
                         class="fa fa-pencil"></i>Change
                     Profile</button>
                 <div class="rates">
-                    <p style="font-weight: 700; font-size: 15px;">100 Rates</p>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+                    <p style="font-weight: 700; font-size: 15px;">
+                        <?php echo $formattedAvarageOfRates ?> Rates
+                    </p>
+                    <?php
+                    
+
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $formattedAvarageOfRates) {
+                            echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
+                        } else {
+                            echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
+                        }
+                    }
+                    ?>
+
                 </div>
             </div>
             <div class="content">

@@ -180,6 +180,20 @@ if(mysqli_num_rows($result10) == 1){
     echo '<script> window.alert("Error of retieving sunday dietplan data!");</script>';
 }
 
+$mondayCurrentWeek = date("Y-m-d", strtotime('monday this week'));
+
+$query11 = "SELECT COUNT(*) as count FROM diet_plan_status WHERE status = 1 AND member_id = $memberID AND CompletedDate >= $mondayCurrentWeek AND CompletedDate <= NOW()";
+$result11 = mysqli_query($conn, $query11);
+
+if($result11){
+    $row11 = mysqli_fetch_assoc($result11);
+    $progressCount = $row11['count'];
+    $progressPrecentage = round($progressCount / 7 * 100);
+}else{
+    echo '<script> window.alert("Error of retrieving progress data!");</script>';
+    $progressPrecentage = 0;
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -222,13 +236,67 @@ if(mysqli_num_rows($result10) == 1){
                 <table>
                     <tr>
                         <td class="gridTopic"></td>
-                        <td class="gridTopic">Breafastk</td>
+                        <td class="gridTopic">Breafast</td>
                         <td class="gridTopic">Lunch</td>
                         <td class="gridTopic">Dinner</td>
                     </tr>
                     <tr>
                         <td colspan="4">
                             <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="gridTopic"></td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <table>
+                                    <tr>
+                                        <td class="gridTopic">
+                                            <p>Meal</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Quantity</p>
+                                        </td>
+                                        <td class="gridTopic">
+                                            <p>Calorie</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -992,7 +1060,7 @@ if(mysqli_num_rows($result10) == 1){
                         </td>
                     </tr>
                     <tr>
-                        <td class="gridTopic">Staurday</td>
+                        <td class="gridTopic">Saturday</td>
                         <td>
                             <div>
                                 <table>
@@ -1296,11 +1364,17 @@ if(mysqli_num_rows($result10) == 1){
                     <tr>
                         <td class="progressTopic">Progress</td>
                         <td>
-                            <div class="progress">
-                                <div class="bar" style="width: 82%;">
-                                    <p>82%</p>
+                            <?php
+                             echo '
+                             
+                                <div class="progress">
+                                    <div class="bar" style="width: '.$progressPrecentage.'%;">
+                                        <p>'.$progressPrecentage.'%</p>
+                                    </div>
                                 </div>
-                            </div>
+                             
+                             ';
+                            ?>
                         </td>
                     </tr>
                 </table>
