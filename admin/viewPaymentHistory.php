@@ -88,11 +88,11 @@ include('setAdminProfilePic.php');
                 </tr>
 
                 <?php 
-                    include('../../HulkZone/connect.php');
+                   include('../../HulkZone/connect.php');
                     
                     //read all row from database table
                     $memberID = $_GET['memberID'];
-                    $sql = "SELECT *,
+                   $sql = "SELECT *,
                     CASE payment.type
                       WHEN 0 THEN 'Payment plan'
                       WHEN 1 THEN 'Crossfit Training'
@@ -103,6 +103,7 @@ include('setAdminProfilePic.php');
                     END as payment_type
                   FROM payment 
                   WHERE memberID='$memberID'";
+          
                  
           
                     $result=mysqli_query($conn, $sql);
@@ -112,7 +113,7 @@ include('setAdminProfilePic.php');
                     }
                   
             
-                    
+                    $total_amount = 0;
 
                     while ($row = $result->fetch_assoc()) {
                         echo"
@@ -124,13 +125,17 @@ include('setAdminProfilePic.php');
                    <td>$row[payment_type]</td>
                   
                 </tr>";
+                $total_amount += $row['amount']; 
                     }
-                    
+                   
+                 
+    
                 ?>
            
 
                 
             </table>
+            <p>Total Amount: <?php echo $total_amount ?></p>
         </div>
         </div>
     </div>

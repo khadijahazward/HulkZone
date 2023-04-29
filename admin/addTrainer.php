@@ -3,6 +3,7 @@ include('authorization.php');
 include('setAdminProfilePic.php');
 ?>
 <?php
+
 include('../../HulkZone/connect.php');
 $fnameErr = $lnameErr = $dobErr = $genErr = $numErr = $NICErr = $langErr = $serviceErr = "";
 $stErr = $ad1Err = $citErr = $hgErr = $wiErr = $emErr = $pw1Err = $pw2Err = "";
@@ -45,23 +46,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //email validation
+    /*if (empty($_POST["email"])) {
+        $emErr = "Email is required";
+    } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {// "username@domain.extension.The email address must contain only one "@" symbol and at least one "." symbol after "@" symbol. It should not contain any whitespace characters or special characters other than "." and "_".
+        $emErr = "Enter Valid Email";
+    }*/
     if (empty($_POST["email"])) {
         $emErr = "Email is required";
-    } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])) {//This regular expression ensures that the email address contains only letters, digits, and the characters "." (dot), "_" (underscore), "%" (percent), "+", and "-". It also ensures that the domain part of the email address contains only letters, digits, and the characters "." and "-". Additionally, it requires at least one "." character after the "@" symbol and ensures that the top-level domain is at least two characters long.
         $emErr = "Enter Valid Email";
+    }else{
+        // Sanitize email input to prevent SQL injection
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+
+    // Check if email already exists in the database
+    $query = "SELECT * FROM user WHERE email='$email'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $emErr = "Username already exists";
+    }
     }
 
     //password validation
     $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
     $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
 
-    /* if (empty($_POST["pass1"])) {
-            $pw1Err = "Password is required";
-        }else if(strlen($_POST['pass1']) < 8 || !$numberCheck || !$specialCharsCheck){
-            $pw1Err = "password should be minimum 8 characters";
-        }*/
-
-
+    
+    
+    
     if (empty($_POST["pass1"])) {
         $pw1Err = "Password is required";
     } else if (strlen($_POST['pass1']) < 8) {
@@ -75,8 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($_POST["pass2"])) {
         $pw2Err = "Confirm Password is required";
+    } else if ($_POST["pass1"] !== $_POST["pass2"]) {
+        $pw2Err = "Passwords do not match";
     }
 }
+
 ?>
 
 <?php
@@ -394,7 +410,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="form-group" style="margin-right:50px;margin-left: 220px;">
             <label>Username (Enter Email Address)<span class="error">* <?php echo $emErr; ?></span></label>
             <br>
-            <input type="email" id="email" size="30" style="width: 340px;" name="email">
+            <input type="text" id="email" size="30" style="width: 340px;" name="email" value="<?php echo $_POST['email'] ?? ''; ?>">
         </div>
 
         <div class="form-row">
@@ -402,14 +418,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                 <label>Password<span class="error">* <?php echo $pw1Err; ?></span></label>
                 <br>
-                <input type="password" id="pass1" name="pass1" minlength="8" maxlength="15">
+                <input type="password" id="pass1" name="pass1" >
             </div>
 
 
             <div class="form-group">
                 <label>Confirm Password <span class="error"> *<?php echo $pw2Err; ?></span></label>
                 <br>
-                <input type="password" id="pass2" name="pass2">
+                <input type="password" id="pass2" name="pass2" maxlength="15" >
             </div>
 
         </div>
