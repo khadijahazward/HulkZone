@@ -39,10 +39,95 @@ include '../connect.php';
                 </div>
             </div>
             <div class="content">
+                <div class="row" style="margin-bottom: 0; justify-content: space-between;">
+                    <p style="font-size:20px; margin: 0; font-weight:bold;">PROGRESS BAR</p>
 
-                <div class="row" style="margin-bottom: 0;">
-                    <p style="font-size:20px; margin:0;font-weight:bold;">PROGRESS BAR</p>
+                    <button onclick="openForm()">View Supplement</button>   
                 </div>
+
+                
+                <?php
+                    $sql2 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
+                    $result2 = mysqli_query($conn, $sql2);
+
+                    if(mysqli_num_rows($result2)){
+                        $row2 = mysqli_fetch_assoc($result2);
+                        $startDate = date('Y-m-d', strtotime($row2['startDate']));
+                        $empid = $row2["employeeID"];
+                        //echo $startDate . $empid . $row1['memberID'];
+
+                        $query10 = "SELECT * FROM supplement WHERE memberID = $row1[memberID] AND employeeID = $empid AND startDate = '$row2[startDate]'";
+                        $result10 = mysqli_query($conn, $query10);
+                        
+                        if (mysqli_num_rows($result10) > 0) {
+                            $row10 = mysqli_fetch_assoc($result10);
+                            $supplementID = $row10["supplementID"];
+                            
+                            $query11= "select * from supplementlist where supplementID = $supplementID";
+                            $result11 = mysqli_query($conn, $query11);
+
+                            if(mysqli_num_rows($result11)){
+                                $row11 = mysqli_fetch_assoc($result11);
+                                $supplementName = $row11["supplementName"];
+                                $supplementType =  $row11["supplementType"];
+                                $supplementPhoto =  $row11["supplementPhoto"];
+                                echo '<div id="myForm" class="form-popup">';
+                                echo '<div class="form-container">
+                                        <div class="form-sub">
+                                            <img src="' . $supplementPhoto . '" alt="Supplement Photo" height ="100%" width="100%">
+                                        </div>
+                                        <div class="form-sub">
+                                            <h3> SUPPLEMENT </h3>
+                                            <p> Supplement Name: ' . $supplementName . '</p>
+                                            <p> Supplement Type: ' . $supplementType . '</p>
+                                            <button type="button" class="close" onclick="closeForm()" style="float:right; margin-top:20%;">Close</button>
+                                        </div>
+                                    </div>';
+                                echo '</div>';
+
+                            }else{
+                                echo '<div id="myForm" class="form-popup">';
+                                echo '<div class="form-container-02">
+                                   <div class = "no-supplement-p"> 
+                                        Supplement Not Found.
+                                    </div>
+                                    <div class = "no-supplement"> 
+                                        <button type="button" class="cancel" onclick="closeForm()" style="float:right;">Close</button>
+                                    </div>
+                                </div>';
+                                echo '</div>';
+                            }
+                            
+                        }else{
+                            echo '<div id="myForm" class="form-popup">';
+                            echo '<div class="form-container-02">
+                               <div class = "no-supplement-p"> 
+                                    No supplement recommendations found.
+                                </div>
+                                <div class = "no-supplement"> 
+                                    <button type="button" class="cancel" onclick="closeForm()" style="float:right;">Close</button>
+                                </div>
+                            </div>';
+                            echo '</div>';
+                        }
+                        
+                    }else{
+                        die("Query failed: " . mysqli_error($conn));
+                    }    
+                ?>
+                
+
+
+                <script>
+                    function openForm() {
+                    document.getElementById("myForm").style.display = "block";
+                    }
+
+                    function closeForm() {
+                    document.getElementById("myForm").style.display = "none";
+                    }
+                </script>
+
                 <div class="row" style="margin-top: 0;">
                     Visualize Your Progress with a Progress Indicator!
                 </div>

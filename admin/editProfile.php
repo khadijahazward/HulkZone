@@ -2,7 +2,7 @@
 include('authorization.php');
 //connect.php contains database connection details
 include('../../HulkZone/connect.php');
-
+include('notiCount.php');
 
 
 
@@ -116,8 +116,9 @@ if (isset($_POST['edit'])) {
     <title>Admin Profile | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
-    <link rel="stylesheet" href="css/table.css">
+    
     <link rel="stylesheet" type="text/css" href="css/profile.css">
+    
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -174,11 +175,24 @@ if (isset($_POST['edit'])) {
             <div class="contentLeft">
                 <p class="title">Admin Profile</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink; ?>"  alt="AdminLogo" class="adminLogo"></div>
+           
+            <div>
+        <div class="notification" style="margin-left: 690px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:730px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down" style="display:flex; flex-direction:row;">
             <div class="edit-profile">
                     <div>
@@ -286,7 +300,8 @@ if (isset($_POST['edit'])) {
                         <span class="error">* <?php echo  $confirmPasswordErr; ?></span>
 
                     </div>
-                    <div><button class="buttonS" name="edit" style="margin-left:670px;">Save</button></div>
+                    <div><button class="buttonS" name="edit" style="margin-left:670px;background-color:#FF9F29;border:none;width: 200px;border-radius:5px;color:#ffffff;font-size:18px;">
+                    Save</button></div>
                     <a href="viewProfile.php" class="link">
                         <div class="back"><span> Back</span></div>
                     </a>

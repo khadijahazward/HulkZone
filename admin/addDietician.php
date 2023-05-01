@@ -213,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!--Header-->
     <div class="content">
         <div class="contentLeft"><p class="title">ADD DIETICIAN</p></div>
-        <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
+        <div class="contentMiddle"><p class="myProfile" style="margin-left: 1080px;">My Profile</p></div>
         <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
 
