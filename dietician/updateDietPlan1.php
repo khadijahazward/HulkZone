@@ -649,7 +649,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Diet Plan</title>
-    <link href="Style/updateDietPlan.css" rel="stylesheet">
+    <link href="Style/updateDietPlan1.css" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
