@@ -180,20 +180,6 @@ if(mysqli_num_rows($result10) == 1){
     echo '<script> window.alert("Error of retieving sunday dietplan data!");</script>';
 }
 
-$mondayCurrentWeek = date("Y-m-d", strtotime('monday this week'));
-
-$query11 = "SELECT COUNT(*) as count FROM diet_plan_status WHERE status = 1 AND member_id = $memberID AND CompletedDate >= $mondayCurrentWeek AND CompletedDate <= NOW()";
-$result11 = mysqli_query($conn, $query11);
-
-if($result11){
-    $row11 = mysqli_fetch_assoc($result11);
-    $progressCount = $row11['count'];
-    $progressPrecentage = round($progressCount / 7 * 100);
-}else{
-    echo '<script> window.alert("Error of retrieving progress data!");</script>';
-    $progressPrecentage = 0;
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -203,7 +189,7 @@ if($result11){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Diet Plan</title>
-    <link href="Style/viewDietPlan.css" rel="stylesheet">
+    <link href="Style/viewDietPlan1.css" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
@@ -1360,24 +1346,6 @@ if($result11){
                     </tr>
                 </table>
                 <br><br>
-                <table class="progressTable">
-                    <tr>
-                        <td class="progressTopic">Progress</td>
-                        <td>
-                            <?php
-                             echo '
-                             
-                                <div class="progress">
-                                    <div class="bar" style="width: '.$progressPrecentage.'%;">
-                                        <p>'.$progressPrecentage.'%</p>
-                                    </div>
-                                </div>
-                             
-                             ';
-                            ?>
-                        </td>
-                    </tr>
-                </table>
             </form>
             <a href="dietPlan.php"><button class="saveButton">Back</button></a>
         </div>

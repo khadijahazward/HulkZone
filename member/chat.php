@@ -88,7 +88,6 @@ if(!$result7){
     <title>Chat | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/chat.css">
-    <meta http-equiv="refresh" content="5">
 </head>
 
 <body>
