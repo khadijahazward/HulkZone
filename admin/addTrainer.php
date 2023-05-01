@@ -140,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = 1; //active
 
     $role = 2; //1 = member, 2 = trainer, 3 = dietician
+    
 
     //checking if username already exists
     $sql = "select * from user where email = '$username'";
@@ -189,7 +190,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             // If all queries were successful, show a success message
                             if ($result3) {
+                              
                                 echo "<script> alert('Registration Successful!'); </script>";
+                                include('phpmailer.php');
                                 echo "<script>window.location.replace('manageTrainer.php');</script>";
                             } else {
                                 echo "<script> alert('Failed to add services. Please try again.'); </script>";
@@ -206,7 +209,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
+
 ?>
+
 
 
 <!DOCTYPE html>

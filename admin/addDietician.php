@@ -172,6 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             // If all queries were successful, show a success message
                             if ($result3) {
                                 echo "<script> alert('Registration Successful!'); </script>";
+                                include('phpmailer.php');
                                 echo "<script>window.location.replace('manageDietician.php');</script>";
                             } else {
                                 echo "<script> alert('Failed to add services. Please try again.'); </script>";
