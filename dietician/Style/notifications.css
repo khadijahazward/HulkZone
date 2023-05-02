@@ -1,0 +1,78 @@
+.notificationBtn{
+    color: rgba(0, 104, 55, 1);
+    background-color: transparent;
+    border: 0px;
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    cursor: pointer;
+}
+
+.notiContent {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.notiContainer {
+    background-color: white;
+    border: 1px solid black;
+    width: 270px;
+    max-height: 350px;
+    padding: 20px;
+    text-align: center;
+    right: 200px;
+    top: 40px;
+    position: absolute;
+    overflow-y: auto;
+}
+
+.notiContainer hr{
+    margin: 0px;
+}
+
+.notiContainer table{
+    width: 100%;
+}
+
+.notiContainer table tr{
+    vertical-align: middle;
+}
+
+.notiContainer .message{
+    width: 60%;
+    float: left;
+    font-size: 16px;
+    color: black;
+    vertical-align: middle;
+}
+
+.notiContainer .time{
+    width: 30%;
+    float: right;
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.notiContainer .read a{
+    font-size: 14px;
+    text-decoration: none;
+    color: rgba(26, 79, 131, 1);
+    font-weight: 700;
+    vertical-align: middle;
+}
+
+.noMessage{
+    text-align: center;
+    font-size: 16px;
+    color: black;
+    vertical-align: middle;
+}
+
+

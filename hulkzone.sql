@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 02, 2023 at 02:27 PM
+-- Generation Time: Apr 27, 2023 at 07:01 PM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -30,8 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `chat` (
   `chatID` int NOT NULL,
   `senderID` int NOT NULL,
-  `receiverID` int NOT NULL
+  `receiverID` int NOT NULL,
+  `message` text NOT NULL,
+  `dateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO `chat` (`chatID`, `senderID`, `receiverID`, `message`, `dateTime`, `status`) VALUES
+(23, 122, 86, 'Hi', '2023-04-21 15:33:43', 1),
+(24, 86, 122, 'Hi', '2023-04-21 15:54:34', 0),
+(25, 122, 86, 'Hi', '2023-04-24 15:05:22', 1);
 
 -- --------------------------------------------------------
 
@@ -56,7 +68,8 @@ CREATE TABLE `complaint` (
 
 INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `status`, `dateReported`, `actionTaken`, `userID`, `evidence`) VALUES
 (28, 'Injured in the gym', 'i was working out and then suddenly the equipment fell off from the top and hit my leg.', 'Ignored', '2023-02-15', 'completed', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676437108.jpg'),
-(29, 'i got beaten from my trainer', 'i was working out and was exhausted, so I took a rest. suddenly, my trainer came and slapped me.', 'completed', '2023-02-19', 'done', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676804757.jpg');
+(29, 'i got beaten from my trainer', 'i was working out and was exhausted, so I took a rest. suddenly, my trainer came and slapped me.', 'completed', '2023-02-19', 'done', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676804757.jpg'),
+(30, 'my data is upset', 'i dont want to work out anymore', 'Filed', '2023-03-09', NULL, 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1678341333.jpeg');
 
 -- --------------------------------------------------------
 
@@ -73,6 +86,45 @@ CREATE TABLE `dieticianappointment` (
   `status` varchar(100) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `dieticianappointment`
+--
+
+INSERT INTO `dieticianappointment` (`employeeID`, `memberID`, `date`, `startTime`, `endTime`, `status`) VALUES
+(8, NULL, '2023-04-10', '2023-04-10 08:00:00', '2023-04-10 09:00:00', '0'),
+(8, NULL, '2023-04-11', '2023-04-11 09:00:00', '2023-04-11 10:00:00', '0'),
+(8, NULL, '2023-04-11', '2023-04-11 22:00:00', '2023-04-11 23:00:00', '0'),
+(8, NULL, '2023-04-12', '2023-04-12 10:00:00', '2023-04-12 11:00:00', '0'),
+(8, 41, '2023-04-13', '2023-04-13 14:00:00', '2023-04-13 15:00:00', '1'),
+(8, NULL, '2023-04-13', '2023-04-13 16:00:00', '2023-04-13 17:00:00', '0'),
+(8, NULL, '2023-04-14', '2023-04-14 12:00:00', '2023-04-14 13:00:00', '0'),
+(8, NULL, '2023-04-15', '2023-04-15 15:00:00', '2023-04-15 16:00:00', '0'),
+(8, 41, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 13:00:00', '1'),
+(8, NULL, '2023-04-16', '2023-04-16 13:00:00', '2023-04-16 14:00:00', '0'),
+(8, NULL, '2023-04-16', '2023-04-16 16:00:00', '2023-04-16 17:00:00', '0'),
+(8, NULL, '2023-04-16', '2023-04-16 18:00:00', '2023-04-16 19:00:00', '0'),
+(10, NULL, '2023-04-17', '2023-04-17 08:00:00', '2023-04-17 09:00:00', '0'),
+(10, NULL, '2023-04-17', '2023-04-17 10:00:00', '2023-04-17 11:00:00', '0'),
+(10, NULL, '2023-04-17', '2023-04-17 12:00:00', '2023-04-17 13:00:00', '0'),
+(10, NULL, '2023-04-18', '2023-04-18 08:00:00', '2023-04-18 09:00:00', '0'),
+(10, NULL, '2023-04-18', '2023-04-18 10:00:00', '2023-04-18 11:00:00', '0'),
+(10, NULL, '2023-04-18', '2023-04-18 12:00:00', '2023-04-18 13:00:00', '0'),
+(10, NULL, '2023-04-19', '2023-04-19 08:00:00', '2023-04-19 09:00:00', '0'),
+(10, NULL, '2023-04-19', '2023-04-19 10:00:00', '2023-04-19 11:00:00', '0'),
+(10, NULL, '2023-04-19', '2023-04-19 12:00:00', '2023-04-19 13:00:00', '0'),
+(10, NULL, '2023-04-20', '2023-04-20 08:00:00', '2023-04-20 09:00:00', '0'),
+(10, NULL, '2023-04-20', '2023-04-20 10:00:00', '2023-04-20 11:00:00', '0'),
+(10, NULL, '2023-04-20', '2023-04-20 12:00:00', '2023-04-20 13:00:00', '0'),
+(10, NULL, '2023-04-21', '2023-04-21 08:00:00', '2023-04-21 09:00:00', '0'),
+(10, NULL, '2023-04-21', '2023-04-21 10:00:00', '2023-04-21 11:00:00', '0'),
+(10, NULL, '2023-04-21', '2023-04-21 12:00:00', '2023-04-21 13:00:00', '0'),
+(10, NULL, '2023-04-22', '2023-04-22 08:00:00', '2023-04-22 09:00:00', '0'),
+(10, NULL, '2023-04-22', '2023-04-22 10:00:00', '2023-04-22 11:00:00', '0'),
+(10, NULL, '2023-04-22', '2023-04-22 12:00:00', '2023-04-22 13:00:00', '0'),
+(10, NULL, '2023-04-23', '2023-04-23 08:00:00', '2023-04-23 09:00:00', '0'),
+(10, NULL, '2023-04-23', '2023-04-23 10:00:00', '2023-04-23 11:00:00', '0'),
+(10, NULL, '2023-04-23', '2023-04-23 12:00:00', '2023-04-23 13:00:00', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -80,15 +132,67 @@ CREATE TABLE `dieticianappointment` (
 --
 
 CREATE TABLE `dietplan` (
+  `diet_id` int NOT NULL,
   `employeeID` int NOT NULL,
-  `dietplanDate` date NOT NULL,
-  `mealType` varchar(100) NOT NULL,
-  `Qty` varchar(100) NOT NULL,
-  `day` varchar(100) NOT NULL,
-  `meal` varchar(100) NOT NULL,
-  `status` int NOT NULL DEFAULT '0',
-  `memberID` int NOT NULL
+  `memberID` int NOT NULL,
+  `startDate` datetime NOT NULL,
+  `breakfastMeal` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `breakfastQty` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `breakfastCal` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `lunchMeal` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `lunchQty` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `lunchCal` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `dinnerMeal` text COLLATE utf8mb4_general_ci NOT NULL,
+  `dinnerQty` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `dinnerCal` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `day` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dietplan`
+--
+
+INSERT INTO `dietplan` (`diet_id`, `employeeID`, `memberID`, `startDate`, `breakfastMeal`, `breakfastQty`, `breakfastCal`, `lunchMeal`, `lunchQty`, `lunchCal`, `dinnerMeal`, `dinnerQty`, `dinnerCal`, `day`) VALUES
+(1, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 1),
+(2, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 2),
+(3, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 3),
+(4, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 4),
+(5, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 5),
+(6, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 6),
+(7, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diet_plan_status`
+--
+
+CREATE TABLE `diet_plan_status` (
+  `statusID` int NOT NULL,
+  `member_id` int NOT NULL,
+  `CompletedDate` date NOT NULL,
+  `status` int NOT NULL,
+  `dietID` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `diet_plan_status`
+--
+
+INSERT INTO `diet_plan_status` (`statusID`, `member_id`, `CompletedDate`, `status`, `dietID`) VALUES
+(1, 41, '2023-04-11', 1, 1),
+(2, 41, '2023-04-12', 1, 2),
+(3, 41, '2023-04-13', 1, 3),
+(4, 41, '2023-04-14', 1, 4),
+(5, 41, '2023-04-15', 1, 5),
+(6, 41, '2023-04-16', 1, 6),
+(8, 41, '2023-04-17', 1, 1),
+(9, 41, '2023-04-18', 1, 2),
+(11, 41, '2023-04-24', 1, 1),
+(12, 41, '2023-04-25', 1, 2),
+(13, 41, '2023-04-26', 1, 3),
+(14, 41, '2023-04-27', 1, 4),
+(18, 41, '2023-04-28', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -178,30 +282,6 @@ INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `exercise`
---
-
-CREATE TABLE `exercise` (
-  `exerciseID` int NOT NULL,
-  `exerciseName` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `exercise`
---
-
-INSERT INTO `exercise` (`exerciseID`, `exerciseName`) VALUES
-(1, 'Bench Press'),
-(2, 'Shoulder Press'),
-(3, 'Military Press'),
-(4, 'Leg Press'),
-(5, 'Barbell Row'),
-(6, 'Leg Extension'),
-(7, 'Leg Curl');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `gymuseappointment`
 --
 
@@ -226,7 +306,9 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 (29, '2023-02-28', 41, 1, 1),
 (30, '2023-03-01', 41, 1, 1),
 (31, '2023-03-05', 41, 2, 1),
-(32, '2023-03-02', 41, 1, 0);
+(32, '2023-03-02', 41, 1, 0),
+(33, '2023-04-11', 41, 1, 0),
+(34, '2023-04-16', 41, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -322,7 +404,11 @@ CREATE TABLE `notifications` (
 
 INSERT INTO `notifications` (`notificationsID`, `message`, `created_at`, `type`) VALUES
 (1, 'Gym is closed today after4.00p.m', '2023-03-02 08:29:45', 0),
-(5, 'Keep the gym clean', '2023-03-02 13:27:04', 0);
+(5, 'Keep the gym clean', '2023-03-02 13:27:04', 0),
+(23, 'Your membership plan will expire in 3 days.', '2023-03-03 11:02:44', 2),
+(30, 'Member ID 41 membership plan has expired. The Account Has Been Disabled.', '2023-03-03 12:10:29', 2),
+(32, 'Member ID 41 Has Selected You to Train Them for Diet Service', '2023-03-11 12:52:44', 3),
+(33, 'Member ID 41 Has Selected You to Train Them for Diet Service', '2023-04-11 14:38:05', 3);
 
 -- --------------------------------------------------------
 
@@ -344,8 +430,9 @@ CREATE TABLE `payment` (
 
 INSERT INTO `payment` (`paymentID`, `paymentDate`, `amount`, `type`, `memberID`) VALUES
 (1, '2022-08-22 18:14:48', 10000, 4, 41),
-(2, '2023-02-24 18:17:15', 10000, 4, 41),
-(3, '2022-07-06 21:14:05', 10000, 3, 41);
+(16, '2023-03-11 09:40:21', 10000, 2, 41),
+(22, '2023-03-12 19:48:33', 5600, 0, 41),
+(23, '2023-04-11 14:38:05', 10000, 3, 41);
 
 -- --------------------------------------------------------
 
@@ -364,10 +451,8 @@ CREATE TABLE `paymentplan` (
 --
 
 INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
-(1, 55, '2023-06-02 00:00:00'),
-(2, 56, '2023-06-02 00:00:00'),
-(3, 57, '2023-09-02 00:00:00'),
-(4, 41, '2023-06-14 00:00:00');
+(6, 41, '2023-06-14 15:45:06'),
+(16, 41, '2023-12-14 15:45:06');
 
 -- --------------------------------------------------------
 
@@ -413,9 +498,10 @@ CREATE TABLE `servicecharge` (
 --
 
 INSERT INTO `servicecharge` (`memberID`, `paymentID`, `serviceID`, `employeeID`, `startDate`, `endDate`, `rate`) VALUES
-(41, 1, 4, 7, '2022-08-22 13:45:34', '2023-02-22 13:45:34', 2),
-(41, 2, 4, 7, '2023-02-24 18:18:13', '2023-08-24 18:18:13', 0),
-(41, 3, 3, 10, '2022-07-06 21:16:47', '2023-01-06 21:16:47', 2);
+(41, 1, 3, 10, '2022-06-01 13:48:14', '2022-12-01 13:48:14', 4),
+(41, 1, 4, 7, '2022-08-22 13:45:34', '2023-02-22 13:45:34', 1),
+(41, 16, 4, 7, '2023-03-11 09:40:21', '2023-09-11 09:40:21', 0),
+(41, 23, 3, 10, '2023-04-11 14:38:05', '2023-10-11 14:38:05', 0);
 
 -- --------------------------------------------------------
 
@@ -445,6 +531,43 @@ INSERT INTO `slots` (`slotID`, `sTime`, `eTime`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `supplement`
+--
+
+CREATE TABLE `supplement` (
+  `supplementID` int NOT NULL,
+  `employeeID` int NOT NULL,
+  `memberID` int NOT NULL,
+  `startDate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplementlist`
+--
+
+CREATE TABLE `supplementlist` (
+  `supplementID` int NOT NULL,
+  `supplementName` varchar(100) NOT NULL,
+  `supplementType` varchar(50) NOT NULL,
+  `supplementPhoto` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `supplementlist`
+--
+
+INSERT INTO `supplementlist` (`supplementID`, `supplementName`, `supplementType`, `supplementPhoto`) VALUES
+(18, 'Animal Cuts', 'Fat Burner', '../supplement/AnimalCuts.png'),
+(19, 'Critical Mass', 'Mass Gainers', '../supplement/CriticalMass.png'),
+(20, 'Critical Whey', 'Protein', '../supplement/CriticalWhey.png'),
+(21, 'ASSAULT', 'Pre workout', '../supplement/ASSAULT.png'),
+(22, 'Gat Liver Cleanse', 'Vitamin', '../supplement/GatLiverCleanse.png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `timeslots`
 --
 
@@ -467,7 +590,7 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (5, 1, 5, 10),
 (6, 1, 6, 10),
 (7, 1, 7, 10),
-(8, 2, 1, 9),
+(8, 2, 1, 8),
 (9, 2, 2, 10),
 (10, 2, 3, 10),
 (11, 2, 4, 10),
@@ -503,8 +626,8 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (41, 6, 6, 10),
 (42, 6, 7, 10),
 (43, 7, 1, 9),
-(44, 7, 2, 9),
-(45, 7, 3, 10),
+(44, 7, 2, 8),
+(45, 7, 3, 0),
 (46, 7, 4, 10),
 (47, 7, 5, 10),
 (48, 7, 6, 10),
@@ -518,12 +641,21 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 
 CREATE TABLE `trainerappointment` (
   `employeeID` int NOT NULL,
-  `memberID` int NOT NULL,
+  `memberID` int DEFAULT NULL,
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
-  `status` varchar(255) NOT NULL
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `trainerappointment`
+--
+
+INSERT INTO `trainerappointment` (`employeeID`, `memberID`, `date`, `startTime`, `endTime`, `status`) VALUES
+(7, NULL, '2023-04-15', '2023-04-15 20:00:00', '2023-04-15 22:00:00', '0'),
+(7, 41, '2023-04-16', '2023-04-16 10:00:00', '2023-04-16 12:00:00', '1'),
+(7, NULL, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 14:00:00', '0');
 
 -- --------------------------------------------------------
 
@@ -556,7 +688,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`, `dateOfBirth`, `roles`, `statuses`, `contactNumber`, `streetNumber`, `addressLine01`, `addressLine02`, `city`, `pw`, `created_at`, `email`) VALUES
-(86, 'Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.png', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
+(86, 'Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.jpg', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
 (99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
 (100, 'Saitharsan', 'Perera', '123456789012', 'Female', NULL, '2021-12-08', 2, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
 (101, 'kj', 'aj', '123456789V', 'Male', NULL, '1999-02-17', 3, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
@@ -591,8 +723,11 @@ CREATE TABLE `usernotifications` (
 --
 
 INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notificationsID`, `status`) VALUES
-(1, 86, 1, 0),
-(2, 86, 5, 0);
+(1, 86, 1, 1),
+(13, 86, 23, 1),
+(16, 128, 30, 0),
+(18, 101, 32, 0),
+(19, 101, 33, 0);
 
 -- --------------------------------------------------------
 
@@ -625,14 +760,28 @@ INSERT INTO `weekdays` (`weekDayID`, `weekDayName`) VALUES
 --
 
 CREATE TABLE `workoutplan` (
+  `workout_id` int NOT NULL,
   `employeeID` int NOT NULL,
   `memberID` int NOT NULL,
-  `workoutPlanMonth` datetime NOT NULL,
-  `day` varchar(100) NOT NULL,
-  `duration` int NOT NULL,
-  `exerciseID` int NOT NULL,
-  `restTime` int NOT NULL,
-  `status` int NOT NULL DEFAULT '0'
+  `startDate` datetime NOT NULL,
+  `exerciseName` varchar(50) NOT NULL,
+  `reps` int NOT NULL,
+  `restTime` int NOT NULL DEFAULT '3',
+  `day` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `workout_plan_status`
+--
+
+CREATE TABLE `workout_plan_status` (
+  `statusID` int NOT NULL,
+  `memberID` int NOT NULL,
+  `completedDate` date NOT NULL,
+  `status` int NOT NULL,
+  `workout_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -666,9 +815,18 @@ ALTER TABLE `dieticianappointment`
 -- Indexes for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD PRIMARY KEY (`employeeID`,`dietplanDate`,`mealType`,`memberID`),
-  ADD KEY `employeeID` (`employeeID`),
-  ADD KEY `memberID` (`memberID`);
+  ADD PRIMARY KEY (`diet_id`),
+  ADD KEY `day` (`day`),
+  ADD KEY `memberID` (`memberID`),
+  ADD KEY `employeeID` (`employeeID`);
+
+--
+-- Indexes for table `diet_plan_status`
+--
+ALTER TABLE `diet_plan_status`
+  ADD PRIMARY KEY (`statusID`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `dietID` (`dietID`);
 
 --
 -- Indexes for table `emergencycontact`
@@ -691,12 +849,6 @@ ALTER TABLE `employeeservice`
   ADD PRIMARY KEY (`serviceID`,`employeeID`),
   ADD KEY `serviceID` (`serviceID`,`employeeID`),
   ADD KEY `employeeID` (`employeeID`);
-
---
--- Indexes for table `exercise`
---
-ALTER TABLE `exercise`
-  ADD PRIMARY KEY (`exerciseID`);
 
 --
 -- Indexes for table `gymuseappointment`
@@ -734,8 +886,7 @@ ALTER TABLE `memberservice`
 -- Indexes for table `message`
 --
 ALTER TABLE `message`
-  ADD PRIMARY KEY (`messageID`,`chatID`),
-  ADD KEY `chatID` (`chatID`);
+  ADD PRIMARY KEY (`messageID`,`chatID`);
 
 --
 -- Indexes for table `notifications`
@@ -780,6 +931,21 @@ ALTER TABLE `slots`
   ADD PRIMARY KEY (`slotID`);
 
 --
+-- Indexes for table `supplement`
+--
+ALTER TABLE `supplement`
+  ADD PRIMARY KEY (`supplementID`,`employeeID`,`memberID`,`startDate`),
+  ADD KEY `supplementID` (`supplementID`),
+  ADD KEY `memberID` (`memberID`),
+  ADD KEY `employeeID` (`employeeID`);
+
+--
+-- Indexes for table `supplementlist`
+--
+ALTER TABLE `supplementlist`
+  ADD PRIMARY KEY (`supplementID`);
+
+--
 -- Indexes for table `timeslots`
 --
 ALTER TABLE `timeslots`
@@ -819,10 +985,18 @@ ALTER TABLE `weekdays`
 -- Indexes for table `workoutplan`
 --
 ALTER TABLE `workoutplan`
-  ADD PRIMARY KEY (`employeeID`,`memberID`,`workoutPlanMonth`,`day`),
-  ADD KEY `exerciseID` (`exerciseID`),
+  ADD PRIMARY KEY (`workout_id`),
+  ADD KEY `employeeID` (`employeeID`),
   ADD KEY `memberID` (`memberID`),
-  ADD KEY `employeeID` (`employeeID`);
+  ADD KEY `day` (`day`);
+
+--
+-- Indexes for table `workout_plan_status`
+--
+ALTER TABLE `workout_plan_status`
+  ADD PRIMARY KEY (`statusID`),
+  ADD KEY `memberID` (`memberID`),
+  ADD KEY `workout_id` (`workout_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -832,13 +1006,25 @@ ALTER TABLE `workoutplan`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `chatID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `chatID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `complaint`
 --
 ALTER TABLE `complaint`
-  MODIFY `complaintID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `complaintID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `dietplan`
+--
+ALTER TABLE `dietplan`
+  MODIFY `diet_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `diet_plan_status`
+--
+ALTER TABLE `diet_plan_status`
+  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `employee`
@@ -847,16 +1033,10 @@ ALTER TABLE `employee`
   MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `exercise`
---
-ALTER TABLE `exercise`
-  MODIFY `exerciseID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
 -- AUTO_INCREMENT for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `member`
@@ -874,19 +1054,19 @@ ALTER TABLE `message`
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `paymentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `paymentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -899,6 +1079,12 @@ ALTER TABLE `service`
 --
 ALTER TABLE `slots`
   MODIFY `slotID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `supplementlist`
+--
+ALTER TABLE `supplementlist`
+  MODIFY `supplementID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `timeslots`
@@ -916,13 +1102,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `usernotifications`
 --
 ALTER TABLE `usernotifications`
-  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
 --
 ALTER TABLE `weekdays`
   MODIFY `weekDayID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `workoutplan`
+--
+ALTER TABLE `workoutplan`
+  MODIFY `workout_id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -952,8 +1144,16 @@ ALTER TABLE `dieticianappointment`
 -- Constraints for table `dietplan`
 --
 ALTER TABLE `dietplan`
-  ADD CONSTRAINT `dietplan_ibfk_2` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `dietplan_ibfk_3` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dietplan_ibfk_1` FOREIGN KEY (`day`) REFERENCES `weekdays` (`weekDayID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dietplan_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dietplan_ibfk_3` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `diet_plan_status`
+--
+ALTER TABLE `diet_plan_status`
+  ADD CONSTRAINT `diet_plan_status_ibfk_1` FOREIGN KEY (`member_id`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `diet_plan_status_ibfk_2` FOREIGN KEY (`dietID`) REFERENCES `dietplan` (`diet_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `emergencycontact`
@@ -1002,12 +1202,6 @@ ALTER TABLE `memberservice`
   ADD CONSTRAINT `memberservice_ibfk_3` FOREIGN KEY (`serviceID`) REFERENCES `service` (`serviceID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `message`
---
-ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`chatID`) REFERENCES `chat` (`chatID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
@@ -1053,9 +1247,16 @@ ALTER TABLE `usernotifications`
 -- Constraints for table `workoutplan`
 --
 ALTER TABLE `workoutplan`
-  ADD CONSTRAINT `workoutplan_ibfk_1` FOREIGN KEY (`exerciseID`) REFERENCES `exercise` (`exerciseID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `workoutplan_ibfk_1` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `workoutplan_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `workoutplan_ibfk_3` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `workoutplan_ibfk_3` FOREIGN KEY (`day`) REFERENCES `weekdays` (`weekDayID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `workout_plan_status`
+--
+ALTER TABLE `workout_plan_status`
+  ADD CONSTRAINT `workout_plan_status_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `workout_plan_status_ibfk_2` FOREIGN KEY (`workout_id`) REFERENCES `workoutplan` (`workout_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

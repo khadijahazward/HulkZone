@@ -2,6 +2,8 @@
 // Connect to database
 include('../connect.php');
 include('authorization.php');
+include('notiCount.php');
+
 
 // Total Members Query
 $totalMembersQuery = "SELECT COUNT(*) AS total FROM user where roles=1";
@@ -51,8 +53,11 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
   $data2[$row2['status']] = $row2['count'];
 }
 
-mysqli_close($conn);
 
+
+?>
+<?php
+include('setAdminProfilePic.php');
 ?>
 
 
@@ -81,6 +86,7 @@ mysqli_close($conn);
         }
     </style>-->
 
+
 </head>
 
 <body>
@@ -93,10 +99,23 @@ mysqli_close($conn);
       <div class="contentLeft">
         <p class="title">Dashboard</p>
       </div>
-      <div class="contentMiddle">
+
+      <div>
+        <div class="notification" style="margin-left: 770px;" >
+          <?php
+          include 'notifications.php';
+          ?>
+        </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:808px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:35px;">
         <p class="myProfile">My Profile</p>
       </div>
-      <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <!-- below the header -->
     <div class="down">
@@ -224,7 +243,7 @@ mysqli_close($conn);
                   backgroundColor: 'rgba(255, 0, 0, 0.5)',
                   borderColor: 'rgba(0, 0, 255, 0.7)',
                   data: [
-                    <?php echo isset($data2[1]['Male']) ? $data[1]['Male'] : 0 ?>,
+                    <?php echo isset($data[1]['Male']) ? $data[1]['Male'] : 0 ?>,
                     <?php echo isset($data[2]['Male']) ? $data[2]['Male'] : 0 ?>,
                     <?php echo isset($data[3]['Male']) ? $data[3]['Male'] : 0 ?>
                   ]

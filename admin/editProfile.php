@@ -2,6 +2,9 @@
 include('authorization.php');
 //connect.php contains database connection details
 include('../../HulkZone/connect.php');
+include('notiCount.php');
+
+
 
 // define form validation variables
 $fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = "";
@@ -98,6 +101,7 @@ if (isset($_POST['edit'])) {
     $city = $user['city'];
     $pw = $user['pw'];
     $email = $user['email'];
+    
 }
 
 ?>
@@ -112,8 +116,9 @@ if (isset($_POST['edit'])) {
     <title>Admin Profile | Admin</title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/sideBar.css">
-    <link rel="stylesheet" href="css/table.css">
+    
     <link rel="stylesheet" type="text/css" href="css/profile.css">
+    
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -162,6 +167,7 @@ if (isset($_POST['edit'])) {
 <body>
     <?php
     include('../admin/sideBar.php');
+    include('setAdminProfilePic.php');
     ?>
     <div class="right">
 
@@ -169,17 +175,30 @@ if (isset($_POST['edit'])) {
             <div class="contentLeft">
                 <p class="title">Admin Profile</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+           
+            <div>
+        <div class="notification" style="margin-left: 690px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:730px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down" style="display:flex; flex-direction:row;">
-            <div class="edit-profile" ">
+            <div class="edit-profile">
                     <div>
                         <!--dp-->
-                        <img src=" ../../HulkZone/asset/images/adminProfile.png" alt="dp" width="1200px"
-                height="1200px">
+                        <img src="<?php echo $profilePictureLink; ?>" alt="dp" width="200px" height="200px">
+               
             </div>
             <div>
                 <?php
@@ -192,10 +211,28 @@ if (isset($_POST['edit'])) {
                 <!--User Type-->
             </div>
             <div style="margin: 30px;">
-                <!--changing profile pic-->
-                <a href="editProfile.php"><button class="open-button" style="height: 35px;border-radius:5px;">Choose
-                        Photo</button></a>
-            </div>
+                        <!--changing profile pic-->
+                        <button class="open-button" onclick="openForm()">Choose Photo</button>
+
+                        <div id="myForm" class="form-popup">
+
+                            <form action="../admin/updateProfilePic.php" class="form-container" method="post" enctype="multipart/form-data">
+                                <input type="file" name="image">
+                                <br>
+                                <button type="submit">Upload Image</button>
+                                <button type="button" class="cancel" onclick="closeForm()">Close</button>
+                            </form>
+                        </div>
+                        <script>
+                                function openForm() {
+                                document.getElementById("myForm").style.display = "block";
+                                }
+
+                                function closeForm() {
+                                document.getElementById("myForm").style.display = "none";
+                                }
+                        </script>
+                    </div>
 
         </div>
 
@@ -263,7 +300,8 @@ if (isset($_POST['edit'])) {
                         <span class="error">* <?php echo  $confirmPasswordErr; ?></span>
 
                     </div>
-                    <div><button class="buttonS" name="edit" style="margin-left:670px;">Save</button></div>
+                    <div><button class="buttonS" name="edit" style="margin-left:670px;background-color:#FF9F29;border:none;width: 200px;border-radius:5px;color:#ffffff;font-size:18px;">
+                    Save</button></div>
                     <a href="viewProfile.php" class="link">
                         <div class="back"><span> Back</span></div>
                     </a>

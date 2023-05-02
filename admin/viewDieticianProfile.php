@@ -1,5 +1,6 @@
 <?php
 include('authorization.php');
+include('notiCount.php');
 ?>
 <?php
     include('../connect.php');
@@ -7,14 +8,17 @@ include('authorization.php');
     // Retrieve employee details using employeeID
     $employeeID = $_GET['employeeID'];
     $sql = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
-    $result = $conn->query($sql);
+    $result = mysqli_query($conn, $sql);
     $employeeDetails = $result->fetch_assoc();
     
     // Retrieve user details using userID from employee table
     $userID = $employeeDetails['userID'];
     $sql = "SELECT * FROM user WHERE userID = '$userID'";
-    $result = $conn->query($sql);
+    $result =  mysqli_query($conn, $sql);
     $userDetails = $result->fetch_assoc();
+?>
+<?php
+include('setAdminProfilePic.php');
 ?>
 
 
@@ -47,18 +51,38 @@ include('../admin/sideBar.php');
 
 <div class="content" >
     <div class="contentLeft">
-        <p class="title">Dietician Name</p>
+        <p class="title"><?php 
+                            
+                            echo $userDetails['fName'] . ' ' . $userDetails['lName']; 
+                        ?></p>
     </div>
-    <div class="contentMiddle">
-        <p class="myProfile">My Profile</p>
+    <div>
+        <div class="notification" style="margin-left: 710px;top:14px;" >
+          <?php
+          include 'notifications.php';
+          ?>
+        </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:750px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:10px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
-    <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
-</div>
     <div class="down" style="display:flex; flex-direction:row;">
                 <div class="edit-profile">
                     <div>
                         <!--dp-->
-                        <img src="../../HulkZone/asset/images/adminProfile.png" alt="dp" width="200px" height="200px">
+                         <!--dp-->
+                    <?php if (isset($userDetails['profilePhoto']) && $userDetails['profilePhoto'] != NULL) : ?>
+                        <img src="<?php echo $userDetails['profilePhoto']; ?>" alt="dp" width="200px" height="200px">
+                    <?php else : ?>
+                        <img src="../profileImages/default.png" alt="default dp" width="200px" height="200px">
+                    <?php endif; ?>
                     </div>
                     <div>
                         <?php 
@@ -69,6 +93,7 @@ include('../admin/sideBar.php');
                         Dietician<!--User Type-->
                         <br>
                     </div>
+                   
                    
                         
                     <div style="margin: 20px;">

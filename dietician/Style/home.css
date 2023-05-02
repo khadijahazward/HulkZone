@@ -52,13 +52,12 @@
     border-radius: 50%;
 }
 
-.notification {
-    font-size: 20px;
-    color: rgba(0, 104, 55, 1);
-    position: absolute;
+.notification{
+    left: 1310px;
     top: 15px;
-    left: 1300px;
-    z-index: 6;
+    font-size: 20px;
+    position: absolute;
+    color: rgba(0, 104, 55, 1);
 }
 
 .leftBar {
@@ -886,11 +885,11 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #82B1A9;
+    background: none;
     border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #446A76;
+    background: none;
 }

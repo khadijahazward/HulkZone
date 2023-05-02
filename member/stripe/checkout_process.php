@@ -1,4 +1,8 @@
 <?php
+  include '../authorization.php';
+  include 'C:\xampp\htdocs\HulkZone\connect.php';
+?>
+<?php
 
 include('../stripe/stripe-php/init.php');
 // require_once '../vendor/autoload.php';
@@ -11,15 +15,19 @@ $url =  "http://localhost/HulkZone/member/stripe/";
 echo $url;
 $YOUR_DOMAIN = $url;
 
+$paymentAmount = $_POST['paymentAmount'];
+$type = $_POST['type'];
+$employeeID = isset($_POST['employeeID']) ? $_POST['employeeID'] : 0;
+
 $checkout_session = \Stripe\Checkout\Session::create([
   'payment_method_types' => ['card'],
   'line_items' => [[
     'price_data' => [
       'currency' => 'lkr',
-      'unit_amount' => 50000, //smallest currency unit which is cents //100 cents = 1 lkr
+      'unit_amount' => $paymentAmount * 100, //smallest currency unit which is cents //100 cents = 1 lkr
       'product_data' => [
-        'name' => 'Strubborn Attachments',
-        'images' => ["https://i.imagur.com/EMyR2nP.png"],
+        'name' => 'Payment',
+        'images' => ["../images/pay.jpg"],
       ],
     ],
     # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
@@ -27,8 +35,8 @@ $checkout_session = \Stripe\Checkout\Session::create([
     'quantity' => 1,
   ]],
   'mode' => 'payment',
-  'success_url' => $YOUR_DOMAIN . '/success.html',
-  'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+  'success_url' => $YOUR_DOMAIN . '/success.php?amount=' . $paymentAmount . '&type=' . $type . '&employeeID=' . $employeeID,
+  'cancel_url' => $YOUR_DOMAIN . '/cancel.php',
 ]);
 
 header("HTTP/1.1 303 See Other");

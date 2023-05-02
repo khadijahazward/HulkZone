@@ -59,7 +59,7 @@ include '../connect.php';
         if($dayUntilExpiry == 0){
 
             // Check if a notification has already been sent to admin
-            // for type: Announcement = 0, Complaint = 1, Payment = 2.
+            // for type: Announcement = 0, Complaint = 1, Payment = 2, service selection =3 
             $adminID = 128;
             $sql9 = "SELECT notificationsID FROM notifications WHERE type = 2 AND DATE(created_at) = '$cDate' AND notificationsID IN (SELECT notificationsID FROM usernotifications WHERE userID = $adminID)";
             $result9 = mysqli_query($conn, $sql9);
@@ -92,7 +92,7 @@ include '../connect.php';
             $result12 = mysqli_query($conn, $sql12);
             
             if ($result12) {
-                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please contact the admin for more information.');</script>";
+                echo "<script>alert('Your Payment plan has expired. Your account has been disabled. Please Pay the Payment to enable your account.');</script>";
                 header("Location: ../home/logout.php");
                 exit();
             } else {
@@ -139,70 +139,129 @@ include '../connect.php';
                 </div>
             </div>
             <div class="content">
+
+            <!-- Diet PLAN -->
                 <div class="row">
-                    <p>Today’s Meal Plan</p>
+                    <p>Meal Plan For <?php echo date("Y-m-d"); ?></p>
                     <div class="row-2">
-                        <div class="sub-content">
-                            <p>Breakfast</p>
-                            <!--retreive-->
-                            <div>X</div>
-                        </div>
-                        <div class="sub-content">
-                            <p>Lunch</p>
-                            <!--retreive-->
-                            <div>X</div>
-                        </div>
-                        <div class="sub-content">
-                            <p>Dinner</p>
-                            <!--retreive-->
-                            <div>X</div>
-                        </div>
+                        <?php
+                        $dayNumber = date('N');
+                        $sql6 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
+                        $result6 = mysqli_query($conn, $sql6);
+                        
+                        if (mysqli_num_rows($result6) > 0) {
+                            $row6 = mysqli_fetch_assoc($result6);
+                            $startDate = $row6['startDate'];
+                            $empid = $row6['employeeID'];
+                            $memberID = $row6['memberID'];
+                        
+                            $sql7 = "SELECT * FROM dietplan WHERE startDate = '$startDate' AND employeeID = '$empid' AND memberID = '$memberID' AND day = $dayNumber";
+                            $result7 = mysqli_query($conn, $sql7);
+                        
+                            if (mysqli_num_rows($result7) > 0) {
+                                $row7 = mysqli_fetch_assoc($result7);
+                                $breakfastMeal = $row7['breakfastMeal'];
+                                $lunchMeal = $row7['lunchMeal'];
+                                $dinnerMeal = $row7['dinnerMeal'];
+                        
+                                // Output the meal plan
+                                echo '<div class="sub-content">
+                                        <p>Breakfast</p>
+                                        <div>'.$breakfastMeal.'</div>
+                                    </div>
+                                    <div class="sub-content">
+                                        <p>Lunch</p>
+                                        <div>'.$lunchMeal.'</div>
+                                    </div>
+                                    <div class="sub-content">
+                                        <p>Dinner</p>
+                                        <div>'.$dinnerMeal.'</div>
+                                    </div>';
+                            }else{
+                                $message = "No information available";
+                                // Output the meal plan
+                                echo '<div class="sub-content">
+                                        <p>Breakfast</p>
+                                        <div>'.$message.'</div>
+                                    </div>
+                                    <div class="sub-content">
+                                        <p>Lunch</p>
+                                        <div>'.$message.'</div>
+                                    </div>
+                                    <div class="sub-content">
+                                        <p>Dinner</p>
+                                        <div>'.$message.'</div>
+                                    </div>';
+                            }
+                        }else{
+                            $message = "No information available";
+                            // Output the meal plan
+                            echo ' <div class="sub-content">
+                                    <p>Breakfast</p>
+                                    <div>'.$message.'</div>
+                                </div>
+                                <div class="sub-content">
+                                    <p>Lunch</p>
+                                    <div>'.$message.'</div>
+                                </div>
+                                <div class="sub-content">
+                                    <p>Dinner</p>
+                                    <div>'.$message.'</div>
+                                </div>';
+                        }
+                        ?>
+                        
                     </div>
                 </div>
                 <div class="row">
-                    <p>Upcoming Exercises</p>
+                    <p>Upcoming Exercises For <?php echo date("Y-m-d"); ?></p>
                     <div class="row" style = "border: 0px; margin-top:0;">
                         <?php
-                            //edit this query - wrong
-                            $sql3 = "select * from workoutplan where memberID = " . $row1['memberID'];
 
-                            echo '<table> 
-                            <tr  style = "background-color: #006837;"> 
-                                <th> Exercise </th> 
-                                <th> Duration </th> 
-                                <th> Rest Time </th> 
-                                <th> Status </th> 
-                            </tr>';
-                            $result3 = mysqli_query($conn, $sql3);
-                            if (mysqli_num_rows($result3) > 0) {
-                                while ($row3 = mysqli_fetch_assoc($result3)) {
+                            $sql8 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID in (1,2,4) AND endDate >= CURDATE() LIMIT 1";
+                            $result8 = mysqli_query($conn, $sql8);
+
+                            if (mysqli_num_rows($result8) > 0) {
+                                $row8 = mysqli_fetch_assoc($result8);
+                                $startDate = $row8['startDate'];
+                                $empid = $row8['employeeID'];
+
+                                $sql = "SELECT * FROM workoutplan WHERE employeeID = '$empid' AND startDate = '$startDate' AND day = $dayNumber AND memberID = $row1[memberID]";
+                                $result = mysqli_query($conn, $sql);
+                                echo '<table> 
+                                <tr  style = "background-color: #006837;"> 
+                                    <th> Exercise Name </th> 
+                                    <th> Sets </th> 
+                                    <th> Rest Time </th> 
+                                </tr>';
+
+                                if (mysqli_num_rows($result) > 0) {
                                     
-                                    //retrieving exercise name from the exercise table using exercise ID
-                                    $exerciseID = $row3["exerciseID"];
-
-                                    $sql4 = "select exerciseName from exercise where exerciseID =  " . $exerciseID;
-                                    $result4 = mysqli_query($conn, $sql4);
-                                    $row4 = mysqli_fetch_assoc($result4);
-                                    $field1name = $row4["exerciseName"];
-
-                                    $field2name = $row3["duration"];
-                                    $field3name = $row3["restTime"];
-                                    $field4name = $row3["status"];
-
-                                    echo '<tr> 
-                                        <td>'.$field1name.'</td> 
-                                        <td>'.$field2name.'</td> 
-                                        <td>'.$field3name.'</td> 
-                                        <td><input type="checkbox" name="status[]" value="'.$row3["status"].'" '.($field4name == 1 ? 'checked' : '').'></td> 
-                                    </tr>';
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $field2name = $row["exerciseName"];
+                                        $field3name = $row["reps"];
+                                        $field4name = $row["restTime"] . " Minutes";
+                            
+                                        echo '<tr> 
+                                            <td>'.$field2name.'</td> 
+                                            <td>'.$field3name.'</td> 
+                                            <td>'.$field4name.'</td> 
+                                        </tr>';
+                                    }
+                                    echo '</table>';
+                                }else{
+                                    echo '<tr>
+                                        <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
+                                    </tr>'; 
+                                    echo '</table>';
                                 }
+
                             }else{
                                 echo '<tr>
-                                    <td colspan="4" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
-
+                                    <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
                                 </tr>'; 
+                                echo '</table>';
                             }
-                            echo '</table>';
                         ?>
                     </div>
                 </div>

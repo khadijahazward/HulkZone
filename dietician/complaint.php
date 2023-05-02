@@ -53,6 +53,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <title>Complaints</title>
     <link href="Style/complaint.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 
 <body>
@@ -63,6 +64,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <div class="notification">
+                    <?php
+                        include 'notifications.php'; 
+                    ?>
+                </div>
                 <img src="<?php echo $profilePic; ?>" alt="my profile" class="myProfile">
             </div>
         </div>
@@ -93,9 +99,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="topic">
                 <p>Complaints</p>
             </div>
-            <button class="complaintBtn" onclick="window.location.href='createComplaint.php'">Create a
+            <button class="complaintBtn" onclick="window.location.href='createComplaint.php'"> Create a
                 complaint</button>
-            <div class="gridContainer">
+            <div class=" gridContainer">
                 <table>
                     <thead>
                         <tr>

@@ -2,11 +2,12 @@
 include('authorization.php');
 // Connect to the database
 include('../../HulkZone/connect.php');
+include('notiCount.php');
 // Get the announcementID from the URL
 $notificationsID = mysqli_real_escape_string($conn, $_GET['notificationsID']);
 
 // Check for the form submission
-if (isset($_POST['submit'])) {
+/*if (isset($_POST['submit'])) {
     // Get the form data
     $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
 
@@ -31,7 +32,7 @@ if (isset($_POST['submit'])) {
     // Redirect the user to the view announcements page
     header("Location: viewAnnouncements.php");
     exit();
-}
+}*/
 
 // Prepare the select statement
 $stmt = $conn->prepare("SELECT message FROM notifications WHERE notificationsID = ?");
@@ -49,6 +50,9 @@ $stmt->fetch();
 // Close the statement and connection
 $stmt->close();
 $conn->close();
+?>
+<?php
+include('setAdminProfilePic.php');
 ?>
 
 
@@ -80,12 +84,23 @@ $conn->close();
             <div class="contentLeft">
                 <p class="title">Announcements</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 716px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:755px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
 
+
+      <div class="contentMiddle" style="margin-left:30px;">
+        <p class="myProfile">My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down">
             <div class="topic">
                 <h1>Add Announcement</h1>
@@ -94,7 +109,7 @@ $conn->close();
             ?>
             <hr style="width: 98%;">
             <div class="addAnnouncementForm">
-                <form method="POST" onsubmit="return confirmSubmission()">
+                <form method="POST" action="createAnnouncements.php" onsubmit="return confirmSubmission()">
                     <label class="formContent">Message</label>
                     <textarea name="m" id="" cols="30" rows="10" style="width: 80%;" required><?php echo $message; ?></textarea>
                     <br>

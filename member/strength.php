@@ -72,7 +72,7 @@ include '../connect.php';
                                 while ($row6 = mysqli_fetch_assoc($result6)) {
                                     $employeeID = $row6["employeeID"];
                                     $endDate = $row6["endDate"];
-                                    
+                                    $startDate = $row6["startDate"];
                                     //getting user id from employee
                                     $sql7 = "select * from employee where employeeID = $employeeID";
                                     $result7 = mysqli_query($conn, $sql7);
@@ -106,6 +106,7 @@ include '../connect.php';
 
                                     //field names for table
                                     $field1name = $row8["fName"] . " " . $row8["lName"];
+                                    $field4name = date('Y.m.d', strtotime($startDate)) . ' - ' . date('Y.m.d', strtotime($endDate));
                                     $field2name = $stars;
                                     $field3name = '<button onclick="openForm()"' . ($rate_button_enabled ? '' : 'disabled') . '>Rate Now</button>';
 
@@ -195,8 +196,9 @@ include '../connect.php';
                                     }
                             
                                     echo '<tr> 
-                                        <td style="text-align:left; padding-left: 50px;">'.$field1name.'</td> 
-                                        <td>'.$field2name.'</td> 
+                                        <td style="text-align:left; padding-left: 50px; width:40%;">'.$field1name.'</td> 
+                                        <td style="text-align: right;  width:30%;">'.$field4name.'</td> 
+                                        <td style="text-align:right;">'.$field2name.'</td> 
                                         <td>'.$field3name.'</td> 
                                     </tr>';
                                 }
@@ -252,8 +254,8 @@ include '../connect.php';
                                         $payNow = 'javascript:void(0);';
                                         $onclick = 'onclick="alert(\'You already have an ongoing service and cannot obtain another one until it ends.\'); return false;"';                                    
                                     } else {
-                                        $payNow = 'pay_now.php?employeeID='.$employeeID.'&serviceID=1';
-                                        $onclick = "";
+                                        $payNow = '../member/stripe/checkout.php?type='.$serviceID.'&amount=10000&employeeID='.$employeeID;
+                                        $onclick = 'onclick="window.location.href=\''.$payNow.'\';"';
                                     }
 
                                     $field3name = '<a href="'.$payNow.'" class = "button" '.$onclick.'>Pay Now</a>';

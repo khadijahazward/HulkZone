@@ -14,8 +14,8 @@ $row1 = mysqli_fetch_assoc($result1);
 
 if (isset($_POST['edite'])) {
 
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
+    $fname = ucwords($_POST['fname']);
+    $lname = ucwords($_POST['lname']);
     $nic = $_POST['nic'];
     $DOB = $_POST['DOB'];
     $phone = $_POST['phone'];
@@ -29,7 +29,7 @@ if (isset($_POST['edite'])) {
     $language = $_POST['language'];
     $bio = $_POST['bio'];
 
-    
+
     if (empty($fname)) {
         $fnameErr = "First Name is required";
     }
@@ -47,13 +47,13 @@ if (isset($_POST['edite'])) {
         $nicErr = "Invalid NIC number";
     }
 
-    if(empty($DOB)){
+    if (empty($DOB)) {
         $DOBErr = "Date of Birth is required";
     }
 
     if (empty($phone)) {
         $phoneErr = "Phone number is required";
-    } 
+    }
 
     if (empty($gender)) {
         $genderErr = "Gender is required";
@@ -90,6 +90,115 @@ if (isset($_POST['edite'])) {
     }
 }
 
+$query4 = "SELECT * FROM employee WHERE userID = $userID";
+$result4 = mysqli_query($conn, $query4);
+$row4 = mysqli_fetch_assoc($result4);
+$employeeID = $row4['employeeID'];
+
+
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
+$result5 = mysqli_query($conn, $query5);
+$row5 = mysqli_fetch_assoc($result5);
+$rate01 = $row5['count'];
+
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
+$result6 = mysqli_query($conn, $query6);
+$row6 = mysqli_fetch_assoc($result6);
+$rate02 = $row6['count'];
+
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
+$result7 = mysqli_query($conn, $query7);
+$row7 = mysqli_fetch_assoc($result7);
+$rate03 = $row7['count'];
+
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
+$result8 = mysqli_query($conn, $query8);
+$row8 = mysqli_fetch_assoc($result8);
+$rate04 = $row8['count'];
+
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
+$result9 = mysqli_query($conn, $query9);
+$row9 = mysqli_fetch_assoc($result9);
+$rate05 = $row9['count'];
+
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
+$result10 = mysqli_query($conn, $query10);
+$row10 = mysqli_fetch_assoc($result10);
+$rate00 = $row10['count'];
+
+$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
+$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
+$avarageOfRates = $totalOfRates / $totalCountOfRates;
+$formattedAvarageOfRates = number_format($avarageOfRates, 2);
+
+
+?>
+
+
+
+
+<!-- Change Profile Picture -->
+<?php
+if (isset($_FILES['image'])) {
+    $errors = array();
+    $file_name = $_FILES['image']['name'];
+    $file_size = $_FILES['image']['size'];
+    $file_tmp = $_FILES['image']['tmp_name'];
+    $file_type = $_FILES['image']['type'];
+
+    $file_ext_array = explode('.', $file_name);
+    if (count($file_ext_array) > 1) {
+        $file_ext = strtolower(end($file_ext_array));
+    } else {
+        $errors[] = "File extension could not be determined.";
+    }
+
+    $expensions = array("jpeg", "jpg", "png");
+    if (!in_array($file_ext, $expensions)) {
+        $errors[] = "Extension not allowed, please choose a JPEG or PNG file.";
+    }
+    if ($file_size > 2097152) {
+        $errors[] = 'File size must be exactly 2 MB';
+    }
+
+    if (empty($errors)) {
+        // Get the user ID from the session
+        $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
+
+        // Create a new file name using the user ID and the file extension
+        $newFileName = $userID . '.' . $file_ext;
+
+        // Set the folder where the uploaded file will be stored
+        $folder = "../profileImages/";
+
+        // Set the full path of the uploaded file
+        $file_path = $folder . $newFileName;
+
+        // Move the uploaded file to the target directory
+        move_uploaded_file($file_tmp, $file_path);
+
+        // Update the user's profile photo path in the database
+        $query = "UPDATE user SET profilePhoto='$file_path' WHERE userID='$userID'";
+        $result = mysqli_query($conn, $query);
+
+        if (!$result) {
+            echo "Error: " . mysqli_error($conn);
+        } else {
+            // Redirect the user to their profile page
+            echo "<script>window.location.href = 'profile.php'; location.reload();</script>";
+            exit();
+        }
+    } else {
+        // Display the error messages and redirect the user back to their profile page
+        echo "<script>
+            alert('" . implode("\\n", $errors) . "');
+        </script>";
+        echo "<script>window.location.href = 'profile.php';</script>";
+        exit();
+    }
+}
+
+
 ?>
 
 
@@ -112,13 +221,18 @@ if (isset($_POST['edite'])) {
                 <p>HULK ZONE</p>
             </div>
             <div>
+                <!-- <div class="notification">
+                    <?php
+                        // include 'notifications.php'; 
+                    ?>
+                </div> -->
                 <img src="<?php echo $profilePic ?>" alt="my profile" class="myProfile">
             </div>
         </div>
         <div class="leftBar">
             <div class="leftBarContent">
                 <hr>
-                <a href="home.html"><i class="fa fa-home"></i>Home</a>
+                <a href="home.php"><i class="fa fa-home"></i>Home</a>
                 <hr>
                 <a href="members.php"><i class="fa fa-group"></i>Members</a>
                 <hr>
@@ -143,19 +257,28 @@ if (isset($_POST['edite'])) {
                 <img src="<?php echo $profilePic ?>" alt="Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
-                        <?php echo $row1['fName'] ." ". $row1['lName']; ?></p>
+                        <?php echo $row1['fName'] . " " . $row1['lName']; ?></p>
                     <p style="font-weight: 400; font-size: 15px;">Dietician</p>
                 </div>
                 <button onclick="document.getElementById('image').style.display='block'"><i
                         class="fa fa-pencil"></i>Change
                     Profile</button>
                 <div class="rates">
-                    <p style="font-weight: 700; font-size: 15px;">100 Rates</p>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+                    <p style="font-weight: 700; font-size: 15px;">
+                        <?php echo $formattedAvarageOfRates ?> Rates
+                    </p>
+                    <?php
+                    
+
+                    for ($i = 1; $i <= 5; $i++) {
+                        if ($i <= $formattedAvarageOfRates) {
+                            echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
+                        } else {
+                            echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
+                        }
+                    }
+                    ?>
+
                 </div>
             </div>
             <div class="content">
@@ -173,7 +296,7 @@ if (isset($_POST['edite'])) {
                                 <td>
                                     <label for="fname">First Name</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$fnameErr ?>
+                                        <?php echo "*" . $fnameErr ?>
                                     </span><br>
                                     <input type="text" id="fname" name="fname" class="textBox"
                                         value="<?php echo $row1['fName'] ?>">
@@ -181,7 +304,7 @@ if (isset($_POST['edite'])) {
                                 <td>
                                     <label for="lname">Last Name</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$lnameErr ?>
+                                        <?php echo "*" . $lnameErr ?>
                                     </span><br>
                                     <input type="text" id="lname" name="lname" class="textBox"
                                         value="<?php echo $row1['lName'] ?>">
@@ -191,7 +314,7 @@ if (isset($_POST['edite'])) {
                                 <td>
                                     <label for="nic">NIC</label>&nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$nicErr ?>
+                                        <?php echo "*" . $nicErr ?>
                                     </span><br>
                                     <input type="text" id="nic" name="nic" class="textBox"
                                         value="<?php echo $row1['NIC'] ?>" readonly>
@@ -200,7 +323,7 @@ if (isset($_POST['edite'])) {
                                     <label for="DOB">Date of Birth</label>
                                     &nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$DOBErr ?>
+                                        <?php echo "*" . $DOBErr ?>
                                     </span><br>
                                     <input type="date" id="DOB" name="DOB" class="textBox"
                                         value="<?php echo $row1['dateOfBirth'] ?>" readonly>
@@ -211,7 +334,7 @@ if (isset($_POST['edite'])) {
                                     <label for="phone">Phone</label>
                                     &nbsp;&nbsp;&nbsp;
                                     <span class="error">
-                                        <?php echo "*".$phoneErr ?>
+                                        <?php echo "*" . $phoneErr ?>
                                     </span><br>
                                     <input type="text" id="phone" name="phone" class="textBox"
                                         value="<?php echo $row1['contactNumber'] ?>">
@@ -283,15 +406,17 @@ if (isset($_POST['edite'])) {
     <!--Change Image-->
     <div id="image" class="popUpContent">
         <div class="popUpContainer">
-            <span class="close">&times;</span>
-            <br>
-            <label for="profilePic">Change Profile Photo</label>
-            <br>
-            <br>
-            <input type="file" id="profilePic" name="profilePic">
-            <br>
-            <br>
-            <button class="acceptBtn" onclick="document.getElementById('popUp').style.display='none';">OK</button>
+            <form method="post" enctype="multipart/form-data">
+                <span class="close">&times;</span>
+                <br>
+                <label for="image">Change Profile Photo</label>
+                <br>
+                <br>
+                <input type="file" id="image" name="image">
+                <br>
+                <br>
+                <button class="acceptBtn" type="submit">OK</button>
+            </form>
         </div>
     </div>
 

@@ -379,10 +379,8 @@
             }
                     
         }else if($num == ''){
-              //prevents alert coming from every submit
-        }
-        
-        else{
+            //prevents alert coming from every submit
+        }else{
             echo "<script> alert('Username already Exists'); </script>";
         }
     

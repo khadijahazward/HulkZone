@@ -1,5 +1,7 @@
 <?php
 include('authorization.php');
+include('setAdminProfilePic.php');
+include('notiCount.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,10 +31,23 @@ include('../admin/sideBar.php');
         <div class="contentLeft">
             <p class="title">Announcements</p>
         </div>
-        <div class="contentMiddle">
-            <p class="myProfile">My Profile</p>
+     
+        <div>
+        <div class="notification" style="margin-left: 572px;top:0px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
-        <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+      </div>
+      <div class="notiCount" style="padding-top: 20px;margin-left:700px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
     <div class="down">
         <div class="topic">

@@ -105,6 +105,10 @@ if(isset($_GET['complaintID'])) {
     $dateReported = $row['dateReported'];
     $userID = $row['userID'];
     $actionTaken = $row['actionTaken'];
+    $evidence = str_replace("C:/xampp/htdocs", "", $row['evidence']);
+    // replace the local file system path with the website URL
+    $evidence = str_replace("\\", "/", $evidence);
+    $evidence = "http://localhost" . $evidence;
   }
 }
 
@@ -139,7 +143,13 @@ if(mysqli_num_rows($result) == 1) {
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+ <style>
+    .evidenceImage{
+        width: 200px;
+        height: 200px;
+        margin-left: 260px;
+    }
+ </style>
 
 </head>
 <body>
@@ -148,6 +158,7 @@ if(mysqli_num_rows($result) == 1) {
 
 <?php 
 include('../admin/sideBar.php');
+include('setAdminProfilePic.php');
 ?>
         <div class="right">
 
@@ -158,7 +169,7 @@ include('../admin/sideBar.php');
             <div class="contentMiddle">
                 <p class="myProfile">My Profile</p>
             </div>
-            <div class="contentRight" ><img src="images/admin.png" alt="AdminLogo" class="adminLogo"></div>
+            <div class="contentRight" ><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
 
 
@@ -189,7 +200,7 @@ include('../admin/sideBar.php');
                     <br>
                     <label class="formContent">Evidence</label>
                     <br>
-                    <textarea name="evidence" id="" cols="60" rows="5" style="margin-left: 258px;" readonly></textarea>
+                    <img class="evidenceImage" src="<?php echo $evidence; ?>" alt="">
                     <br>
                     <label class="formContent">Action Taken</label>
                     <br>

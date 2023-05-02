@@ -1,0 +1,160 @@
+@import url(https://fonts.google.com/specimen/Inter);
+
+.container {
+    width: 100%;
+    height: 100%;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: rgba(222, 249, 215, 1);
+}
+
+.topContactBar{ 
+    width: 100%;
+    height: 60px;
+    display: block;
+    position: absolute;
+    background-color: white;
+    padding: 20px;
+}
+
+
+.selectedMemberProfile{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    left: 30px;
+}
+
+.selectedMemberName{
+    top: 15px;
+    left: 120px;
+    position: absolute;
+}
+
+.chatHistory{
+    width: 100%;
+    height: calc(100% - 90px - 60px);
+    top: 90px;
+    left: 0px;
+    position: absolute;
+    background-color: rgba(222, 249, 215, 1);
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.chatDisplay{
+    margin: 50px;
+    height: calc(100% - 80px);
+    width: calc(100% - 100px);
+    overflow-y: auto;
+}
+
+.chat {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.message {
+	border-radius: 6%;
+	box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.5);
+	position: relative;
+	margin-bottom: 30px;
+}
+
+.day{
+    padding: 0px 20px 0px 20px;
+    background-color: none;
+    color: black;
+    border-radius: 6%;
+	position: relative;
+	margin-bottom: 30px;
+    margin: auto;
+}
+
+.message.left {
+	padding: 0px 20px 0px 20px;
+    background-color: rgba(0, 104, 55, 1);
+    color: white;
+}
+
+.message.left .time{
+    position: absolute;
+    display: block;
+    left: 0;
+    margin-top: 5px;
+    margin-right: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: black;
+}
+
+.message.right {
+	align-self: flex-end;
+	padding: 0px 20px 0px 20px;
+    background-color: white;
+}
+
+.message.right .time{
+    position: absolute;
+    display: block;
+    right: 0;
+    margin-top: 5px;
+    margin-right: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    color: black;
+}
+
+.replyBar{
+    width: 100%;
+    height: 80px;
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    padding-left: 20px;
+}
+
+.sendingMessage{
+    left: 0px;
+    height: 50px;
+    width: 90%;
+    float: left;
+    border: none;
+    padding-left: 20px;
+    background-color: white;
+    margin: 10px;
+    vertical-align: middle;
+}
+
+.sendingMessage:focus{
+    outline: none;
+    border: none;
+}
+
+.sendBtn{
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    background-color: rgba(255, 159, 41, 1);
+    vertical-align: middle;
+    border: 1px solid rgba(26, 79, 131, 1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.sendBtn:active {
+    background-color: rgba(255, 159, 41, 1);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
