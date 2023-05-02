@@ -18,9 +18,9 @@ include 'script/config.php';
 
 <body>
     <?php
-    // if (!$_SESSION['username']) {
-    //     // header('location: http://localhost/hulkzone/');
-    // }
+    if (!$_SESSION['username']) {
+        header('location: http://localhost/hulkzone/');
+    }
     ?>
 
     <nav class="main-sidebar">
@@ -109,19 +109,31 @@ include 'script/config.php';
                 <table>
                     <thead>
                         <tr>
+                            <td>ID</td>
                             <th>FIRST NAME</th>
                             <th>LAST NAME</th>
                             <th>GENDER</th>
                             <th>CONTACT NUMBER</th>
                             <th>PLAN</th>
+                            <th>START DATE</th>
+                            <th>END DATE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
+                        // Get EmployeeID
+                        $userID = $_SESSION['userID'];
+                        $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
+                        $res = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($res);
+                        $employeeID = $row['employeeID'];
 
-                        $sql='SELECT user.fname, user.lname, user.gender, user.contactNumber, member.planType
-                        FROM user,member 
-                        WHERE user.userID= member.userID';
+                        $sql = 'SELECT u.fName, u.lName, s.serviceName, u.contactNumber, u.gender,ms.endDate,ms.startDate,m.memberID
+                        FROM user u
+                        JOIN member m ON m.userID = u.userID
+                        JOIN servicecharge ms ON ms.memberID = m.memberID
+                        JOIN service s ON ms.serviceID = s.serviceID
+                        WHERE ms.employeeID ='.$employeeID.' AND NOW() < ms.endDate ' ;
 
                         $res = mysqli_query($conn, $sql);
 
@@ -132,20 +144,26 @@ include 'script/config.php';
 
 
                                 while ($rows = mysqli_fetch_assoc($res)) {
-                                    $id = $rows['fname'];
-                                    $name = $rows['lname'];
+                                    $fName = $rows['fName'];
+                                    $lName = $rows['lName'];
                                     $gender = $rows['gender'];
                                     $contact = $rows['contactNumber'];
-                                    $plan = $rows['planType'];
-                                  
+                                    $plan = $rows['serviceName'];
+                                    $startDate = $rows['startDate'];
+                                    $endDate = $rows['endDate'];
+                                    $memberID = $rows['memberID'];
+
 
                         ?>
                                     <tr>
-                                        <td><?php echo $id; ?> </td>
-                                        <td><?php echo $name; ?></td>
+                                        <td><?php echo $memberID; ?> </td>
+                                        <td><?php echo $fName; ?> </td>
+                                        <td><?php echo $lName; ?></td>
                                         <td><?php echo $gender; ?></td>
                                         <td><?php echo $contact; ?></td>
                                         <td><?php echo $plan; ?></td>
+                                        <td><?php echo $startDate; ?></td>
+                                        <td><?php echo $endDate; ?></td>
                                     </tr>
                         <?php
 

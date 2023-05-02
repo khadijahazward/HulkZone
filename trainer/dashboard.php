@@ -107,30 +107,59 @@ if (!$_SESSION['username']) {
                 <h3 id="today-date">30 DEC 2020</h3>
             </div>
             <div class="top-box">
-                <h3>Total Sessions</h3>
+                <h3>Total Members</h3>
+                <?php
+                // Get EmployeeID
+                $userID = $_SESSION['userID'];
+                $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
+                $res = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($res);
+                $employeeID = $row['employeeID'];
+
+                $sql = 'SELECT u.fName, u.lName, s.serviceName, u.contactNumber, u.gender,ms.endDate,ms.startDate,m.memberID
+                FROM user u
+                JOIN member m ON m.userID = u.userID
+                JOIN servicecharge ms ON ms.memberID = m.memberID
+                JOIN service s ON ms.serviceID = s.serviceID
+                WHERE ms.employeeID ='.$employeeID.' AND NOW() < ms.endDate ' ;
+
+                $result = mysqli_query($conn, $sql);
+                $members_num_rows = mysqli_num_rows($result);
+                ?>
                 <div>
                     <span class="material-symbols-outlined">
                         assignment
                     </span>
-                    <p>85</p>
+                    <p><?php echo $members_num_rows; ?></p>
                 </div>
             </div>
             <div class="top-box">
-                <h3>Total Classes</h3>
+                <h3>Workout Plans</h3>
+                <?php
+
+                $sql = "SELECT u.fName, u.lName, w.memberID, COUNT(*) AS total_exercises
+                FROM user u
+                JOIN member m ON m.userID = u.userID
+                JOIN workoutplan w ON w.memberID = m.memberID
+                WHERE w.employeeID = " . $employeeID . " GROUP BY w.memberID";
+                $result = mysqli_query($conn, $sql);
+                $workout_num_rows = mysqli_num_rows($result);
+
+                ?>
                 <div>
                     <span class="material-symbols-outlined">
                         assignment
                     </span>
-                    <p>85</p>
+                    <p><?php echo $workout_num_rows; ?></p>
                 </div>
             </div>
         </div>
 
         <div class="middle-container">
 
-            <h2>Hello                     <?php
-                          echo $_SESSION["firstName"];
-                    ?>  !</h2>
+            <h2>Hello <?php
+                        echo $_SESSION["firstName"];
+                        ?> !</h2>
             <p>The only person you are destined to become is the person you decide to be.</p>
         </div>
 
