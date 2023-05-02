@@ -1,6 +1,7 @@
 <?php
 include('authorization.php');
 include('setAdminProfilePic.php');
+include('notiCount.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,13 +55,25 @@ include('setAdminProfilePic.php');
 
         <div class="content">
             <div class="contentLeft">
-                <p class="title">Gym Schedule</p>
+                <p class="title" style="width: 180px;">Gym Schedule</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 627px;top:1px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:750px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <div class="down">
             <?php
             require '../connect.php';

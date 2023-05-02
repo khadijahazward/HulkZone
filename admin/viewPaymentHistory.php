@@ -2,7 +2,7 @@
 // Connect to database
 include('../connect.php');
 include('authorization.php');
-
+include('notiCount.php');
 ?>
 <?php
 include('setAdminProfilePic.php');
@@ -54,33 +54,45 @@ include('setAdminProfilePic.php');
   
 ?> 
             
-                <p class="title">PAYMENT HISTORY - <?php  echo $details['fName'];?> </p>
+                <p class="title" style="width: 400px;">PAYMENT HISTORY - <?php  echo $details['fName'];?> </p>
    
 
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 374px;top:0px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 20px;margin-left:500px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
+
+
+      <div class="contentMiddle" style="margin-left:30px;width: 120px;">
+        <p class="myProfile" >My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
         <!-- below the header -->
         <div class="down">
         <hr style="width: 98%;">
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
-                   <th>paymentID</th>
-                   <th>paymentDate</th>
-                   <th>amount</th>
-                   <th>type</th>
+                   <th>PaymentID</th>
+                   <th>Paymen tDate</th>
+                   <th>Amount</th>
+                   <th>Payment Type</th>
                 </tr>
 
                 <?php 
-                    include('../../HulkZone/connect.php');
+                   include('../../HulkZone/connect.php');
                     
                     //read all row from database table
                     $memberID = $_GET['memberID'];
-                    $sql = "SELECT *,
+                   $sql = "SELECT *,
                     CASE payment.type
                       WHEN 0 THEN 'Payment plan'
                       WHEN 1 THEN 'Crossfit Training'
@@ -91,6 +103,7 @@ include('setAdminProfilePic.php');
                     END as payment_type
                   FROM payment 
                   WHERE memberID='$memberID'";
+          
                  
           
                     $result=mysqli_query($conn, $sql);
@@ -100,7 +113,7 @@ include('setAdminProfilePic.php');
                     }
                   
             
-                    
+                    $total_amount = 0;
 
                     while ($row = $result->fetch_assoc()) {
                         echo"
@@ -112,13 +125,17 @@ include('setAdminProfilePic.php');
                    <td>$row[payment_type]</td>
                   
                 </tr>";
+                $total_amount += $row['amount']; 
                     }
-                    
+                   
+                 
+    
                 ?>
            
 
                 
             </table>
+            <p>Total Amount: <?php echo $total_amount ?></p>
         </div>
         </div>
     </div>

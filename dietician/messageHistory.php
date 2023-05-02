@@ -32,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receiverID = $memberUserID;
     $status = 1;
 
-    if(isset($_POST['sendBtn']) && isset($_POST['message'])){
+    if(isset($_POST['sendBtn']) && isset($_POST['sendingMessage'])){
         
         $query3 = "INSERT INTO chat 
                     (senderID, receiverID, message, status) VALUES
@@ -41,6 +41,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if(!$result3){
             echo '<script> window.alert("Error of sending messages!");</script>';
+        }else{
+            header("Location: messageHistory.php?memberuserID=$memberUserID");
+            exit;
         }
     }
 }
@@ -71,7 +74,6 @@ if(!$result6){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Style/messageHistory.css">
     <title>Chat | <?php echo $row2['fName']." ". $row2['lName']?></title>
-    <meta http-equiv="refresh" content="5">
 </head>
 
 <body>

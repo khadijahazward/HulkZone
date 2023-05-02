@@ -22,83 +22,82 @@ if (mysqli_num_rows($result1) == 1) {
 $breakfastMeal = $breakfastQuantity = $breakfastCalorie = $lunchMeal = $lunchQuantity = $lunchCalorie = $dinnerMeal = $dinnerQuantity = $dinnerCalorie = "";
 $breakfastMealErr = $breakfastQuantityErr = $breakfastCalorieErr = $lunchMealErr = $lunchQuantityErr = $lunchCalorieErr = $dinnerMealErr = $dinnerQuantityErr = $dinnerCalorieErr = "";
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $breakfast_Meal = $_POST['breakfastMeal'];
-    $breakfastMeal = implode(",", $breakfast_Meal);
-    
-    if (count(array_filter($breakfast_Meal)) == 0) {
+    if(isset($_POST['breakfastMeal']) && !empty($_POST['breakfastMeal'])){
+        $breakfastMeal = $_POST['breakfastMeal'];
+    }else{
         $breakfastMealErr = "Breakfast meal is required";
-    } 
+    }
 
-    $breakfast_Quantity = $_POST['breakfastQuantity'];
-    $breakfastQuantity = implode(",", $breakfast_Quantity);
-    
-    if (count(array_filter($breakfast_Quantity)) == 0) {
+    if(isset($_POST['breakfastQuantity']) && !empty($_POST['breakfastQuantity'])){
+        $breakfastQuantity = $_POST['breakfastQuantity'];
+    }else{
         $breakfastQuantityErr = "Breakfast quantity is required";
-    } 
-    
-    $breakfast_Calorie = $_POST['breakfastCalorie'];
-    $breakfastCalorie = implode(",", $breakfast_Calorie);
-    
-    if (count(array_filter($breakfast_Calorie)) == 0) {
-        $breakfastCalorieErr = "Breakfast calorie is required";
-    } 
+    }
 
-    $lunch_Meal = $_POST['lunchMeal'];
-    $lunchMeal = implode(",", $lunch_Meal);
-    
-    if (count(array_filter($lunch_Meal)) == 0) {
+    if(isset($_POST['breakfastCalorie']) && !empty($_POST['breakfastCalorie'])){
+        $breakfastCalorie = $_POST['breakfastCalorie'];
+        if(is_numeric($_POST['breakfastCalorie'])){
+            $breakfastCalorie = $_POST['breakfastCalorie'];
+        }else{
+            $breakfastCalorieErr = "Breakfast calorie should be a number";
+        }
+    }else{
+        $breakfastCalorieErr = "Breakfast calorie is required";
+    }
+
+    if(isset($_POST['lunchMeal']) && !empty($_POST['lunchMeal'])){
+        $lunchMeal = $_POST['lunchMeal'];
+    }else{
         $lunchMealErr = "Lunch meal is required";
     }
 
-    $lunch_Quantity = $_POST['lunchQuantity'];
-    $lunchQuantity = implode(",", $lunch_Quantity);
-    
-    if (count(array_filter($lunch_Quantity)) == 0) {
+    if(isset($_POST['lunchQuantity']) && !empty($_POST['lunchQuantity'])){
+        $lunchQuantity = $_POST['lunchQuantity'];
+    }else{
         $lunchQuantityErr = "Lunch quantity is required";
     }
 
-    $lunch_Calorie = $_POST['lunchCalorie'];
-    $lunchCalorie = implode(",", $lunch_Calorie);
-    
-    if (count(array_filter($lunch_Calorie)) == 0) {
-        $lunchCalorieErr = "Lunch Calorie is required";
+    if(isset($_POST['lunchCalorie']) && !empty($_POST['lunchCalorie'])){
+        $lunchCalorie = $_POST['lunchCalorie'];
+        if(is_numeric($_POST['lunchCalorie'])){
+            $lunchCalorie = $_POST['lunchCalorie'];
+        }else{
+            $lunchCalorieErr = "Lunch calorie should be a number";
+        }
+    }else{
+        $lunchCalorieErr = "Lunch calorie is required";
     }
 
-    $dinner_Meal = $_POST['dinnerMeal'];
-    $dinnerMeal = implode(",", $dinner_Meal);
-    
-    if (count(array_filter($dinner_Meal)) == 0) {
+    if(isset($_POST['dinnerMeal']) && !empty($_POST['dinnerMeal'])){
+        $dinnerMeal = $_POST['dinnerMeal'];
+    }else{
         $dinnerMealErr = "Dinner meal is required";
     }
 
-    $dinner_Quantity = $_POST['dinnerQuantity'];
-    $dinnerQuantity = implode(",", $dinner_Quantity);
-    
-    if (count(array_filter($dinner_Quantity)) == 0) {
+    if(isset($_POST['dinnerQuantity']) && !empty($_POST['dinnerQuantity'])){
+        $dinnerQuantity = $_POST['dinnerQuantity'];
+    }else{
         $dinnerQuantityErr = "Dinner quantity is required";
     }
-    
-    $dinner_Calorie = $_POST['dinnerCalorie'];
-    $dinnerCalorie = implode(",", $dinner_Calorie);
-    
-    if (count(array_filter($dinner_Calorie)) == 0) {
+
+    if(isset($_POST['dinnerCalorie']) && !empty($_POST['dinnerCalorie'])){
+        $dinnerCalorie = $_POST['dinnerCalorie'];
+        if(is_numeric($_POST['dinnerCalorie'])){
+            $dinnerCalorie = $_POST['dinnerCalorie'];
+        }else{
+            $dinnerCalorieErr = "Dinner calorie should be a number";
+        }
+    }else{
         $dinnerCalorieErr = "Dinner calorie is required";
     }
-
+    
     $query5 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $employeeID AND serviceID = 3 AND endDate >= NOW()";
     $result5 = mysqli_query($conn, $query5);
     $row5 = mysqli_fetch_assoc($result5);
 
     $startDateTime = $row5['startDate'];
-
-    // $query6 = "SELECT * FROM weekdays WHERE weekDayID = 1";
-    // $result6 = mysqli_query($conn, $query6);
-    // $row6 = mysqli_fetch_assoc($result6);
-
-    // $day = $row6['weekDayID'];
 
     if (isset($_POST['next'])) {
 
@@ -116,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo '<script> window.alert("Error of receiving member userID!");</script>';
         }
 
-        if (empty($breakfastMealErr) && empty($breakfastQuntityErr) && empty($breakfastCalorieErr) && empty($lunchMealErr) && empty($lunchQuntityErr) && empty($lunchCalorieErr) && empty($dinnerMealErr) && empty($dinnerQuntityErr) && empty($dinnerQuntityErr)) {
+        if (empty($breakfastMealErr) && empty($breakfastQuantityErr) && empty($breakfastCalorieErr) && empty($lunchMealErr) && empty($lunchQuantityErr) && empty($lunchCalorieErr) && empty($dinnerMealErr) && empty($dinnerQuantityErr) && empty($dinnerCalorieErr)) {
 
             $query4 = "INSERT INTO dietplan 
                         (employeeID, memberID, startDate, breakfastMeal, breakfastQty, breakfastCal, lunchMeal, lunchQty, lunchCal, dinnerMeal, dinnerQty, dinnerCal, day) VALUES
@@ -131,9 +130,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -191,51 +190,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $breakfastMealErr ?>
+                                            <?php echo $breakfastMealErr ?>
                                         </span>
-                                        <div class="gridText"><input type="text" name="breakfastMeal[]"
-                                                placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText"><input type="text" name="breakfastMeal[]"
-                                                placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class=" gridText"><input type="text" name="breakfastMeal[]"
-                                                placeholder="Meal"></div>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td class="gridTextColumn">
-                            <table>
-                                <tr>
-                                    <td>
-                                        <span class="error">
-                                            <?php echo "*" . $breakfastQuantityErr ?>
-                                        </span>
-                                        <div class="gridText">
-                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="breakfastQuantity[]" placeholder="Quantity">
+                                        <div class="gridText"><input type="text" name="breakfastMeal" placeholder="Meal"
+                                                value="<?php echo $breakfastMeal ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -246,24 +204,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $breakfastCalorieErr ?>
+                                            <?php echo $breakfastQuantityErr ?>
                                         </span>
                                         <div class="gridText">
-                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie">
+                                            <input type="text" name="breakfastQuantity" placeholder="Quantity"
+                                                value="<?php echo $breakfastQuantity ?>">
                                         </div>
                                     </td>
                                 </tr>
+                            </table>
+                        </td>
+                        <td class=" gridTextColumn">
+                            <table>
                                 <tr>
                                     <td>
+                                        <span class="error">
+                                            <?php echo $breakfastCalorieErr ?>
+                                        </span>
                                         <div class="gridText">
-                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="breakfastCalorie[]" placeholder="Calorie">
+                                            <input type="text" name="breakfastCalorie" placeholder="Calorie"
+                                                value="<?php echo $breakfastCalorie ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -279,24 +239,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $lunchMealErr ?>
+                                            <?php echo $lunchMealErr ?>
                                         </span>
                                         <div class="gridText">
-                                            <input type="text" name="lunchMeal[]" placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="lunchMeal[]" placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="lunchMeal[]" placeholder="Meal">
+                                            <input type="text" name="lunchMeal" placeholder="Meal"
+                                                value="<?php echo $lunchMeal ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -307,24 +254,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $lunchQuantityErr ?>
+                                            <?php echo $lunchQuantityErr ?>
                                         </span>
                                         <div class=" gridText">
-                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class=" gridText">
-                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class=" gridText">
-                                            <input type="text" name="lunchQuantity[]" placeholder="Quantity">
+                                            <input type="text" name="lunchQuantity" placeholder="Quantity"
+                                                value="<?php echo $lunchQuantity ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -335,24 +269,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $lunchCalorieErr ?>
+                                            <?php echo $lunchCalorieErr ?>
                                         </span>
                                         <div class="gridText">
-                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="lunchCalorie[]" placeholder="Calorie">
+                                            <input type="text" name="lunchCalorie" placeholder="Calorie"
+                                                value="<?php echo $lunchCalorie ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -368,24 +289,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $dinnerMealErr ?>
+                                            <?php echo $dinnerMealErr ?>
                                         </span>
                                         <div class="gridText">
-                                            <input type="text" name="dinnerMeal[]" placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="dinnerMeal[]" placeholder="Meal">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="dinnerMeal[]" placeholder="Meal">
+                                            <input type="text" name="dinnerMeal" placeholder="Meal"
+                                                value="<?php echo $dinnerMeal?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -396,24 +304,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $dinnerQuantityErr ?>
+                                            <?php echo $dinnerQuantityErr ?>
                                         </span>
-                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
-                                                placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
-                                                placeholder="Quantity">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class=" gridText"><input type="text" name="dinnerQuantity[]"
-                                                placeholder="Quantity">
+                                        <div class=" gridText"><input type="text" name="dinnerQuantity"
+                                                placeholder="Quantity" value="<?php echo $dinnerQuantity ?>">
                                         </div>
                                     </td>
                                 </tr>
@@ -424,24 +318,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <tr>
                                     <td>
                                         <span class="error">
-                                            <?php echo "*" . $dinnerCalorieErr ?>
+                                            <?php echo $dinnerCalorieErr ?>
                                         </span>
                                         <div class="gridText">
-                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie">
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="gridText">
-                                            <input type="text" name="dinnerCalorie[]" placeholder="Calorie">
+                                            <input type="text" name="dinnerCalorie" placeholder="Calorie"
+                                                value="<?php echo $dinnerCalorie ?>">
                                         </div>
                                     </td>
                                 </tr>

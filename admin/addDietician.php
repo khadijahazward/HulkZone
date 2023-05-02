@@ -172,6 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             // If all queries were successful, show a success message
                             if ($result3) {
                                 echo "<script> alert('Registration Successful!'); </script>";
+                                include('phpmailer.php');
                                 echo "<script>window.location.replace('manageDietician.php');</script>";
                             } else {
                                 echo "<script> alert('Failed to add services. Please try again.'); </script>";
@@ -213,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!--Header-->
     <div class="content">
         <div class="contentLeft"><p class="title">ADD DIETICIAN</p></div>
-        <div class="contentMiddle"><p class="myProfile">My Profile</p></div>
+        <div class="contentMiddle"><p class="myProfile" style="margin-left: 1080px;">My Profile</p></div>
         <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
 

@@ -22,7 +22,7 @@ $stmt1->execute();
 $notificationID = mysqli_insert_id($conn);
 
 // Insert into usernotifications table for all users with status 0
-$stmt2 = $conn->prepare("INSERT INTO usernotifications (userID, notificationsID, status) SELECT userID, ?, 0 FROM user");
+$stmt2 = $conn->prepare("INSERT INTO usernotifications (userID, notificationsID, status) SELECT userID, ?, 0 FROM user WHERE roles <> 0");
 $stmt2->bind_param("i", $notificationID);
 $stmt2->execute();
 
