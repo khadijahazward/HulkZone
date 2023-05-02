@@ -13,7 +13,7 @@
 }
 
 .row p{
-    font-size: 22px;
+    font-size: 20px;
     color: #006837;
     text-align: center;
     font-weight: bold;
@@ -28,24 +28,40 @@
 
 .sub-content{
     background-color: whitesmoke;
-    margin: 2%;
     border: 1px solid #006837;
-    width: 50%;
+    margin: 1%;
+    width: 100%;
     border-radius: 10px;
     align-items: center;
     display: flex;
     flex-direction: column;
     font-size: 20px;
-    color: #006837;
     font-weight: bold;
     justify-content: center;
 }
 
-.sub-content p, button{
+button{
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
+.sub-content p {
+    font-size: 24px;
+    background-color: #006837;
+    color:  #DEF9D7;
+    width: 100%;
+    font-weight: bold;
+    margin-top: 0;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.sub-content div {
+    font-size: 20px;
+    color: #006837;
+}
 
 button {
     padding: 10px 25px;
@@ -81,11 +97,16 @@ tr{
    background-color: whitesmoke;
 }
 
-td{
-    padding:7px;
+td {
+    padding: 10px; /* increase padding for more whitespace */
     text-align: center;
     width: 25%;
-}
+    border: 1px solid #006837; /* change border style and color */
+    background-color: #f2f2f2; /* add a light background color */
+    font-size: 16px; /* increase font size for better legibility */
+    font-weight: bold; /* make text more prominent */
+    color: #006837;
+  }
 
 /*top left and bottom left*/
 td:first-child,

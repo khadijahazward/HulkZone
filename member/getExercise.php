@@ -20,7 +20,7 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $field2name = $row["exerciseName"];
             $field3name = $row["reps"];
-            $field4name = $row["restTime"];
+            $field4name = $row["restTime"] . " Minutes";
 
             echo '<tr> 
                 <td>'.$field2name.'</td> 
