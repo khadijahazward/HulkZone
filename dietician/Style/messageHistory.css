@@ -22,6 +22,20 @@
     padding: 20px;
 }
 
+.back{
+    left: 30px;
+    top: 0px;
+    position: absolute;
+    color: black;
+    font-size: 30px;
+    height: 100%;
+}
+
+.topContactBar button{
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+}
 
 .selectedMemberProfile{
     width: 70px;
@@ -29,12 +43,12 @@
     border-radius: 50%;
     position: absolute;
     top: 10px;
-    left: 30px;
+    left: 70px;
 }
 
 .selectedMemberName{
     top: 15px;
-    left: 120px;
+    left: 170px;
     position: absolute;
 }
 

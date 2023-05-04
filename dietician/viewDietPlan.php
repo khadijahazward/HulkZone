@@ -293,15 +293,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="mondayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="mondayBreakfastMeal" class="meal"
                                                 value="<?php echo $mondayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="mondayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $mondayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="mondayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $mondayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -313,15 +313,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="mondayLunchMeal[]" class="meal"
+                                            <input type="text" name="mondayLunchMeal" class="meal"
                                                 value="<?php echo $mondayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="mondayLunchQuantity" class="quantity"
                                                 value="<?php echo $mondayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="mondayLunchCalorie" class="calorie"
                                                 value="<?php echo $mondayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -333,15 +333,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="mondayDinnerMeal[]" class="meal"
+                                            <input type="text" name="mondayDinnerMeal" class="meal"
                                                 value="<?php echo $mondayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="mondayDinnerQuantity" class="quantity"
                                                 value="<?php echo $mondayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="mondayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="mondayDinnerCalorie" class="calorie"
                                                 value="<?php echo $mondayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -361,15 +361,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="tuesdayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="tuesdayBreakfastMeal" class="meal"
                                                 value="<?php echo $tuesdayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="tuesdayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $tuesdayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="tuesdayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $tuesdayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -381,15 +381,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="tuesdayLunchMeal[]" class="meal"
+                                            <input type="text" name="tuesdayLunchMeal" class="meal"
                                                 value="<?php echo $tuesdayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="tuesdayLunchQuantity" class="quantity"
                                                 value="<?php echo $tuesdayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="tuesdayLunchCalorie" class="calorie"
                                                 value="<?php echo $tuesdayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -401,15 +401,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="tuesdayDinnerMeal[]" class="meal"
+                                            <input type="text" name="tuesdayDinnerMeal" class="meal"
                                                 value="<?php echo $tuesdayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="tuesdayDinnerQuantity" class="quantity"
                                                 value="<?php echo $tuesdayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="tuesdayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="tuesdayDinnerCalorie" class="calorie"
                                                 value="<?php echo $tuesdayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -429,15 +429,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="wednesdayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="wednesdayBreakfastMeal" class="meal"
                                                 value="<?php echo $wednesdayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="wednesdayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $wednesdayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="wednesdayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $wednesdayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -449,15 +449,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="wednesdayLunchMeal[]" class="meal"
+                                            <input type="text" name="wednesdayLunchMeal" class="meal"
                                                 value="<?php echo $wednesdayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="wednesdayLunchQuantity" class="quantity"
                                                 value="<?php echo $wednesdayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="wednesdayLunchCalorie" class="calorie"
                                                 value="<?php echo $wednesdayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -469,15 +469,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="wednesdayDinnerMeal[]" class="meal"
+                                            <input type="text" name="wednesdayDinnerMeal" class="meal"
                                                 value="<?php echo $wednesdayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="wednesdayDinnerQuantity" class="quantity"
                                                 value="<?php echo $wednesdayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="wednesdayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="wednesdayDinnerCalorie" class="calorie"
                                                 value="<?php echo $wednesdayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -497,15 +497,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="thursdayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="thursdayBreakfastMeal" class="meal"
                                                 value="<?php echo $thursdayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="thursdayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $thursdayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="thursdayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $thursdayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -517,15 +517,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="thursdayLunchMeal[]" class="meal"
+                                            <input type="text" name="thursdayLunchMeal" class="meal"
                                                 value="<?php echo $thursdayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="thursdayLunchQuantity" class="quantity"
                                                 value="<?php echo $thursdayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="thursdayLunchCalorie" class="calorie"
                                                 value="<?php echo $thursdayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -537,15 +537,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="thursdayDinnerMeal[]" class="meal"
+                                            <input type="text" name="thursdayDinnerMeal" class="meal"
                                                 value="<?php echo $thursdayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="thursdayDinnerQuantity" class="quantity"
                                                 value="<?php echo $thursdayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="thursdayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="thursdayDinnerCalorie" class="calorie"
                                                 value="<?php echo $thursdayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -565,15 +565,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="fridayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="fridayBreakfastMeal" class="meal"
                                                 value="<?php echo $fridayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="fridayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $fridayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="fridayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $fridayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -585,15 +585,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="fridayLunchMeal[]" class="meal"
+                                            <input type="text" name="fridayLunchMeal" class="meal"
                                                 value="<?php echo $fridayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="fridayLunchQuantity" class="quantity"
                                                 value="<?php echo $fridayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="fridayLunchCalorie" class="calorie"
                                                 value="<?php echo $fridayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -605,15 +605,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="fridayDinnerMeal[]" class="meal"
+                                            <input type="text" name="fridayDinnerMeal" class="meal"
                                                 value="<?php echo $fridayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="fridayDinnerQuantity" class="quantity"
                                                 value="<?php echo $fridayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="fridayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="fridayDinnerCalorie" class="calorie"
                                                 value="<?php echo $fridayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -633,15 +633,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="saturdayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="saturdayBreakfastMeal" class="meal"
                                                 value="<?php echo $saturdayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="saturdayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $saturdayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="saturdayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $saturdayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -653,15 +653,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="saturdayLunchMeal[]" class="meal"
+                                            <input type="text" name="saturdayLunchMeal" class="meal"
                                                 value="<?php echo $saturdayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="saturdayLunchQuantity" class="quantity"
                                                 value="<?php echo $saturdayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="saturdayLunchCalorie" class="calorie"
                                                 value="<?php echo $saturdayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -673,15 +673,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="saturdayDinnerMeal[]" class="meal"
+                                            <input type="text" name="saturdayDinnerMeal" class="meal"
                                                 value="<?php echo $saturdayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="saturdayDinnerQuantity" class="quantity"
                                                 value="<?php echo $saturdayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="saturdayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="saturdayDinnerCalorie" class="calorie"
                                                 value="<?php echo $saturdayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -701,15 +701,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="sundayBreakfastMeal[]" class="meal"
+                                            <input type="text" name="sundayBreakfastMeal" class="meal"
                                                 value="<?php echo $sundayBreakfastMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayBreakfastQuantity[]" class="quantity"
+                                            <input type="text" name="sundayBreakfastQuantity" class="quantity"
                                                 value="<?php echo $sundayBreakfastQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayBreakfastCalorie[]" class="calorie"
+                                            <input type="text" name="sundayBreakfastCalorie" class="calorie"
                                                 value="<?php echo $sundayBreakfastCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -721,15 +721,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="sundayLunchMeal[]" class="meal"
+                                            <input type="text" name="sundayLunchMeal" class="meal"
                                                 value="<?php echo $sundayLunchMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayLunchQuantity[]" class="quantity"
+                                            <input type="text" name="sundayLunchQuantity" class="quantity"
                                                 value="<?php echo $sundayLunchQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayLunchCalorie[]" class="calorie"
+                                            <input type="text" name="sundayLunchCalorie" class="calorie"
                                                 value="<?php echo $sundayLunchCalorie ?>" readonly>
                                         </td>
                                     </tr>
@@ -741,15 +741,15 @@ if(mysqli_num_rows($result10) == 1){
                                 <table>
                                     <tr>
                                         <td>
-                                            <input type="text" name="sundayDinnerMeal[]" class="meal"
+                                            <input type="text" name="sundayDinnerMeal" class="meal"
                                                 value="<?php echo $sundayDinnerMeal ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayDinnerQuantity[]" class="quantity"
+                                            <input type="text" name="sundayDinnerQuantity" class="quantity"
                                                 value="<?php echo $sundayDinnerQuantity ?>" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" name="sundayDinnerCalorie[]" class="calorie"
+                                            <input type="text" name="sundayDinnerCalorie" class="calorie"
                                                 value="<?php echo $sundayDinnerCalorie ?>" readonly>
                                         </td>
                                     </tr>
