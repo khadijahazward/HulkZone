@@ -36,17 +36,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $row['roles'];
             
     
-            //redirecting to dashboard
+            //redirecting to dashboard - admin = 0, member = 1, trainer = 2, dietician = 3
             if($_SESSION['role'] == 0){
                 header("location: ..\admin\dashboard.php");
-            }else if($_SESSION['role'] == 1){
-                header("location: ..\member\dashboard.php");
+            }else if($_SESSION['role'] == 1){ 
+
+                $userID = $_SESSION['userID'];
+                $sql1 = "SELECT verify_status FROM verify_email WHERE userID = $userID"; //for verifying email of member
+                $result1 = mysqli_query($conn, $sql1);
+                if ($result1 && $row1 = mysqli_fetch_array($result1)) {
+                    if ($row1['verify_status'] == 1) {
+                        header("location: ..\member\dashboard.php");
+                    } else {
+                        header("location: ../member/verify_email.php");
+                    }
+                }
+
             }else if($_SESSION['role'] == 2){
                 header("location: http://localhost/hulkzone/trainer/dashboard.php");
             }else if($_SESSION['role'] == 3){
                 header("location: ..\dietician\home.php");
             }  
 
+            //for member - account is disabled. 
         }else if($row['statuses'] == 0 && $row['roles'] == 1){
             session_start();
             
