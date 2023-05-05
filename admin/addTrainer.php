@@ -26,6 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (empty($_POST['language'])) {
         $langErr = "At least one language is required";
+        
     }
     if (empty($_POST['services'])) {
         $serviceErr = "At least one service is required";
@@ -46,11 +47,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //email validation
-    /*if (empty($_POST["email"])) {
+    if (empty($_POST["email"])) {
         $emErr = "Email is required";
     } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {// "username@domain.extension.The email address must contain only one "@" symbol and at least one "." symbol after "@" symbol. It should not contain any whitespace characters or special characters other than "." and "_".
         $emErr = "Enter Valid Email";
-    }*/
+    }
     if (empty($_POST["email"])) {
         $emErr = "Email is required";
     } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])) {//This regular expression ensures that the email address contains only letters, digits, and the characters "." (dot), "_" (underscore), "%" (percent), "+", and "-". It also ensures that the domain part of the email address contains only letters, digits, and the characters "." and "-". Additionally, it requires at least one "." character after the "@" symbol and ensures that the top-level domain is at least two characters long.
@@ -134,9 +135,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $language = isset($_POST['language']) ? $_POST['language'] : array();
     // convert the array of selected languages to a comma-separated string
     $languages_str = implode(',', $language);
-
+    $services = isset($_POST['services']) ? $_POST['services'] : array();
     //$lang=$_POST["lang"];
-
+    //var_dump($_POST['services']);
     $status = 1; //active
 
     $role = 2; //1 = member, 2 = trainer, 3 = dietician
@@ -155,11 +156,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($pw == $cpw) {
 
             $password_hash = password_hash($pw, PASSWORD_DEFAULT);
+          
 
-            $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
+           /* $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
+                values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";*/
+
+            if (!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw) && !empty($language)&& !empty($services)) {
+                $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
-
-            if (!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)) {
+               
+               
                 $result = mysqli_query($conn, $sql);
             }
 
@@ -177,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 if ($result2) {
                     // insert data into employeeservice table
-                    $services = isset($_POST['services']) ? $_POST['services'] : array();
+                 //   $services = isset($_POST['services']) ? $_POST['services'] : array();
                     foreach ($services as $service) {
                         // retrieve the employeeID based on the userID
                         $sql_employee = "SELECT employeeID FROM employee WHERE userID = $userid";
@@ -190,9 +196,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                             // If all queries were successful, show a success message
                             if ($result3) {
-                              
+                                
                                 echo "<script> alert('Registration Successful!'); </script>";
-                                include('phpmailer.php');
+                                include('phpmailer.php');  
                                 echo "<script>window.location.replace('manageTrainer.php');</script>";
                             } else {
                                 echo "<script> alert('Failed to add services. Please try again.'); </script>";
@@ -204,9 +210,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
                 }
             }
+        
         }
+      }
     }
-}
 
 
 
@@ -400,12 +407,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <br>
                 <div class="checkbox">
-                    <input type="checkbox" name="services[]" value="4" <?php if (isset($_POST['services']) && in_array(4, $_POST['services'])) echo "checked"; ?>>
+                    <input type="checkbox" name="services[]" value="4" <?php  if (isset($_POST['services']) && in_array(4, $_POST['services'])) echo "checked"; ?>>
                     <label>Strength</label>
                 </div>
                 <br>
                 <div class="checkbox">
-                    <input type="checkbox" name="services[]" value="2" <?php if (isset($_POST['services']) && in_array(2, $_POST['services'])) echo "checked"; ?>>
+                    <input type="checkbox" name="services[]" value="2" <?php  if (isset($_POST['services']) && in_array(2, $_POST['services'])) echo "checked"; ?>>
                     <label>BodyBuilding</label>
                 </div>
             </div>

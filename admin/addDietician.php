@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["gender"])) {
         $genErr = "Gender is required";
     }
-    if (empty($_POST['language'])) {
+    if (empty($_POST["language"])) {
         $langErr = "At least one language is required";
     }
     
@@ -42,39 +42,49 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $NICErr = "Enter Valid NIC";
     }
 
-    //email validation
+
     if (empty($_POST["email"])) {
         $emErr = "Email is required";
-    } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+    } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])) {//This regular expression ensures that the email address contains only letters, digits, and the characters "." (dot), "_" (underscore), "%" (percent), "+", and "-". It also ensures that the domain part of the email address contains only letters, digits, and the characters "." and "-". Additionally, it requires at least one "." character after the "@" symbol and ensures that the top-level domain is at least two characters long.
         $emErr = "Enter Valid Email";
+    }else{
+        // Sanitize email input to prevent SQL injection
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+
+    // Check if email already exists in the database
+    $query = "SELECT * FROM user WHERE email='$email'";
+    $result = mysqli_query($conn, $query);
+
+    if (mysqli_num_rows($result) > 0) {
+        $emErr = "Username already exists";
+    }
+    
     }
 
-    //password validation
-    $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
-    $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
+ //password validation
+ $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
+ $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
 
-    /* if (empty($_POST["pass1"])) {
-            $pw1Err = "Password is required";
-        }else if(strlen($_POST['pass1']) < 8 || !$numberCheck || !$specialCharsCheck){
-            $pw1Err = "password should be minimum 8 characters";
-        }*/
+ 
+ 
+ 
+ if (empty($_POST["pass1"])) {
+     $pw1Err = "Password is required";
+ } else if (strlen($_POST['pass1']) < 8) {
+     $pw1Err = "Password must be at least 8 characters long.";
+ } else if (!$numberCheck) {
+     $pw1Err = "Password must contain at least one number.";
+ } else if (!$specialCharsCheck) {
+     $pw1Err = "Password must contain at least one special character.";
+ }
 
 
-    if (empty($_POST["pass1"])) {
-        $pw1Err = "Password is required";
-    } else if (strlen($_POST['pass1']) < 8) {
-        $pw1Err = "Password must be at least 8 characters long.";
-    } else if (!$numberCheck) {
-        $pw1Err = "Password must contain at least one number.";
-    } else if (!$specialCharsCheck) {
-        $pw1Err = "Password must contain at least one special character.";
+ if (empty($_POST["pass2"])) {
+     $pw2Err = "Confirm Password is required";
+ } else if ($_POST["pass1"] !== $_POST["pass2"]) {
+     $pw2Err = "Passwords do not match";
+ }
     }
-
-
-    if (empty($_POST["pass2"])) {
-        $pw2Err = "Confirm Password is required";
-    }
-}
 ?>
 
 <?php
@@ -115,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $language = isset($_POST['language']) ? $_POST['language'] : array();
     // convert the array of selected languages to a comma-separated string
+   
     $languages_str = implode(',', $language);
 
     //$lang=$_POST["lang"];
@@ -220,7 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     <!--Body|Form-->
    
-    <form class = addTrainerForm action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="POST">
+    <form class = addTrainerForm action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>' method="POST"  onsubmit="return validateForm()">
     <h1>Personal Details</h1>
 <div class="form-row">
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
@@ -333,10 +344,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 
     <div class="form-group">
-        <label>Languages</label> 
-        <br>
-       
-        <div class="checkbox">
+                <label>Languages<span class="error">* <?php echo $langErr; ?></span></label>
+                <br>
+
+                <div class="checkbox">
                     <input type="checkbox" id="English" name="language[]" value="English" <?php if (isset($_POST['language']) && in_array('English', $_POST['language'])) {
                                                                                                 echo 'checked';
                                                                                             } ?>>
@@ -356,8 +367,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                                                         } ?>>
                     <label for="french">Tamil</label>
                 </div>
-    </div>
-</div>
+            </div>
+        </div>
 
 
 
@@ -365,7 +376,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="form-group" style="margin-right:50px;margin-left: 220px;" >
     <label>Username (Enter Email Address)<span class="error">* <?php echo $emErr; ?></span></label> 
     <br>
-    <input type="email" id="email"  size="30" style="width: 340px;" name="email" >
+    <input type="text" id="email"  size="30" style="width: 340px;" name="email" value="<?php echo $_POST['email'] ?? ''; ?>" >
 </div>
 
 <div class="form-row">
@@ -373,7 +384,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="form-group" style="margin-right:50px;margin-left: 220px;">
         <label>Password<span class="error">* <?php echo $pw1Err; ?></span></label> 
         <br>
-        <input type="password" id="pass1" name="pass1" minlength="8" maxlength="15" >
+        <input type="password" id="pass1" name="pass1"  maxlength="15" >
     </div>
 
 
