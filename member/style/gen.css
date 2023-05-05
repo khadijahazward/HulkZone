@@ -32,6 +32,7 @@
     height: 88%;
     background-color: white;
     overflow-y: auto;
+    /* overflow-y: scroll; */
     overflow-x: hidden;
     content: '';
 }
@@ -173,4 +174,22 @@ font-weight: bold;
     float: right;
     margin-bottom: 10px;
     text-decoration: none;
+}
+
+.unreadMsg{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    font-weight: 600;
+    color: rgba(0, 104, 55, 1);
+    background-color: white;
+    vertical-align: middle;
+    position: relative;
+}
+
+.unreadMsg p{
+    position: absolute;
+  transform: translate(-50%, -50%);
+  left: 11px;
+  top: -3px;
 }

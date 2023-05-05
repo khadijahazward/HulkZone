@@ -45,7 +45,7 @@ include '../connect.php';
                     <button onclick="openForm()">View Supplement</button>   
                 </div>
 
-                
+                <!--supplement  -->
                 <?php
                     $sql2 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID = 3 AND endDate >= CURDATE() LIMIT 1";
                     $result2 = mysqli_query($conn, $sql2);
@@ -127,7 +127,7 @@ include '../connect.php';
                     document.getElementById("myForm").style.display = "none";
                     }
                 </script>
-
+    <!-- Progress bar -->
                 <div class="row" style="margin-top: 0;">
                     Visualize Your Progress with a Progress Indicator!
                 </div>
@@ -159,7 +159,7 @@ include '../connect.php';
                             //echo $numCompletedDays;
                             
                         }else{
-                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service charge found for memberID </p>{$row1['memberID']} and serviceID 3.";
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
                         }
                         
                     ?>
@@ -210,7 +210,7 @@ include '../connect.php';
                             $weeks = ceil($interval->days / 7); // calculate the number of weeks
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'> DIET PLAN FOR WEEK: {$weeks} </p>";
                         } else {
-                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service charge found for memberID </p>{$row1['memberID']} and serviceID 3.";
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
                         }
                     ?> 
 

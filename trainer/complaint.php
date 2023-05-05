@@ -105,7 +105,7 @@ if (!$_SESSION['username']) {
     <div class="content">
                 <div class="row" style="display:flex; flex-direction:row; align-items:center;   justify-content: space-between;">
                     <div>Reported Complaints</div>
-                    <div><button type="button" onclick="window.location.href='http://localhost/Hulkzone/trainer/createComplaint.php'" id="fileC">Report a Complaint</button></div>
+                    <div><button type="button" onclick="window.location.href='http://localhost/Hulkzone/trainer/submitComplaint.php'" id="fileC">Report a Complaint</button></div>
                 </div>
                 <div class="row"style="margin-top:10px;  margin-right:10px;">
                     <?php

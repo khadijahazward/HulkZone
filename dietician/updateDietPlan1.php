@@ -6,10 +6,11 @@ include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-if (isset($_GET['update'])) {
-    $memberID = $_GET['update'];
-}
+// if (isset($_GET['update'])) {
+//     $memberID = $_GET['update'];
+// }
 
+$memberID = 41;
 
 $query1 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE member.memberID = $memberID";
 $result1 = mysqli_query($conn, $query1);

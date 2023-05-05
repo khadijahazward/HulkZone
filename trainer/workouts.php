@@ -1,7 +1,6 @@
 <?php
 include '../connect.php';
 include 'script/config.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -18,9 +17,9 @@ include 'script/config.php';
 
 <body>
     <?php
-    // if (!$_SESSION['username']) {
-    //     // header('location: http://localhost/hulkzone/');
-    // }
+    if (!$_SESSION['username']) {
+        header('location: http://localhost/hulkzone/');
+    }
     ?>
 
     <nav class="main-sidebar">
@@ -105,24 +104,33 @@ include 'script/config.php';
                 <h1>Workout Plans List</h1>
                 <a href="addWorkout.php">Add Plan</a>
             </div>
-
             <div class="member-list-table">
                 <table>
                     <thead>
                         <tr>
                             <th>NO</th>
-                            <th>MEMBER NAME</th>
-                            <th>CONTACT</th>
-                            <th>DATE</th>
-                            <th>DURATION</th>
+                            <th>FIRST NAME</th>
+                            <th>LAST NAME</th>
+                            <th>TOTAL EXERCISES</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
 
-                        $sql = 'SELECT *
-                        FROM workoutplan';
+                        // Get EmployeeID
+                        $userID = $_SESSION['userID'];
+                        $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
+                        $res = mysqli_query($conn, $sql);
+                        $row = mysqli_fetch_assoc($res);
+                        $employeeID = $row['employeeID'];
+
+
+                        $sql = 'SELECT u.fName, u.lName, w.memberID, COUNT(*) AS total_exercises
+                        FROM user u
+                        JOIN member m ON m.userID = u.userID
+                        JOIN workoutplan w ON w.memberID = m.memberID
+                        WHERE w.employeeID = ' . $employeeID . ' GROUP BY w.memberID';                        
 
                         $res = mysqli_query($conn, $sql);
                         $num = 1;
@@ -131,30 +139,19 @@ include 'script/config.php';
 
                             if ($count > 0) {
 
-                                // if (isset($myArray['workoutID'])) {
-                                //     // Access the value of the 'workoutID' key
-                                //     $workoutID = $myArray['workoutID'];
-                                // } else {
-                                //     // Handle the case where the key is not defined
-                                //     echo "The 'workoutID' key is not defined in the array.";
-                                // }
-
                                 while ($rows = mysqli_fetch_assoc($res)) {
-                                    $workoutId = $rows['workoutID'];
-                                    $memberName = $rows['memberName'];
-                                    $date = $rows['date'];
-                                    $restPeriod = $rows['restPeriod'];
-                                    $duration = $rows['duration'];
-                                    $contact = $rows['contact'];
+                                    $memberID = $rows['memberID'];
+                                    $fName = $rows['fName'];
+                                    $lName = $rows['lName'];
+                                    $totalExercises = $rows['total_exercises'];
 
                         ?>
                                     <tr>
                                         <td><?php echo $num; ?> </td>
-                                        <td><?php echo $memberName; ?></td>
-                                        <td><?php echo $contact; ?></td>
-                                        <td><?php echo $date; ?></td>
-                                        <td><?php echo $duration; ?></td>
-                                        <td><a id="workout-view-btn" href="http://localhost/hulkzone/trainer/viewWorkout.php?id=<?php echo $workoutId; ?>">View</a></td>
+                                        <td><?php echo $fName; ?></td>
+                                        <td><?php echo $lName; ?></td>
+                                        <td><?php echo $totalExercises; ?></td>
+                                        <td><a id="workout-view-btn" href="http://localhost/hulkzone/trainer/viewWorkout.php?memberID=<?php echo $memberID; ?>">View</a></td>
                                     </tr>
                         <?php
                                     $num++;

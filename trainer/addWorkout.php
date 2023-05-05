@@ -1,8 +1,7 @@
 <?php
 require '../connect.php';
-include 'script/config.php';
+require 'script/config.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,9 +17,9 @@ include 'script/config.php';
 
 <body>
     <?php
-    // if (!$_SESSION['username']) {
-    //     header('location: http://localhost/hulkzone/');
-    // }
+    if (!$_SESSION['username']) {
+        header('location: http://localhost/hulkzone/');
+    }
     ?>
     <nav class="main-sidebar">
         <img src="img/gymLogo 3.png" alt="Logo">
@@ -99,81 +98,199 @@ include 'script/config.php';
     </section>
     <section class="main-content-container">
         <div class="add-members-container">
-            <h1>ADD PLAN</h1>
+            <h1>ADD WORKOUT PLAN</h1>
             <form action="http://localhost/hulkzone/trainer/script/add-workout.php" method="POST">
 
                 <ul>
                     <li id="workout-form-top">
-                        <div>
+                        <div id="add-workout-top-div">
+
                             <label for="memberName">MEMBER NAME</label>
-                            <input type="text" name="memberName" id="name" required>
-                        </div>
-                        <div>
-                            <label for="date">DATE</label>
-                            <input type="date" name="date" id="date" required>
-                        </div>
+                            <select name="memberName" id="memberID">
+                                <?php
+                                // Get EmployeeID
+                                $userID = $_SESSION['userID'];
+                                $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
+                                $res = mysqli_query($conn, $sql);
+                                $row = mysqli_fetch_assoc($res);
+                                $employeeID = $row['employeeID'];
 
+                                // 1 workout plan per person
+                                $sql = 'SELECT u.fName, u.lName, s.serviceName, u.contactNumber, u.gender,ms.endDate,ms.startDate,m.memberID
+                                FROM user u
+                                JOIN member m ON m.userID = u.userID
+                                JOIN servicecharge ms ON ms.memberID = m.memberID
+                                JOIN service s ON ms.serviceID = s.serviceID
+                                WHERE ms.employeeID =' . $employeeID . ' AND NOW() < ms.endDate 
+                                AND NOT EXISTS (
+                                    SELECT 1 FROM workoutplan wp WHERE wp.memberID = m.memberID
+                                )';
+
+                                $result = mysqli_query($conn, $sql); // assign the result set to a variable
+                                $num_rows = mysqli_num_rows($result);
+
+                                if ($num_rows == 0) {
+                                    echo "<option> No Members to show</option>";
+
+                                } else {
+                                    $firstRow = mysqli_fetch_assoc($result); // get the first row of the result set
+                                    $memberID = $firstRow['memberID'];
+                                    $startDate = $firstRow['startDate'];
+
+                                    // output the first member option with the start date attribute
+                                    echo "<option value=\"$memberID\" data-start-date=\"$startDate\">$memberID - {$firstRow['fName']} {$firstRow['lName']}</option>";
+
+
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        $memberID = $row['memberID'];
+
+                                        echo "<option value=\"{$row['memberID']}\" data-start-date=\"{$row['startDate']}\">{$row['memberID']} - {$row['fName']} {$row['lName']}</option>";
+                                    }
+                                }
+
+                                ?>
+                            </select>
+                            <p>
+                                Start Date: <input id="startDate" name="startDate" readonly value="<?php echo $startDate; ?>">
+                            </p>
+                            <!-- <input type="text" name="memberName" id="name" required> -->
+                        </div>
 
                     </li>
-                    <li id="workout-form-top">
-                        <div id="periods-box">
-                            <label for="planPeriod">REST DAYS</label>
-                            <div class="member-plan">
-                                <input type="number" name="planPeriod" id="plan" required>
-                                
+                    <li class="details-box" id="day1-box">
+                        <h3 class="day-header">
+                            Day 1 - Monday
+                            <input type="hidden" value="1" name="day1">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day1_exerciseName" id="day1_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day1_reps" id="day1_reps" placeholder="Reps">
+                                <input type="number" name="day1_restTime" id="day1_restTime" placeholder="Rest Time in Minutes">
                             </div>
+                            <span class="add-btn" id="day1_add-exercise-btn">Add Exercise</span>
                         </div>
-                        <div id="periods-box">
-                            <label for="duration">PLAN DURATION</label>
-                            <div class="member-plan">
-                                <input type="number" name="duration" id="duration" required>
-                                Months
+                        <div class="exercise-right-side">
+                            <textarea name="day1_execise_list" id="day1_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day1_remove-exercise-btn">Remove Last Exercise</span>
+                        </div>
+
+                    </li>
+                    <li class="details-box" id="day2-box">
+                        <h3 class="day-header">
+                            Day 2 - Tuesday
+                            <input type="hidden" value="2" name="day2">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day2_exerciseName" id="day2_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day2_reps" id="day2_reps" placeholder="Reps">
+                                <input type="number" name="day1_restTime" id="day2_restTime" placeholder="Rest Time in Minutes">
                             </div>
+                            <span class="add-btn" id="day2_add-exercise-btn">Add Exercise</span>
                         </div>
-                        <div>
-                            <label for="memberContact">CONTACT</label>
-                            <div class="member-plan">
-                                <input type="number" name="memberContact" id="memberContact" value="<?php echo $duration; ?>" required>
+                        <div class="exercise-right-side">
+                            <textarea name="day2_execise_list" id="day2_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day2_remove-exercise-btn">Remove Last Exercise</span>
+                        </div>
+
+                    </li>
+                    <li class="details-box" id="day3-box">
+                        <h3 class="day-header">
+                            Day 3 - Wednesday
+                            <input type="hidden" value="3" name="day3">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day3_exerciseName" id="day3_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day3_reps" id="day3_reps" placeholder="Reps">
+                                <input type="number" name="day3_restTime" id="day3_restTime" placeholder="Rest Time in Minutes">
                             </div>
+                            <span class="add-btn" id="day3_add-exercise-btn">Add Exercise</span>
+                        </div>
+                        <div class="exercise-right-side">
+                            <textarea name="day3_execise_list" id="day3_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day3_remove-exercise-btn">Remove Last Exercise</span>
                         </div>
 
                     </li>
-                    <li class="details-box">
-                        <div>
-                            <label for="day1">DAY 1</label>
-                            <textarea name="day1" id="details" cols="30" rows="10"></textarea>
+                    <li class="details-box" id="day4-box">
+                        <h3 class="day-header">
+                            Day 4 - Thursday
+                            <input type="hidden" value="4" name="day4">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day4_exerciseName" id="day4_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day4_reps" id="day4_reps" placeholder="Reps">
+                                <input type="number" name="day4_restTime" id="day4_restTime" placeholder="Rest Time in Minutes">
+                            </div>
+                            <span class="add-btn" id="day4_add-exercise-btn">Add Exercise</span>
                         </div>
-                        <div>
-                            <label for="day2">DAY 2</label>
-                            <textarea name="day2" id="details" cols="30" rows="10"></textarea>
+                        <div class="exercise-right-side">
+                            <textarea name="day4_execise_list" id="day4_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day4_remove-exercise-btn">Remove Last Exercise</span>
                         </div>
-                        <span class="add-btn" id="add-day-btn1">Add<br>Days</span>
-                    </li>
-                    <li class="details-box" style="display: none;" id="hiddenDaysBox1">
-                        <div>
-                            <label for="day3">DAY 3</label>
-                            <textarea name="day3" id="details" cols="30" rows="10"></textarea>
-                        </div>
-                        <div>
-                            <label for="day4">DAY 4</label>
-                            <textarea name="day4" id="details" cols="30" rows="10"></textarea>
-                        </div>
-                        <span class="add-btn" id="add-day-btn2">Add<br>Days</span>
-                    </li>
-                    <li class="details-box" style="display: none;" id="hiddenDaysBox2">
-                        <div>
-                            <label for="day5">DAY 5</label>
-                            <textarea name="day5" id="details" cols="30" rows="10"></textarea>
-                        </div>
-                        <div>
-                            <label for="day6">DAY 6</label>
-                            <textarea name="day6" id="details" cols="30" rows="10"></textarea>
-                        </div>
-                    </li>
-                    <li>
-
 
                     </li>
+                    <li class="details-box" id="day5-box">
+                        <h3 class="day-header">
+                            Day 5 - Friday
+                            <input type="hidden" value="5" name="day5">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day5_exerciseName" id="day5_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day5_reps" id="day5_reps" placeholder="Reps">
+                                <input type="number" name="day5_restTime" id="day5_restTime" placeholder="Rest Time in Minutes">
+                            </div>
+                            <span class="add-btn" id="day5_add-exercise-btn">Add Exercise</span>
+                        </div>
+                        <div class="exercise-right-side">
+                            <textarea name="day5_execise_list" id="day5_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day5_remove-exercise-btn">Remove Last Exercise</span>
+                        </div>
+
+                    </li>
+                    <li class="details-box" id="day6-box">
+                        <h3 class="day-header">
+                            Day 6 - Saturday
+                            <input type="hidden" value="6" name="day6">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day6_exerciseName" id="day6_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day6_reps" id="day6_reps" placeholder="Reps">
+                                <input type="number" name="day6_restTime" id="day6_restTime" placeholder="Rest Time in Minutes">
+                            </div>
+                            <span class="add-btn" id="day6_add-exercise-btn">Add Exercise</span>
+                        </div>
+                        <div class="exercise-right-side">
+                            <textarea name="day6_execise_list" id="day6_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day6_remove-exercise-btn">Remove Last Exercise</span>
+                        </div>
+
+                    </li>
+                    <li class="details-box" id="day7-box">
+                        <h3 class="day-header">
+                            Day 7 - Sunday
+                            <input type="hidden" value="7" name="day7">
+                        </h3>
+                        <div class="exercise-left-side">
+                            <div class="exercise_set">
+                                <input type="text" name="day7_exerciseName" id="day7_exerciseName" placeholder="Exercise Name">
+                                <input type="number" name="day7_reps" id="day7_reps" placeholder="Reps">
+                                <input type="number" name="day7_restTime" id="day7_restTime" placeholder="Rest Time in Minutes">
+                            </div>
+                            <span class="add-btn" id="day7_add-exercise-btn">Add Exercise</span>
+                        </div>
+                        <div class="exercise-right-side">
+                            <textarea name="day7_execise_list" id="day7_execise_list" cols="30" rows="10" readonly></textarea>
+                            <span class="add-btn remove-exercise-btn" id="day7_remove-exercise-btn">Remove Last Exercise</span>
+                        </div>
+
+                    </li>
+
                     <li>
                         <button id="form-submit-btn" type="submit" name="submit">Submit</button>
                     </li>
@@ -184,6 +301,22 @@ include 'script/config.php';
         </div>
 
     </section>
+
+    <script>
+        // Get references to the HTML elements
+        const memberSelect = document.getElementById('memberID');
+        const startDateSpan = document.getElementById('startDate');
+
+        // Add an event listener to the member select dropdown
+        memberSelect.addEventListener('change', function() {
+            // Get the selected member's start date value
+            const selectedOption = memberSelect.options[memberSelect.selectedIndex];
+            const startDateValue = selectedOption.getAttribute('data-start-date');
+
+            // Update the Start Date span element with the new value
+            startDateSpan.value = startDateValue;
+        });
+    </script>
 </body>
 
 </html>

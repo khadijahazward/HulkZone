@@ -6,4 +6,6 @@
         header('location: ..\home\login.php');
     }
 
+    date_default_timezone_set('Asia/Colombo');
+
 ?>
