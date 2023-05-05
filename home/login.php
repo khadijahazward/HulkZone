@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $result2 = mysqli_query($conn, $sql2);
 
                         if ($result2) {
-                            $username = "khadijahazward@gmail.com";
+                            $username = $_SESSION['username'];
                             $otp = $token;
                             $fname = $_SESSION['firstName'];
                             // send email verification OTP
