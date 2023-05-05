@@ -372,13 +372,9 @@
                             $sql4 = "INSERT INTO paymentplan(memberID, expiryDate) VALUES ('$memberID', '$expiryDate')";
                             $result4 = mysqli_query($conn, $sql4);
 
-                            // Generate a random number
-                            $token_num = rand(100000, 999999);
-                            // Convert the number to a string of length 6
-                            $token = str_pad($token_num, 6, "0", STR_PAD_LEFT);
-
+                            //for verifying the account
                             $verify_status = 0; 
-                            $sql5 = "insert into verify_email(userID, verify_status, token) values($userid, $verify_status, $token)";
+                            $sql5 = "insert into verify_email(userID, verify_status, token) values($userid, $verify_status, 0)";
                             $result5 = mysqli_query($conn, $sql5);
                         }
                     }
