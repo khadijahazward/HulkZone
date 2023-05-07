@@ -6,7 +6,6 @@ include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-die($userID);
 
 if (isset($_GET['update'])) {
     $memberID = $_GET['update'];

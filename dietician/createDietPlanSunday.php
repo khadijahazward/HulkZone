@@ -124,7 +124,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($result4) {
                 echo '<script> window.alert("You has been create dietplan successfully");</script>';
+
+                $message = "Your dietician has created your diet plan";
+                $currentDate = date('Y-m-d H:i:s');
+
+                $query6 = "INSERT INTO notifications
+                        (message, created_at, type) VALUES
+                        ('$message', '$currentDate', 2)";
+
+                $result6 = mysqli_query($conn, $query6);
+
+                $query7 = "SELECT * FROM notifications WHERE message = '$message' AND created_at = '$currentDate' AND type = 2";
+                $result7 = mysqli_query($conn, $query7);
+                $row7 = mysqli_fetch_assoc($result7);
+                $notificationID = $row7['notificationsID'];
+
+                $memberUserID = $member['userID'];
+            
+                $query8 = "INSERT INTO usernotifications
+                        (userID, notificationsID, status) VALUES 
+                        ('$memberUserID', '$notificationID', 1)";
+
+                $result8 = mysqli_query($conn, $query8);   
+                
                 echo '<script> window.location.href="dietPlan.php";</script>';
+                
             } else {
                 echo '<script> window.alert("Error of inserting data");</script>';
             }

@@ -11,6 +11,8 @@ include '../connect.php';
 <?PHP
     $memberID = $row1['memberID'];
     $userID = $_SESSION['userID'];
+
+    require("member_notification.php");
     
     // Get the latest expiry date from the paymentplan table for that member
     $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = '$memberID' ORDER BY expiryDate DESC LIMIT 1;";

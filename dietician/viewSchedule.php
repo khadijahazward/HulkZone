@@ -100,7 +100,7 @@ $result8 = mysqli_query($conn, $query8);
             </div>
             <form method="POST">
                 <div class="chooseDate">
-                    <label for="date">Date: </label>
+                    <label for="date">1st date of the Week: </label>
                     <input type="text" name="date" id="date" value="<?php echo $monday ?>">
                 </div>
                 <div class=" gridContainer">
@@ -151,7 +151,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="tuesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
         
                                             ';
                                         }
@@ -172,7 +172,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="wednesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
         
                                             ';
                                         }
@@ -193,7 +193,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="thursdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -214,7 +214,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="fridayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -235,7 +235,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="saturdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -256,7 +256,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input type="text" name="sundayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }

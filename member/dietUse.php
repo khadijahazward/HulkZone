@@ -56,7 +56,9 @@ include '../connect.php';
             echo "No data returned from the SQL query";
         }
     } else {
-        echo "<script type='text/javascript'>alert('No dietician is selected.');</script>";
+        // If no service charge record is found
+        echo "<script>alert('You have not selected a diet service yet. Please select the service to continue.');</script>";
+        echo "<script>window.location = 'http://localhost/HulkZone/member/services.php';</script>";
     }
     
 ?>
