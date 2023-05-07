@@ -6,6 +6,8 @@ include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
+die($userID);
+
 if (isset($_GET['update'])) {
     $memberID = $_GET['update'];
 }
@@ -593,8 +595,38 @@ if(isset($_POST['update'])){
         $result17 = mysqli_query($conn, $query17);
             
         if(!$result17){
-            echo '<script> window.alert("Error of updating saturday diet plan!");</script>';
+            echo '<script> window.alert("Error of updating sunday diet plan!");</script>';
         } 
+
+        if($result11 || $result12 || $result13 || $result14 || $result15 || $result16 || $result17){
+            echo '<script> window.alert("Updating Process is successfull!");</script>';
+
+            $message = "Your dietician has updated your diet plan";
+            $currentDate = date('Y-m-d H:i:s');
+
+            $query18 = "INSERT INTO notifications
+                        (message, created_at, type) VALUES
+                        ('$message', '$currentDate', 2)";
+
+            $result18 = mysqli_query($conn, $query18);
+
+            $query20 = "SELECT * FROM notifications WHERE message = '$message' AND created_at = '$currentDate' AND type = 2";
+            $result20 = mysqli_query($conn, $query20);
+            $row20 = mysqli_fetch_assoc($result20);
+            $notificationID = $row20['notificationsID'];
+
+            $memberUserID = $member['userID'];
+            
+            $query19 = "INSERT INTO usernotifications
+                        (userID, notificationsID, status) VALUES 
+                        ('$memberUserID', '$notificationID', 1)";
+
+            $result19 = mysqli_query($conn, $query19);
+
+            header("Location: dietPlan.php");
+            exit;
+            
+        }
     }
 }
 
