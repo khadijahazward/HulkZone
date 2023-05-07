@@ -24,7 +24,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of receiving employee details!");</script>';
 }
 
-$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > date('Y-m-d H:i:s')";
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > NOW()";
 $result2 = mysqli_query($conn, $query2);
 
 if (mysqli_num_rows($result2) > 0) {
@@ -33,7 +33,7 @@ if (mysqli_num_rows($result2) > 0) {
 
         $query3 = "SELECT * FROM member WHERE memberID = $memberID";
         $result3 = mysqli_query($conn, $query3);
-
+ 
         if ($result3) {
             $row3 = mysqli_fetch_assoc($result3);
             $memberUserID = $row3['userID'];
@@ -49,6 +49,8 @@ if (mysqli_num_rows($result2) > 0) {
             }
         }
     }
+}else{
+    echo "hello";
 }
 
 

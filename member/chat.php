@@ -43,7 +43,8 @@ if(!$result3){
     $dieticianPhoto = $row3['profilePhoto'];
 }
 
-$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
+$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY DATE(dateTime) ASC";
+//$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
 $result4 = mysqli_query($conn, $query4);
 
 if(!$result4){
