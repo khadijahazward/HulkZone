@@ -112,7 +112,9 @@ include '../connect.php';
                         }
                         
                     }else{
-                        die("Query failed: " . mysqli_error($conn));
+                        // If no service charge record is found
+                        echo "<script>alert('You have not selected a diet service yet. Please select a service to continue.');</script>";
+                        echo "<script>window.location = 'http://localhost/HulkZone/member/services.php';</script>";
                     }    
                 ?>
                 
