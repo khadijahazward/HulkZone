@@ -139,7 +139,7 @@ include('setAdminProfilePic.php');
 
           <!-- Box for Total Revenue -->
           <div class="dashboard-box">
-            <a href="memberPayments.php" style="text-decoration: none;">
+            <a href="viewPayments.php" style="text-decoration: none;">
               <div class="dashboard-title">Total Revenue</div>
               <div class="dashboard-left">
                 <img class="topIcons" src="images/revenue.png" alt="Revenue">

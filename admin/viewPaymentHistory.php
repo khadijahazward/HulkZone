@@ -26,7 +26,22 @@ include('setAdminProfilePic.php');
 
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   
+   <style>
+    .total{
+         background-color: #DEF9D7;
+         margin-left: 11px;
+         border-radius: 11px;
+         margin-right: 11px;
+         height: 34px;
+         padding-top: 0.7%;
+         padding-left: 60px;
+         font-weight: bold;
+    }
+
+    .totalamount{
+      margin-left: 960px;
+    }
+   </style>
 
 </head>
 
@@ -78,11 +93,15 @@ include('setAdminProfilePic.php');
         <!-- below the header -->
         <div class="down">
         <hr style="width: 98%;">
-        <div class="tableAnnouncements">
+      
+      </div>
+
+     
+       <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>
                    <th>PaymentID</th>
-                   <th>Paymen tDate</th>
+                   <th>Payment Date</th>
                    <th>Amount</th>
                    <th>Payment Type</th>
                 </tr>
@@ -135,7 +154,7 @@ include('setAdminProfilePic.php');
 
                 
             </table>
-            <p>Total Amount: <?php echo $total_amount ?></p>
+            <p class="total">Total Amount<span class="totalamount"> <?php echo $total_amount ?></span></p>
         </div>
         </div>
     </div>

@@ -35,6 +35,22 @@
         if (empty($_POST["gender"])) {
             $genErr = "Gender is required";
         }
+        
+        if (!empty($_POST["height"])) {
+            if (!is_numeric($_POST["height"])) {
+                $hgErr = "Height should be a number.";
+            }
+        }else{
+            $hgErr = "";
+        }
+
+        if (!empty($_POST["weight"])) {
+            if (!is_numeric($_POST["weight"])) {
+                $wiErr = "Weight should be a number.";
+            }
+        } else {
+            $wiErr = "";
+        }
 
         //checking length = 10
         if (empty($_POST["number"])) {
@@ -50,11 +66,16 @@
             $NICErr = "Enter Valid NIC";
         }
 
-        //email validation
         if (empty($_POST["email"])) {
             $emErr = "Email is required";
-        }else if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            $emErr = "Enter Valid Email";
+        } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
+            $emErr = "Enter a valid email address";
+        } else {
+            $email_parts = explode("@", $_POST["email"]);
+            $domain_parts = explode(".", $email_parts[1]);
+            if (count($domain_parts) < 2) {
+                $emErr = "Enter a valid email address";
+            }
         }
 
         //password validation
@@ -186,12 +207,12 @@
                     <div class="form-row">
 
                         <div class="form-group" style="margin-right:50px;">
-                            <label>Height (in Inches)</label>
+                            <label>Height (in Inches) <span class="error"> <?php echo $hgErr ; ?></span></label>
                             <input id="height" name="height" type="text" value="<?php echo $_POST['height'] ?? ''; ?>">
                         </div>
 
                         <div class="form-group">
-                            <label>Weight (in kilograms)</label>
+                            <label>Weight (in kilograms) <span class="error">  <?php echo $wiErr ; ?></span> </label>
                             <input id="weight" name="weight" type="text" value="<?php echo $_POST['weight'] ?? ''; ?>">
                         </div>
                         
@@ -261,41 +282,25 @@
    
    <?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-       
-        $fname = $_POST["fname"];
-       
-        $lname = $_POST["lname"];
-       
-        $nic = $_POST["nic"];
-       
-        $gender = $_POST["gender"];
-        
-        $dob = $_POST["dob"];
-        
-        $num = $_POST["number"];
-        
-        $st = $_POST["sNumber"];
-        
-        $ad1 = $_POST["aline1"];
-        
-        $ad2 = $_POST["aline2"];
-        
-        $city = $_POST["city"];
-        
-        $height = floatval(str_replace(',', '.', $_POST["height"]));
-        
-        $weight = floatval(str_replace(',', '.', $_POST["weight"]));
-        
-        $username = $_POST["email"];
-        
-        $pw = $_POST["pass1"];
-
-        $cpw = $_POST["pass2"];
-
-        $plans = $_POST["plan"];
-
+        $height = $weight = 0;
+        //captial letter first
+        $fname = ucfirst(mysqli_real_escape_string($conn, trim($_POST["fname"])));
+        $lname = ucfirst(mysqli_real_escape_string($conn, trim($_POST["lname"])));
+        $nic = mysqli_real_escape_string($conn, trim($_POST["nic"]));
+        $gender = mysqli_real_escape_string($conn, $_POST["gender"]);
+        $dob = mysqli_real_escape_string($conn, $_POST["dob"]);
+        $num = mysqli_real_escape_string($conn, trim($_POST["number"]));
+        $st = mysqli_real_escape_string($conn, $_POST["sNumber"]);
+        $ad1 = mysqli_real_escape_string($conn, $_POST["aline1"]);
+        $ad2 = mysqli_real_escape_string($conn, $_POST["aline2"]);
+        $city = mysqli_real_escape_string($conn, $_POST["city"]);
+        $height = floatval(str_replace(',', '.', mysqli_real_escape_string($conn, $_POST["height"])));
+        $weight = floatval(str_replace(',', '.', mysqli_real_escape_string($conn, $_POST["weight"])));
+        $username = mysqli_real_escape_string($conn, trim($_POST["email"]));
+        $pw = mysqli_real_escape_string($conn, $_POST["pass1"]);
+        $cpw = mysqli_real_escape_string($conn, $_POST["pass2"]);
+        $plans = mysqli_real_escape_string($conn, $_POST["plan"]);        
         $status = 1; //active
-
         $role = 1; //1 = member, 2 = trainer, 3 = dietician
         
         //checking if username already exists
@@ -312,74 +317,84 @@
 
                 $password_hash = password_hash($pw, PASSWORD_DEFAULT);
 
-                $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
-                values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
-                
-                if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)){
-                    $result = mysqli_query($conn, $sql);
-                }
-
-                $sql1 = "select * from user where email = '$username'";
+                //checking if there are no errors
+                if (empty($fnameErr) && empty($lnameErr) && empty($dobErr) && empty($genErr) && empty($numErr) && empty($NICErr) && empty($hgErr) && empty($wiErr) && empty($emErr) && empty($pw1Err) && empty($pw2Err)) {
                     
-                $result1 = mysqli_query($conn, $sql1);
-                
-                if($result1 && $row = mysqli_fetch_array($result1)){
-                    //retrieving the userID from user table to use as foreign key in member table
-                    $userid = ($row['userID']);
-
-                    //inserting data into member table
-                    $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
-        
-                    $result2 = mysqli_query($conn, $sql2);
-
-                    //for inserting payment expiry date
-                    $sql3 = "SELECT memberID FROM member WHERE userID = '$userid'";
-                    $result3 = mysqli_query($conn, $sql3);
-
-                    if ($result3 && mysqli_num_rows($result3) > 0) {
-                        $row3 = mysqli_fetch_assoc($result3);
-                        $memberID = $row3['memberID'];
-                        $createdDate = $row['created_at'];
-
-                        // Calculate expiry date based on plan type
-                        switch ($plans) {
-                            case 'oneMonth':
-                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 month'));
-                            break;
-                            case 'threeMonth':
-                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +3 months'));
-                            break;
-                            case 'sixMonth':
-                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +6 months'));
-                            break;
-                            case 'twelveMonth':
-                            $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 year'));
-                            break;
-                            default:
-                            $expiryDate = '';
-                            break;
-                        }
-
-
-                        $sql4 = "INSERT INTO paymentplan(memberID, expiryDate) VALUES ('$memberID', '$expiryDate')";
-                        $result4 = mysqli_query($conn, $sql4);
+                    $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
+                    values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', NOW())";
+                        
+                    if(!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)){
+                        $result = mysqli_query($conn, $sql);
                     }
-                }
-               
 
-                //checking if both are correct 
-                if ($result == TRUE && isset($result2) && $result2 == true && $result4 == true) {
-                    echo "<script> alert('Registration Successful!'); </script>";
-                    echo "<script>window.location.replace('../index.html');</script>";
+                    $sql1 = "select * from user where email = '$username'";
+                        
+                    $result1 = mysqli_query($conn, $sql1);
+                    
+                    if($result1 && $row = mysqli_fetch_array($result1)){
+                        //retrieving the userID from user table to use as foreign key in member table
+                        $userid = ($row['userID']);
+
+                        //inserting data into member table
+                        $sql2 = "insert into member(userID, height, weight, planType) values( '$userid', '$height', '$weight', '$plans')";
+            
+                        $result2 = mysqli_query($conn, $sql2);
+
+                        //for inserting payment expiry date
+                        $sql3 = "SELECT memberID FROM member WHERE userID = '$userid'";
+                        $result3 = mysqli_query($conn, $sql3);
+
+                        if ($result3 && mysqli_num_rows($result3) > 0) {
+                            $row3 = mysqli_fetch_assoc($result3);
+                            $memberID = $row3['memberID'];
+                            $createdDate = $row['created_at'];
+
+                            // Calculate expiry date based on plan type
+                            switch ($plans) {
+                                case 'oneMonth':
+                                $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 month'));
+                                break;
+                                case 'threeMonth':
+                                $expiryDate = date('Y-m-d', strtotime($createdDate . ' +3 months'));
+                                break;
+                                case 'sixMonth':
+                                $expiryDate = date('Y-m-d', strtotime($createdDate . ' +6 months'));
+                                break;
+                                case 'twelveMonth':
+                                $expiryDate = date('Y-m-d', strtotime($createdDate . ' +1 year'));
+                                break;
+                                default:
+                                $expiryDate = '';
+                                break;
+                            }
+
+
+                            $sql4 = "INSERT INTO paymentplan(memberID, expiryDate) VALUES ('$memberID', '$expiryDate')";
+                            $result4 = mysqli_query($conn, $sql4);
+
+                            //for verifying the account
+                            $verify_status = 0; 
+                            $sql5 = "insert into verify_email(userID, verify_status, token) values($userid, $verify_status, 0)";
+                            $result5 = mysqli_query($conn, $sql5);
+                        }
+                    }
+                
+                    //checking if both are correct 
+                    if ($result == TRUE && isset($result2) && $result2 == true && $result4 == true && $result5 == true) {
+                        echo "<script> alert('Registration Successful!'); </script>";
+                        echo "<script>window.location.replace('../index.html');</script>";
+                    }else{
+                        echo "<script> alert('Please Fill all the required Data!'); </script>";
+                    }
+                    
                 }else{
-                    echo "<script> alert('Please Fill all the required Data!'); </script>";
+                    echo "<script> alert('Enter Valid Data'); </script>";
                 }
+                
             }else{
                 echo "<script> alert('Passwords dont match'); </script>";
             }
                     
-        }else if($num == ''){
-            //prevents alert coming from every submit
         }else{
             echo "<script> alert('Username already Exists'); </script>";
         }

@@ -69,10 +69,7 @@ $dateReported = $row['dateReported'];
     exit();
 }
 
+
 mysqli_close($conn);
 
-
-
 ?>
-
-

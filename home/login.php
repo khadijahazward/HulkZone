@@ -36,17 +36,58 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['role'] = $row['roles'];
             
     
-            //redirecting to dashboard
+            //redirecting to dashboard - admin = 0, member = 1, trainer = 2, dietician = 3
             if($_SESSION['role'] == 0){
                 header("location: ..\admin\dashboard.php");
-            }else if($_SESSION['role'] == 1){
-                header("location: ..\member\dashboard.php");
+            }else if($_SESSION['role'] == 1){ 
+
+                $userID = $_SESSION['userID'];
+                $sql1 = "SELECT verify_status FROM verify_email WHERE userID = $userID"; //for verifying email of member
+                $result1 = mysqli_query($conn, $sql1);
+
+                if ($result1 && $row1 = mysqli_fetch_array($result1)) {
+                    if ($row1['verify_status'] == 1) {
+                        header("location: ..\member\dashboard.php");
+                    } else {
+                        
+                        // Generate a random number
+                        $token_num = rand(100000, 999999);
+                        // Convert the number to a string of length 6
+                        $token = str_pad($token_num, 6, "0", STR_PAD_LEFT);
+                        
+                        $sql2 ="update verify_email set token = $token where userID = $userID";
+                        $result2 = mysqli_query($conn, $sql2);
+
+                        if ($result2) {
+                            $username = $_SESSION['username'];
+                            $otp = $token;
+                            $fname = $_SESSION['firstName'];
+                            // send email verification OTP
+                            require 'email_verification.php';
+                            header("location: ../member/verify_email.php");
+                        } else {
+                            echo '<script>';
+                            echo 'window.alert("An error occurred while generating OTP. Please try again.");';
+                            echo '</script>';
+
+                            session_destroy();
+                            unset($_SESSION['username']);
+                            unset($_SESSION['firstName']);
+                            unset($_SESSION['userID']);
+                            unset($_SESSION['lastName']);
+                            unset($_SESSION['role']);
+                            unset($_SESSION["logged_in"]);
+                        }
+                    }
+                }
+
             }else if($_SESSION['role'] == 2){
                 header("location: http://localhost/hulkzone/trainer/dashboard.php");
             }else if($_SESSION['role'] == 3){
                 header("location: ..\dietician\home.php");
             }  
 
+            //for member - account is disabled. 
         }else if($row['statuses'] == 0 && $row['roles'] == 1){
             session_start();
             

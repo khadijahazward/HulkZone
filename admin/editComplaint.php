@@ -30,6 +30,8 @@ if (isset($_POST['submit'])) {
     exit();*/
     include('authorization.php');
 include('../../HulkZone/connect.php');
+include('notiCount.php');
+
 
 $complaintID = mysqli_real_escape_string($conn, $_GET['complaintID']);
 
@@ -164,14 +166,25 @@ include('setAdminProfilePic.php');
 
         <div class="content" >
             <div class="contentLeft">
-                <p class="title">User Complaints</p>
+                <p class="title" style="width: 250px;">User Complaints</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight" ><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 611px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:650px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
 
+
+      <div class="contentMiddle" style="margin-left:35px;">
+        <p class="myProfile">My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
 
         <div class="down">
             <div class="topic">

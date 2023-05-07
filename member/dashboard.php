@@ -221,6 +221,13 @@ include '../connect.php';
                             $sql8 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID in (1,2,4) AND endDate >= CURDATE() LIMIT 1";
                             $result8 = mysqli_query($conn, $sql8);
 
+                            echo '<table> 
+                            <tr  style = "background-color: #006837;"> 
+                                <th> Exercise Name </th> 
+                                <th> Sets </th> 
+                                <th> Rest Time </th> 
+                            </tr>';
+
                             if (mysqli_num_rows($result8) > 0) {
                                 $row8 = mysqli_fetch_assoc($result8);
                                 $startDate = $row8['startDate'];
@@ -228,12 +235,6 @@ include '../connect.php';
 
                                 $sql = "SELECT * FROM workoutplan WHERE employeeID = '$empid' AND startDate = '$startDate' AND day = $dayNumber AND memberID = $row1[memberID]";
                                 $result = mysqli_query($conn, $sql);
-                                echo '<table> 
-                                <tr  style = "background-color: #006837;"> 
-                                    <th> Exercise Name </th> 
-                                    <th> Sets </th> 
-                                    <th> Rest Time </th> 
-                                </tr>';
 
                                 if (mysqli_num_rows($result) > 0) {
                                     

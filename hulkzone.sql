@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2023 at 07:01 PM
+-- Generation Time: May 02, 2023 at 10:04 AM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -41,9 +41,9 @@ CREATE TABLE `chat` (
 --
 
 INSERT INTO `chat` (`chatID`, `senderID`, `receiverID`, `message`, `dateTime`, `status`) VALUES
-(23, 122, 86, 'Hi', '2023-04-21 15:33:43', 1),
+(23, 122, 86, 'Hi', '2023-04-21 15:33:43', 0),
 (24, 86, 122, 'Hi', '2023-04-21 15:54:34', 0),
-(25, 122, 86, 'Hi', '2023-04-24 15:05:22', 1);
+(25, 122, 86, 'Hi', '2023-04-24 15:05:22', 0);
 
 -- --------------------------------------------------------
 
@@ -275,6 +275,7 @@ INSERT INTO `employeeservice` (`serviceID`, `employeeID`) VALUES
 (3, 8),
 (1, 9),
 (2, 9),
+(4, 9),
 (3, 10),
 (3, 11),
 (4, 14);
@@ -355,21 +356,6 @@ INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALU
 (55, 131, 100, 40, 'threeMonth'),
 (56, 132, 100, 35, 'threeMonth'),
 (57, 133, 73, 54, 'sixMonth');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `memberservice`
---
-
-CREATE TABLE `memberservice` (
-  `memberID` int NOT NULL,
-  `serviceID` int NOT NULL,
-  `startDate` datetime NOT NULL,
-  `endDate` datetime NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `employeeID` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -500,7 +486,7 @@ CREATE TABLE `servicecharge` (
 INSERT INTO `servicecharge` (`memberID`, `paymentID`, `serviceID`, `employeeID`, `startDate`, `endDate`, `rate`) VALUES
 (41, 1, 3, 10, '2022-06-01 13:48:14', '2022-12-01 13:48:14', 4),
 (41, 1, 4, 7, '2022-08-22 13:45:34', '2023-02-22 13:45:34', 1),
-(41, 16, 4, 7, '2023-03-11 09:40:21', '2023-09-11 09:40:21', 0),
+(41, 16, 4, 9, '2023-03-11 09:40:21', '2023-09-11 09:40:21', 0),
 (41, 23, 3, 10, '2023-04-11 14:38:05', '2023-10-11 14:38:05', 0);
 
 -- --------------------------------------------------------
@@ -540,6 +526,13 @@ CREATE TABLE `supplement` (
   `memberID` int NOT NULL,
   `startDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `supplement`
+--
+
+INSERT INTO `supplement` (`supplementID`, `employeeID`, `memberID`, `startDate`) VALUES
+(18, 10, 41, '2023-04-11 14:38:05');
 
 -- --------------------------------------------------------
 
@@ -770,6 +763,28 @@ CREATE TABLE `workoutplan` (
   `day` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `workoutplan`
+--
+
+INSERT INTO `workoutplan` (`workout_id`, `employeeID`, `memberID`, `startDate`, `exerciseName`, `reps`, `restTime`, `day`) VALUES
+(1, 9, 41, '2023-03-11 09:40:21', 'Planks', 3, 3, 1),
+(2, 9, 41, '2023-03-11 09:40:21', 'Lunge', 4, 3, 1),
+(3, 9, 41, '2023-03-11 09:40:21', 'Squats', 3, 3, 1),
+(4, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 1),
+(5, 9, 41, '2023-03-11 09:40:21', 'Single-leg deadlifts', 3, 3, 2),
+(6, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 2),
+(7, 9, 41, '2023-03-11 09:40:21', 'Side planks', 3, 3, 3),
+(8, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 3),
+(9, 9, 41, '2023-03-11 09:40:21', 'Overhead dumbbell presses', 3, 3, 4),
+(10, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 4),
+(11, 9, 41, '2023-03-11 09:40:21', 'Floor Press', 3, 3, 5),
+(12, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 5),
+(13, 9, 41, '2023-03-11 09:40:21', 'Frog Pumps', 3, 3, 6),
+(14, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 6),
+(15, 9, 41, '2023-03-11 09:40:21', 'Bar Dips', 3, 3, 7),
+(16, 9, 41, '2023-03-11 09:40:21', 'push ups', 4, 3, 7);
+
 -- --------------------------------------------------------
 
 --
@@ -781,8 +796,19 @@ CREATE TABLE `workout_plan_status` (
   `memberID` int NOT NULL,
   `completedDate` date NOT NULL,
   `status` int NOT NULL,
-  `workout_id` int NOT NULL
+  `startDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `workout_plan_status`
+--
+
+INSERT INTO `workout_plan_status` (`statusID`, `memberID`, `completedDate`, `status`, `startDate`) VALUES
+(1, 41, '2023-05-02', 1, '2023-03-11 09:40:21'),
+(2, 41, '2023-05-01', 1, '2023-03-11 09:40:21'),
+(3, 41, '2023-05-03', 1, '2023-03-11 09:40:21'),
+(4, 41, '2023-05-04', 1, '2023-03-11 09:40:21'),
+(5, 41, '2023-05-05', 1, '2023-03-11 09:40:21');
 
 --
 -- Indexes for dumped tables
@@ -872,15 +898,6 @@ ALTER TABLE `member`
   ADD PRIMARY KEY (`memberID`),
   ADD KEY `memberID` (`memberID`),
   ADD KEY `userID` (`userID`);
-
---
--- Indexes for table `memberservice`
---
-ALTER TABLE `memberservice`
-  ADD PRIMARY KEY (`memberID`,`serviceID`,`startDate`),
-  ADD KEY `memberID` (`memberID`,`serviceID`,`employeeID`),
-  ADD KEY `employeeID` (`employeeID`),
-  ADD KEY `serviceID` (`serviceID`);
 
 --
 -- Indexes for table `message`
@@ -995,8 +1012,7 @@ ALTER TABLE `workoutplan`
 --
 ALTER TABLE `workout_plan_status`
   ADD PRIMARY KEY (`statusID`),
-  ADD KEY `memberID` (`memberID`),
-  ADD KEY `workout_id` (`workout_id`);
+  ADD KEY `memberID` (`memberID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -1114,7 +1130,13 @@ ALTER TABLE `weekdays`
 -- AUTO_INCREMENT for table `workoutplan`
 --
 ALTER TABLE `workoutplan`
-  MODIFY `workout_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `workout_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `workout_plan_status`
+--
+ALTER TABLE `workout_plan_status`
+  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -1194,14 +1216,6 @@ ALTER TABLE `member`
   ADD CONSTRAINT `member_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `memberservice`
---
-ALTER TABLE `memberservice`
-  ADD CONSTRAINT `memberservice_ibfk_1` FOREIGN KEY (`employeeID`) REFERENCES `employee` (`employeeID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `memberservice_ibfk_2` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `memberservice_ibfk_3` FOREIGN KEY (`serviceID`) REFERENCES `service` (`serviceID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `payment`
 --
 ALTER TABLE `payment`
@@ -1255,8 +1269,7 @@ ALTER TABLE `workoutplan`
 -- Constraints for table `workout_plan_status`
 --
 ALTER TABLE `workout_plan_status`
-  ADD CONSTRAINT `workout_plan_status_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `workout_plan_status_ibfk_2` FOREIGN KEY (`workout_id`) REFERENCES `workoutplan` (`workout_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `workout_plan_status_ibfk_1` FOREIGN KEY (`memberID`) REFERENCES `member` (`memberID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
