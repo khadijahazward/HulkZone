@@ -9,6 +9,7 @@
     <title>Register | HulkZone</title>
     <link rel="stylesheet" href="../style/register.css">
     <link rel="stylesheet" href="../style/general.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
     
 </head>
 

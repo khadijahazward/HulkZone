@@ -17,6 +17,7 @@ include '../connect.php';
     <title>Verify | HulkZone</title>
     <link rel="stylesheet" href="../style/general.css">
     <link rel="stylesheet" href="../style/verify_email.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 <body>
     <!--navigation bar-->

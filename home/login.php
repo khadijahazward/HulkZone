@@ -136,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login | HulkZone</title>
     <link rel="stylesheet" href="../style/index.css">
     <link rel="stylesheet" type="text/css" href="../style/login.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 
 <body>
