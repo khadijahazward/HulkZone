@@ -16,7 +16,8 @@ include '../connect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEAM | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
-    <link rel="stylesheet" type="text/css" href="../member/style/team.css">   
+    <link rel="stylesheet" type="text/css" href="../member/style/team.css">  
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/> 
 </head>
 <body>
     <div class="container">

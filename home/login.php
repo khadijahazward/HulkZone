@@ -54,8 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         $token_num = rand(100000, 999999);
                         // Convert the number to a string of length 6
                         $token = str_pad($token_num, 6, "0", STR_PAD_LEFT);
-                        
-                        $sql2 ="update verify_email set token = $token where userID = $userID";
+                        $sql2 = "UPDATE verify_email SET token = '$token', timestamp = NOW() WHERE userID = '$userID'";
                         $result2 = mysqli_query($conn, $sql2);
 
                         if ($result2) {
@@ -137,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login | HulkZone</title>
     <link rel="stylesheet" href="../style/index.css">
     <link rel="stylesheet" type="text/css" href="../style/login.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 
 <body>

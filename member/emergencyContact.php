@@ -57,6 +57,7 @@ if (mysqli_num_rows($result2) == 1) {
     <title>DashBoard | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/emergencyContact.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 <body>
     <div class="container">
