@@ -5,9 +5,9 @@ $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 $sqlmessage1 = "SELECT * FROM member JOIN servicecharge ON member.memberID = servicecharge.memberID WHERE member.userID = $userID AND servicecharge.serviceID = 3 AND servicecharge.endDate >= NOW()";
 $resultmessage1 = mysqli_query($conn, $sqlmessage1);
 
-if(mysqli_num_rows($resultmessage1) == 0){
+if (mysqli_num_rows($resultmessage1) == 0) {
     $unreadMsg = 0;
-}else{
+} else {
     $rowmessage1 = mysqli_fetch_assoc($resultmessage1);
     $memberID = $rowmessage1['memberID'];
     $dieticianID = $rowmessage1['employeeID'];
@@ -15,7 +15,7 @@ if(mysqli_num_rows($resultmessage1) == 0){
     $sqlmessage2 = "SELECT * FROM employee WHERE employeeID = $dieticianID";
     $resultmessage2 = mysqli_query($conn, $sqlmessage2);
 
-    if($resultmessage2){
+    if ($resultmessage2) {
         $rowmessage2 = mysqli_fetch_assoc($resultmessage2);
         $dieticianUserID = $rowmessage2['userID'];
     }
@@ -24,12 +24,6 @@ if(mysqli_num_rows($resultmessage1) == 0){
     $resultmessage3 = mysqli_query($conn, $sqlmessage3);
     $rowmessage3 = mysqli_fetch_assoc($resultmessage3);
     $unreadMsg = $rowmessage3['count'];
-
-    if($unreadMsg != 0){
-        $unreadMsg = $rowmessage3['count'];
-    }else{
-        $unreadMsg = 0;
-    }
 }
 
 ?>
@@ -92,17 +86,38 @@ if(mysqli_num_rows($resultmessage1) == 0){
     </div>
 
     <hr>
+    <?php
 
+    if ($unreadMsg != 0) {
+        $unreadMsg = $rowmessage3['count'];
+
+        echo '
+        <div class="line">
+            <a href="../member/chat.php">
+                <div class="nav-font">Chat</div>
+            </a>
+            <div class="unreadMsg">
+                <p>
+                     '.$unreadMsg .'
+                </p>
+            </div>
+        </div>
+
+        ';
+    } else {
+
+    echo '
     <div class="line">
         <a href="../member/chat.php">
             <div class="nav-font">Chat</div>
         </a>
-        <div class='unreadMsg'>
-            <p>
-                <?php echo $unreadMsg ?>
-            </p>
-        </div>
     </div>
+
+
+    ';
+    }
+
+    ?>
 
     <hr>
 

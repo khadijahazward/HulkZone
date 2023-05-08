@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receiverID = $dieticianUserID;
     $status = 1;
 
-    if(isset($_POST['sendBtn']) && isset($_POST['sendingMessage'])){
+    if(isset($_POST['sendBtn']) && !empty($_POST['sendingMessage'])){
         
         $query6 = "INSERT INTO chat 
                     (senderID, receiverID, message, status) VALUES
