@@ -35,7 +35,7 @@ $mail->Body = "Dear " . $fname . "<br><br>" . "We hope this email finds you well
 $mail->addAddress($username);
 
 if ($mail->send()) {
-    echo "<script> alert('Account information successfully sent to the user'); </script>";
+  echo "<script> alert('OTP Sent Successfully, Please Check you email.'); </script>";
 
 } else {
   echo "Message could not be sent. Mailer Error: " .
