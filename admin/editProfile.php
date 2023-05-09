@@ -7,7 +7,7 @@ include('notiCount.php');
 
 
 // define form validation variables
-$fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = "";
+$fNameErr = $lNameErr = $contactNumberErr = $pwErr = $confirmPasswordErr = $stnumErr= "";
 // check if the form has been submitted and update the details if necessary
 if (isset($_POST['edit'])) {
     // get the user ID from the session
@@ -38,7 +38,10 @@ if (isset($_POST['edit'])) {
     }
     if (empty($contactNumber)) {
         $contactNumberErr = "Phone number is required";
+    }else if (!preg_match('/^[0-9]{10}+$/', $_POST["contactNumber"])) {
+        $contactNumberErr = "Enter Valid Phone Number";
     }
+    
     //password validation
     $numberCheck = preg_match('@[0-9]@', $pw); //atleast one number
     $specialCharsCheck = preg_match('@[^\w]@', $pw); //atleast one special character
@@ -241,7 +244,7 @@ if (isset($_POST['edit'])) {
 
             <!--the profile details-->
             <div class="profile">
-                <form method="post" id="form-id" onsubmit="">
+                <form method="post" id="form-id" onsubmit="return confirmSubmission()">
 
                     <div class="style" style="display:flex;flex-direction:row;margin-top:20px;margin-left:140px;">
                         <label for="" style="margin-top: 12px;">First Name</label>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 10:04 AM
+-- Generation Time: May 05, 2023 at 06:17 PM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -153,7 +153,7 @@ CREATE TABLE `dietplan` (
 --
 
 INSERT INTO `dietplan` (`diet_id`, `employeeID`, `memberID`, `startDate`, `breakfastMeal`, `breakfastQty`, `breakfastCal`, `lunchMeal`, `lunchQty`, `lunchCal`, `dinnerMeal`, `dinnerQty`, `dinnerCal`, `day`) VALUES
-(1, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 1),
+(1, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'pineapple juice', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 1),
 (2, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 2),
 (3, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 3),
 (4, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 4),
@@ -353,23 +353,10 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALUES
 (41, 86, 100, 20, 'sixMonth'),
-(55, 131, 100, 40, 'threeMonth'),
-(56, 132, 100, 35, 'threeMonth'),
-(57, 133, 73, 54, 'sixMonth');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `message`
---
-
-CREATE TABLE `message` (
-  `messageID` int NOT NULL,
-  `chatID` int NOT NULL,
-  `text` text NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(62, 138, 10, 10, 'oneMonth'),
+(63, 139, 0, 0, 'oneMonth'),
+(64, 140, 0, 0, 'twelveMonth'),
+(65, 141, 0, 0, 'sixMonth');
 
 -- --------------------------------------------------------
 
@@ -438,7 +425,11 @@ CREATE TABLE `paymentplan` (
 
 INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
 (6, 41, '2023-06-14 15:45:06'),
-(16, 41, '2023-12-14 15:45:06');
+(16, 41, '2023-12-14 15:45:06'),
+(21, 62, '2023-06-05 00:00:00'),
+(22, 63, '2023-06-05 00:00:00'),
+(23, 64, '2024-05-05 00:00:00'),
+(24, 65, '2023-11-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -532,7 +523,7 @@ CREATE TABLE `supplement` (
 --
 
 INSERT INTO `supplement` (`supplementID`, `employeeID`, `memberID`, `startDate`) VALUES
-(18, 10, 41, '2023-04-11 14:38:05');
+(19, 10, 41, '2023-04-11 14:38:05');
 
 -- --------------------------------------------------------
 
@@ -694,9 +685,10 @@ INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`,
 (128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', 'hemmathagama', '', 'Colombo', '$2y$10$7fCyAsl.cReU6BIgzhe81OFHBBMVuH/9qP1pYsYUJBtxyysxUkJBy', '2023-02-10', 'munchi@gmail.com'),
 (129, 'Edward', 'Gardin', '9855546232V', 'Male', NULL, '2004-12-03', 2, 1, 775087334, '3', '', '', 'Colombo', '$2y$10$1hCR19NL/PqarKGzfsLc3eQUNJhI6kRXWIiiz/s/Y9BpBe6KrTtYS', '2023-02-10', 'gardin@gmail.com'),
 (130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com'),
-(131, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$wDE0s4uzlH/pFt4I8G.MaeHCcE6GUaMKSfmIsaA5.AuyQaIbnY3xK', '2023-03-02', 'kay40@gmail.com'),
-(132, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$R5WsAWOx9jtwwTIu2jN9VuoNS2dqLbWRM2C46urgDqoXjF3I9E2YS', '2023-03-02', 'kay35@gmail.com'),
-(133, 'amjad', 'azward', '200070903808', 'Male', NULL, '2001-01-08', 1, 1, 711541763, '172', 'leyards', 'broadway', 'colombo', '$2y$10$tfBOp99YGa/vsygAvvRRpOvRL5l9FYfIkfkoy/bdKyF9WRakR95Yu', '2023-03-02', 'amjad@gmail.com');
+(138, 'Amjad', 'Azward', '123456789V', 'Male', NULL, '2004-12-02', 1, 1, 772347317, '', '', '', '', '$2y$10$U0pRvt1hEJksE93FsEFBReEr2jcIivGOGdSI6HaKOjTB2iT5iC056', '2023-05-05', 'amjad@gmail.com'),
+(139, 'Azraar', 'Azward', '123456789122', 'Male', NULL, '1990-01-28', 1, 1, 772347317, '', '', '', '', '$2y$10$VqnD4zENtZrmBkH6QTcZ8uuhYl9D1kLNgcNpKTPRvwfRmnDfu3Loe', '2023-05-05', 'azraar@gmail.com'),
+(140, 'Husna', 'Azward', '987654321V', 'Female', NULL, '1978-01-31', 1, 1, 778249346, '', '', '', '', '$2y$10$Xa3sqe/2aG0WYnzFi80SE.jpJyGZmEUv5m/kA7g4D8E0MzpidCx.u', '2023-05-05', 'husna@gmail.com'),
+(141, 'Azward', 'Nizar', '123456789V', 'Male', NULL, '1965-02-12', 1, 1, 776006705, '', '', '', '', '$2y$10$xJEnHqiRMAilkFVoT3XeCeiN.D1eAHXBzNTKKk0h8MCff.2wYYqna', '2023-05-05', 'azward@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -721,6 +713,29 @@ INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notifications
 (16, 128, 30, 0),
 (18, 101, 32, 0),
 (19, 101, 33, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verify_email`
+--
+
+CREATE TABLE `verify_email` (
+  `userID` int NOT NULL,
+  `verify_status` int NOT NULL DEFAULT '0',
+  `token` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verify_email`
+--
+
+INSERT INTO `verify_email` (`userID`, `verify_status`, `token`) VALUES
+(86, 1, 234567),
+(138, 1, 987654),
+(139, 1, 123456),
+(140, 1, 546378),
+(141, 1, 659520);
 
 -- --------------------------------------------------------
 
@@ -808,7 +823,8 @@ INSERT INTO `workout_plan_status` (`statusID`, `memberID`, `completedDate`, `sta
 (2, 41, '2023-05-01', 1, '2023-03-11 09:40:21'),
 (3, 41, '2023-05-03', 1, '2023-03-11 09:40:21'),
 (4, 41, '2023-05-04', 1, '2023-03-11 09:40:21'),
-(5, 41, '2023-05-05', 1, '2023-03-11 09:40:21');
+(5, 41, '2023-05-05', 1, '2023-03-11 09:40:21'),
+(6, 41, '2023-05-06', 1, '2023-03-11 09:40:21');
 
 --
 -- Indexes for dumped tables
@@ -900,12 +916,6 @@ ALTER TABLE `member`
   ADD KEY `userID` (`userID`);
 
 --
--- Indexes for table `message`
---
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`messageID`,`chatID`);
-
---
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -993,6 +1003,12 @@ ALTER TABLE `usernotifications`
   ADD KEY `usernotifications_ibfk_2` (`notificationsID`);
 
 --
+-- Indexes for table `verify_email`
+--
+ALTER TABLE `verify_email`
+  ADD PRIMARY KEY (`userID`);
+
+--
 -- Indexes for table `weekdays`
 --
 ALTER TABLE `weekdays`
@@ -1058,13 +1074,7 @@ ALTER TABLE `gymuseappointment`
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
-
---
--- AUTO_INCREMENT for table `message`
---
-ALTER TABLE `message`
-  MODIFY `messageID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1082,7 +1092,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -1112,7 +1122,7 @@ ALTER TABLE `timeslots`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
 
 --
 -- AUTO_INCREMENT for table `usernotifications`
@@ -1136,7 +1146,7 @@ ALTER TABLE `workoutplan`
 -- AUTO_INCREMENT for table `workout_plan_status`
 --
 ALTER TABLE `workout_plan_status`
-  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -1256,6 +1266,12 @@ ALTER TABLE `trainerappointment`
 ALTER TABLE `usernotifications`
   ADD CONSTRAINT `usernotifications_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `usernotifications_ibfk_2` FOREIGN KEY (`notificationsID`) REFERENCES `notifications` (`notificationsID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `verify_email`
+--
+ALTER TABLE `verify_email`
+  ADD CONSTRAINT `verify_email_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `workoutplan`

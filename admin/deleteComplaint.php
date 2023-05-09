@@ -23,7 +23,7 @@ mysqli_close($conn);*/
 
 
 include('../../HulkZone/connect.php');
-
+// for type: Announcement = 0, Complaint = 1, Payment = 2, service selection =3
 if(isset($_GET['complaintID'])) {
     $complaintID = $_GET['complaintID'];
 
@@ -53,7 +53,7 @@ $dateReported = $row['dateReported'];
 
     // Insert notification into notifications table
     $message = "Your complaint is ignored. Subject: ".$subject.", Date Reported: ".$dateReported;
-    $stmt3 = mysqli_prepare($conn, "INSERT INTO notifications (message, created_at, type) VALUES (?, NOW(), 2)");
+    $stmt3 = mysqli_prepare($conn, "INSERT INTO notifications (message, created_at, type) VALUES (?, NOW(), 1)");
     mysqli_stmt_bind_param($stmt3, "s", $message);
     mysqli_stmt_execute($stmt3);
     $notificationsID = mysqli_insert_id($conn);

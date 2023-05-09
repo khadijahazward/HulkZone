@@ -121,6 +121,7 @@ if(mysqli_num_rows($result) == 1) {
   $row = mysqli_fetch_array($result);
   $fName = $row['fName'];
   $roles = $row['roles'];
+  $contactNumber=$row['contactNumber'];
 
   if($roles == 1) {
     $userType = 'Member';
@@ -200,6 +201,9 @@ include('setAdminProfilePic.php');
                     <br>
                     <label class="formContent">User Type</label>
                     <input type="text" name="userType" value="<?php echo $userType; ?>"style="margin-left: 165px;" readonly >
+                    <br>
+                    <label class="formContent">Contact Number</label>
+                    <input type="text" name="userType" value="<?php echo $contactNumber; ?>"style="margin-left: 110px;" readonly >
                     <br>
                     <label class="formContent">Date reported</label>
                     <input type="date" name="dateReported" value="<?php echo $dateReported; ?>"style="margin-left: 131px;" readonly >

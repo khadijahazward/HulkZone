@@ -157,8 +157,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $password_hash = password_hash($pw, PASSWORD_DEFAULT);
 
             if (
-                !empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw) && !empty($language) && !empty($services) &&
-                (preg_match('@[0-9]@', $_POST['pass1'])) && (preg_match('@[^\w]@', $_POST['pass1']))
+                !empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw) && !empty($language) && !empty($services)
+                &&(preg_match('@[0-9]@', $_POST['pass1'])) && (preg_match('@[^\w]@', $_POST['pass1']))
                 && (preg_match('/^[0-9]{9}[V]+$/', $_POST["nic"]) || preg_match('/^[0-9]{12}+$/', $_POST["nic"]))
                 && preg_match('/^[0-9]{10}+$/', $_POST["number"]) && preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])
             ) {
