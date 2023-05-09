@@ -1,5 +1,5 @@
 <?php
-
+date_default_timezone_set('Asia/Colombo');
 include '../connect.php';
 $form_action = "login.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -86,41 +86,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 header("location: ..\dietician\home.php");
             }  
 
-            //for member - account is disabled. 
+        //for member - account is disabled. 
         }else if($row['statuses'] == 0 && $row['roles'] == 1){
             
+            $sql2 = "select memberID from member where userID = " . $row['userID'];
+            $result2 = mysqli_query($conn, $sql2);
+            $row2 = mysqli_fetch_array($result2);
+
+            $memberID = $row2['memberID'];
+
+            $sql3 = "select * from paymentplan where memberID = $memberID ORDER BY expiryDate DESC LIMIT 1"; //get the lastest expiry date
+            $result3 = mysqli_query($conn, $sql3);
+            $row3 = mysqli_fetch_array($result3);
+
+            $expiryDate = 0;
+            if($result3 && mysqli_num_rows($result3)){
+                $expiryDate = strtotime(date($row3['expiryDate']));
+            }
+
+           //echo "<script>alert('expiry: " . date('Y-m-d', $expiryDate) . "')</script>";
+
+           $currentDate = strtotime(DATE("Y-m-d"));
+
+           //when the membership has expired
+           if($expiryDate != 0 && $currentDate > $expiryDate){ //expiry date has passed
+                session_start();
+                
+                $_SESSION["logged_in"] = true;
+                
+                $_SESSION['username'] = $username;
+                $_SESSION['firstName'] = $row['fName'];
+                $_SESSION['lastName'] = $row['lName'];
+                $_SESSION['userID'] = $row['userID'];
+                $_SESSION['role'] = $row['roles'];
+                        
+                // Get the user's plan type from the member table
+                $sql1 = "SELECT planType, memberID FROM member WHERE userID = {$row['userID']}";
+                $result1 = mysqli_query($conn, $sql1);
+                $row1 = mysqli_fetch_array($result1);
+                $memberID = $row1['memberID'];
+                $paymentAmount = 0;
+                // Determine the payment amount based on the plan type
+                if ($row1['planType'] == "oneMonth") {
+                    $paymentAmount = 1000;
+                } elseif ($row1['planType'] == "threeMonth") {
+                    $paymentAmount = 2900;
+                } elseif ($row1['planType'] == "sixMonth") {
+                    $paymentAmount = 5600;
+                } elseif ($row1['planType'] == "twelveMonth") {
+                    $paymentAmount = 11000;
+                }
+                
+                // header("Location: ../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount));
             
-            session_start();
-            
-            $_SESSION["logged_in"] = true;
-            
-            $_SESSION['username'] = $username;
-            $_SESSION['firstName'] = $row['fName'];
-            $_SESSION['lastName'] = $row['lName'];
-            $_SESSION['userID'] = $row['userID'];
-            $_SESSION['role'] = $row['roles'];
-                    
-            // Get the user's plan type from the member table
-            $sql1 = "SELECT planType, memberID FROM member WHERE userID = {$row['userID']}";
-            $result1 = mysqli_query($conn, $sql1);
-            $row1 = mysqli_fetch_array($result1);
-            $memberID = $row1['memberID'];
-        
-            // Determine the payment amount based on the plan type
-            if ($row1['planType'] == "oneMonth") {
-                $paymentAmount = 1000;
-            } elseif ($row1['planType'] == "threeMonth") {
-                $paymentAmount = 2900;
-            } elseif ($row1['planType'] == "sixMonth") {
-                $paymentAmount = 5600;
-            } elseif ($row1['planType'] == "twelveMonth") {
-                $paymentAmount = 11000;
+                echo "<script>alert('Your Account has been Disabled. Since your Membership has Expired.'); 
+                window.location.href='../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount) . "';</script>";
+            }else{
+                //disabled for some other reason by admin
+                echo "<script>alert('Your Account has been Disabled. Please Contact Hulkzone for Further Assistance')</script>";
             }
             
-            // header("Location: ../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount));
-          
-            echo "<script>alert('Your Account has been Disabled. Since your Membership has Expired.'); 
-            window.location.href='../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount) . "';</script>";
 
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
