@@ -98,7 +98,7 @@ while ($row = $result->fetch_assoc()) {
             <td>{$row['email']}</td>
             <td>{$row['dateOfBirth']}</td>
             <td>
-                <form method='POST' action='accountStatusButton/changeStatusMember.php'>
+                <form method='POST' action='accountStatusButton/changeStatusMember.php' onsubmit='return confirmSubmission()'>
                     <button type='submit' class='button2' name='status' value='$statusValue'style='$buttonStyle'>{$row['accountStatus']}</button>
                     <input type='hidden' name='userID' value='{$row['userID']}'>
                 </form>
@@ -109,6 +109,15 @@ while ($row = $result->fetch_assoc()) {
         </tr>";
 }
 ?>
+ <script>
+            function confirmSubmission() {
+                if (confirm("Are you sure you want to save the changes?")) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            </script>
                 
                 
             </table>

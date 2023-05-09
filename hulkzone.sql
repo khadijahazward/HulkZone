@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 10:04 AM
+-- Generation Time: May 08, 2023 at 07:33 AM
 -- Server version: 8.0.27
 -- PHP Version: 8.0.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `chat` (
   `chatID` int NOT NULL,
   `senderID` int NOT NULL,
   `receiverID` int NOT NULL,
-  `message` text NOT NULL,
+  `message` text COLLATE utf8mb4_general_ci NOT NULL,
   `dateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,7 +43,13 @@ CREATE TABLE `chat` (
 INSERT INTO `chat` (`chatID`, `senderID`, `receiverID`, `message`, `dateTime`, `status`) VALUES
 (23, 122, 86, 'Hi', '2023-04-21 15:33:43', 0),
 (24, 86, 122, 'Hi', '2023-04-21 15:54:34', 0),
-(25, 122, 86, 'Hi', '2023-04-24 15:05:22', 0);
+(25, 122, 86, 'Hi', '2023-04-24 15:05:22', 0),
+(29, 86, 122, 'hello how are u ', '2023-05-06 17:00:50', 0),
+(30, 122, 86, 'did you try all the supplements ', '2023-05-06 17:02:26', 0),
+(31, 86, 122, 'yes i did ', '2023-05-07 16:04:23', 0),
+(32, 86, 122, 'i feel that i am allergic to the breakfast suggested, please change it ', '2023-05-07 16:04:46', 0),
+(33, 86, 122, 'hi', '2023-05-08 04:11:34', 0),
+(34, 86, 122, 'oiiiii', '2023-05-08 04:12:01', 0);
 
 -- --------------------------------------------------------
 
@@ -53,13 +59,13 @@ INSERT INTO `chat` (`chatID`, `senderID`, `receiverID`, `message`, `dateTime`, `
 
 CREATE TABLE `complaint` (
   `complaintID` int NOT NULL,
-  `subject` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `status` varchar(100) NOT NULL,
+  `subject` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `dateReported` date NOT NULL,
-  `actionTaken` text,
+  `actionTaken` text COLLATE utf8mb4_general_ci,
   `userID` int NOT NULL,
-  `evidence` text
+  `evidence` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -69,7 +75,7 @@ CREATE TABLE `complaint` (
 INSERT INTO `complaint` (`complaintID`, `subject`, `description`, `status`, `dateReported`, `actionTaken`, `userID`, `evidence`) VALUES
 (28, 'Injured in the gym', 'i was working out and then suddenly the equipment fell off from the top and hit my leg.', 'Ignored', '2023-02-15', 'completed', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676437108.jpg'),
 (29, 'i got beaten from my trainer', 'i was working out and was exhausted, so I took a rest. suddenly, my trainer came and slapped me.', 'completed', '2023-02-19', 'done', 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1676804757.jpg'),
-(30, 'my data is upset', 'i dont want to work out anymore', 'Filed', '2023-03-09', NULL, 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1678341333.jpeg');
+(30, 'my data is upset', 'i dont want to work out anymore', 'Ignored', '2023-03-09', NULL, 86, 'C:/xampp/htdocs/HulkZone/Complaintevidence/86_1678341333.jpeg');
 
 -- --------------------------------------------------------
 
@@ -83,7 +89,7 @@ CREATE TABLE `dieticianappointment` (
   `date` date NOT NULL,
   `startTime` datetime NOT NULL,
   `endTime` datetime NOT NULL,
-  `status` varchar(100) NOT NULL DEFAULT '0'
+  `status` varchar(100) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -99,7 +105,7 @@ INSERT INTO `dieticianappointment` (`employeeID`, `memberID`, `date`, `startTime
 (8, NULL, '2023-04-13', '2023-04-13 16:00:00', '2023-04-13 17:00:00', '0'),
 (8, NULL, '2023-04-14', '2023-04-14 12:00:00', '2023-04-14 13:00:00', '0'),
 (8, NULL, '2023-04-15', '2023-04-15 15:00:00', '2023-04-15 16:00:00', '0'),
-(8, 41, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 13:00:00', '1'),
+(8, NULL, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 13:00:00', '1'),
 (8, NULL, '2023-04-16', '2023-04-16 13:00:00', '2023-04-16 14:00:00', '0'),
 (8, NULL, '2023-04-16', '2023-04-16 16:00:00', '2023-04-16 17:00:00', '0'),
 (8, NULL, '2023-04-16', '2023-04-16 18:00:00', '2023-04-16 19:00:00', '0'),
@@ -123,7 +129,8 @@ INSERT INTO `dieticianappointment` (`employeeID`, `memberID`, `date`, `startTime
 (10, NULL, '2023-04-22', '2023-04-22 12:00:00', '2023-04-22 13:00:00', '0'),
 (10, NULL, '2023-04-23', '2023-04-23 08:00:00', '2023-04-23 09:00:00', '0'),
 (10, NULL, '2023-04-23', '2023-04-23 10:00:00', '2023-04-23 11:00:00', '0'),
-(10, NULL, '2023-04-23', '2023-04-23 12:00:00', '2023-04-23 13:00:00', '0');
+(10, NULL, '2023-04-23', '2023-04-23 12:00:00', '2023-04-23 13:00:00', '0'),
+(10, 41, '2023-05-07', '2023-05-07 10:00:00', '2023-05-07 11:00:00', '1');
 
 -- --------------------------------------------------------
 
@@ -153,7 +160,7 @@ CREATE TABLE `dietplan` (
 --
 
 INSERT INTO `dietplan` (`diet_id`, `employeeID`, `memberID`, `startDate`, `breakfastMeal`, `breakfastQty`, `breakfastCal`, `lunchMeal`, `lunchQty`, `lunchCal`, `dinnerMeal`, `dinnerQty`, `dinnerCal`, `day`) VALUES
-(1, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 1),
+(1, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'pineapple juice', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 1),
 (2, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 2),
 (3, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 3),
 (4, 10, 41, '2023-04-11 14:38:05', 'Oats', '01 Bowl', '100', 'Salad', '01 Bowl', '100', 'Vegetable Soup', '01 Bowl', '100', 4),
@@ -202,13 +209,13 @@ INSERT INTO `diet_plan_status` (`statusID`, `member_id`, `CompletedDate`, `statu
 
 CREATE TABLE `emergencycontact` (
   `memberID` int NOT NULL,
-  `contactName` varchar(100) NOT NULL,
-  `relationship` varchar(100) DEFAULT NULL,
+  `contactName` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `relationship` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `telephone` int DEFAULT NULL,
-  `streetNumber` text,
-  `addressLine1` text,
-  `addressLine2` text,
-  `city` text
+  `streetNumber` text COLLATE utf8mb4_general_ci,
+  `addressLine1` text COLLATE utf8mb4_general_ci,
+  `addressLine2` text COLLATE utf8mb4_general_ci,
+  `city` text COLLATE utf8mb4_general_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -216,7 +223,7 @@ CREATE TABLE `emergencycontact` (
 --
 
 INSERT INTO `emergencycontact` (`memberID`, `contactName`, `relationship`, `telephone`, `streetNumber`, `addressLine1`, `addressLine2`, `city`) VALUES
-(41, 'noorah', 'aunty', 987654311, '23', 'Lorris Road', 'bamba', 'colombo 03');
+(41, 'Noorah', 'Aunty', 987654311, '23', 'Lorris Road', 'bamba', 'colombo 03');
 
 -- --------------------------------------------------------
 
@@ -227,11 +234,11 @@ INSERT INTO `emergencycontact` (`memberID`, `contactName`, `relationship`, `tele
 CREATE TABLE `employee` (
   `employeeID` int NOT NULL,
   `userID` int NOT NULL,
-  `noOfYearsOfExperience` varchar(100) NOT NULL,
+  `noOfYearsOfExperience` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `avgRating` double NOT NULL DEFAULT '0',
-  `qualification` text NOT NULL,
-  `description` text NOT NULL,
-  `language` varchar(255) NOT NULL
+  `qualification` text COLLATE utf8mb4_general_ci NOT NULL,
+  `description` text COLLATE utf8mb4_general_ci NOT NULL,
+  `language` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -309,7 +316,8 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 (31, '2023-03-05', 41, 2, 1),
 (32, '2023-03-02', 41, 1, 0),
 (33, '2023-04-11', 41, 1, 0),
-(34, '2023-04-16', 41, 2, 0);
+(34, '2023-04-16', 41, 2, 0),
+(35, '2023-05-07', 41, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -319,11 +327,11 @@ INSERT INTO `gymuseappointment` (`appointmentID`, `date`, `memberID`, `slotID`, 
 
 CREATE TABLE `medicalform` (
   `memberID` int NOT NULL,
-  `isFatigue` varchar(10) NOT NULL,
-  `isSmoke` varchar(10) NOT NULL,
-  `existing_conditions` text NOT NULL,
-  `isInjury` varchar(10) NOT NULL,
-  `allergies` varchar(10) NOT NULL
+  `isFatigue` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `isSmoke` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `existing_conditions` text COLLATE utf8mb4_general_ci NOT NULL,
+  `isInjury` varchar(10) COLLATE utf8mb4_general_ci NOT NULL,
+  `allergies` varchar(10) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -344,7 +352,7 @@ CREATE TABLE `member` (
   `userID` int NOT NULL,
   `height` float DEFAULT NULL,
   `weight` float DEFAULT NULL,
-  `planType` varchar(255) NOT NULL
+  `planType` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -353,23 +361,10 @@ CREATE TABLE `member` (
 
 INSERT INTO `member` (`memberID`, `userID`, `height`, `weight`, `planType`) VALUES
 (41, 86, 100, 20, 'sixMonth'),
-(55, 131, 100, 40, 'threeMonth'),
-(56, 132, 100, 35, 'threeMonth'),
-(57, 133, 73, 54, 'sixMonth');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `message`
---
-
-CREATE TABLE `message` (
-  `messageID` int NOT NULL,
-  `chatID` int NOT NULL,
-  `text` text NOT NULL,
-  `status` varchar(100) NOT NULL,
-  `timestamp` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(62, 138, 10, 10, 'oneMonth'),
+(63, 139, 0, 0, 'oneMonth'),
+(64, 140, 0, 0, 'twelveMonth'),
+(65, 141, 0, 0, 'sixMonth');
 
 -- --------------------------------------------------------
 
@@ -379,7 +374,7 @@ CREATE TABLE `message` (
 
 CREATE TABLE `notifications` (
   `notificationsID` int NOT NULL,
-  `message` varchar(255) NOT NULL,
+  `message` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `type` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -394,7 +389,12 @@ INSERT INTO `notifications` (`notificationsID`, `message`, `created_at`, `type`)
 (23, 'Your membership plan will expire in 3 days.', '2023-03-03 11:02:44', 2),
 (30, 'Member ID 41 membership plan has expired. The Account Has Been Disabled.', '2023-03-03 12:10:29', 2),
 (32, 'Member ID 41 Has Selected You to Train Them for Diet Service', '2023-03-11 12:52:44', 3),
-(33, 'Member ID 41 Has Selected You to Train Them for Diet Service', '2023-04-11 14:38:05', 3);
+(33, 'Member ID 41 Has Selected You to Train Them for Diet Service', '2023-04-11 14:38:05', 3),
+(34, 'Your complaint is ignored. Subject: my data is upset, Date Reported: 2023-03-09', '2023-05-06 14:01:30', 2),
+(61, 'There is an active appointment for Member ID 41  on 2023-05-07 at 10:00:00 - 11:00:00.', '2023-05-07 20:50:42', 4),
+(62, 'There is an active appointment for Member ID 41  on 2023-05-07 at 08:00:00 - 10:00:00.', '2023-05-07 20:58:05', 4),
+(63, 'Congratulations on completing the Strength service! We hope that it was a valuable experience for you and we look forward to serving you again in the future.', '2023-02-22 13:45:34', 3),
+(66, 'Congratulations on completing the Diet service! We hope that it was a valuable experience for you and we look forward to serving you again in the future.', '2022-12-01 13:48:14', 3);
 
 -- --------------------------------------------------------
 
@@ -438,7 +438,11 @@ CREATE TABLE `paymentplan` (
 
 INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
 (6, 41, '2023-06-14 15:45:06'),
-(16, 41, '2023-12-14 15:45:06');
+(16, 41, '2023-12-14 15:45:06'),
+(21, 62, '2023-06-05 00:00:00'),
+(22, 63, '2023-06-05 00:00:00'),
+(23, 64, '2024-05-05 00:00:00'),
+(24, 65, '2023-11-05 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -448,7 +452,7 @@ INSERT INTO `paymentplan` (`planID`, `memberID`, `expiryDate`) VALUES
 
 CREATE TABLE `service` (
   `serviceID` int NOT NULL,
-  `serviceName` varchar(255) NOT NULL,
+  `serviceName` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `servicePeriod` int NOT NULL,
   `servicePrice` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -532,7 +536,7 @@ CREATE TABLE `supplement` (
 --
 
 INSERT INTO `supplement` (`supplementID`, `employeeID`, `memberID`, `startDate`) VALUES
-(18, 10, 41, '2023-04-11 14:38:05');
+(19, 10, 41, '2023-04-11 14:38:05');
 
 -- --------------------------------------------------------
 
@@ -542,9 +546,9 @@ INSERT INTO `supplement` (`supplementID`, `employeeID`, `memberID`, `startDate`)
 
 CREATE TABLE `supplementlist` (
   `supplementID` int NOT NULL,
-  `supplementName` varchar(100) NOT NULL,
-  `supplementType` varchar(50) NOT NULL,
-  `supplementPhoto` text NOT NULL
+  `supplementName` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `supplementType` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `supplementPhoto` text COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -618,7 +622,7 @@ INSERT INTO `timeslots` (`availableID`, `weekDayID`, `slotID`, `availableSlots`)
 (40, 6, 5, 10),
 (41, 6, 6, 10),
 (42, 6, 7, 10),
-(43, 7, 1, 9),
+(43, 7, 1, 8),
 (44, 7, 2, 8),
 (45, 7, 3, 0),
 (46, 7, 4, 10),
@@ -648,7 +652,8 @@ CREATE TABLE `trainerappointment` (
 INSERT INTO `trainerappointment` (`employeeID`, `memberID`, `date`, `startTime`, `endTime`, `status`) VALUES
 (7, NULL, '2023-04-15', '2023-04-15 20:00:00', '2023-04-15 22:00:00', '0'),
 (7, 41, '2023-04-16', '2023-04-16 10:00:00', '2023-04-16 12:00:00', '1'),
-(7, NULL, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 14:00:00', '0');
+(7, NULL, '2023-04-16', '2023-04-16 12:00:00', '2023-04-16 14:00:00', '0'),
+(9, 41, '2023-05-07', '2023-05-07 08:00:00', '2023-05-07 10:00:00', '1');
 
 -- --------------------------------------------------------
 
@@ -658,22 +663,22 @@ INSERT INTO `trainerappointment` (`employeeID`, `memberID`, `date`, `startTime`,
 
 CREATE TABLE `user` (
   `userID` int NOT NULL,
-  `fName` text NOT NULL,
-  `lName` text NOT NULL,
-  `NIC` text NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `profilePhoto` text,
+  `fName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `lName` text COLLATE utf8mb4_general_ci NOT NULL,
+  `NIC` text COLLATE utf8mb4_general_ci NOT NULL,
+  `gender` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `profilePhoto` text COLLATE utf8mb4_general_ci,
   `dateOfBirth` date NOT NULL,
   `roles` int NOT NULL,
   `statuses` int NOT NULL,
   `contactNumber` int NOT NULL,
-  `streetNumber` varchar(255) DEFAULT NULL,
-  `addressLine01` text,
-  `addressLine02` text,
-  `city` text,
-  `pw` varchar(255) NOT NULL,
+  `streetNumber` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `addressLine01` text COLLATE utf8mb4_general_ci,
+  `addressLine02` text COLLATE utf8mb4_general_ci,
+  `city` text COLLATE utf8mb4_general_ci,
+  `pw` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `created_at` date NOT NULL,
-  `email` varchar(50) NOT NULL
+  `email` varchar(50) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -682,21 +687,22 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`userID`, `fName`, `lName`, `NIC`, `gender`, `profilePhoto`, `dateOfBirth`, `roles`, `statuses`, `contactNumber`, `streetNumber`, `addressLine01`, `addressLine02`, `city`, `pw`, `created_at`, `email`) VALUES
 (86, 'Khadijah', 'Azward', '123456789V', 'Male', '../profileImages/86.jpg', '2004-12-07', 1, 1, 1234567890, '23', 'flower street', 'gangarama', 'colombo  08', '$2y$10$7PqcBZyFKC4CC/fFecTauOMkQIyz6hGw6bpYd2LUqmgzadS4cMxB.', '2022-12-14', 'kay@gmail.com'),
-(99, 'khadi', 'azward', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
+(99, 'Kareema', 'Deen', '123456789V', 'Female', NULL, '2021-12-01', 2, 1, 711541753, '', '', '', '', '$2y$10$gZRkdyuzET1oyP7KLaDNReQyhfF/0B4iMRLEPfo.sNSZcpLDVYEnG', '2022-12-16', 'khadijah@gmail.com'),
 (100, 'Saitharsan', 'Perera', '123456789012', 'Female', NULL, '2021-12-08', 2, 1, 711541753, '', '', '', '', '$2y$10$cFBi7soQ/s9j6TbXtFASaOm6X.w.Km6x3NvOvwmsLEtlqHDhKBbJu', '2022-12-16', 'gf@gmail.com'),
-(101, 'kj', 'aj', '123456789V', 'Male', NULL, '1999-02-17', 3, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
-(105, 'jkj', 'jbjk', '123456789009', 'Male', NULL, '2004-12-15', 2, 1, 1234567890, '', '', '', '', '$2y$10$F3YTzaS6JYEw8G62AppFletRnC9kJKhc/zVOZwW.bow6x7OSPxKl2', '2023-01-31', 'kji@gmail.com'),
+(101, 'John', 'Andrews', '123456789V', 'Male', NULL, '1999-02-17', 3, 1, 711541654, '', '', '', '', '$2y$10$l4w0IYYMJcry3qGOwu1V9OOE0.aRkopWRgaglrHXheuuTl9eTMrn2', '2023-01-27', 'kj1@gmail.com'),
+(105, 'Shanthi', 'Krishnan', '123456789009', 'Male', NULL, '2004-12-15', 2, 1, 1234567890, '', '', '', '', '$2y$10$F3YTzaS6JYEw8G62AppFletRnC9kJKhc/zVOZwW.bow6x7OSPxKl2', '2023-01-31', 'kji@gmail.com'),
 (121, 'Eshitha', 'Kiribathgoda', '123098567432', 'Male', NULL, '2000-02-11', 2, 1, 776094223, '2', 'leyards Broadway', 'colombo', '', '$2y$10$Ukbnmw28hSRlQmVnM5JRsOC1/dZ.0lzD36e8P8DKhfTD75vtWARAi', '2023-02-09', 'eshitha@gmail.com'),
-(122, 'kaveesha', 'gunawardana', '123456789V', 'Male', NULL, '2000-01-01', 3, 1, 711541753, '10', 'flower road', '', 'colombo 10', '$2y$10$.7jusna.OggSxAJjoUdPDOaZkyfgMRUIMiUp1GKCqZVbbxeUMhg1W', '2023-02-10', 'kaveesha@gmail.com'),
-(125, 'hun', 'meh', '123456789V', 'Male', NULL, '2004-12-01', 2, 1, 71145689, '192', 'shoe road', '', 'colombo', '$2y$10$VI/sq8tw741aK2tdnpZS9.PEL8JLN2qvjrAlVd63v/E8p1PpVOpuu', '2023-02-10', 'hun@gmail.com'),
-(126, 'james', 'millie', '123456789V', 'Male', NULL, '2004-11-29', 3, 1, 1234567890, '', '', '', '', '$2y$10$mpcJll08KRJ814NC.3oxKeWjUUMjjqVGvgbV1HCri7du5ntUZqY6W', '2023-02-10', 'james@gmail.com'),
+(122, 'Kaveesha', 'Gunawardana', '123456789V', 'Male', '../profileImages/122.jpg', '2000-01-01', 3, 1, 711541753, '10', 'flower road', '', 'colombo 10', '$2y$10$.7jusna.OggSxAJjoUdPDOaZkyfgMRUIMiUp1GKCqZVbbxeUMhg1W', '2023-02-10', 'kaveesha@gmail.com'),
+(125, 'Dhoni', 'Mathews', '123456789V', 'Male', NULL, '2004-12-01', 2, 1, 71145689, '192', 'shoe road', '', 'colombo', '$2y$10$VI/sq8tw741aK2tdnpZS9.PEL8JLN2qvjrAlVd63v/E8p1PpVOpuu', '2023-02-10', 'hun@gmail.com'),
+(126, 'James', 'Millie', '123456789V', 'Male', NULL, '2004-11-29', 3, 1, 1234567890, '', '', '', '', '$2y$10$mpcJll08KRJ814NC.3oxKeWjUUMjjqVGvgbV1HCri7du5ntUZqY6W', '2023-02-10', 'james@gmail.com'),
 (127, 'Juliet ', 'Khan', '123456789V', 'Female', NULL, '2004-12-01', 2, 1, 115467876, '', '', '', '', '$2y$10$nhnBvpmuRTPQGMejHCfCM.fsK64FyULvN/eKHAKdrB0ZdY1h0WXGS', '2023-02-10', 'juliet@gmail.com'),
-(128, 'Fathima', 'Munzira', '985552614V', 'Female', NULL, '2003-10-14', 0, 1, 775097556, '3', 'hemmathagama', '', 'Colombo', '$2y$10$7fCyAsl.cReU6BIgzhe81OFHBBMVuH/9qP1pYsYUJBtxyysxUkJBy', '2023-02-10', 'munchi@gmail.com'),
+(128, 'Fathima', 'Munzira', '985552614V', 'Female', '../profileImages/128.jpg', '2003-10-14', 0, 1, 775097556, '3', 'hemmathagama', '', 'Colombo', '$2y$10$7fCyAsl.cReU6BIgzhe81OFHBBMVuH/9qP1pYsYUJBtxyysxUkJBy', '2023-02-10', 'munchi@gmail.com'),
 (129, 'Edward', 'Gardin', '9855546232V', 'Male', NULL, '2004-12-03', 2, 1, 775087334, '3', '', '', 'Colombo', '$2y$10$1hCR19NL/PqarKGzfsLc3eQUNJhI6kRXWIiiz/s/Y9BpBe6KrTtYS', '2023-02-10', 'gardin@gmail.com'),
 (130, 'Fathima', 'Shimra', '985552613V', 'Female', NULL, '2004-12-15', 2, 1, 775097556, '2', '', '', '', '$2y$10$WTZ87RckZ5/JN1o0HBJwIev0v1X6tSeoB5Zd/N7qIexoYLwGq.lke', '2023-02-10', 'shim@gmail.com'),
-(131, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$wDE0s4uzlH/pFt4I8G.MaeHCcE6GUaMKSfmIsaA5.AuyQaIbnY3xK', '2023-03-02', 'kay40@gmail.com'),
-(132, 'husna', 'Azward', '987654321V', 'Female', NULL, '2004-12-01', 1, 1, 711541753, '', '', '', '', '$2y$10$R5WsAWOx9jtwwTIu2jN9VuoNS2dqLbWRM2C46urgDqoXjF3I9E2YS', '2023-03-02', 'kay35@gmail.com'),
-(133, 'amjad', 'azward', '200070903808', 'Male', NULL, '2001-01-08', 1, 1, 711541763, '172', 'leyards', 'broadway', 'colombo', '$2y$10$tfBOp99YGa/vsygAvvRRpOvRL5l9FYfIkfkoy/bdKyF9WRakR95Yu', '2023-03-02', 'amjad@gmail.com');
+(138, 'Amjad', 'Azward', '123456789V', 'Male', NULL, '2004-12-02', 1, 1, 772347317, '', '', '', '', '$2y$10$U0pRvt1hEJksE93FsEFBReEr2jcIivGOGdSI6HaKOjTB2iT5iC056', '2023-05-05', 'amjad@gmail.com'),
+(139, 'Azraar', 'Azward', '123456789122', 'Male', NULL, '1990-01-28', 1, 1, 772347317, '', '', '', '', '$2y$10$VqnD4zENtZrmBkH6QTcZ8uuhYl9D1kLNgcNpKTPRvwfRmnDfu3Loe', '2023-05-05', 'azraar@gmail.com'),
+(140, 'Husna', 'Azward', '987654321V', 'Female', NULL, '1978-01-31', 1, 1, 778249346, '', '', '', '', '$2y$10$Xa3sqe/2aG0WYnzFi80SE.jpJyGZmEUv5m/kA7g4D8E0MzpidCx.u', '2023-05-05', 'husna@gmail.com'),
+(141, 'Azward', 'Nizar', '123456789V', 'Male', NULL, '1965-02-12', 1, 1, 776006705, '', '', '', '', '$2y$10$xJEnHqiRMAilkFVoT3XeCeiN.D1eAHXBzNTKKk0h8MCff.2wYYqna', '2023-05-05', 'khadijahazward@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -720,7 +726,36 @@ INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notifications
 (13, 86, 23, 1),
 (16, 128, 30, 0),
 (18, 101, 32, 0),
-(19, 101, 33, 0);
+(19, 101, 33, 0),
+(20, 86, 34, 0),
+(47, 122, 61, 1),
+(48, 121, 62, 0),
+(49, 86, 63, 0),
+(52, 86, 66, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `verify_email`
+--
+
+CREATE TABLE `verify_email` (
+  `userID` int NOT NULL,
+  `verify_status` int NOT NULL DEFAULT '0',
+  `token` int NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `verify_email`
+--
+
+INSERT INTO `verify_email` (`userID`, `verify_status`, `token`, `timestamp`) VALUES
+(86, 1, 234567, '2023-05-08 04:36:07'),
+(138, 1, 987654, '2023-05-08 04:36:07'),
+(139, 1, 123456, '2023-05-08 04:36:07'),
+(140, 1, 546378, '2023-05-08 04:36:07'),
+(141, 1, 262407, '2023-05-08 05:31:41');
 
 -- --------------------------------------------------------
 
@@ -730,7 +765,7 @@ INSERT INTO `usernotifications` (`usernotificationsID`, `userID`, `notifications
 
 CREATE TABLE `weekdays` (
   `weekDayID` int NOT NULL,
-  `weekDayName` varchar(20) NOT NULL
+  `weekDayName` varchar(20) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -757,7 +792,7 @@ CREATE TABLE `workoutplan` (
   `employeeID` int NOT NULL,
   `memberID` int NOT NULL,
   `startDate` datetime NOT NULL,
-  `exerciseName` varchar(50) NOT NULL,
+  `exerciseName` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `reps` int NOT NULL,
   `restTime` int NOT NULL DEFAULT '3',
   `day` int NOT NULL
@@ -808,7 +843,9 @@ INSERT INTO `workout_plan_status` (`statusID`, `memberID`, `completedDate`, `sta
 (2, 41, '2023-05-01', 1, '2023-03-11 09:40:21'),
 (3, 41, '2023-05-03', 1, '2023-03-11 09:40:21'),
 (4, 41, '2023-05-04', 1, '2023-03-11 09:40:21'),
-(5, 41, '2023-05-05', 1, '2023-03-11 09:40:21');
+(5, 41, '2023-05-05', 1, '2023-03-11 09:40:21'),
+(6, 41, '2023-05-06', 1, '2023-03-11 09:40:21'),
+(7, 41, '2023-05-07', 1, '2023-03-11 09:40:21');
 
 --
 -- Indexes for dumped tables
@@ -900,12 +937,6 @@ ALTER TABLE `member`
   ADD KEY `userID` (`userID`);
 
 --
--- Indexes for table `message`
---
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`messageID`,`chatID`);
-
---
 -- Indexes for table `notifications`
 --
 ALTER TABLE `notifications`
@@ -993,6 +1024,12 @@ ALTER TABLE `usernotifications`
   ADD KEY `usernotifications_ibfk_2` (`notificationsID`);
 
 --
+-- Indexes for table `verify_email`
+--
+ALTER TABLE `verify_email`
+  ADD PRIMARY KEY (`userID`);
+
+--
 -- Indexes for table `weekdays`
 --
 ALTER TABLE `weekdays`
@@ -1022,7 +1059,7 @@ ALTER TABLE `workout_plan_status`
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `chatID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `chatID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `complaint`
@@ -1046,31 +1083,25 @@ ALTER TABLE `diet_plan_status`
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
-  MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `employeeID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `gymuseappointment`
 --
 ALTER TABLE `gymuseappointment`
-  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `appointmentID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `member`
 --
 ALTER TABLE `member`
-  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
-
---
--- AUTO_INCREMENT for table `message`
---
-ALTER TABLE `message`
-  MODIFY `messageID` int NOT NULL AUTO_INCREMENT;
+  MODIFY `memberID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `notificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `payment`
@@ -1082,7 +1113,7 @@ ALTER TABLE `payment`
 -- AUTO_INCREMENT for table `paymentplan`
 --
 ALTER TABLE `paymentplan`
-  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `planID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `service`
@@ -1112,13 +1143,13 @@ ALTER TABLE `timeslots`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=134;
+  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `usernotifications`
 --
 ALTER TABLE `usernotifications`
-  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `usernotificationsID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `weekdays`
@@ -1136,7 +1167,7 @@ ALTER TABLE `workoutplan`
 -- AUTO_INCREMENT for table `workout_plan_status`
 --
 ALTER TABLE `workout_plan_status`
-  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `statusID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -1256,6 +1287,12 @@ ALTER TABLE `trainerappointment`
 ALTER TABLE `usernotifications`
   ADD CONSTRAINT `usernotifications_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `usernotifications_ibfk_2` FOREIGN KEY (`notificationsID`) REFERENCES `notifications` (`notificationsID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `verify_email`
+--
+ALTER TABLE `verify_email`
+  ADD CONSTRAINT `verify_email_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `user` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `workoutplan`
