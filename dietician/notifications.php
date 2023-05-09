@@ -28,6 +28,7 @@ $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
         echo "
         <button onclick=\"document.getElementById('noti').style.display='block'\" class='notificationBtn'>
         <i class='fas fa-bell'></i>
+        <!--<img src='../asset/images/bell.png'>-->
         </button>
         
         ";
@@ -36,6 +37,7 @@ $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
         echo "
         <button onclick=\"document.getElementById('noti').style.display='block'\" class='notificationBtn'>
         <i class='far fa-bell'></i>
+        <!--<img src='../asset/images/bell.png'>-->
         </button>
         ";
     }

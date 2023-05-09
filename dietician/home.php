@@ -314,12 +314,19 @@ if($result12){
                         
                         if(mysqli_num_rows($result11) > 0){
                             while($row11 = mysqli_fetch_assoc($result11)){
+
+                                $appointmentMemberID = $row11['memberID'];
                                 
-                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $memberID";
+                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $appointmentMemberID";
                                 $result12 = mysqli_query($conn, $query12);
                                 $row12 = mysqli_fetch_assoc($result12);
 
-                                $memberPhoto = $row12['profilePhoto'];
+                                // $memberPhoto = $row12['profilePhoto'];
+                                if(!empty($row12['profilePhoto'])){
+                                    $memberPhoto = $row12['profilePhoto']; 
+                                }else{
+                                    $memberPhoto = "../asset/images/dp.png";
+                                }
                                 $memberName = $row12['fName']." ".$row12['lName'];
                                 
                                 $appointmentStartDateTime = $row11['startTime'];
