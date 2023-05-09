@@ -1,8 +1,7 @@
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background:  #DEF9D7;
+  flex-direction: row;
+  background:  #006837;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
   'Helvetica Neue', 'Ubuntu', sans-serif;
   height: 100vh;
@@ -11,77 +10,91 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.first-half-container{
+  display: flex;
+  background-color: #DEF9D7;
+  margin-left: 0.3%;
+}
+
+.half-container{
+  display: flex;
+  background-color: #DEF9D7;
+  width:60%; 
+  background: url(../../asset/images/payment_bg.jpg) no-repeat center center fixed; 
+  background-size: cover; 
+  opacity: 0.8;
+}
+
 section {
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  width: 400px;
-  height: 112px;
+  width: 70%;
+  height: 70%;
+  border-radius: 2%;
   border-radius: 6px;
-  justify-content: space-between;
 }
 
-.product {
-  display: flex;
-}
-
-.description {
+form {
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
 }
 
-p {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.154px;
-  color: #242d60;
-  height: 100%;
-  width: 100%;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
+label {
+  margin-bottom: 3px;
+  color: #006837;
+  font-weight: 600;
+  font-size: 15px;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+input[type="text"] {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  background-color: #DEF9D7;
+  border-radius: 3px;
+  font-size: 15px;
+  color: #006837;
+  margin-left: 2%;
+  margin-right: 2%;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  color: #006837;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 img {
   border-radius: 6px;
   margin: 10px;
-  width: 54px;
-  height: 57px;
-}
-
-h3,
-h5 {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.154px;
-  color: #242d60;
-  margin: 0;
-}
-
-h5 {
-  opacity: 0.5;
+  width: 100px;
+  height: 100px;
+  align-self: center;   /* image centered only */
 }
 
 button {
-  height: 36px;
+  height: 47px;
   background:  #FF9F29;
   color: white;
+  font-weight: bold;
   width: 100%;
   font-size: 14px;
   border: 0;
-  font-weight: 500;
   cursor: pointer;
   letter-spacing: 0.6;
   border-radius: 0 0 6px 6px;
   transition: all 0.2s ease;
   box-shadow: 0px 4px 5.5px 0px rgba(0, 0, 0, 0.07);
+  margin-top: auto;
 }
 
 button:hover {

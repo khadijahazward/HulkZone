@@ -11,45 +11,49 @@
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
-    <section>
-      <div class="product">
+    <!-- image -->
+    <div class="half-container"></div>
+    
+    <div class="first-half-container"  style="width:40%; justify-content: center; align-items:center; flex-direction: column;">
+      <h2>Payment Details</h2>
+      <section>
         <img src="../images/pay.jpg" alt="payment pic" />
-        <div class="description">
-          <?php
-            $paymentAmount = $_GET['amount'];
+        
+        <?php
+          $paymentAmount = $_GET['amount'];
 
-            $type = $_GET['type'];
+          $type = $_GET['type'];
 
-            if (isset($_GET['employeeID'])) {
-              $employeeID = $_GET['employeeID'];
-            } else {
-              $employeeID = "";
-            }
+          if (isset($_GET['employeeID'])) {
+            $employeeID = $_GET['employeeID'];
+          } else {
+            $employeeID = "";
+          }
 
-            echo "<h3>Payment</h3> <h5>Rs. $paymentAmount</h5>";
-          ?>
-
-        </div>
-      </div>
+          $sql = "select * from user where userID = $_SESSION[userID]";
+          $result = mysqli_query($conn, $sql);
+          $row = mysqli_fetch_assoc($result);
+          $fullname = $row['fName'] . " " . $row["lName"];
+        ?>
 
       <form action="http://localhost/HulkZone/member/stripe/checkout_process.php" method="POST">
-        
         <input type="hidden" name="paymentAmount" value="<?php echo $paymentAmount; ?>">
-        
         <input type="hidden" name="type" value="<?php echo $type; ?>">
-        
-        <?php 
-          if (isset($_GET['employeeID'])) 
-          { 
-        ?>
+        <label>Name</label>
+        <input type="text" name="name" value="<?php echo $fullname; ?>" readonly>
+        <label>Payment Amount (LKR)</label>
+        <input type="text" name="amt" value="<?php echo "Rs. " . $paymentAmount; ?>" readonly>
+        <label>Date</label>
+        <input type="text" name="date" value="<?php echo date('Y-m-d'); ?>" readonly>
+        <?php if (isset($_GET['employeeID'])) { ?>
           <input type="hidden" name="employeeID" value="<?php echo $employeeID?>">
-        <?php 
-          } 
-        ?>
-        
-        <button type="submit" id="checkout-button">Checkout</button>
+        <?php } ?>
+        <button type="submit" id="checkout-button">Proceed to Pay</button>
       </form>
-    </section>
+
+        
+      </section>
+    </div>
   </body>
   <script type="text/javascript">
     var stripe = Stripe("pk_test_51MihJyAQ8qDWFtDVOUaCZ1X7qfobYysvcIGOuZnBEY5VJcQnulANqSQP8SDdVDFdSIr6g5ugd0jlUQv5nQ4cF1QE00uCxcV2AQ");
