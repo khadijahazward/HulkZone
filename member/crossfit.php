@@ -248,11 +248,10 @@ include '../connect.php';
                                     $field2name ="<div><a href='employeeProfile.php?userID=$row3[userID]' class = 'button'>View Profile</a></div>";
                                     
                                     //checking if member has ongoing service
-                                    $sql5 = "SELECT * FROM servicecharge WHERE serviceID IN (1, 2, 4) AND endDate >= NOW()";
+                                    $sql5 = "SELECT * FROM servicecharge WHERE serviceID IN (1, 2, 4) AND endDate >= NOW() AND memberID = $row1[memberID]";
                                     $result5 = mysqli_query($conn, $sql5);
-                                    $ongoingService = mysqli_num_rows($result5) > 0; //true when has gym service ongoing
-
-                                    if ($ongoingService) {                                                     
+                                    
+                                    if ($result5 && mysqli_num_rows($result5) > 0) {                                                     
                                         $payNow = 'javascript:void(0);';
                                         $onclick = 'onclick="alert(\'You already have an ongoing service and cannot obtain another one until it ends.\'); return false;"';                                    
                                     } else {

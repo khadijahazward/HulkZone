@@ -5,8 +5,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Buy cool new product</title>
+    <title>Member | Payment</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="../../asset/images/gymLogo.png"/>
     <script src="https://js.stripe.com/v3/"></script>
   </head>
   <body>
