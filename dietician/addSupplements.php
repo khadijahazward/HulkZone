@@ -53,6 +53,8 @@ if(isset($_POST['save']) && isset($_POST['supplementNo'])){
         echo '<script> window.alert("Error of selecting a supplement!");</script>';
     }
     
+}else{
+    echo '<script> window.alert("Select a supplement!");</script>';
 }
 
 ?>

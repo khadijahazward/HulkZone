@@ -240,8 +240,8 @@
     border-radius: 4px;
     width: 150px;
     height: 44px;
-    bottom: 0px;
-    right: 0px;
+    bottom: 15px;
+    right: 10px;
     position: absolute;
     font-weight: 600;
     font-size: 18px;

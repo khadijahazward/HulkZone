@@ -40,6 +40,41 @@ input[type="text"]:focus {
   color: #006837;
 }
 
+.row-two{
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+}
+
+
+.row-two form button {
+  display: inline-block; /* this is optional, but it will make the form elements sit next to each other */
+  background-color: #006837;
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  width: 100%;
+  align-items: center;
+  margin: 1%;
+  padding: 1.5%;
+  border-radius: 10px;
+  border: 2px solid black;
+  text-align: center;
+  cursor: pointer;
+}
+
+.link {
+  float: right;
+  margin-right: 14%;
+  margin-top: 0.5%;
+}
+
+.link a {
+  font-size: small;
+  color: #006837;
+  text-decoration: none;
+}
+
 .table-container{
   width: 33%;
   background-color: #FF9F29;

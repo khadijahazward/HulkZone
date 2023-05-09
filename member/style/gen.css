@@ -124,16 +124,6 @@ font-weight: bold;
     font-weight: lighter;
 }
 
-
-/*for notifications*/
-.bell-icon{
-    padding: 0;
-    margin: 0;
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
-}
-
 .notification-popup {
     display: none;
     z-index: 1;

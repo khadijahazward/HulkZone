@@ -108,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <div class="container">
-        <!-- <div class="topBar">
+        <div class="topBar">
             <div class="gymLogo"><img src="Images/Gym Logo.png" alt="Gym Logo" class="gymLogo"></div>
             <div class="gymName">
                 <p>HULK ZONE</p>
@@ -121,10 +121,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <img src="<?php echo $profilePic ?>" alt=" my profile" class="myProfile">
             </div>
-        </div> -->
+        </div>
         <div class="content">
             <div class="topic">
-                <p>Add a Supplement</p>
+                <p>Create a Complaint</p>
             </div>
             <form class="supplementForm" method="post" enctype="multipart/form-data">
                 <table>
