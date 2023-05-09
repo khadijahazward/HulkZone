@@ -88,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             //for member - account is disabled. 
         }else if($row['statuses'] == 0 && $row['roles'] == 1){
+            
+            
             session_start();
             
             $_SESSION["logged_in"] = true;
@@ -114,7 +116,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } elseif ($row1['planType'] == "twelveMonth") {
                 $paymentAmount = 11000;
             }
-            header("Location: ../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount));
+            
+            // header("Location: ../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount));
+          
+            echo "<script>alert('Your Account has been Disabled. Since your Membership has Expired.'); 
+            window.location.href='../member/stripe/checkout.php?type=0&amount=" . urlencode($paymentAmount) . "';</script>";
 
         }else{
             echo "<script>alert('Your Account has been Disabled.')</script>";
