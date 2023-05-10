@@ -73,7 +73,7 @@ include '../connect.php';
                             $search_query = mysqli_real_escape_string($conn, $_POST['search']);
                             
                             // when user had searched smt
-                            $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles IN (2,3) AND (fName LIKE '%$search_query%' OR lName LIKE '%$search_query%')";
+                            $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles IN (2,3) AND (LOWER(fName) LIKE LOWER('%$search_query%') OR LOWER(lName) LIKE LOWER('%$search_query%'))";
 
                         }else if(isset($_POST['getDieticians'])){
                             $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles = 3";

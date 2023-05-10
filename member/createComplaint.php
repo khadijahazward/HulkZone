@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des)){
             $allowed_types = array("image/jpeg", "image/png");
             $allowed_size = 5242880; // 5MB - 5 * 1024 * 1024
+            //$allowed_size = 1067008;
 
             // Checking file types
             if (!in_array($_FILES["Evi-image"]["type"], $allowed_types)) {
