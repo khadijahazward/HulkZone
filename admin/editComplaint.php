@@ -29,66 +29,69 @@ if (isset($_POST['submit'])) {
     header("Location: manageComplaints.php");
     exit();*/
     include('authorization.php');
-include('../../HulkZone/connect.php');
-include('notiCount.php');
+    include('../../HulkZone/connect.php');
+    include('notiCount.php');
+    
+    
+    $complaintID = $_GET['complaintID'];
 
-
-$complaintID = mysqli_real_escape_string($conn, $_GET['complaintID']);
-
-// Check for the form submission
-if (isset($_POST['submit'])) {
-    // Get the form data
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
-    $status = mysqli_real_escape_string($conn, $_POST['status']);
-    $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
-    $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
-
-    // Update the complaint table
-    $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
-    $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
-    $stmt->execute();
-    $stmt->close();
-
-    if ($status == 'Completed') {
-        // Get the userID from the complaint table
-        $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
-        $stmt->bind_param("i", $complaintID);
+    
+    // Check for the form submission
+    if (isset($_POST['submit'])) {
+        // Get the form data
+        $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
+        $status = mysqli_real_escape_string($conn, $_POST['status']);
+        $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
+        $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
+    
+        // Update the complaint table
+        $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
+        $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
         $stmt->execute();
-        $stmt->bind_result($userID);
-        $stmt->fetch();
         $stmt->close();
-
-        // Insert data into the notifications table
-        $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
-        $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
-        $date = $currentDateTime->format('Y-m-d H:i:s');
-        $message = $actionTaken;
-
-        $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
-        $stmt->bind_param("ss", $message, $date);
-        $stmt->execute();
-        $notificationsID = $stmt->insert_id;
-        $stmt->close();
-
-        // Insert data into the usernotifications table
-        $status = 0;
-
-        $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
-        $stmt->bind_param("iii", $notificationsID, $userID, $status);
-        $stmt->execute();
-        $usernotificationsID = $stmt->insert_id;
-        $stmt->close();
+    
+        if ($status == 'Completed') {
+            // Get the userID from the complaint table
+            $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
+            $stmt->bind_param("i", $complaintID);
+            $stmt->execute();
+            $stmt->bind_result($userID);
+            $stmt->fetch();
+            $stmt->close();
+    
+            // Insert data into the notifications table
+            $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
+            $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
+            $date = $currentDateTime->format('Y-m-d H:i:s');
+            $message = $actionTaken;
+    
+            $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
+            $stmt->bind_param("ss", $message, $date);
+            $stmt->execute();
+            $notificationsID = $stmt->insert_id;
+            $stmt->close();
+    
+            // Insert data into the usernotifications table
+            $status = 0;
+    
+            $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $notificationsID, $userID, $status);
+            $stmt->execute();
+            $usernotificationsID = $stmt->insert_id;
+            $stmt->close();
+        }
+    
+        // Close the database connection
+        $conn->close();
+    
+        // Redirect the user to the manage complaints page
+        header("Location: manageComplaints.php");
+        exit();
     }
+    
 
-    // Close the database connection
-    $conn->close();
-
-    // Redirect the user to the manage complaints page
-    header("Location: manageComplaints.php");
-    exit();
-}
 
 
 
@@ -230,8 +233,6 @@ include('setAdminProfilePic.php');
                       
                     </select>
                     <br>
-                  
-                    
 
 
                     <input type="submit" name="submit" value="Save">

@@ -21,7 +21,7 @@ if (isset($_SESSION['userID']))
 $userID = $_SESSION['userID'];
 
 // prepare the SQL query
-$query = "SELECT fName, lName, NIC, gender, dateOfBirth, contactNumber, streetNumber, addressLine01, addressLine02, city,profilePhoto FROM user WHERE userID = ? AND roles = 0";
+$query = "SELECT fName, lName, NIC, gender, dateOfBirth, contactNumber, streetNumber, addressLine01, addressLine02, city,profilePhoto,email FROM user WHERE userID = ? AND roles = 0";
 
 // prepare the statement
 $stmt = mysqli_prepare($conn, $query);
@@ -33,7 +33,7 @@ mysqli_stmt_bind_param($stmt, "i", $userID);
 mysqli_stmt_execute($stmt);
 
 // bind the result variables
-mysqli_stmt_bind_result($stmt, $fName, $lName, $NIC, $gender, $dateOfBirth, $contactNumber, $streetNumber, $addressLine01, $addressLine02, $city,$profilePictureLink);
+mysqli_stmt_bind_result($stmt, $fName, $lName, $NIC, $gender, $dateOfBirth, $contactNumber, $streetNumber, $addressLine01, $addressLine02, $city,$profilePictureLink,$email);
 
 // fetch the results
 if (mysqli_stmt_fetch($stmt));
@@ -183,6 +183,12 @@ include('../admin/sideBar.php');
                             <div class="form-group">
                                 <label>City</label>
                                 <input id="city" name="city" type="text" value="<?php echo "$city"; ?>" readonly>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group" style="margin-right:455px;">
+                                <label>Username</label>
+                                <input id="aline2" name="addressLine02" type="text" value="<?php echo "$email"; ?>" readonly>
                             </div>
                         </div>
                     </div>
