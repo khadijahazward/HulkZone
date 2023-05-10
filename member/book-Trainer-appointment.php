@@ -13,6 +13,12 @@
     //employee id
     $empid = $_POST["empid"];
 
+    //user id of employee
+    $query3 = "select userID from employee where employeeID = $empid";
+    $result3 = mysqli_query($conn, $query3);
+    $row3 = mysqli_fetch_assoc($result3);
+    $emp_userID = $row3['userID'];
+
     //booking start time
     $startTime = $_POST["startTime"];
 
@@ -63,6 +69,25 @@
 
             echo "<script>alert('Appointment confirmed! Your Appointment is from $st to $endTime on $bDate.');</script>";
             echo "<script>window.location = 'gymuse.php';</script>";
+
+            // Insert a new record into the notifications table
+            $message = "There is an active appointment for Member ID $memberID  on $bDate at $st - $endTime.";
+            $type = 4;
+            $created_at = date('Y-m-d H:i:s');
+
+            $sql7 = "INSERT INTO notifications(message, type, created_at) VALUES ('$message', '$type', '$created_at')";
+            $result7 = mysqli_query($conn, $sql7);
+
+            if ($result7) {
+                //getting previous inserted notification id
+                $notificationID = mysqli_insert_id($conn);
+
+                // Insert a new record into the user_notifications table 
+                $sql8 = "INSERT INTO usernotifications(userID, notificationsID) VALUES ('$emp_userID', '$notificationID')";
+                $result8 = mysqli_query($conn, $sql8);
+            }else{
+                echo "Error: " . mysqli_error($conn);
+            }
 
         } else {
             mysqli_rollback($conn); // rollback changes if any query fails

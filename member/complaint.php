@@ -17,6 +17,7 @@ include "../connect.php";
     <title>Complaint | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/complaint.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 
 </head>
 

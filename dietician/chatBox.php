@@ -142,7 +142,7 @@ if(!$result2){
                                                 <td class='name'>" . $memberFName . " " . $memberLName . "</td>
                                                 <td colspan='3' class='message'>" . $message . "</td>
                                                 <td><div class='unreadMsg'>" . $unReadMsg . "</div></td>
-                                                <td><a href='messageHistory.php?memberuserID=" . $memberUserID . "'><button class='view'>View More</button></a></td>
+                                                <td><a href='messageHistory.php?memberuserID=" . $memberUserID . "'><button class='view'>Chat</button></a></td>
                                             </tr>";
                                         }
                                     }

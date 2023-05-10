@@ -1,27 +1,12 @@
 <?php
 
+
 include 'connect.php';
 
-global $userID;
+$userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = '$userID' AND usernotifications.status = '0' AND notifications.type = '3'";
+$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = $userID AND usernotifications.status = 0 AND (notifications.type = 3 OR notifications.type = 4)";
 $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
-
-
-if (isset($_GET['action']) && $_GET['action'] == 'markAsRead') {
-    $usernotID = mysqli_real_escape_string($conn, $_GET['usernotID']);
-
-    $sqlQuery2 = "UPDATE usernotifications SET status = 1 WHERE usernotificationsID = $usernotID";
-    $sqlQueryresult2 = mysqli_query($conn, $sqlQuery2);
-
-    if ($sqlQueryresult2) {
-        // Reload the page to reflect the updated notification status
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        exit();
-    } else {
-        echo "Error updating notification status: " . mysqli_error($conn);
-    }
-}
 
 ?>
 
@@ -43,6 +28,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'markAsRead') {
         echo "
         <button onclick=\"document.getElementById('noti').style.display='block'\" class='notificationBtn'>
         <i class='fas fa-bell'></i>
+        <!--<img src='../asset/images/bell.png'>-->
         </button>
         
         ";
@@ -51,6 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'markAsRead') {
         echo "
         <button onclick=\"document.getElementById('noti').style.display='block'\" class='notificationBtn'>
         <i class='far fa-bell'></i>
+        <!--<img src='../asset/images/bell.png'>-->
         </button>
         ";
     }
@@ -91,7 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'markAsRead') {
                                 </tr>
                                 <tr>
                                     <td colspan='1' class='read'>
-                                        <a href='notifications.php?action=markAsRead&usernotID=" . $sqlQueryresultrow1['usernotificationsID'] . "'>Mark as read</a>
+                                        <a href='markAsRead.php?usernotID=" . $sqlQueryresultrow1['usernotificationsID'] . "'>Mark as read</a>
                                     </td>
                                 </tr>
                             </table>

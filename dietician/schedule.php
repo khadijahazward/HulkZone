@@ -22,7 +22,6 @@ $row9 = mysqli_fetch_assoc($result9);
 $lastAppointmentDate = $row9['lastAppointmentDate'];
 
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $monday = $_POST['date'];
@@ -31,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($monday)) {
         $isValid = false;
+        
     } else {
         if ($monday <= $lastAppointmentDate) {
             $isValid = false;
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $today = new DateTime();
         $currentWeekMonday = $today->modify('this week')->format('Y-m-d');
 
-        if ($monday < $currentWeekMonday) {
+        if ($monday <= $currentWeekMonday) {
             $isValid = false;
         }
     }
@@ -74,6 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $saturdayDatetime->add(new DateInterval('P1D'));
 
             $sunday = $saturdayDatetime->format('Y-m-d');
+
+            if(empty($_POST['mondayTime-slot']) && empty($_POST['tuesdayTime-slot']) && empty($_POST['wednesdayTime-slot']) && empty($_POST['thursdayTime-slot']) && empty($_POST['fridayTime-slot']) && empty($_POST['saturdayTime-slot']) && empty($_POST['sundayTime-slot'])){
+                echo '<script> window.alert("You have to select atleast one time slot");</script>';
+            }else{
+                
 
 
             if (isset($_POST['mondayTime-slot'])) {
@@ -269,9 +274,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         echo '<script> window.alert("Time slots for dietician appointments have been successfully added!");</script>';
         echo '<script> window.location.href = "viewSchedule.php?date= '.$monday.'"</script>';
-
+        }
         } else {
-            echo '<script> window.alert("Please enter monday date!");</script>';
+            echo '<script> window.alert("Please enter a monday!");</script>';
         }
     } else {
         echo '<script> window.alert("Enter a valid date!");</script>';

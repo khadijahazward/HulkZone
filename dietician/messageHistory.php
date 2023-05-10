@@ -32,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receiverID = $memberUserID;
     $status = 1;
 
-    if(isset($_POST['sendBtn']) && isset($_POST['sendingMessage'])){
+    if(isset($_POST['sendBtn']) && !empty($_POST['sendingMessage'])){
         
         $query3 = "INSERT INTO chat 
                     (senderID, receiverID, message, status) VALUES
@@ -48,7 +48,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 
-$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $memberUserID) OR (senderID = $memberUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
+$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $memberUserID) OR (senderID = $memberUserID AND receiverID = $userID)) ORDER BY DATE(dateTime) ASC";
+
+//$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $memberUserID) OR (senderID = $memberUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
 $result4 = mysqli_query($conn, $query4);
 
 if(!$result4){

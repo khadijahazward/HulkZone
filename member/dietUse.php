@@ -56,7 +56,9 @@ include '../connect.php';
             echo "No data returned from the SQL query";
         }
     } else {
-        echo "<script type='text/javascript'>alert('No dietician is selected.');</script>";
+        // If no service charge record is found
+        echo "<script>alert('You have not selected a diet service yet. Please select the service to continue.');</script>";
+        echo "<script>window.location = 'http://localhost/HulkZone/member/services.php';</script>";
     }
     
 ?>
@@ -71,6 +73,7 @@ include '../connect.php';
     <title>Diet Appointments | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/dietUse.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 <body>
     <div class="container">

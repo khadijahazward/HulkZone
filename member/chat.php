@@ -43,7 +43,8 @@ if(!$result3){
     $dieticianPhoto = $row3['profilePhoto'];
 }
 
-$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
+$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY DATE(dateTime) ASC";
+//$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
 $result4 = mysqli_query($conn, $query4);
 
 if(!$result4){
@@ -56,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receiverID = $dieticianUserID;
     $status = 1;
 
-    if(isset($_POST['sendBtn']) && isset($_POST['sendingMessage'])){
+    if(isset($_POST['sendBtn']) && !empty($_POST['sendingMessage'])){
         
         $query6 = "INSERT INTO chat 
                     (senderID, receiverID, message, status) VALUES
@@ -109,6 +110,7 @@ if($result8){
     <title>Chat | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/chat.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 
 <body>

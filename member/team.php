@@ -16,7 +16,8 @@ include '../connect.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TEAM | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
-    <link rel="stylesheet" type="text/css" href="../member/style/team.css">   
+    <link rel="stylesheet" type="text/css" href="../member/style/team.css">  
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/> 
 </head>
 <body>
     <div class="container">
@@ -38,16 +39,31 @@ include '../connect.php';
                 </div>
             </div>
             <div class="content">
-                <div class="row">
+                <div class="row" style="margin-bottom:0;">
                     <form action="team.php" method="post">
                         <input type="text" placeholder="Search" name="search">
                         <button type="submit">Submit</button>
                     </form>
                 </div>
+                <div class = "link">
+                    <a href="team.php">Clear Search</a>
+                </div>
+
 
                 <div class="row"><br>
                     Team Members
                 </div>
+
+                <div class ="row-two">
+                    <form action="team.php" method="post">
+                        <button name = "getDieticians" >Dieticians</button>
+                    </form>
+
+                    <form action="team.php" method="post">
+                        <button name = "getTrainers">Trainers</button>
+                    </form>  
+                </div>
+
 
                 <div class="row">
                     <?php 
@@ -58,6 +74,12 @@ include '../connect.php';
                             
                             // when user had searched smt
                             $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles IN (2,3) AND (fName LIKE '%$search_query%' OR lName LIKE '%$search_query%')";
+
+                        }else if(isset($_POST['getDieticians'])){
+                            $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles = 3";
+
+                        }else if(isset($_POST['getTrainers'])){
+                            $sql = "SELECT userID, fName, lName, roles, profilePhoto FROM `user` WHERE roles = 2";
 
                         } else {
                             // if search form has not been submitted, show everyone in team

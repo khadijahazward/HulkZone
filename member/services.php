@@ -16,6 +16,7 @@ include '../connect.php';
     <title>Services | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/services.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 
 </head>
 <body>
