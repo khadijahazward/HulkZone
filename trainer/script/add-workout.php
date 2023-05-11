@@ -48,7 +48,7 @@ if (isset($_POST['submit'])) {
                 // Extract the individual values
                 list($exerciseName, $reps, $restTime) = $values;
 
-                $sql = "INSERT INTO workoutplan (employeeID, memberID, exerciseName, reps, restTime, day, startDate) VALUES ($employeeID, $memberID, '$exerciseName', '$reps', '$restTime', '$day', '$startDate')";
+                $sql = "INSERT INTO workoutplan (employeeID, memberID, exerciseName, reps, sets, day, startDate) VALUES ($employeeID, $memberID, '$exerciseName', '$reps', '$restTime', '$day', '$startDate')";
                 // Execute the SQL statement using your preferred method for executing SQL queries
                 $res = mysqli_query($conn, $sql) or die(mysqli_error($conn)); //execute query
                 $values[0] = "";
