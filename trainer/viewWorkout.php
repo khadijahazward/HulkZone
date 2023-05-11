@@ -93,7 +93,7 @@ include 'script/config.php';
                     notifications
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
         </div>
 
     </section>
@@ -143,7 +143,7 @@ include 'script/config.php';
                     $exercise = array(
                         'exerciseName' => $row['exerciseName'],
                         'reps' => $row['reps'],
-                        'restTime' => $row['restTime']
+                        'sets' => $row['sets']
                     );
                     // Add exercise to the appropriate day's array
                     switch ($day) {
@@ -195,7 +195,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day1_exerciseName" id="day1_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day1_reps" id="day1_reps" placeholder="Reps">
-                                <input type="number" name="day1_restTime" id="day1_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day1_sets" id="day1_sets" placeholder="Number of Sets">
                             </div>
                             <span class="add-btn" id="day1_add-exercise-btn">Add Exercise</span>
                         </div>
@@ -205,7 +205,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString = '';
 
                                                                                                                     foreach ($exerciseList1 as $exercise) {
-                                                                                                                        $exerciseListString .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] ."\n";
+                                                                                                                        $exerciseListString .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] ."\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString;
@@ -223,7 +223,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day2_exerciseName" id="day2_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day2_reps" id="day2_reps" placeholder="Reps">
-                                <input type="number" name="day1_restTime" id="day2_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day1_sets" id="day2_sets" placeholder="Number of Sets">
                             </div>
                             <span class="add-btn" id="day2_add-exercise-btn">Add Exercise</span>
                         </div>
@@ -232,7 +232,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString2 = '';
 
                                                                                                                     foreach ($exerciseList2 as $exercise) {
-                                                                                                                        $exerciseListString2 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] ."\n";
+                                                                                                                        $exerciseListString2 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] ."\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString2;
@@ -250,7 +250,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day3_exerciseName" id="day3_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day3_reps" id="day3_reps" placeholder="Reps">
-                                <input type="number" name="day3_restTime" id="day3_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day3_sets" id="day3_sets" placeholder="Number of Sets">
 
                             </div>
                             <span class="add-btn" id="day3_add-exercise-btn">Add Exercise</span>
@@ -260,7 +260,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString3 = '';
 
                                                                                                                     foreach ($exerciseList3 as $exercise) {
-                                                                                                                        $exerciseListString3 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] ."\n";
+                                                                                                                        $exerciseListString3 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] ."\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString3;
@@ -278,7 +278,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day4_exerciseName" id="day4_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day4_reps" id="day4_reps" placeholder="Reps">
-                                <input type="number" name="day4_restTime" id="day4_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day4_sets" id="day4_sets" placeholder="Number of Sets">
                             </div>
                             <span class="add-btn" id="day4_add-exercise-btn">Add Exercise</span>
                         </div>
@@ -287,7 +287,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString4 = '';
 
                                                                                                                     foreach ($exerciseList4 as $exercise) {
-                                                                                                                        $exerciseListString4 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] ."\n";
+                                                                                                                        $exerciseListString4 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] ."\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString4;
@@ -305,7 +305,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day5_exerciseName" id="day5_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day5_reps" id="day5_reps" placeholder="Reps">
-                                <input type="number" name="day5_restTime" id="day5_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day5_sets" id="day5_sets" placeholder="Number of Sets">
 
                             </div>
                             <span class="add-btn" id="day5_add-exercise-btn">Add Exercise</span>
@@ -315,7 +315,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString5 = '';
 
                                                                                                                     foreach ($exerciseList5 as $exercise) {
-                                                                                                                        $exerciseListString5 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] ."\n";
+                                                                                                                        $exerciseListString5 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] ."\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString5;
@@ -333,7 +333,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day6_exerciseName" id="day6_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day6_reps" id="day6_reps" placeholder="Reps">
-                                <input type="number" name="day6_restTime" id="day6_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day6_sets" id="day6_sets" placeholder="Number of Sets">
 
                             </div>
                             <span class="add-btn" id="day6_add-exercise-btn">Add Exercise</span>
@@ -343,7 +343,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString6 = '';
 
                                                                                                                     foreach ($exerciseList6 as $exercise) {
-                                                                                                                        $exerciseListString6 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] . "\n";
+                                                                                                                        $exerciseListString6 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] . "\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString6;
@@ -361,7 +361,7 @@ include 'script/config.php';
                             <div class="exercise_set">
                                 <input type="text" name="day7_exerciseName" id="day7_exerciseName" placeholder="Exercise Name">
                                 <input type="number" name="day7_reps" id="day7_reps" placeholder="Reps">
-                                <input type="number" name="day7_restTime" id="day7_restTime" placeholder="Rest Time in Minutes">
+                                <input type="number" name="day7_sets" id="day7_sets" placeholder="Number of Sets">
 
                             </div>
                             <span class="add-btn" id="day7_add-exercise-btn">Add Exercise</span>
@@ -371,7 +371,7 @@ include 'script/config.php';
                                                                                                                     $exerciseListString7 = '';
 
                                                                                                                     foreach ($exerciseList7 as $exercise) {
-                                                                                                                        $exerciseListString7 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['restTime'] . "\n";
+                                                                                                                        $exerciseListString7 .= $exercise['exerciseName'] . ', ' . $exercise['reps'] . ', ' . $exercise['sets'] . "\n";
                                                                                                                     }
 
                                                                                                                     echo $exerciseListString7;

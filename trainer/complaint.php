@@ -92,11 +92,11 @@ if (!$_SESSION['username']) {
 
         <div class="topbar-right">
             <div class="topbar-notification">
-                <span class="material-symbols-outlined">
-                    notifications
+            <span class="material-symbols-outlined">
+                    <?php include "notifications.php" ?>
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <a href="settings.php"><img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
         </div>
 
     </section>

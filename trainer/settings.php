@@ -87,20 +87,15 @@ include 'script/config.php';
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
+
 
         <div class="topbar-right">
             <div class="topbar-notification">
-                <span class="material-symbols-outlined">
-                    notifications
+            <span class="material-symbols-outlined">
+                    <?php include "notifications.php" ?>
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <img id="profile-photo-style" class="profilePic" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
         </div>
 
     </section>
@@ -109,7 +104,7 @@ include 'script/config.php';
         <a href="http://localhost/hulkzone/trainer/changePassword.php" id="settings-change-pwd">Change Password</a>
         <div class="settings-main-container">
             <div id="profileCard">
-                <img src="<?php echo $row['profilePhoto']; ?>" alt="" id="settings-profile-image">
+                <img src="<?php echo $_SESSION['profilePhoto']; ?>" alt="" id="settings-profile-image">
             </div>
             <div id="settings-content">
                 <div class="dateBar">
@@ -135,7 +130,7 @@ include 'script/config.php';
                             <tr>
                                 <td>
                                     <label for="NIC">NIC</label><br>
-                                    <input type="text" id="NIC" name="NIC" class="textBox" value="<?php echo $row['NIC']; ?>">
+                                    <input type="text" id="NIC" name="NIC" class="textBox" value="<?php echo $row['NIC']; ?>" readonly>
                                 </td>
                                 <td>
                                     <label for="dateOfBirth">Date of Birth</label><br>
@@ -145,7 +140,7 @@ include 'script/config.php';
                             <tr>
                                 <td>
                                     <label for="contactNumber">Phone</label><br>
-                                    <input type="text" id="contactNumber" name="contactNumber" class="textBox" value="<?php echo $row['contactNumber']; ?>">
+                                    <input type="text" id="contactNumber" name="contactNumber" class="textBox" value="<?php echo $row['contactNumber']; ?>"readonly>
                                 </td>
                                 <td>
                                     <label for="gender">Gender</label><br>
