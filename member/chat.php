@@ -21,12 +21,14 @@ if(!$result1){
 $query2 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND serviceID = 3 AND endDate >= NOW()";
 $result2 = mysqli_query($conn, $query2);
 
-if(!$result2){
-    echo '<script> window.alert("Error receiving dietician ID!");</script>';
+if(mysqli_num_rows($result2) == 0){
+    echo "<script>alert('You have not selected a service yet. Please select a service to continue.');</script>";
+    echo "<script>window.location = 'http://localhost/HulkZone/member/services.php';</script>";
 }else{
     $row2 = mysqli_fetch_assoc($result2);
     $dieticianID = $row2['employeeID'];
 }
+
 
 $query3 = "SELECT * from user JOIN employee ON user.userID = employee.userID WHERE employee.employeeID = $dieticianID";
 $result3 = mysqli_query($conn, $query3);
@@ -41,7 +43,8 @@ if(!$result3){
     $dieticianPhoto = $row3['profilePhoto'];
 }
 
-$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
+$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY DATE(dateTime) ASC";
+//$query4 = "SELECT DISTINCT DATE(dateTime) AS chatDate FROM chat WHERE ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
 $result4 = mysqli_query($conn, $query4);
 
 if(!$result4){
@@ -54,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $receiverID = $dieticianUserID;
     $status = 1;
 
-    if(isset($_POST['sendBtn']) && isset($_POST['sendingMessage'])){
+    if(isset($_POST['sendBtn']) && !empty($_POST['sendingMessage'])){
         
         $query6 = "INSERT INTO chat 
                     (senderID, receiverID, message, status) VALUES
@@ -63,6 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         if(!$result6){
             echo '<script> window.alert("Error of sending messages!");</script>';
+        }else{
+            header("Location: chat.php");
+            exit;
         }
     }
 }
@@ -72,6 +78,22 @@ $result7 = mysqli_query($conn, $query7);
 
 if(!$result7){
     echo '<script> window.alert("Error update unread message!");</script>';
+}
+
+$query8 = "SELECT * FROM servicecharge WHERE memberID = $memberID AND employeeID = $dieticianID AND serviceID = 3 AND endDate >= NOW()";
+$result8 = mysqli_query($conn, $query8);
+
+if($result8){
+    $row8 = mysqli_fetch_assoc($result8);
+    
+    $startDateTime = $row8['startDate'];
+    $startDate = new DateTime($startDateTime);
+    $startDateTime = $startDate -> format('Y-m-d');
+    
+    $endDateTime = $row8['endDate'];
+    $endDate = new DateTime($endDateTime);
+    $endDateTime = $endDate -> format('Y-m-d');
+
 }
 
 ?>
@@ -88,6 +110,7 @@ if(!$result7){
     <title>Chat | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/chat.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 
 <body>
@@ -132,33 +155,40 @@ if(!$result7){
                                         
                                         $dateTime = $row4['chatDate'];
                                         
-                                        echo '
-                                            <li class="day">
-                                                <p>'.$dateTime.'</p>
-                                            </li>
-                                        ';
+                                            echo '
+                                                <li class="day">
+                                                    <p>'.$dateTime.'</p>
+                                                </li>
+                                            ';
 
-                                        $query5 = "SELECT * FROM chat WHERE DATE(dateTime) = '$dateTime' AND ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
-                                        $result5 = mysqli_query($conn, $query5);
+                                            $query5 = "SELECT * FROM chat WHERE DATE(dateTime) = '$dateTime' AND ((senderID = $userID AND receiverID = $dieticianUserID) OR (senderID = $dieticianUserID AND receiverID = $userID)) ORDER BY dateTime ASC";
+                                            $result5 = mysqli_query($conn, $query5);
 
-                                        if(mysqli_num_rows($result5) > 0){
-                                            while($row5 = mysqli_fetch_assoc($result5)){
+                                            if(mysqli_num_rows($result5) > 0){
+                                                while($row5 = mysqli_fetch_assoc($result5)){
                                                 
-                                                $message = $row5['message'];
-                                                $messageSenderID = $row5['senderID'];
-                                                $messageReceiverID = $row5['receiverID']; 
-                                                $time = date('H:i ', strtotime($row5['dateTime']));
+                                                    $message = $row5['message'];
+                                                    $messageSenderID = $row5['senderID'];
+                                                    $messageReceiverID = $row5['receiverID']; 
+                                                    $time = date('H:i ', strtotime($row5['dateTime']));
 
-                                                $class = ($messageSenderID == $userID) ? 'rightMessage' : 'leftMessage';
+                                                    $class = ($messageSenderID == $userID) ? 'rightMessage' : 'leftMessage';
 
+                                                    echo '
+                                                        <li class="message '.$class.'">
+                                                            <p>'.$message.'</p>
+                                                            <span class="time">'.$time.'</span>
+                                                        </li>
+                                                    ';
+                                                }
+                                            }else{
                                                 echo '
-                                                    <li class="message '.$class.'">
-                                                        <p>'.$message.'</p>
-                                                        <span class="time">'.$time.'</span>
-                                                    </li>
+                                                <li class="day">
+                                                    <p>Start a coversation</p>
+                                                </li>  
                                                 ';
                                             }
-                                        }
+                                        
                                     }
                                 }else{
                                     echo '

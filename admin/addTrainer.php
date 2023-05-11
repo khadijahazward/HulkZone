@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('authorization.php');
 include('setAdminProfilePic.php');
 ?>
@@ -46,35 +46,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     //email validation
-    /*if (empty($_POST["email"])) {
-        $emErr = "Email is required";
-    } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {// "username@domain.extension.The email address must contain only one "@" symbol and at least one "." symbol after "@" symbol. It should not contain any whitespace characters or special characters other than "." and "_".
-        $emErr = "Enter Valid Email";
-    }*/
     if (empty($_POST["email"])) {
         $emErr = "Email is required";
-    } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])) {//This regular expression ensures that the email address contains only letters, digits, and the characters "." (dot), "_" (underscore), "%" (percent), "+", and "-". It also ensures that the domain part of the email address contains only letters, digits, and the characters "." and "-". Additionally, it requires at least one "." character after the "@" symbol and ensures that the top-level domain is at least two characters long.
+    } else if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) { // "username@domain.extension.The email address must contain only one "@" symbol and at least one "." symbol after "@" symbol. It should not contain any whitespace characters or special characters other than "." and "_".
         $emErr = "Enter Valid Email";
-    }else{
-        // Sanitize email input to prevent SQL injection
-    $email = mysqli_real_escape_string($conn, $_POST["email"]);
-
-    // Check if email already exists in the database
-    $query = "SELECT * FROM user WHERE email='$email'";
-    $result = mysqli_query($conn, $query);
-
-    if (mysqli_num_rows($result) > 0) {
-        $emErr = "Username already exists";
     }
+    if (empty($_POST["email"])) {
+        $emErr = "Email is required";
+    } else if (!preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])) { //This regular expression ensures that the email address contains only letters, digits, and the characters "." (dot), "_" (underscore), "%" (percent), "+", and "-". It also ensures that the domain part of the email address contains only letters, digits, and the characters "." and "-". Additionally, it requires at least one "." character after the "@" symbol and ensures that the top-level domain is at least two characters long.
+        $emErr = "Enter Valid Email";
+    } else {
+        // Sanitize email input to prevent SQL injection
+        $email = mysqli_real_escape_string($conn, $_POST["email"]);
+
+        // Check if email already exists in the database
+        $query = "SELECT * FROM user WHERE email='$email'";
+        $result = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+            $emErr = "Username already exists";
+        }
     }
 
     //password validation
     $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
     $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
 
-    
-    
-    
+
+
+
     if (empty($_POST["pass1"])) {
         $pw1Err = "Password is required";
     } else if (strlen($_POST['pass1']) < 8) {
@@ -134,13 +134,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $language = isset($_POST['language']) ? $_POST['language'] : array();
     // convert the array of selected languages to a comma-separated string
     $languages_str = implode(',', $language);
-
-    //$lang=$_POST["lang"];
+    $services = isset($_POST['services']) ? $_POST['services'] : array();
+    
 
     $status = 1; //active
 
     $role = 2; //1 = member, 2 = trainer, 3 = dietician
-    
+
 
     //checking if username already exists
     $sql = "select * from user where email = '$username'";
@@ -156,10 +156,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $password_hash = password_hash($pw, PASSWORD_DEFAULT);
 
-            $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
+            if (
+                !empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw) && !empty($language) && !empty($services)
+                &&(preg_match('@[0-9]@', $_POST['pass1'])) && (preg_match('@[^\w]@', $_POST['pass1']))
+                && (preg_match('/^[0-9]{9}[V]+$/', $_POST["nic"]) || preg_match('/^[0-9]{12}+$/', $_POST["nic"]))
+                && preg_match('/^[0-9]{10}+$/', $_POST["number"]) && preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])
+            ) {
+                $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";
 
-            if (!empty($fname) && !empty($lname) && !empty($nic) && !empty($gender) && !empty($num) && !empty($dob) && !empty($username) && !empty($pw) && !empty($cpw)) {
+
                 $result = mysqli_query($conn, $sql);
             }
 
@@ -176,31 +182,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $result2 = mysqli_query($conn, $sql2);
 
                 if ($result2) {
-                    // insert data into employeeservice table
-                    $services = isset($_POST['services']) ? $_POST['services'] : array();
-                    foreach ($services as $service) {
-                        // retrieve the employeeID based on the userID
-                        $sql_employee = "SELECT employeeID FROM employee WHERE userID = $userid";
-                        $result_employee = mysqli_query($conn, $sql_employee);
-                        if ($result_employee && $row_employee = mysqli_fetch_array($result_employee)) {
-                            $employeeID = $row_employee['employeeID'];
-                            // insert the employeeID and serviceID into the employeeservice table
+                    // retrieve the employeeID based on the userID
+                    $sql_employee = "SELECT employeeID FROM employee WHERE userID = $userid";
+                    $result_employee = mysqli_query($conn, $sql_employee);
+                    if ($result_employee && $row_employee = mysqli_fetch_array($result_employee)) {
+                        $employeeID = $row_employee['employeeID'];
+                        // insert data into employeeservice table
+                        foreach ($services as $service) {
                             $sql3 = "INSERT INTO employeeservice(employeeID, serviceID) VALUES ('$employeeID', '$service')";
                             $result3 = mysqli_query($conn, $sql3);
 
-                            // If all queries were successful, show a success message
-                            if ($result3) {
-                              
-                                echo "<script> alert('Registration Successful!'); </script>";
-                                include('phpmailer.php');
-                                echo "<script>window.location.replace('manageTrainer.php');</script>";
-                            } else {
+                            // If any query fails, show an error message and exit the loop
+                            if (!$result3) {
                                 echo "<script> alert('Failed to add services. Please try again.'); </script>";
+                                break;
                             }
-                        } else {
-                            // If inserting data into employee table fails, then show an error message
-                            echo "<script> alert('Failed to add employee. Please try again.'); </script>";
                         }
+
+                        // If all queries were successful, show a success message
+                        if ($result3) {
+                            echo "<script> alert('Registration Successful!'); </script>";
+                            include('phpmailer.php');
+                            echo "<script>window.location.replace('manageTrainer.php');</script>";
+                        }
+                    } else {
+                        // If retrieving employeeID fails, then show an error message
+                        echo "<script> alert('Failed to add employee. Please try again.'); </script>";
                     }
                 }
             }
@@ -243,7 +250,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="contentMiddle">
             <p class="myProfile" style="margin-left: 1080px;">My Profile</p>
         </div>
-        <div class="contentRight"><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+        <div class="contentRight"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
     </div>
 
     <!--Body|Form-->
@@ -328,24 +335,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label> No. of years of Experience</label>
                 <br>
 
-               
-                    <select name="exp" id="exp">
-                        <option value="Less than 1 year" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'Less than 1 year') {
-                                                                echo ' selected';
-                                                            } ?>>Less than 1 year</option>
-                        <option value="1-3 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '1-3 years') {
-                                                        echo ' selected';
-                                                    } ?>>1-3 years</option>
-                        <option value="3-5 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '3-5 years') {
-                                                        echo ' selected';
-                                                    } ?>>3-5 years</option>
-                        <option value="5-10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '5-10 years') {
-                                                        echo ' selected';
-                                                    } ?>>5-10 years</option>
-                        <option value="More than 10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'More than 10 years') {
-                                                                echo ' selected';
-                                                            } ?>>More than 10 years</option>
-                    </select>
+
+                <select name="exp" id="exp">
+                    <option value="Less than 1 year" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'Less than 1 year') {
+                                                            echo ' selected';
+                                                        } ?>>Less than 1 year</option>
+                    <option value="1-3 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '1-3 years') {
+                                                    echo ' selected';
+                                                } ?>>1-3 years</option>
+                    <option value="3-5 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '3-5 years') {
+                                                    echo ' selected';
+                                                } ?>>3-5 years</option>
+                    <option value="5-10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === '5-10 years') {
+                                                    echo ' selected';
+                                                } ?>>5-10 years</option>
+                    <option value="More than 10 years" <?php if (isset($_POST['exp']) && $_POST['exp'] === 'More than 10 years') {
+                                                            echo ' selected';
+                                                        } ?>>More than 10 years</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -423,14 +430,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                 <label>Password<span class="error">* <?php echo $pw1Err; ?></span></label>
                 <br>
-                <input type="password" id="pass1" name="pass1" >
+                <input type="password" id="pass1" name="pass1">
             </div>
 
 
             <div class="form-group">
                 <label>Confirm Password <span class="error"> *<?php echo $pw2Err; ?></span></label>
                 <br>
-                <input type="password" id="pass2" name="pass2" maxlength="15" >
+                <input type="password" id="pass2" name="pass2" maxlength="15">
             </div>
 
         </div>

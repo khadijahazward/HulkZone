@@ -29,6 +29,7 @@ include '../connect.php';
     <title>Payments | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/payment.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 <body>
     <div class="container">
@@ -59,19 +60,28 @@ include '../connect.php';
                                 // Set default payment amount to 0
                                 $paymentAmount = 0;
                                 $currentDate = strtotime(date("Y-m-d"));
+                                // $currentDate = strtotime(date("2023-07-12"));
+
                                 $paymentType = 0;
                                 // Get the last two expiry dates for the plan type
-                                $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 2";
+                                $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 2"; //last entry will be first
                                 $result5 = mysqli_query($conn, $sql5);
  
                                 $expiryDates = array();
                                 while ($row5 = mysqli_fetch_assoc($result5)) {
+                                    //echo " " . $row5['expiryDate'];
                                     $expiryDates[] = strtotime($row5['expiryDate']);
+                                    //$expiryDates[] = $row5['expiryDate'];
                                 }
+
+                                // echo "0"  . $expiryDates[0];
+                                // echo "<br>";
+                                // echo $expiryDates[1];
+                                
                                 
                                 if (mysqli_num_rows($result5) > 0) {
                                     //for subsequent payments
-                                    if (count($expiryDates) == 2 && $currentDate < $expiryDates[1] && $currentDate >= $expiryDates[0]) {
+                                    if (count($expiryDates) == 2 && $currentDate < $expiryDates[0] && $currentDate >= $expiryDates[1]) { //latest is 0, one before last = 1
                                         
                                         if ($planType == "oneMonth") {
                                             $paymentAmount = 1000;
@@ -83,7 +93,7 @@ include '../connect.php';
                                             $paymentAmount = 11000;
                                         }
                                         //for initial payment in new member
-                                    } elseif (count($expiryDates) == 1 && $currentDate < $expiryDates[0]) {
+                                    } elseif (count($expiryDates) == 1 && $currentDate < $expiryDates[0]) { //current date is before the latest expiry date
                                         if ($planType == "oneMonth") {
                                             $paymentAmount = 1000;
                                         } elseif ($planType == "threeMonth") {
@@ -93,7 +103,9 @@ include '../connect.php';
                                         } elseif ($planType == "twelveMonth") {
                                             $paymentAmount = 11000;
                                         }
-                                    } elseif (count($expiryDates) == 2 && $currentDate < $expiryDates[0]) {
+                                        //the member has made payment before the current period expires. so the new expiry date is updated.
+                                        //since the current date is lesser than the current expiry date, it will be 0.  
+                                    } elseif (count($expiryDates) == 2 && $currentDate < $expiryDates[1]) {
                                         $paymentAmount = 0;
                                     }
                                 }
@@ -104,11 +116,11 @@ include '../connect.php';
                         <div style = "font-size:15px; margin:0;">Plan Expires On: 
                             <?php 
                                 
-                                $sql5 = "SELECT DATE(expiryDate) FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 1";
+                                $sql5 = "SELECT DATE(expiryDate) FROM paymentplan WHERE memberID = $memberID ORDER BY expiryDate DESC LIMIT 1"; //obtain lastest one
                                 $result5 = mysqli_query($conn, $sql5);
                                 if (mysqli_num_rows($result5) > 0) {
                                     $row5 = mysqli_fetch_assoc($result5);
-                                    echo $row5['DATE(expiryDate)'];
+                                    echo $row5['DATE(expiryDate)']; //display only date part
                                 } else {
                                     echo " ";
                                 }

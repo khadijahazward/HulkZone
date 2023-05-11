@@ -4,12 +4,16 @@ include('../connect.php');
 include('authorization.php');
 include('notiCount.php');
 
-
 // Total Members Query
 $totalMembersQuery = "SELECT COUNT(*) AS total FROM user where roles=1";
 $totalMembersResult = mysqli_query($conn, $totalMembersQuery);
+//fetching the result from a row 
 $totalMembers = mysqli_fetch_assoc($totalMembersResult)['total'];
 
+/**$totalMembersQuery = "SELECT * FROM user where roles=1";
+$totalMembersResult = mysqli_query($conn, $totalMembersQuery);
+$totalMembers = mysqli_num_rows($totalMembersResult);
+ */
 // Total Revenue Query
 $totalAnnouncementsQuery = "SELECT COUNT(*) AS total FROM notifications where type=0";
 $totalAnnouncementsResult = mysqli_query($conn, $totalAnnouncementsQuery);
@@ -33,7 +37,7 @@ $totalTrainers = mysqli_fetch_assoc($totalTrainersResult)['totalT'];
 
 $totalusersQuery = "SELECT COUNT(*) AS totalU FROM user";
 $totalusersResult = mysqli_query($conn, $totalusersQuery);
-$totalusers = mysqli_fetch_assoc($totalusersResult)['totalU'];
+$totalusers = mysqli_fetch_assoc($totalusersResult)['totalU']; 
 
 $query = "SELECT roles, gender, count(*) as count FROM user WHERE roles IN (1, 2, 3) GROUP BY roles, gender";
 $result = mysqli_query($conn, $query);
@@ -139,7 +143,7 @@ include('setAdminProfilePic.php');
 
           <!-- Box for Total Revenue -->
           <div class="dashboard-box">
-            <a href="memberPayments.php" style="text-decoration: none;">
+            <a href="viewPayments.php" style="text-decoration: none;">
               <div class="dashboard-title">Total Revenue</div>
               <div class="dashboard-left">
                 <img class="topIcons" src="images/revenue.png" alt="Revenue">

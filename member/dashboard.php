@@ -11,6 +11,8 @@ include '../connect.php';
 <?PHP
     $memberID = $row1['memberID'];
     $userID = $_SESSION['userID'];
+
+    require("member_notification.php");
     
     // Get the latest expiry date from the paymentplan table for that member
     $sql5 = "SELECT expiryDate FROM paymentplan WHERE memberID = '$memberID' ORDER BY expiryDate DESC LIMIT 1;";
@@ -113,6 +115,7 @@ include '../connect.php';
     <title>DashBoard | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/dashboard.css">
+    <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>
 </head>
 <body>
     <div class="container">
@@ -221,6 +224,13 @@ include '../connect.php';
                             $sql8 = "SELECT * FROM serviceCharge WHERE memberID = $row1[memberID] AND serviceID in (1,2,4) AND endDate >= CURDATE() LIMIT 1";
                             $result8 = mysqli_query($conn, $sql8);
 
+                            echo '<table> 
+                            <tr  style = "background-color: #006837;"> 
+                                <th> Exercise Name </th> 
+                                <th> Sets </th> 
+                                <th> Rest Time </th> 
+                            </tr>';
+
                             if (mysqli_num_rows($result8) > 0) {
                                 $row8 = mysqli_fetch_assoc($result8);
                                 $startDate = $row8['startDate'];
@@ -228,12 +238,6 @@ include '../connect.php';
 
                                 $sql = "SELECT * FROM workoutplan WHERE employeeID = '$empid' AND startDate = '$startDate' AND day = $dayNumber AND memberID = $row1[memberID]";
                                 $result = mysqli_query($conn, $sql);
-                                echo '<table> 
-                                <tr  style = "background-color: #006837;"> 
-                                    <th> Exercise Name </th> 
-                                    <th> Sets </th> 
-                                    <th> Rest Time </th> 
-                                </tr>';
 
                                 if (mysqli_num_rows($result) > 0) {
                                     

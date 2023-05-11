@@ -29,64 +29,69 @@ if (isset($_POST['submit'])) {
     header("Location: manageComplaints.php");
     exit();*/
     include('authorization.php');
-include('../../HulkZone/connect.php');
+    include('../../HulkZone/connect.php');
+    include('notiCount.php');
+    
+    
+    $complaintID = $_GET['complaintID'];
 
-$complaintID = mysqli_real_escape_string($conn, $_GET['complaintID']);
-
-// Check for the form submission
-if (isset($_POST['submit'])) {
-    // Get the form data
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
-    $status = mysqli_real_escape_string($conn, $_POST['status']);
-    $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
-    $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
-
-    // Update the complaint table
-    $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
-    $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
-    $stmt->execute();
-    $stmt->close();
-
-    if ($status == 'Completed') {
-        // Get the userID from the complaint table
-        $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
-        $stmt->bind_param("i", $complaintID);
+    
+    // Check for the form submission
+    if (isset($_POST['submit'])) {
+        // Get the form data
+        $subject = mysqli_real_escape_string($conn, $_POST['subject']);
+        $description = mysqli_real_escape_string($conn, $_POST['description']);
+        $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
+        $status = mysqli_real_escape_string($conn, $_POST['status']);
+        $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
+        $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
+    
+        // Update the complaint table
+        $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
+        $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
         $stmt->execute();
-        $stmt->bind_result($userID);
-        $stmt->fetch();
         $stmt->close();
-
-        // Insert data into the notifications table
-        $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
-        $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
-        $date = $currentDateTime->format('Y-m-d H:i:s');
-        $message = $actionTaken;
-
-        $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
-        $stmt->bind_param("ss", $message, $date);
-        $stmt->execute();
-        $notificationsID = $stmt->insert_id;
-        $stmt->close();
-
-        // Insert data into the usernotifications table
-        $status = 0;
-
-        $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
-        $stmt->bind_param("iii", $notificationsID, $userID, $status);
-        $stmt->execute();
-        $usernotificationsID = $stmt->insert_id;
-        $stmt->close();
+    
+        if ($status == 'Completed') {
+            // Get the userID from the complaint table
+            $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
+            $stmt->bind_param("i", $complaintID);
+            $stmt->execute();
+            $stmt->bind_result($userID);
+            $stmt->fetch();
+            $stmt->close();
+    
+            // Insert data into the notifications table
+            $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
+            $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
+            $date = $currentDateTime->format('Y-m-d H:i:s');
+            $message = $actionTaken;
+    
+            $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
+            $stmt->bind_param("ss", $message, $date);
+            $stmt->execute();
+            $notificationsID = $stmt->insert_id;
+            $stmt->close();
+    
+            // Insert data into the usernotifications table
+            $status = 0;
+    
+            $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
+            $stmt->bind_param("iii", $notificationsID, $userID, $status);
+            $stmt->execute();
+            $usernotificationsID = $stmt->insert_id;
+            $stmt->close();
+        }
+    
+        // Close the database connection
+        $conn->close();
+    
+        // Redirect the user to the manage complaints page
+        header("Location: manageComplaints.php");
+        exit();
     }
+    
 
-    // Close the database connection
-    $conn->close();
-
-    // Redirect the user to the manage complaints page
-    header("Location: manageComplaints.php");
-    exit();
-}
 
 
 
@@ -119,6 +124,7 @@ if(mysqli_num_rows($result) == 1) {
   $row = mysqli_fetch_array($result);
   $fName = $row['fName'];
   $roles = $row['roles'];
+  $contactNumber=$row['contactNumber'];
 
   if($roles == 1) {
     $userType = 'Member';
@@ -164,14 +170,25 @@ include('setAdminProfilePic.php');
 
         <div class="content" >
             <div class="contentLeft">
-                <p class="title">User Complaints</p>
+                <p class="title" style="width: 250px;">User Complaints</p>
             </div>
-            <div class="contentMiddle">
-                <p class="myProfile">My Profile</p>
-            </div>
-            <div class="contentRight" ><img src="<?php echo $profilePictureLink?>" alt="AdminLogo" class="adminLogo"></div>
+            <div>
+        <div class="notification" style="margin-left: 611px;" >
+          <?php
+          include 'notifications.php';
+          ?>
         </div>
+      </div>
+      <div class="notiCount" style="padding-top: 7.5px;margin-left:650px;" >
+        <p ><?php echo $count; ?></p>
+      </div>
 
+
+      <div class="contentMiddle" style="margin-left:35px;">
+        <p class="myProfile">My Profile</p>
+      </div>
+      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
+    </div>
 
         <div class="down">
             <div class="topic">
@@ -187,6 +204,9 @@ include('setAdminProfilePic.php');
                     <br>
                     <label class="formContent">User Type</label>
                     <input type="text" name="userType" value="<?php echo $userType; ?>"style="margin-left: 165px;" readonly >
+                    <br>
+                    <label class="formContent">Contact Number</label>
+                    <input type="text" name="userType" value="<?php echo $contactNumber; ?>"style="margin-left: 110px;" readonly >
                     <br>
                     <label class="formContent">Date reported</label>
                     <input type="date" name="dateReported" value="<?php echo $dateReported; ?>"style="margin-left: 131px;" readonly >
@@ -213,8 +233,6 @@ include('setAdminProfilePic.php');
                       
                     </select>
                     <br>
-                  
-                    
 
 
                     <input type="submit" name="submit" value="Save">

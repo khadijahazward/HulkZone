@@ -10,34 +10,45 @@ include 'setProfilePic.php';
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        if (isset($_POST['supName'])) {
+        if (!empty($_POST['supName'])) {
             $supName = $_POST['supName'];
         } else {
             $supNameErr = "Supplement name is required";
         }
 
-        if (isset($_POST['supType'])) {
+        if (!empty($_POST['supType'])) {
             $supType = $_POST['supType'];
         } else {
             $supTypeErr = "Supplement Type is required";
         }
         
-        $clearSupName = preg_replace('/[^A-Za-z0-9]/', '', strtolower($supName));
-        $clearSupType = preg_replace('/[^A-Za-z0-9]/', '', strtolower($supType));
+        // $clearSupName = preg_replace('/[^A-Za-z0-9]/', '', strtolower($supName));
+        // $clearSupType = preg_replace('/[^A-Za-z0-9]/', '', strtolower($supType));
 
-        $query2 = "SELECT * FROM supplementlist";
+        // $query2 = "SELECT * FROM supplementlist";
+        // $result2 = mysqli_query($conn, $query2);
+
+        // if(mysqli_num_rows($result2) > 0){
+        //     while($row2 = mysqli_fetch_assoc($result2)){
+                
+        //         $clearDatabaseSupName = preg_replace('/[^A-Za-z0-9]/', '', strtolower($row2['supplementName']));
+        //         $clearDatabaseSupType = preg_replace('/[^A-Za-z0-9]/', '', strtolower($row2['supplementType']));
+
+        //         if(($clearSupName = $clearDatabaseSupName) && ($clearSupName = $clearDatabaseSupType)){
+        //             $supExists = true;
+        //             break;
+        //         }
+        //     }
+        //     if($supExists){
+        //         $supNameErr = "This supplement is already existing in list";
+        //     }
+        // }
+
+        $query2 = "SELECT * FROM supplementlist WHERE supplementName = '$supName' AND supplementType = '$supType'";
         $result2 = mysqli_query($conn, $query2);
 
         if(mysqli_num_rows($result2) > 0){
-            while($row2 = mysqli_fetch_assoc($result2)){
-                
-                $clearDatabaseSupName = preg_replace('/[^A-Za-z0-9]/', '', strtolower($row2['supplementName']));
-                $clearDatabaseSupType = preg_replace('/[^A-Za-z0-9]/', '', strtolower($row2['supplementType']));
-
-                if(($clearDatabaseSupName = $clearSupName) && ($clearDatabaseSupType = $clearSupName)){
-                    $supNameErr = "This supplement is already existing in list";
-                }
-            }
+            $supNameErr = "This supplement is already existing in list";
         }
         
         if(empty($supNameErr) && empty($supTypeErr)){

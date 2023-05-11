@@ -24,7 +24,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of receiving employee details!");</script>';
 }
 
-$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > date('Y-m-d H:i:s')";
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > NOW()";
 $result2 = mysqli_query($conn, $query2);
 
 if (mysqli_num_rows($result2) > 0) {
@@ -33,7 +33,7 @@ if (mysqli_num_rows($result2) > 0) {
 
         $query3 = "SELECT * FROM member WHERE memberID = $memberID";
         $result3 = mysqli_query($conn, $query3);
-
+ 
         if ($result3) {
             $row3 = mysqli_fetch_assoc($result3);
             $memberUserID = $row3['userID'];
@@ -49,6 +49,8 @@ if (mysqli_num_rows($result2) > 0) {
             }
         }
     }
+}else{
+    echo "hello";
 }
 
 
@@ -87,37 +89,37 @@ $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
 $avarageOfRates = $totalOfRates / $totalCountOfRates;
 $formattedAvarageOfRates = number_format($avarageOfRates, 2);
 
-if($rate00 != 0){
+if($rate00 != 0 && $totalCountOfRates != 0){
     $precetageOfRate00 = $rate00 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate00 = 0;
 }
 
-if($rate01 != 0){
+if($rate01 != 0 && $totalCountOfRates != 0){
     $precetageOfRate01 = $rate01 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate01 = 0;
 }
 
-if($rate02 != 0){
+if($rate02 != 0 && $totalCountOfRates != 0){
     $precetageOfRate02 = $rate02 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate02 = 0;
 }
 
-if($rate03 != 0){
+if($rate03 != 0 && $totalCountOfRates != 0){
     $precetageOfRate03 = $rate03 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate03 = 0;
 }
 
-if($rate04 != 0){
+if($rate04 != 0 && $totalCountOfRates != 0){
     $precetageOfRate04 = $rate04 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate04 = 0;
 }
 
-if($rate05 != 0){
+if($rate05 != 0 && $totalCountOfRates != 0){
     $precetageOfRate05 = $rate05 / $totalCountOfRates * 100;
 }else{
     $precetageOfRate05 = 0;
@@ -140,8 +142,8 @@ if($result12){
     $row12 = mysqli_fetch_assoc($result12);
     $appointmentCount = $row12['count'];
 }else{
-    echo '<script> window.alert("Error receiving dietician appointment details!");</script>';
-    $appointmentCount = 0;
+    // echo '<script> window.alert("Error receiving dietician appointment details!");</script>';
+    // $appointmentCount = 0;
 }
 
 ?>
@@ -312,12 +314,19 @@ if($result12){
                         
                         if(mysqli_num_rows($result11) > 0){
                             while($row11 = mysqli_fetch_assoc($result11)){
+
+                                $appointmentMemberID = $row11['memberID'];
                                 
-                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $memberID";
+                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $appointmentMemberID";
                                 $result12 = mysqli_query($conn, $query12);
                                 $row12 = mysqli_fetch_assoc($result12);
 
-                                $memberPhoto = $row12['profilePhoto'];
+                                // $memberPhoto = $row12['profilePhoto'];
+                                if(!empty($row12['profilePhoto'])){
+                                    $memberPhoto = $row12['profilePhoto']; 
+                                }else{
+                                    $memberPhoto = "../asset/images/dp.png";
+                                }
                                 $memberName = $row12['fName']." ".$row12['lName'];
                                 
                                 $appointmentStartDateTime = $row11['startTime'];
