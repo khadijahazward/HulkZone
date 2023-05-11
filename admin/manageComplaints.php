@@ -138,7 +138,7 @@ include('../admin/sideBar.php');
                    <td>$row[userType]</td>
                    <td>". (($row['status'] == 'Filed') ? '<span style="color:red;">Filed</span>' : $row['status']) . "</td>
                    <td><a href='deleteComplaint.php?complaintID=$row[complaintID]'onclick='return confirm(\"Are you sure you want to remove this compalint?\");'><button class='button1'>Ignore</button></a>  
-                   <a href='editComplaint.php?complaintID=$row[complaintID]' ><button class='button2' style='width: 120px;margin-top:1px'>Respond</button></a>
+                   <a href='editComplaintCheck.php?complaintID=$row[complaintID]' ><button class='button2' style='width: 120px;margin-top:1px'>Respond</button></a>
                    </td>
                   
                 </tr>";

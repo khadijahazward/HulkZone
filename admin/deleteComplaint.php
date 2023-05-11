@@ -27,6 +27,15 @@ include('../../HulkZone/connect.php');
 if(isset($_GET['complaintID'])) {
     $complaintID = $_GET['complaintID'];
 
+    $sql1="SELECT status FROM complaint WHERE complaintID=?";
+    $stmt3= mysqli_prepare($conn, $sql1);
+    mysqli_stmt_bind_param($stmt3, "i", $complaintID);
+    mysqli_stmt_execute($stmt3);
+    $result = mysqli_stmt_get_result($stmt3);
+    $row = mysqli_fetch_assoc($result);
+    $status = $row['status'];
+
+    if($status != 'Completed'){
     // Update status of complaint to "Ignored"
     $stmt1 = mysqli_prepare($conn, "UPDATE complaint SET status='Ignored' WHERE complaintID=?");
     mysqli_stmt_bind_param($stmt1, "i", $complaintID);
@@ -67,9 +76,11 @@ $dateReported = $row['dateReported'];
 
     header("Location: manageComplaints.php");
     exit();
+}else{
+     echo "<script> alert('It is a completed complaint!'); window.location='manageComplaints.php'; </script>";
 }
 
 
 mysqli_close($conn);
-
+}
 ?>
