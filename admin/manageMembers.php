@@ -54,7 +54,7 @@ include('../admin/sideBar.php');
         <div class="topic">
         <h1 style="color: #006837;font-size:19px;margin-left:27px">Manage Members</h1> 
         </div>
-        <hr style="width: 98%;">
+        <hr style="width: 98%;"></div>
         <div class="tableAnnouncements">
             <table class="announcements">
                 <tr>

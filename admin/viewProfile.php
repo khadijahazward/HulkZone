@@ -5,18 +5,6 @@ include('authorization.php');
 include('../connect.php');
 include('notiCount.php');
 
-
-// regenerate the session ID every 30 minutes
-if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
-    session_regenerate_id(true);
-    $_SESSION['last_activity'] = time();
-} else {
-    $_SESSION['last_activity'] = time();
-}
-
-// rest of the code that uses the session
-if (isset($_SESSION['userID'])) 
-
 // get the user ID from the session
 $userID = $_SESSION['userID'];
 

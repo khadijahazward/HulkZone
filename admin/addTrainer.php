@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //password validation
     $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
     $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
-
+    $letterCheck = preg_match('/[a-zA-Z]/', $_POST['pass1']);//atleast one lower case or upper case letter
 
 
 
@@ -83,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pw1Err = "Password must contain at least one number.";
     } else if (!$specialCharsCheck) {
         $pw1Err = "Password must contain at least one special character.";
+    } else if(!$letterCheck ){
+        $pw1Err = "Password must contain at least one letter  .";
     }
 
 
@@ -161,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 &&(preg_match('@[0-9]@', $_POST['pass1'])) && (preg_match('@[^\w]@', $_POST['pass1']))
                 && (preg_match('/^[0-9]{9}[V]+$/', $_POST["nic"]) || preg_match('/^[0-9]{12}+$/', $_POST["nic"]))
                 && preg_match('/^[0-9]{10}+$/', $_POST["number"]) && preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])
+                &&preg_match('/[a-zA-Z]/', $_POST['pass1'])
             ) {
                 $sql = "insert into user(fName, lName, NIC, gender, dateOfBirth, roles, statuses, contactNumber, streetNumber, addressLine01, addressLine02, city, email, pw, created_at)
                 values ('$fname', '$lname', '$nic', '$gender', '$dob', '$role', '$status', '$num', '$st', '$ad1', '$ad2', '$city',  '$username', '$password_hash', current_timestamp())";

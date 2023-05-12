@@ -63,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //password validation
     $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
     $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special char
+    $letterCheck = preg_match('/[a-zA-Z]/', $_POST['pass1']);//atleast one lower case or upper case letter
 
 
 
@@ -75,6 +76,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pw1Err = "Password must contain at least one number.";
     } else if (!$specialCharsCheck) {
         $pw1Err = "Password must contain at least one special character.";
+    }else if(!$letterCheck ){
+        $pw1Err = "Password must contain at least one letter  .";
     }
 
 
@@ -155,6 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 && (preg_match('@[0-9]@', $_POST['pass1'])) && (preg_match('@[^\w]@', $_POST['pass1']))
                 && (preg_match('/^[0-9]{9}[V]+$/', $_POST["nic"]) || preg_match('/^[0-9]{12}+$/', $_POST["nic"]))
                 && preg_match('/^[0-9]{10}+$/', $_POST["number"]) && preg_match("/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/", $_POST["email"])
+                &&preg_match('/[a-zA-Z]/', $_POST['pass1'])
             ) {
                 $result = mysqli_query($conn, $sql);
             }
@@ -183,7 +187,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         // insert the employeeID and serviceID into the employeeservice table
                         $sql3 = "INSERT INTO employeeservice(employeeID, serviceID) VALUES ('$employeeID', '3')";
                         $result3 = mysqli_query($conn, $sql3);
-
+                   
                         // If all queries were successful, show a success message
                         if ($result3) {
                             echo "<script> alert('Registration Successful!'); </script>";
