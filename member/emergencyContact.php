@@ -25,7 +25,7 @@ if (mysqli_num_rows($result2) == 1) {
 <script>
     function setUserData(name, relation, num, st, aline1, aline2, city) {
             document.getElementById("name").value = name;
-            document.getElementById("num").value = num;
+            document.getElementById("num").value = num.toString().padStart(10, '0'); //adding 0 at the beginning
             document.getElementById("relation").value = relation;
             document.getElementById("st").value = st;
             document.getElementById("aline1").value = aline1;
@@ -54,7 +54,7 @@ if (mysqli_num_rows($result2) == 1) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DashBoard | HulkZone</title>
+    <title>Emergency Contact | HulkZone</title>
     <link rel="stylesheet" type="text/css" href="../member/style/gen.css">
     <link rel="stylesheet" type="text/css" href="../member/style/emergencyContact.css">
     <link rel="icon" type="image/png" href="../asset/images/gymLogo.png"/>

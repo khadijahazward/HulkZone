@@ -5,19 +5,19 @@ include '../connect.php';
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST['name'];
-        $relation = $_POST['relation'];
-        $number = $_POST['num'];
-        $st = $_POST['st'];
-        $aline1 =  $_POST['aline1'];
-        $aline2 = $_POST['aline2'];
-        $city = $_POST['city'];
+        $name = trim(ucfirst($_POST['name']));
+        $relation = trim(ucfirst($_POST['relation']));
+        $number = trim($_POST['num']);
+        $st = trim($_POST['st']);
+        $aline1 =  trim($_POST['aline1']);
+        $aline2 = trim($_POST['aline2']);
+        $city = trim(ucfirst($_POST['city']));
 
         if (empty($name) || empty($relation) || empty($number)) {
             echo "<script>alert('Please fill out all the required fields. Please try again!');
             window.location.href = 'emergencyContact.php';
             </script>";
-        } else if (strlen($number) != 10 && !is_numeric($number)) {
+        } else if (strlen($number) != 10 || !is_numeric($number)) {
             echo "<script>alert('Phone number should be of length 10. Please try again!');
             window.location.href = 'emergencyContact.php';
             </script>";
