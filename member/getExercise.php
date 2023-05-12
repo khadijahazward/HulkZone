@@ -13,6 +13,7 @@
     echo '<table> 
     <tr> 
         <th> Exercise Name </th>
+        <th> Reps </th> 
         <th> Sets </th> 
         <th> Rest Time </th> 
     </tr>';
@@ -20,12 +21,14 @@
         while ($row = mysqli_fetch_assoc($result)) {
             $field2name = $row["exerciseName"];
             $field3name = $row["reps"];
-            $field4name = $row["restTime"] . " Minutes";
+            $field4name = $row["sets"];
+            $field5name = "2 - 3 Minutes";
 
             echo '<tr> 
                 <td>'.$field2name.'</td> 
                 <td>'.$field3name.'</td> 
                 <td>'.$field4name.'</td> 
+                <td>'.$field5name.'</td> 
             </tr>';
         }
         echo '</table>';

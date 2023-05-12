@@ -100,7 +100,7 @@ include 'script/config.php';
                     notifications
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
         </div>
 
     </section>

@@ -1,6 +1,6 @@
 <?php 
 date_default_timezone_set('Asia/Colombo');
-include 'authorization.php';
+include '../member/authorization.php';
 include '../connect.php';
 ?>
 
@@ -80,7 +80,7 @@ include '../connect.php';
                             if ($result2) {
                                 // show success message and redirect to dashboard
                                 echo "<script>alert('Verification Successful!');</script>";
-                                echo "<script>window.location.href = 'dashboard.php';</script>";
+                                echo "<script>window.location.href = 'changePW.php';</script>";
                             } else {
                                 // show error message if database update failed
                                 echo "<script>alert('Verification Failed. Please Try Again Later');</script>";
@@ -110,4 +110,3 @@ include '../connect.php';
 </body>
 
 </html>
-

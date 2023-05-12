@@ -57,6 +57,7 @@ if (isset($_POST['submit'])) {
 
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Profile updated with new profile photo successfully!'); window.location.href='http://localhost/Hulkzone/trainer/settings.php';</script>";
+                        $_SESSION['profilePhoto'] = $save_path;
             }
         }
     } else {

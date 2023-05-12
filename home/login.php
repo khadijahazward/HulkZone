@@ -180,7 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="middle">
             <div class="nav-text"><a href="../index.html">Home</a></div>
             <div class="nav-text"><a href="service.html">Services</a></div>
-            <div class="nav-text"><a href="team.html">Team</a></div>
+            <div class="nav-text"><a href="team.php">Team</a></div>
             <div class="nav-text"><a href="aboutUs.html">About Us</a></div>
             <div class="nav-text"><a href="contactus.html">Contact Us</a></div>
         </div>
@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="password" name="password" id="pass" placeholder="Enter Password">
 
             <input type="submit" name="" value="Login"><br>
-            <a href="#">Forgot your password?</a><br>
+            <a href="forgotPassword.php">Forgot your password?</a><br>
 
         </form>
         </div>

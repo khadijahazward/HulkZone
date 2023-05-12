@@ -13,7 +13,7 @@ include '../connect.php';
             document.getElementById("fname").value = fName;
             document.getElementById("lname").value = lName;
             document.getElementById("nic").value = nic;
-            document.getElementById("number").value = contactNumber;
+            document.getElementById("number").value = contactNumber.toString().padStart(10, '0'); //adding 0 at the beginning
             document.getElementById("gender").value = gender;
             document.getElementById("dob").value = dob;
             document.getElementById("paymentPlan").value = plan;
@@ -164,7 +164,27 @@ include '../connect.php';
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
                                         <label>NIC</label><span id = "error-message" style="font-size: 10px; color: red;"></span>
-                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">                                        
+                                        <input id="nic" type="text" name="nic"required disabled onblur="validateNIC()">   
+                                        
+                                        <!-- <script>
+                                        function validateNIC() {
+                                            var nic = document.getElementById("nic").value;
+                                            var errorMessage = document.getElementById("error-msg");
+
+                                            // Remove any spaces or dashes from the input
+                                            nic = nic.replace(/[\s-]/g, '');
+
+                                            if (nic === "") {
+                                            errorMessage.innerHTML = "NIC number must be filled out";
+                                            } else if (/^\d{9}$/.test(nic) || /^\d{9}V$/.test(nic)) {
+                                            errorMessage.innerHTML = "";
+                                            } else if (nic.length === 12 && /^\d{12}$/.test(nic)) {
+                                            errorMessage.innerHTML = "";
+                                            } else {
+                                            errorMessage.innerHTML = "Invalid NIC number";
+                                            }
+                                        }
+                                        </script> -->
                                     </div>
 
                                     <div class="form-group">
@@ -183,7 +203,7 @@ include '../connect.php';
                                                     var errorMessage = document.getElementById("error-msg");
                                                     if (number === "") {
                                                         errorMessage.innerHTML = " Number must be filled out";
-                                                    } else if (number.length !== 10 || isNaN(number)){
+                                                    } else if (number.length !== 10 || isNaN(number)){ //checks if provided value is not a valid number.
                                                         errorMessage.innerHTML = " Invalid Number";   
                                                     }
                                                     else {
@@ -216,13 +236,37 @@ include '../connect.php';
 
                                 <div class="form-row">
                                     <div class="form-group" style="margin-right:50px;">
-                                        <label>Height (in cm)</label>
-                                        <input id="height" name="height" type="text" required disabled>
+                                        <label>Height (in cm)</label><span id = "error-msg-height" style="font-size: 10px; color: red;"></span>
+                                        <input id="height" name="height" type="text" disabled  onblur="validateHeight()">
+
+                                        <script>
+                                            function validateHeight(){
+                                                var height = document.getElementById("height").value;
+                                                var errorMessage = document.getElementById("error-msg-height");
+                                                if(isNaN(height)){
+                                                    errorMessage.innerHTML = " Height should be a number."; 
+                                                }else {
+                                                    errorMessage.innerHTML = "";
+                                                }
+                                            }
+                                        </script>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Weight (in kilograms)</label>
-                                        <input id="weight" name="weight" type="text" required disabled>
+                                        <label>Weight (in kilograms)</label><span id = "error-msg-weight" style="font-size: 10px; color: red;"></span>
+                                        <input id="weight" name="weight" type="text" disabled onblur="validateWeight()">
+
+                                        <script>
+                                            function validateWeight() {
+                                                var weight = document.getElementById("weight").value;
+                                                var errorMessage = document.getElementById("error-msg-weight");
+                                                if (isNaN(weight)) {
+                                                    errorMessage.innerHTML = "Weight should be a number.";
+                                                }else {
+                                                    errorMessage.innerHTML = "";
+                                                }
+                                            }
+                                        </script>
                                     </div>
                                 </div>
 

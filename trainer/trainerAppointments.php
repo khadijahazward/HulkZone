@@ -2,6 +2,28 @@
 include '../connect.php';
 include 'script/config.php';
 
+
+if (!$_SESSION['username']) {
+    header('location: http://localhost/hulkzone/');
+}
+
+$userID = $_SESSION['userID'];
+
+//to get the employeeID
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if (mysqli_num_rows($result1) == 1) {
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID'];
+} else {
+    echo '<script> window.alert("Error of retrieving employee details!");</script>';
+}
+
+// to get appointment details
+$query2 = "SELECT * FROM trainerappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
+$result2 = mysqli_query($conn, $query2);
+
 ?>
 
 <!DOCTYPE html>
@@ -12,16 +34,12 @@ include 'script/config.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/trainerAppointments.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Hulkzone</title>
 </head>
 
 <body>
-    <?php
-    if (!$_SESSION['username']) {
-        header('location: http://localhost/hulkzone/');
-    }
-    ?>
 
     <nav class="main-sidebar">
         <img src="img/gymLogo 3.png" alt="Logo">
@@ -102,75 +120,58 @@ include 'script/config.php';
     <section class="main-content-container">
         <div class="members-list-container">
             <div class="member-list-top">
-                <h1>Members List</h1>
+                <h1>Appointments</h1>
             </div>
+            <button onclick="window.location.href='timeSlots.php'" class="addBtn">
+                Add Time Slots
+            </button>
 
             <div class="member-list-table">
                 <table>
                     <thead>
                         <tr>
-                            <td>ID</td>
-                            <th>FIRST NAME</th>
-                            <th>LAST NAME</th>
-                            <th>GENDER</th>
+                            <th>DATE</th>
+                            <th>TIME</th>
+                            <th>PROFILE</th>
+                            <th>MEMBER</th>
                             <th>CONTACT NUMBER</th>
-                            <th>PLAN</th>
-                            <th>START DATE</th>
-                            <th>END DATE</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        // Get EmployeeID
-                        $userID = $_SESSION['userID'];
-                        $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
-                        $res = mysqli_query($conn, $sql);
-                        $row = mysqli_fetch_assoc($res);
-                        $employeeID = $row['employeeID'];
+                        if (mysqli_num_rows($result2) > 0) {
+                            while ($row2 = mysqli_fetch_assoc($result2)) {
 
-                        $sql = 'SELECT u.fName, u.lName, s.serviceName, u.contactNumber, u.gender,ms.endDate,ms.startDate,m.memberID
-                        FROM user u
-                        JOIN member m ON m.userID = u.userID
-                        JOIN servicecharge ms ON ms.memberID = m.memberID
-                        JOIN service s ON ms.serviceID = s.serviceID
-                        WHERE ms.employeeID ='.$employeeID.' AND NOW() < ms.endDate ' ;
+                                $memberID = $row2['memberID'];
 
-                        $res = mysqli_query($conn, $sql);
+                                $query3 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE member.memberID = $memberID";
+                                $result3 = mysqli_query($conn, $query3);
+                                $row3 = mysqli_fetch_assoc($result3);
 
-                        if ($res == TRUE) {
-                            $count = mysqli_num_rows($res);
+                                $startTime = date('h:i A', strtotime($row2['startTime']));
+                                $endTime = date('h:i A', strtotime($row2['endTime']));
 
-                            if ($count > 0) {
-
-
-                                while ($rows = mysqli_fetch_assoc($res)) {
-                                    $fName = $rows['fName'];
-                                    $lName = $rows['lName'];
-                                    $gender = $rows['gender'];
-                                    $contact = $rows['contactNumber'];
-                                    $plan = $rows['serviceName'];
-                                    $startDate = $rows['startDate'];
-                                    $endDate = $rows['endDate'];
-                                    $memberID = $rows['memberID'];
-
-
-                        ?>
-                                    <tr>
-                                        <td><?php echo $memberID; ?> </td>
-                                        <td><?php echo $fName; ?> </td>
-                                        <td><?php echo $lName; ?></td>
-                                        <td><?php echo $gender; ?></td>
-                                        <td><?php echo $contact; ?></td>
-                                        <td><?php echo $plan; ?></td>
-                                        <td><?php echo $startDate; ?></td>
-                                        <td><?php echo $endDate; ?></td>
-                                    </tr>
-                        <?php
-
-                                }
-                            } else {
+                                echo "
+                                <tr>
+                                    <td>" . $row2['date'] . "</td>
+                                    <td>" . $startTime . " - " . $endTime . "</td>
+                                    <td><img src=" . $row3['profilePhoto'] . " alt='member's DP'></td>
+                                    <td>" . $row3['fName'] . " " . $row3['lName'] . "</td>
+                                    <td>" . $row3['contactNumber'] . "</td>
+                                </tr>
+                                
+                                ";
                             }
+                        } else {
+                            echo "
+                        <tr>
+                            <td colspan='5'>
+                                <p>Still you don't have any appointments</p>
+                            </td>
+                        </tr>
+                        ";
                         }
+
                         ?>
                     </tbody>
 

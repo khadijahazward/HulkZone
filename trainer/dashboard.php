@@ -21,6 +21,22 @@ include 'script/config.php';
 if (!$_SESSION['username']) {
     header('location: http://localhost/hulkzone/');
 }
+
+
+
+//Get profilePhoto URL to Session
+$userID = $_SESSION['userID'];
+$sql2 = "SELECT * FROM user WHERE userID=" . $userID;
+$res2 = mysqli_query($conn, $sql2);
+$row = mysqli_fetch_assoc($res2);
+$profilePhotoURL = $row['profilePhoto'];
+
+if($profilePhotoURL == NULL){
+    $_SESSION['profilePhoto'] = "img/profile-icon.png";
+}else{
+    $_SESSION['profilePhoto'] = $profilePhotoURL;    
+}
+
 ?>
 
 <body>
@@ -93,10 +109,10 @@ if (!$_SESSION['username']) {
         <div class="topbar-right">
             <div class="topbar-notification">
                 <span class="material-symbols-outlined">
-                    notifications
+                    <?php include "notifications.php" ?>
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <a href="settings.php"><img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
         </div>
 
     </section>
@@ -110,6 +126,9 @@ if (!$_SESSION['username']) {
             <div class="top-box">
                 <h3>Total Members</h3>
                 <?php
+
+
+
                 // Get EmployeeID
                 $userID = $_SESSION['userID'];
                 $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
@@ -122,7 +141,9 @@ if (!$_SESSION['username']) {
                 JOIN member m ON m.userID = u.userID
                 JOIN servicecharge ms ON ms.memberID = m.memberID
                 JOIN service s ON ms.serviceID = s.serviceID
-                WHERE ms.employeeID ='.$employeeID.' AND NOW() < ms.endDate ' ;
+                WHERE ms.employeeID =' . $employeeID . ' AND NOW() < ms.endDate ';
+
+
 
                 $result = mysqli_query($conn, $sql);
                 $members_num_rows = mysqli_num_rows($result);

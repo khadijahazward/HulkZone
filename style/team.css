@@ -1,0 +1,153 @@
+form {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  input[type="text"] {
+    padding: 15px;
+    border: 1px solid #DEF9D7;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    background-color: #DEF9D7;
+    transition: all 0.3s;
+    width: 60%;
+  }
+  
+  button[type="submit"], .test button, .test-single button {
+    padding: 15px 15px;
+    border: 1px solid #FF9F29;
+    border-radius: 0 5px 5px 0;
+    background-color: #FF9F29;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  input[type="text"]:focus {
+    background-color: white;
+    box-shadow: 0 0 10px #DEF9D7;
+  }
+  
+  .row{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    width: 100%;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #006837;
+  }
+  
+  .row-two{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+  }
+  
+  
+  .row-two form button {
+    display: inline-block; /* this is optional, but it will make the form elements sit next to each other */
+    background-color: #006837;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    width: 100%;
+    align-items: center;
+    margin: 1%;
+    padding: 1.5%;
+    border-radius: 10px;
+    border: 2px solid black;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .link {
+    margin-top: 0.5%;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    margin-right: 15%;
+  }
+
+  .link a {
+    font-size: small;
+    color: #006837;
+    text-decoration: none;
+  }
+  
+  .table-container{
+    width: 33%;
+    background-color: #FF9F29;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .test img{
+    align-items: center;
+    background-color: white;
+    border-radius: 100%;
+    border: 2px solid #006837;
+    width: 70%;
+    height: 70%;
+  }
+  
+  tr{
+    margin: 40px;
+    justify-content: space-between;
+  }
+  
+  table{
+    width:90%; 
+    margin: 0 auto;
+  }
+  
+  td{
+    width:25%;
+  }
+  
+  .test{
+    background-color:#DEF9D7; 
+    display:flex; 
+    flex-direction:column; 
+    margin:10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    border-radius:10px;
+    padding: 10px;
+    border: 1px solid #006837;
+  }
+  
+  .test button{
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 10px;
+  }
+  
+  .test div{
+    margin-top:6px;
+  }
+
+  body{
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.content{
+    height: calc(100vh - 120px);
+    width: 100%;
+    background-color: #F6FBF4;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+  

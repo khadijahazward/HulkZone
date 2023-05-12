@@ -26,7 +26,7 @@ form {
   align-items: center;
 }
   
-input[type="text"] {
+input[type="text"] , input[type="email"], input[type="password"] {
   padding: 10px;
   margin-bottom: 20px;
   width: 300px;
@@ -51,4 +51,20 @@ form div a {
   text-decoration: none;
   font-size: small;
   color: #441b85;
+}
+
+.error{
+  justify-content: flex-start; /* Align labels to the start */
+  width: 100%; /* Ensure labels occupy the full width of the form */
+  font-size: 12px;
+  color: red;
+  font-weight: 600;
+  text-shadow: 0.2px 0.2px 0.5px white; /* Add an outline effect */
+}
+
+label {
+  display: flex;
+  justify-content: flex-start; /* Align labels to the start */
+  width: 100%; /* Ensure labels occupy the full width of the form */
+  font-weight: 600;
 }
