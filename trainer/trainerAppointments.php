@@ -9,9 +9,10 @@ if (!$_SESSION['username']) {
 
 $userID = $_SESSION['userID'];
 
-//to get the employeeID
+//selects all records from the "employee" table where the "userID" column matches $userID. If the result set contains one row, it fetches the "employeeID" value and assigns it to $employeeID
 $query1 = "SELECT * FROM employee WHERE userID = $userID";
 $result1 = mysqli_query($conn, $query1);
+ 
 
 if (mysqli_num_rows($result1) == 1) {
     $row1 = mysqli_fetch_assoc($result1);
@@ -99,12 +100,7 @@ $result2 = mysqli_query($conn, $query2);
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
+        
 
         <div class="topbar-right">
             <div class="topbar-notification">
@@ -112,7 +108,7 @@ $result2 = mysqli_query($conn, $query2);
                     <?php include "notifications.php" ?>
                 </span>
             </div>
-            <a href="settings.php"><img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
+            <a href="settings.php"><img id="profile-photo-style" class="profilePic" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
         </div>
 
     </section>

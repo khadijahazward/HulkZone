@@ -202,7 +202,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                            <input type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                            <input readonly type="text" name="mondayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
                                             
                                             ';
                                         }
@@ -223,7 +223,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="tuesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="tuesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
         
                                             ';
                                         }
@@ -244,7 +244,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="wednesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="wednesdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
         
                                             ';
                                         }
@@ -265,7 +265,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="thursdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="thursdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -286,7 +286,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="fridayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="fridayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -307,7 +307,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="saturdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="saturdayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
 
                                             ';
                                         }
@@ -328,7 +328,7 @@ $result8 = mysqli_query($conn, $query8);
                                             $endTime = date('H:i', $endDateTime);
 
                                             echo '
-                                                <input type="text" name="sundayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '">
+                                                <input readonly type="text" name="sundayTime-slot[]" value="' . $startTime . ' - ' . $endTime . '" >
 
                                             ';
                                         }
