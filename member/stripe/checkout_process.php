@@ -8,6 +8,7 @@ include('../stripe/stripe-php/init.php');
 // require_once '../vendor/autoload.php';
 require_once '../stripe/secrets.php';
 
+//get secret key from stripe acc
 \Stripe\Stripe::setApiKey('sk_test_51MihJyAQ8qDWFtDV0XqAva3SYTPiA6S8EgRVole7UFhkeRYw4uLNqPq5jrxvYsuP0Byaa1HzGCrGcpJHG2Q43Xu000jA2ecRHZ');
 header('Content-Type: application/json');
 
