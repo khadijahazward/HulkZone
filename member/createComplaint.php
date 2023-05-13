@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         //for file upload - if there is an image
+        //checks if the error code is not equal to 4, indicating that a file was indeed uploaded
         if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des)){
             $allowed_types = array("image/jpeg", "image/png");
             $allowed_size = 5242880; // 5MB - 5 * 1024 * 1024
@@ -73,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $upload_path = "C:/xampp/htdocs/HulkZone/Complaintevidence/" . $new_filename;
 
                 //moves an uploaded file to a new location. 
+                //we are moving the file from temporary location to permanent location
                 if (move_uploaded_file($_FILES["Evi-image"]["tmp_name"], $upload_path)) {
                     $sql = "INSERT INTO complaint (subject, description, status, dateReported, userID, evidence) VALUES ('$subject', '$des', '$status', current_timestamp(), '$userid', '$upload_path')";
                         
@@ -140,7 +142,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </span>
                             </label>
                             <input type="text" id ="subject" name="subject" 
-                            value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
+                            value="<?php 
+                            if ($check == 1) {
+                                echo $_POST['subject'] ?? '';
+                            }else if($check == 0){
+                                $_POST['subject'] == ""; 
+                                }
+                            ?>">
                         </div>
 
                         <div class="form-row">

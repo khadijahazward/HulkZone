@@ -80,10 +80,11 @@
         }
 
         //password validation
-        //In PHP, the "@" symbol can be used as an alternative delimiter to the forward slash ("/") in regular expression patterns. When using an alternative delimiter, the "@" symbol is placed at the beginning and end of the regular expression pattern to indicate the start and end of the pattern, just like the forward slash.
+        //In PHP, the "@" symbol can be used as an alternative delimiter to the forward slash ("/") in regular expression patterns. 
+        //When using an alternative delimiter, the "@" symbol is placed at the beginning and end of the regular expression pattern to indicate the start and end of the pattern, just like the forward slash.
         $numberCheck = preg_match('@[0-9]@', $_POST['pass1']); //atleast one number
         $specialCharsCheck = preg_match('@[^\w]@', $_POST['pass1']); //atleast one special character
-        //$letterCheck = preg_match('/[a-zA-Z]/', $_POST['pass1']); //atleast a letter
+        $letterCheck = preg_match('/[a-zA-Z]/', $_POST['pass1']); //atleast a letter
 
         if (empty($_POST["pass1"])) {
             $pw1Err = "Password is required";
@@ -93,6 +94,8 @@
             $pw1Err = "Password must contain at least one number.";
         } else if (!$specialCharsCheck) {
             $pw1Err = "Password must contain at least one special character.";
+        }else if(!$letterCheck){
+            $pw1Err = "Password must contain at least one alphabet.";
         }
 
         if (empty($_POST["pass2"])) {

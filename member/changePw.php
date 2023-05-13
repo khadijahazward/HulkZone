@@ -101,10 +101,10 @@ include '../connect.php';
                 //hashed password from the db
                 $dbPassword = $row['pw'];
 
-                //checking if the old pw and db pw is same
+                //hashes the $oldpw and then compares with the db pw
                 if (password_verify($oldPw, $dbPassword)) {
                     
-                    if (preg_match('@[0-9]@', $newPw) && preg_match('@[^\w]@', $newPw) && strlen($newPw) >= 8) {
+                    if (preg_match('@[0-9]@', $newPw) && preg_match('@[^\w]@', $newPw) && strlen($newPw) >= 8 && preg_match('@[A-Za-z]@', $newPw)) {
                         
                         if ($newPw == $cPw) {
                             
@@ -120,7 +120,7 @@ include '../connect.php';
                             echo "<script>window.onload = function() { alert('New password and confirm password do not match'); };</script>";
                         }
                     } else {
-                        echo "<script>window.onload = function() { alert('Password must contain at least one number and one special character and should be at least 8 characters long'); };</script>";
+                        echo "<script>window.onload = function() { alert('Password must contain at least one number, one special character, one letter and should be at least 8 characters long'); };</script>";
                     }
                 } else {
                     echo "<script>window.onload = function() { alert('Incorrect old password'); };</script>";

@@ -227,6 +227,7 @@ include '../connect.php';
                             echo '<table> 
                             <tr  style = "background-color: #006837;"> 
                                 <th> Exercise Name </th> 
+                                <th> Reps </th> 
                                 <th> Sets </th> 
                                 <th> Rest Time </th> 
                             </tr>';
@@ -244,25 +245,27 @@ include '../connect.php';
                                     while ($row = mysqli_fetch_assoc($result)) {
                                         $field2name = $row["exerciseName"];
                                         $field3name = $row["reps"];
-                                        $field4name = $row["restTime"] . " Minutes";
+                                        $field4name = $row["sets"];
+                                        $field5name = "2 - 3 Minutes";
                             
                                         echo '<tr> 
                                             <td>'.$field2name.'</td> 
                                             <td>'.$field3name.'</td> 
                                             <td>'.$field4name.'</td> 
+                                            <td>'.$field5name.'</td> 
                                         </tr>';
                                     }
                                     echo '</table>';
                                 }else{
                                     echo '<tr>
-                                        <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
+                                        <td colspan="04" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
                                     </tr>'; 
                                     echo '</table>';
                                 }
 
                             }else{
                                 echo '<tr>
-                                    <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
+                                    <td colspan="04" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
                                 </tr>'; 
                                 echo '</table>';
                             }

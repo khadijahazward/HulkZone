@@ -303,10 +303,13 @@ if (isset($_POST['changepw'])) {
     } else {
         $numberCheck = preg_match('@[0-9]@', $newPw); //atleast one number
         $specialCharsCheck = preg_match('@[^\w]@', $newPw); //atleast one special character
+        $letterCheck = preg_match('/[a-zA-Z]/', $_POST['newPw']);//atleast one lower case or upper case letter
         if (!$numberCheck) {
             $newPwErr = "Password must contain at least one number.";
         } else if (!$specialCharsCheck) {
             $newPwErr = "Password must contain at least one special character.";
+        }else if(!$letterCheck ){
+            $newPwErr = "Password must contain at least one letter  .";
         }
     }
     

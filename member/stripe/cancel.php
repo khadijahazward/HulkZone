@@ -58,7 +58,7 @@
   <section>
     <h1>Checkout Canceled</h1>
     <p>Sorry, it looks like you have canceled your checkout process. If you have forgotten to add something to your cart, please feel free to continue shopping and return to checkout when you are ready to complete your purchase.</p>
-    <p>You will be redirected back to the payment page in 5 seconds. If you are not automatically redirected, please click <a href="=/HulkZone/member/payment.php">here</a>.</p>
+    <p>You will be redirected back to the payment page in 5 seconds. If you are not automatically redirected, please click <a href="../../payment.php">here</a>.</p>
   </section>
 </body>
 </html> 

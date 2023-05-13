@@ -210,7 +210,15 @@ include '../connect.php';
                             $endDate = date_create($row2["endDate"]);
                             $currentDate = date_create(); // get the current date
                             $interval = date_diff($startDate, $currentDate); // calculate the interval between the start date and current date
-                            $weeks = ceil($interval->days / 7); // calculate the number of weeks
+                            $weeks = ceil($interval->days / 7); // calculate the number of weeks //ceil() round up to nearest int
+
+                            // echo $interval->y . " years, ";
+                            // echo $interval->m . " months, ";
+                            // echo $interval->d . " days, ";
+                            // echo $interval->h . " hours, ";
+                            // echo $interval->i . " minutes, ";
+                            // echo $interval->s . " seconds";
+
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'> DIET PLAN FOR WEEK: {$weeks} </p>";
                         } else {
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
