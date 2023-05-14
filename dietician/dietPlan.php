@@ -93,6 +93,7 @@ if (mysqli_num_rows($result1) == 1) {
                     </thead>
                     <?php
 
+                    //get active members' details
                     $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate >= NOW()";
                     $result2 = mysqli_query($conn, $query2);
 
@@ -141,13 +142,13 @@ if (mysqli_num_rows($result1) == 1) {
                                         $result7 = mysqli_query($conn, $query7);
                                         $row7 = mysqli_fetch_assoc($result7);
 
-                                        if (mysqli_num_rows($result7) == 0) {
+                                        if (mysqli_num_rows($result7) == 0) { // if that member not have a diet plan 
                                             
                                             echo "<td>
                                                     <a href='createDietPlanMonday.php?new=" . $memberID . "'><button>New</button></a>
                                                 </td>";
                                                 
-                                        } elseif (mysqli_num_rows($result7) == 1) 
+                                        } elseif (mysqli_num_rows($result7) == 1) // if that member have a diet plan 
                                         {                                                
                                                 echo    "<td>
                                                         <a href='viewDietPlan.php?view=" . $memberID . "'><button>View</button></a>
@@ -163,11 +164,11 @@ if (mysqli_num_rows($result1) == 1) {
                                         $query6 = "SELECT * FROM supplement WHERE memberID = $memberID AND employeeID = employeeID";
                                         $result6 = mysqli_query($conn, $query6);
 
-                                        if (mysqli_num_rows($result6) == 0) {
+                                        if (mysqli_num_rows($result6) == 0) { // if that member not have a supplement
                                             echo "<td>
                                                 <a href='addSupplements.php?new=" . $memberID . "'><button>New</button></a>
                                             </td>";
-                                        } elseif(mysqli_num_rows($result6) == 1) {
+                                        } elseif(mysqli_num_rows($result6) == 1) { // if that member have a supplement
                                                 echo    "<td>
                                                             <a href='viewSupplements.php?new=" . $memberID . "'><button>View</button></a>
                                                             <a href='updateSupplements.php?update=" . $memberID . "'><button>Update</button></a>
