@@ -54,8 +54,8 @@ if (isset($row['profilePhoto'])) {
 
 // $totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
 // $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
-// $avarageOfRates = $totalOfRates / $totalCountOfRates;
-// $formattedAvarageOfRates = number_format($avarageOfRates, 2);
+// $averageOfRates = $totalOfRates / $totalCountOfRates;
+// $formattedAverageOfRates = number_format($averageOfRates, 2);
 
 ?>
 

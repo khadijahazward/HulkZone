@@ -11,7 +11,7 @@ $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 $query1 = "SELECT * FROM user JOIN employee ON user.userID = employee.userID WHERE user.userID = $userID";
 $result1 = mysqli_query($conn, $query1);
 $row1 = mysqli_fetch_assoc($result1);
-$avarageRate = $row1['avgRating'];
+$averageRate = $row1['avgRating'];
 
 if (isset($_POST['edite'])) {
 
@@ -137,8 +137,8 @@ if (isset($_POST['edite'])) {
 
 // $totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
 // $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
-// $avarageOfRates = $totalOfRates / $totalCountOfRates;
-// $formattedAvarageOfRates = number_format($avarageOfRates, 2);
+// $averageOfRates = $totalOfRates / $totalCountOfRates;
+// $formattedAverageOfRates = number_format($averageOfRates, 2);
 
 
 ?>
@@ -274,13 +274,13 @@ if (isset($_FILES['image'])) {
                     Profile</button>
                 <div class="rates">
                     <p style="font-weight: 700; font-size: 15px;">
-                        <?php echo $avarageRate ?> Rates
+                        <?php echo $averageRate ?> Rates
                     </p>
                     <?php
                     
 
                     for ($i = 1; $i <= 5; $i++) {
-                        if ($i <= $avarageRate) {
+                        if ($i <= $averageRate) {
                             echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
                         } else {
                             echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
