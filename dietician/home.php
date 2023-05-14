@@ -54,32 +54,32 @@ if (mysqli_num_rows($result2) > 0) {
 }
 
 
-$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID AND endDate <= NOW()";
 $result5 = mysqli_query($conn, $query5);
 $row5 = mysqli_fetch_assoc($result5);
 $rate01 = $row5['count'];
 
-$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID AND endDate <= NOW()";
 $result6 = mysqli_query($conn, $query6);
 $row6 = mysqli_fetch_assoc($result6);
 $rate02 = $row6['count'];
 
-$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID AND endDate <= NOW()";
 $result7 = mysqli_query($conn, $query7);
 $row7 = mysqli_fetch_assoc($result7);
 $rate03 = $row7['count'];
 
-$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID AND endDate <= NOW()";
 $result8 = mysqli_query($conn, $query8);
 $row8 = mysqli_fetch_assoc($result8);
 $rate04 = $row8['count'];
 
-$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID AND endDate <= NOW()";
 $result9 = mysqli_query($conn, $query9);
 $row9 = mysqli_fetch_assoc($result9);
 $rate05 = $row9['count'];
 
-$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID AND endDate <= NOW()";
 $result10 = mysqli_query($conn, $query10);
 $row10 = mysqli_fetch_assoc($result10);
 $rate00 = $row10['count'];
@@ -321,12 +321,12 @@ if($result12){
                                 $result12 = mysqli_query($conn, $query12);
                                 $row12 = mysqli_fetch_assoc($result12);
 
-                                // $memberPhoto = $row12['profilePhoto'];
                                 if(!empty($row12['profilePhoto'])){
                                     $memberPhoto = $row12['profilePhoto']; 
                                 }else{
                                     $memberPhoto = "../asset/images/dp.png";
                                 }
+                                
                                 $memberName = $row12['fName']." ".$row12['lName'];
                                 
                                 $appointmentStartDateTime = $row11['startTime'];

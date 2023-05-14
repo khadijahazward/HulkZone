@@ -120,10 +120,15 @@ if (mysqli_num_rows($result1) == 1) {
 
                                             $memberFName = $row4['fName'];
                                             $memberLName = $row4['lName'];
-                                            $memberProfilePic = $row4['profilePhoto'];
                                             $gender = $row4['gender'];
                                             $contactNumber = $row4['contactNumber'];
                                             $planType = $row4['planType'];
+
+                                            if(!empty($row4['profilePhoto'])){
+                                                $memberProfilePic = $row4['profilePhoto'];
+                                            }else{
+                                                $memberProfilePic = "../asset/images/dp.png";
+                                            }
 
 
                                             echo "<tr>

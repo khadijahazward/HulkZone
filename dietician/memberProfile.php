@@ -24,6 +24,12 @@ $result = mysqli_query($conn, $query);
 
 if(mysqli_num_rows($result) == 1){
     $row = mysqli_fetch_assoc($result);
+
+    if(!empty($row['profilePhoto'])){
+        $memberProfilePic = $row['profilePhoto'];
+    }else{
+        $memberProfilePic = "../asset/images/dp.png";
+    }
 }else{
     echo '<script> window.alert("Error receiving data!");</script>';
 }
@@ -64,7 +70,7 @@ if(mysqli_num_rows($result) == 1){
 
         <div class="main">
             <div class="profileCard">
-                <img src="<?php echo $row['profilePhoto'] ?>" alt="Member's Profile Picture" class="profileCardPic">
+                <img src="<?php echo $memberProfilePic ?>" alt="Member's Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
                         <?php echo $row['fName']." ". $row['lName'] ?></p>
@@ -86,7 +92,8 @@ if(mysqli_num_rows($result) == 1){
                 <div class="dateBar">
                     <div class="selector"></div>
                     <div class="dateRow">
-                        <a href="memberProfile.php" style="color: rgba(0, 104, 55, 1);">Profile</a>
+                        <a href="memberProfile.php?view = <?php echo $row["memberID"]?>"
+                            style="color: rgba(0, 104, 55, 1);">Profile</a>
                         <?php echo "<a href='medicalForm.php?view=".$row["memberID"]."'>Medical Form</a>";?>
                     </div>
                 </div>

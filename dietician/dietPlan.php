@@ -115,7 +115,12 @@ if (mysqli_num_rows($result1) == 1) {
 
                                         $memberFName = $row4['fName'];
                                         $memberLName = $row4['lName'];
-                                        $memberProfilePic = $row4['profilePhoto'];
+
+                                        if(!empty($row4['profilePhoto'])){
+                                            $memberProfilePic = $row4['profilePhoto'];
+                                        }else{
+                                            $memberProfilePic = "../asset/images/dp.png";
+                                        }
 
                                         if ($row['statuses'] == '1') {
                                             $memberStatus = "Active";
