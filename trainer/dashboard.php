@@ -99,12 +99,7 @@ if($profilePhotoURL == NULL){
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
+
 
         <div class="topbar-right">
             <div class="topbar-notification">
@@ -112,7 +107,7 @@ if($profilePhotoURL == NULL){
                     <?php include "notifications.php" ?>
                 </span>
             </div>
-            <a href="settings.php"><img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
+            <a href="settings.php"><img id="profile-photo-style" class="profilePic" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon"></a>
         </div>
 
     </section>

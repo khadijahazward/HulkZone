@@ -104,11 +104,17 @@ $result2 = mysqli_query($conn, $query2);
                                     $startTime = date('h:i A', strtotime($row2['startTime']));
                                     $endTime = date('h:i A', strtotime($row2['endTime']));
 
+                                    if(!empty($row3['profilePhoto'] )){
+                                        $memberProfilePic = $row3['profilePhoto'] ;
+                                    }else{
+                                        $memberProfilePic = "../asset/images/dp.png";
+                                    }
+
                                     echo "
                                 <tr>
                                     <td>" . $row2['date'] . "</td>
                                     <td>" . $startTime . " - " . $endTime . "</td>
-                                    <td><img src=" . $row3['profilePhoto'] . " alt='member's DP'></td>
+                                    <td><img src=" . $memberProfilePic . " alt='member's DP'></td>
                                     <td>" . $row3['fName'] . " " . $row3['lName'] . "</td>
                                     <td>" . $row3['contactNumber'] . "</td>
                                 </tr>

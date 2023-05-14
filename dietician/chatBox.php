@@ -114,6 +114,12 @@ if(!$result2){
                                             $memberLName = $row4['lName'];
                                             $memberProfilePic = $row4['profilePhoto'];
 
+                                            if(!empty($row4['profilePhoto'])){
+                                                $memberProfilePic = $row4['profilePhoto'];
+                                            }else{
+                                                $memberProfilePic = "../asset/images/dp.png";
+                                            }
+
                                             $query6 = "SELECT * FROM chat WHERE senderID = $memberUserID AND receiverID = $userID ORDER BY dateTime DESC";
                                             $result6 = mysqli_query($conn, $query6);
 

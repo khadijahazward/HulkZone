@@ -23,6 +23,12 @@ $result3 = mysqli_query($conn, $query3);
 
 if($result3){
     $row3 = mysqli_fetch_assoc($result3);
+    
+    if(!empty($row3['profilePhoto'])){
+        $memberProfilePic = $row3['profilePhoto'];
+    }else{
+        $memberProfilePic = "../asset/images/dp.png";
+    }
 }
 
 $query2 = "SELECT * FROM medicalForm WHERE memberID = $memberID ";
@@ -82,7 +88,7 @@ $result2 = mysqli_query($conn, $query2);
 
         <div class="main">
             <div class="profileCard">
-                <img src="<?php echo $row3['profilePhoto'] ?>" alt="Member's Profile Picture" class="profileCardPic">
+                <img src="<?php echo $memberProfilePic ?>" alt="Member's Profile Picture" class="profileCardPic">
                 <div class="intro">
                     <p style="font-weight: 700; font-size: 20px;">
                         <?php echo $row3['fName']." ".$row3['lName'] ?></p>
@@ -99,8 +105,9 @@ $result2 = mysqli_query($conn, $query2);
                 <div class="dateBar">
                     <div class="selector"></div>
                     <div class="dateRow">
-                        <a href="memberProfile.php">Profile</a>
-                        <a href="medicalForm.html" style="color: rgba(0, 104, 55, 1);">Medical
+                        <a href="memberProfile.php?view=<?php echo $memberID?>">Profile</a>
+                        <a href="medicalForm.php?view = <?php echo $memberID ?>"
+                            style="color: rgba(0, 104, 55, 1);">Medical
                             Form</a>
                     </div>
                 </div>

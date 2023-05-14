@@ -25,6 +25,12 @@ $result2 = mysqli_query($conn, $query2);
 
 $row2 = mysqli_fetch_assoc($result2);
 
+if(!empty($row2['profilePhoto'])){
+    $memberProfilePic = $row2['profilePhoto'];
+}else{
+    $memberProfilePic = "../asset/images/dp.png";
+}
+
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $message = $_POST['sendingMessage'];
@@ -119,8 +125,7 @@ $oneMonthAgoDate = date('Y-m-d' , $oneMonthAgoTimestamp);
                 </button>
             </a>
             <div class="selectedMember">
-                <img src="<?php echo $row2['profilePhoto']?>" alt="selected member profile"
-                    class="selectedMemberProfile">
+                <img src="<?php echo $memberProfilePic ?>" alt="selected member profile" class="selectedMemberProfile">
                 <p class="selectedMemberName">
                     <?php echo $row2['fName']." ". $row2['lName']?>
                 </p>

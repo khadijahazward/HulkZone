@@ -87,12 +87,7 @@ include 'script/config.php';
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
+        
 
         <div class="topbar-right">
             <div class="topbar-notification">
@@ -100,7 +95,7 @@ include 'script/config.php';
                     notifications
                 </span>
             </div>
-            <img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
+            <img id="profile-photo-style" class="profilePic" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
         </div>
 
     </section>

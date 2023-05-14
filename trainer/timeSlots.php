@@ -353,12 +353,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
+        
 
         <div class="topbar-right">
             <div class="topbar-notification">
@@ -366,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <?php include "notifications.php" ?>
                 </span>
             </div>
-            <img src="img/profile-icon.png" alt="profile-icon">
+            <a href="Settings.php"> <img src="<?php echo $_SESSION['profilePhoto']; ?>" class="profilePic" id="profile-photo-style" alt="profile-icon"> </a>
         </div>
 
     </section>
@@ -404,7 +399,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -430,7 +425,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -456,7 +451,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -482,7 +477,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -508,7 +503,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -534,7 +529,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
@@ -560,7 +555,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                     $start_time = new DateTime('08:00:00');
                                     $end_time = new DateTime('22:00:00');
-                                    $interval = new DateInterval('PT1H');
+                                    $interval = new DateInterval('PT2H');
 
                                     $html = '';
 
