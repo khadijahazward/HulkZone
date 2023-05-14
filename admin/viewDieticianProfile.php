@@ -8,14 +8,14 @@ include('notiCount.php');
     // Retrieve employee details using employeeID
     $employeeID = $_GET['employeeID'];
     $sql = "SELECT * FROM employee WHERE employeeID = '$employeeID'";
-    $result = mysqli_query($conn, $sql);
-    $employeeDetails = $result->fetch_assoc();
+    $result = mysqli_query($conn,$sql);
+    $employeeDetails = mysqli_fetch_assoc($result);
     
     // Retrieve user details using userID from employee table
     $userID = $employeeDetails['userID'];
     $sql = "SELECT * FROM user WHERE userID = '$userID'";
-    $result =  mysqli_query($conn, $sql);
-    $userDetails = $result->fetch_assoc();
+    $result = mysqli_query($conn,$sql);
+    $userDetails = mysqli_fetch_assoc($result);
 ?>
 <?php
 include('setAdminProfilePic.php');

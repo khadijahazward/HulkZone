@@ -17,11 +17,16 @@ $row = mysqli_fetch_assoc($result);
 $message = $row['message'];
 $created_at=$row['created_at'];
 
+date_default_timezone_set('Asia/Colombo');
+
+// Get the current date and time as a string in a specific format
+$date = date('Y-m-d H:i:s');
 // Insert notification into notifications table
 $announcement="Ignore the previously posted announcement.Announcement:".$message.",Posted on:".$created_at;
-$stmt1 = mysqli_prepare($conn, "INSERT INTO notifications (message, created_at, type) VALUES (?, NOW(), 0)");
-mysqli_stmt_bind_param($stmt1, "s", $announcement);
+$stmt1 = mysqli_prepare($conn, "INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 0)");
+mysqli_stmt_bind_param($stmt1, "ss", $announcement,$date);
 mysqli_stmt_execute($stmt1);
+//last inserted notificationsID
 $notificationsIDnew = mysqli_insert_id($conn);
 mysqli_stmt_close($stmt1);
 

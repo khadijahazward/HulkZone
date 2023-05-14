@@ -1,6 +1,6 @@
 <?php
 
-    include "connect.php";
+    include '../connect.php';
 
     $usernotID = mysqli_real_escape_string($conn, $_GET['usernotID']);
 

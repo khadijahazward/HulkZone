@@ -1,38 +1,10 @@
 <?php
-/*include('authorization.php');
-include('../../HulkZone/connect.php');
 
-// Get the announcementID from the URL
-$complaintID = mysqli_real_escape_string($conn, $_GET['complaintID']);
-
-// Check for the form submission
-if (isset($_POST['submit'])) {
-    // Get the form data
-    $subject = mysqli_real_escape_string($conn, $_POST['subject']);
-    $description = mysqli_real_escape_string($conn, $_POST['description']);
-    $desiredOutcome = mysqli_real_escape_string($conn, $_POST['desiredOutcome']);
-    $status = mysqli_real_escape_string($conn, $_POST['status']);
-    $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
-    $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
-    // Prepare the update statement
-    $stmt = $conn->prepare("UPDATE complaint SET  status= ?, actionTaken = ? WHERE complaintID = ?");
-    $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
-
-    // Execute the statement
-    $stmt->execute();
-
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
-
-    // Redirect the user to the view announcements page
-    header("Location: manageComplaints.php");
-    exit();*/
     include('authorization.php');
     include('../../HulkZone/connect.php');
     include('notiCount.php');
     
-    
+    //Getting the complaint ID from the URL
     $complaintID = $_GET['complaintID'];
 
     
@@ -46,46 +18,46 @@ if (isset($_POST['submit'])) {
         $dateReported = mysqli_real_escape_string($conn, $_POST['dateReported']);
         $actionTaken = mysqli_real_escape_string($conn, $_POST['actionTaken']);
     
-        // Update the complaint table
-        $stmt = $conn->prepare("UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?");
-        $stmt->bind_param("ssi", $status, $actionTaken, $complaintID);
-        $stmt->execute();
-        $stmt->close();
+       $sql="UPDATE complaint SET status = ?, actionTaken = ? WHERE complaintID = ?";
+       $stmt=mysqli_prepare($conn, $sql);
+       mysqli_stmt_bind_param($stmt,"ssi", $status, $actionTaken, $complaintID);
+      mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
     
         if ($status == 'Completed') {
-            // Get the userID from the complaint table
-            $stmt = $conn->prepare("SELECT userID FROM complaint WHERE complaintID = ?");
-            $stmt->bind_param("i", $complaintID);
-            $stmt->execute();
-            $stmt->bind_result($userID);
-            $stmt->fetch();
-            $stmt->close();
-    
+          
+            $sql="SELECT userID FROM complaint WHERE complaintID=$complaintID";
+            $result=mysqli_query($conn,$sql);
+            $row=mysqli_fetch_assoc($result);
+            $userID=$row['userID'];
+            
             // Insert data into the notifications table
             $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
             $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
             $date = $currentDateTime->format('Y-m-d H:i:s');
             $message = $actionTaken;
-    
-            $stmt = $conn->prepare("INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)");
-            $stmt->bind_param("ss", $message, $date);
-            $stmt->execute();
-            $notificationsID = $stmt->insert_id;
-            $stmt->close();
-    
+
+            $sql="INSERT INTO notifications (message, created_at, type) VALUES (?, ?, 1)";
+            $stmt=mysqli_prepare($conn,$sql);
+           mysqli_stmt_bind_param($stmt,"ss",$message, $date);
+           mysqli_stmt_execute($stmt);
+           mysqli_stmt_close($stmt);
+      
             // Insert data into the usernotifications table
             $status = 0;
+            $notificationsID = mysqli_insert_id($conn); // Get the auto-generated ID of the new row
+            $sql = "INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)";
+            $stmt = mysqli_prepare($conn, $sql);
+            mysqli_stmt_bind_param($stmt, "iii", $notificationsID, $userID, $status);
+            mysqli_stmt_execute($stmt);
+            mysqli_insert_id($conn);
     
-            $stmt = $conn->prepare("INSERT INTO usernotifications (notificationsID, userID, status) VALUES (?, ?, ?)");
-            $stmt->bind_param("iii", $notificationsID, $userID, $status);
-            $stmt->execute();
-            $usernotificationsID = $stmt->insert_id;
-            $stmt->close();
+            mysqli_stmt_close($stmt);
+            
         }
     
         // Close the database connection
-        $conn->close();
-    
+        mysqli_close($conn);
         // Redirect the user to the manage complaints page
         header("Location: manageComplaints.php");
         exit();
@@ -117,10 +89,10 @@ if(isset($_GET['complaintID'])) {
   }
 }
 
-$query = "SELECT * FROM user WHERE userID='$userID'";
+$query = "SELECT * FROM user WHERE userID='$userID'";//userID is retreived already above
 $result = mysqli_query($conn, $query);
 
-if(mysqli_num_rows($result) == 1) {
+if(mysqli_num_rows($result) == 1) {//only one member's detail.
   $row = mysqli_fetch_array($result);
   $fName = $row['fName'];
   $roles = $row['roles'];
@@ -220,7 +192,7 @@ include('setAdminProfilePic.php');
                     <br>
                     <label class="formContent">Evidence</label>
                     <br>
-                    <img class="evidenceImage" src="<?php echo $evidence; ?>" alt="">
+                    <img class="evidenceImage" src="<?php echo $evidence; ?>" alt="No evience is provided by the user">
                     <br>
                     <label class="formContent">Action Taken</label>
                     <br>

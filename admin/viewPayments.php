@@ -76,19 +76,23 @@ include('setAdminProfilePic.php');
                     include('../../HulkZone/connect.php');
                     
                     //read all row from database table
-                    $sql="SELECT m.memberID,m.planType, u.fName, u.gender
+                   /* $sql="SELECT m.memberID,m.planType, u.fName, u.gender
                     FROM payment p
                     JOIN member m ON p.memberID = m.memberID
                     JOIN user u ON m.userID = u.userID
                     GROUP BY m.memberID
-                    ";
+                    ";*/
+                    $sql="SELECT * FROM user u
+                    JOIN member m
+                    ON u.userID=m.userID
+                    GROUP BY m.memberID";
                     $result=mysqli_query($conn, $sql);
 
                     if (!$result) {
                          die("invalid query: " .$conn->error);
                     }
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo"
                     <tr>
                    <td>$row[memberID]</td>

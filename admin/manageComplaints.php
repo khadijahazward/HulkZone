@@ -125,10 +125,10 @@ include('../admin/sideBar.php');
              $result = mysqli_query($conn, $sql);
 
                     if (!$result) {
-                         die("invalid query: " .$conn->error);
+                         die("invalid query: " .mysqli_error($conn));
                     }
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         if ($row['status'] != 'Ignored') { // if status is not equla to "Removed" below code will work
                         echo"
                     <tr>

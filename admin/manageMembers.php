@@ -79,15 +79,18 @@ $sql = "SELECT user.userID, user.fName, user.gender, user.email, user.dateOfBirt
         FROM user
         INNER JOIN member ON user.userID=member.userID";
 
-$result = $conn->query($sql);
+$result=mysqli_query($conn,$sql);
 
 if (!$result) {
-    die("Invalid query: " . $conn->error);
+    die("Invalid query: " . mysqli_error($conn));
 }
 
-while ($row = $result->fetch_assoc()) {
+while ($row = mysqli_fetch_assoc($result)) {
+    // If the value is "Enabled", we set $statusText to "Disabled", otherwise we set it to "Enabled".
     $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
+    //If the value is "Enabled", we set $statusValue to 0, otherwise we set it to 1.
     $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
+   // If the value is "Disabled",  background-color "red".If not no style
     $buttonStyle = ($row['accountStatus'] == 'Disabled') ? 'background-color: red;' : '';
 
     echo "
