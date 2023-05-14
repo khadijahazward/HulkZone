@@ -68,13 +68,13 @@ include('../admin/sideBar.php');
                     
                     //read all row from database table
                     $sql="SELECT * FROM notifications where type=0";
-                    $result=$conn->query($sql);
+                   $result=mysqli_query($conn,$sql);
 
                     if (!$result) {
-                         die("invalid query: " .$conn->error);
+                         die("invalid query: " .mysqli_error($conn));
                     }
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo"
                     <tr>
                    <td>$row[notificationsID]</td>

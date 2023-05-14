@@ -75,7 +75,7 @@ include('notiCount.php');
         FROM user
         INNER JOIN employee ON user.userID = employee.userID
         WHERE user.roles = 3";
-                    $result = $conn->query($sql);
+                    $result = mysqli_query($conn,$sql);
 
                     if (!$result) {
                         die("invalid query: " . $conn->error);

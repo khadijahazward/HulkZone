@@ -59,13 +59,13 @@ include('setAdminProfilePic.php');
     //read all row from database table
     $memberID = $_GET['memberID'];
     $sql = "SELECT u.fName
-            FROM payment 
-            JOIN member ON payment.memberID = member.memberID
-            JOIN user AS u ON member.userID = u.userID
-            WHERE payment.memberID = '$memberID'";
+            FROM user u
+            JOIN member m 
+            ON u.userID=m.userID
+           WHERE m.memberID=$memberID";
              
     $result = mysqli_query($conn, $sql);
-    $details = $result->fetch_assoc();
+    $details =mysqli_fetch_assoc($result);
   
 ?> 
             
@@ -109,7 +109,7 @@ include('setAdminProfilePic.php');
                 <?php 
                    include('../../HulkZone/connect.php');
                     
-                    //read all row from database table
+
                     $memberID = $_GET['memberID'];
                    $sql = "SELECT *,
                     CASE payment.type
@@ -134,7 +134,7 @@ include('setAdminProfilePic.php');
             
                     $total_amount = 0;
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         echo"
                         
                     <tr>

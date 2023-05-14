@@ -156,33 +156,33 @@ include('setAdminProfilePic.php');
                     </div>
 
                     <script>
-                        var ctx = document.getElementById('myChart2').getContext('2d');
-                        var chart = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ['Filed', 'Completed'],
-                                datasets: [{
-                                    label: 'Filed',
-                                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)'],
-                                    borderColor: ['rgba(255, 0, 0, 0.7)', 'rgba(0, 255, 0, 0.7)'],
-                                    data: [
-                                        <?php echo isset($data2['Filed']) ? $data2['Filed'] : 0 ?>,
-                                        <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>
-
-                                    ]
-                                }]
-                            },
-                            options: {
-                                scales: {
-                                    yAxes: [{
-                                        ticks: {
-                                            beginAtZero: true
-                                        }
-                                    }]
-                                }
-                            }
-                        });
-                    </script>
+              var ctx = document.getElementById('myChart2').getContext('2d');
+              var chart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                  labels: ['Filed', 'Completed','Ignored'],
+                  datasets: [{
+                    label: 'Complaints',
+                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)','rgba(0, 0, 255, 0.5)'],
+                    borderColor: ['rgba(255, 0, 0, 0.7)', 'rgba(0, 255, 0, 0.7)'],
+                    data: [
+                      <?php echo isset($data2['Filed']) ? $data2['Filed'] : 0 ?>,
+                      <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>,
+                      <?php echo isset($data2['Ignored']) ? $data2['Ignored'] : 0 ?>
+                    ]
+                  }]
+                },
+                options: {
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: true
+                      }
+                    }]
+                  }
+                }
+              });
+            </script>
                 </div>
             </div>
         </div>

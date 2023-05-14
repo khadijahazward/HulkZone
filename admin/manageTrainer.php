@@ -59,7 +59,6 @@ include('../admin/sideBar.php');
                    <th>Employee ID</th>
                    <th>Name</th>
                    <th>Gender</th>
-                   <!--<th>Action</th>-->
                    <th>Account status</th>
                    <th>Action</th>
                 </tr>
@@ -81,10 +80,10 @@ include('../admin/sideBar.php');
                    $result = mysqli_query($conn, $sql);
 
                     if (!$result) {
-                         die("invalid query: " .$conn->error);
+                         die("invalid query: " .mysqli_error($conn));
                     }
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = mysqli_fetch_assoc($result)) {
                         $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
                         $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
                         $buttonStyle = ($row['accountStatus'] == 'Disabled') ? 'background-color: red;' : '';
@@ -93,11 +92,6 @@ include('../admin/sideBar.php');
                    <td>$row[employeeID]</td>
                    <td>$row[fName]</td>
                    <td>$row[gender]</td>
-                  
-                  
-                   
-                   
-                   
                    <td>
                    <form method='POST' action='accountStatusButton/changeStatusTrainer.php' onsubmit='return confirmSubmission()'>
                        <button type='submit' class='button2' name='status' value='$statusValue'style='$buttonStyle'>{$row['accountStatus']}</button>
