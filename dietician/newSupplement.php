@@ -163,36 +163,38 @@ include 'setProfilePic.php';
             <div class="topic">
                 <p>Add a Supplement</p>
             </div>
-            <form class="supplementForm" method="post" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <td><label for="supName">Supplement Name</label></td>
-                        <td>
-                            <span class="error">
-                                <?php echo $supNameErr?>
-                            </span><br>
-                            <input type="text" name="supName" id="supName" class="textBox"
-                                placeholder="Enter the supplement name">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="supType">Supplement Type</label></td>
-                        <td>
-                            <span class="error"><?php echo $supTypeErr ?></span><br>
-                            <input type="text" name="supType" id="supType" class="textBox"
-                                placeholder="Enter the supplement type">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="image">Image of Supplement</label></td>
-                        <td>
-                            <input type="file" name="image" class="imageBox">
-                        </td>
-                    </tr>
-                </table>
-                <button type="submit" name="submit" class="acceptBtn">Submit</button>
-            </form>
-            <button class="backBtn" onclick="window.location.href = 'dietplan.php'">Back</button>
+            <div class="formContainer">
+                <form class="supplementForm" method="post" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td><label for="supName">Supplement Name</label></td>
+                            <td>
+                                <span class="error">
+                                    <?php echo $supNameErr?>
+                                </span><br>
+                                <input type="text" name="supName" id="supName" class="textBox"
+                                    placeholder="Enter the supplement name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="supType">Supplement Type</label></td>
+                            <td>
+                                <span class="error"><?php echo $supTypeErr ?></span><br>
+                                <input type="text" name="supType" id="supType" class="textBox"
+                                    placeholder="Enter the supplement type">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="image">Image of Supplement</label></td>
+                            <td>
+                                <input type="file" name="image" class="imageBox">
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" name="submit" class="acceptBtn">Submit</button>
+                </form>
+                <button class="backBtn" onclick="window.location.href = 'dietplan.php'">Back</button>
+            </div>
         </div>
     </div>
 

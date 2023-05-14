@@ -56,6 +56,7 @@
     </div>
   </body>
   <script type="text/javascript">
+    //publishable key
     var stripe = Stripe("pk_test_51MihJyAQ8qDWFtDVOUaCZ1X7qfobYysvcIGOuZnBEY5VJcQnulANqSQP8SDdVDFdSIr6g5ugd0jlUQv5nQ4cF1QE00uCxcV2AQ");
     var checkoutButton = document.getElementById("checkout-button");
 

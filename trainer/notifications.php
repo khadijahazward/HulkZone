@@ -18,7 +18,7 @@ $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="Style/notifications.css" rel="StyleSheet">
+    <link href="style/notifications.css" rel="styleSheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
 

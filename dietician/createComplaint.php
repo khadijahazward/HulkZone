@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Complaint</title>
-    <link href="Style/newSupplement.css" rel="stylesheet">
+    <link href="Style/createComplaint.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </head>
@@ -122,43 +122,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <img src="<?php echo $profilePic ?>" alt=" my profile" class="myProfile">
             </div>
         </div>
-        <div class="content">
+        <div class="main">
             <div class="topic">
                 <p>Create a Complaint</p>
             </div>
-            <form class="supplementForm" method="post" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <td><label for="subject">Complaints Subject</label></td>
-                        <td>
-                            <span class="error"><?php echo $subjectErr; ?></span><br>
-                            <input type="text" name="subject" id="subject" class="textBox"
-                                placeholder="Enter your complaint subject"
-                                value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label for="description">Complaints Description</label></td>
-                        <td>
-                            <span class="error"><?php echo $desErr; ?></span><br>
-                            <textarea name="des" id="des" cols="82" rows="6" style="resize: none;"
-                                placeholder="Enter your complaint briefly">
+            <div class="formContainer">
+                <form class="supplementForm" method="post" enctype="multipart/form-data">
+                    <table>
+                        <tr>
+                            <td><label for="subject">Complaints Subject</label></td>
+                            <td>
+                                <span class="error"><?php echo $subjectErr; ?></span><br>
+                                <input type="text" name="subject" id="subject" class="textBox"
+                                    placeholder="Enter your complaint subject"
+                                    value="<?php if ($check == 1) {echo $_POST['subject'] ?? '';}else if($check == 0){$_POST['subject'] == ""; }?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="description">Complaints Description</label></td>
+                            <td>
+                                <span class="error"><?php echo $desErr; ?></span><br>
+                                <textarea name="des" id="des" cols="82" rows="6" style="resize: none;"
+                                    placeholder="Enter your complaint briefly">
 
                                 <?php if ($check == 1) {echo $_POST['des'] ?? ''; }else if($check == 0){ $_POST['des'] == ""; }?>
                                 
                             </textarea>
-                        </td>
-                    </tr>
-                    <tr class="evidenceContent">
-                        <td><label for="Evi-image">Evidance: (Upload any proofs)</label></td>
-                        <td>
-                            <input type="file" name="Evi-image" class="imageBox">
-                        </td>
-                    </tr>
-                </table>
-                <button type="submit" class="acceptBtn">Submit</button>
-            </form>
-            <button class="backButton" onclick="window.location.href = 'complaint.php'">Back</button>
+                            </td>
+                        </tr>
+                        <tr class="evidenceContent">
+                            <td><label for="Evi-image">Evidance: (Upload any proofs)</label></td>
+                            <td>
+                                <input type="file" name="Evi-image" class="imageBox">
+                            </td>
+                        </tr>
+                    </table>
+                    <button type="submit" class="acceptBtn">Submit</button>
+                </form>
+                <button class="backBtn" onclick="window.location.href = 'complaint.php'">Back</button>
+            </div>
         </div>
     </div>
 </body>

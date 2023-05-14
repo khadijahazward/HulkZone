@@ -258,14 +258,14 @@ include '../connect.php';
                                     echo '</table>';
                                 }else{
                                     echo '<tr>
-                                        <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
+                                        <td colspan="04" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
                                     </tr>'; 
                                     echo '</table>';
                                 }
 
                             }else{
                                 echo '<tr>
-                                    <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
+                                    <td colspan="04" style="border-radius: 10px 10px 10px 10px;"> You have not Selected a Service Yet. </td> 
                                 </tr>'; 
                                 echo '</table>';
                             }
