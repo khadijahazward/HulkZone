@@ -116,9 +116,10 @@ include '../connect.php';
                         }
 
                         // Loop through each day of the week (Monday to Sunday)
+                        //$count = 0;
                         for ($i = 1; $i <= 7; $i++) {
                             $dayOfWeekDate = date('Y-m-d', strtotime($previousMonday . ' +' . ($i-1) . ' day'));
-                            
+                            $count++;
                             // Check if the button date is before today's date
                             if (strtotime($dayOfWeekDate) < strtotime(date('Y-m-d'))) {
                                 // If so, disable the button
@@ -131,6 +132,10 @@ include '../connect.php';
                                 echo $buttonHtml;
                                 echo "</div>";
                             }
+                            // if($count % 7 == 0){
+                            //     echo "</div><div class = 'row2' style='justify-content:space-between; background-color:#006837; padding:10px;'>";
+                            //     $count == 0;
+                            // }
                         }
                     ?>
                 </div>
