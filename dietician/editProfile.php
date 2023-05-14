@@ -51,12 +51,20 @@ if (isset($_POST['edite'])) {
         $DOBErr = "Date of Birth is required";
     }
 
+    $pattern3 = "/^[0-9]{10}$/";
+
     if (empty($phone)) {
         $phoneErr = "Phone number is required";
+    }elseif(!preg_match($pattern3, $phone)){
+        $phoneErr = "Invalid phone number";
     }
 
     if (empty($gender)) {
         $genderErr = "Gender is required";
+    }
+
+    if($experiencedYears < 0){
+        $experiencedYearsErr = "Invalid number of experienced years";
     }
 
     if (empty($fnameErr) && empty($lnameErr) && empty($nicErr) && empty($DOBErr) && empty($phoneErr) && empty($genderErr)) {
@@ -371,7 +379,11 @@ if (isset($_FILES['image'])) {
                             </tr>
                             <tr>
                                 <td>
-                                    <label for="experiencedYears">Number of years of Experiance</label><br>
+                                    <label for="experiencedYears">Number of years of
+                                        Experiance</label>&nbsp;&nbsp;&nbsp;
+                                    <span class="error">
+                                        <?php echo "*" . $experiencedYearsErr ?>
+                                    </span><br>
                                     <input type="number" id="experiencedYears" name="experiencedYears" class="textBox"
                                         value="<?php echo $row1['noOfYearsOfExperience'] ?>">
                                 </td>
@@ -382,10 +394,15 @@ if (isset($_FILES['image'])) {
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <label for="language">Language</label><br>
-                                    <input type="text" id="language" name="language" class="textBox" style="width: 93%;"
+                                    <input type="text" id="language" name="language" class="textBox"
                                         value="<?php echo $row1['language'] ?>">
+                                </td>
+                                <td>
+                                    <label for="email">Email</label><br>
+                                    <input type="email" id="email" name="email" class="textBox"
+                                        value="<?php echo $row1['email'] ?>" readonly>
                                 </td>
                             </tr>
                             <tr>

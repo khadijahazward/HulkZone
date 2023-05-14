@@ -227,10 +227,15 @@ $formattedAvarageOfRates = number_format($avarageOfRates, 2);
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <label for="language">Language</label><br>
-                                    <input type="text" id="language" name="language" class="textBox" style="width: 93%;"
+                                    <input type="text" id="language" name="language" class="textBox"
                                         value="<?php echo $row['language'] ?>" readonly>
+                                </td>
+                                <td>
+                                    <label for="email">Email</label><br>
+                                    <input type="email" id="email" name="email" class="textBox"
+                                        value="<?php echo $row['email'] ?>" readonly>
                                 </td>
                             </tr>
                             <tr>
