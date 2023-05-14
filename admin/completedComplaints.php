@@ -124,7 +124,7 @@ include('../admin/sideBar.php');
              $result = mysqli_query($conn, $sql);
 
                     if (!$result) {
-                         die("invalid query: " .$conn->error);
+                         die("invalid query: " .mysqli_error($conn));
                     }
 
                     while ($row = $result->fetch_assoc()) {

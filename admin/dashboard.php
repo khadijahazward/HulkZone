@@ -7,7 +7,7 @@ include('notiCount.php');
 // Total Members Query
 $totalMembersQuery = "SELECT COUNT(*) AS total FROM user where roles=1";
 $totalMembersResult = mysqli_query($conn, $totalMembersQuery);
-//fetching the result from a row 
+//fetching the result from the table 
 $totalMembers = mysqli_fetch_assoc($totalMembersResult)['total'];
 
 /**$totalMembersQuery = "SELECT * FROM user where roles=1";
@@ -235,7 +235,7 @@ include('setAdminProfilePic.php');
               </div>
             </div>
           </div>
-
+     <!--users by gender-->
           <script>
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
@@ -280,6 +280,7 @@ include('setAdminProfilePic.php');
           </div>
           <div class="graph">
             <!--Bar Graph-->
+            <!--complaints by statuses-->
             <div style="width:75%;">
               <canvas id="myChart2"></canvas> <!--//The canvas element is an HTML element that provides a drawing surface for rendering graphics and animations on a web page. The element is often used in combination with JavaScript to draw dynamic graphics and animations, and it is supported by most modern browsers.-->
             </div>
@@ -289,15 +290,15 @@ include('setAdminProfilePic.php');
               var chart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                  labels: ['Filed', 'Completed'],
+                  labels: ['Filed', 'Completed','Ignored'],
                   datasets: [{
-                    label: 'Filed',
-                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)'],
+                    label: 'Complaints',
+                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)','rgba(0, 0, 255, 0.5)'],
                     borderColor: ['rgba(255, 0, 0, 0.7)', 'rgba(0, 255, 0, 0.7)'],
                     data: [
                       <?php echo isset($data2['Filed']) ? $data2['Filed'] : 0 ?>,
-                      <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>
-
+                      <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>,
+                      <?php echo isset($data2['Ignored']) ? $data2['Ignored'] : 0 ?>
                     ]
                   }]
                 },

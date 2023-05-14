@@ -191,6 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     if ($result_employee && $row_employee = mysqli_fetch_array($result_employee)) {
                         $employeeID = $row_employee['employeeID'];
                         // insert data into employeeservice table
+                        //$service(emporary variable ) holds the value of each element in the $services array as the loop iterates over it.
                         foreach ($services as $service) {
                             $sql3 = "INSERT INTO employeeservice(employeeID, serviceID) VALUES ('$employeeID', '$service')";
                             $result3 = mysqli_query($conn, $sql3);

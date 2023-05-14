@@ -6,6 +6,7 @@ include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
+//Retrieving dietician's data from user table
 $query = "SELECT * FROM user WHERE userID = $userID";
 $result = mysqli_query($conn, $query);
 if($result){
@@ -14,6 +15,7 @@ if($result){
     echo '<script> window.alert("Error receiving user data!");</script>';
 }
 
+//Retrieving dietician's data from employee table
 $query1 = "SELECT * FROM employee WHERE userID = $userID";
 $result1 = mysqli_query($conn, $query1);
 
@@ -24,6 +26,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of receiving employee details!");</script>';
 }
 
+//Retrieving all active members who have chosen me as dietician
 $query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > NOW()";
 $result2 = mysqli_query($conn, $query2);
 
@@ -31,13 +34,15 @@ if (mysqli_num_rows($result2) > 0) {
     while ($row2 = mysqli_fetch_assoc($result2)) {
         $memberID = $row2['memberID'];
 
+        //Retrieving my active members' userID
         $query3 = "SELECT * FROM member WHERE memberID = $memberID";
         $result3 = mysqli_query($conn, $query3);
  
         if ($result3) {
             $row3 = mysqli_fetch_assoc($result3);
             $memberUserID = $row3['userID'];
-
+            
+            //Get a count of my active members
             $query4 = "SELECT COUNT(*) as count FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
             $result4 = mysqli_query($conn, $query4);
 
@@ -53,41 +58,46 @@ if (mysqli_num_rows($result2) > 0) {
     echo "hello";
 }
 
-
-$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 1 after their service
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID AND endDate <= NOW()";
 $result5 = mysqli_query($conn, $query5);
 $row5 = mysqli_fetch_assoc($result5);
 $rate01 = $row5['count'];
 
-$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 2 after their service
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID AND endDate <= NOW()";
 $result6 = mysqli_query($conn, $query6);
 $row6 = mysqli_fetch_assoc($result6);
 $rate02 = $row6['count'];
 
-$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 3 after their service
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID AND endDate <= NOW()";
 $result7 = mysqli_query($conn, $query7);
 $row7 = mysqli_fetch_assoc($result7);
 $rate03 = $row7['count'];
 
-$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 4 after their service
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID AND endDate <= NOW()";
 $result8 = mysqli_query($conn, $query8);
 $row8 = mysqli_fetch_assoc($result8);
 $rate04 = $row8['count'];
 
-$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 5 after their service
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID AND endDate <= NOW()";
 $result9 = mysqli_query($conn, $query9);
 $row9 = mysqli_fetch_assoc($result9);
 $rate05 = $row9['count'];
 
-$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
+//Get a count of members who gave rate as 0 after their service
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID AND endDate <= NOW()";
 $result10 = mysqli_query($conn, $query10);
 $row10 = mysqli_fetch_assoc($result10);
 $rate00 = $row10['count'];
 
-$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
-$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
-$avarageOfRates = $totalOfRates / $totalCountOfRates;
-$formattedAvarageOfRates = number_format($avarageOfRates, 2);
+$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5); // total of rates
+$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05; //Count of rates
+$averageOfRates = $totalOfRates / $totalCountOfRates; //Average rate
+$formattedAverageOfRates = number_format($averageOfRates, 2); //format the average rate with 2 decimal numbers
 
 if($rate00 != 0 && $totalCountOfRates != 0){
     $precetageOfRate00 = $rate00 / $totalCountOfRates * 100;
@@ -132,6 +142,7 @@ if($rate05 != 0 && $totalCountOfRates != 0){
 //     echo '<script> window.alert("Error receiving dietician appointment date!");</script>';
 // }
 
+//
 $query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND endTime >= NOW() AND status = 1";
 $result11 = mysqli_query($conn, $query11);
 
@@ -248,7 +259,7 @@ if($result12){
                             <a href="profile.php">
                                 <div class="ratesCountCard">
                                     <div class="left">
-                                        <p class="count"><?php echo $formattedAvarageOfRates ?>
+                                        <p class="count"><?php echo $formattedAverageOfRates ?>
                                         </p>
                                         <p class="cardTopic">Ratings</p>
                                     </div>
@@ -321,12 +332,12 @@ if($result12){
                                 $result12 = mysqli_query($conn, $query12);
                                 $row12 = mysqli_fetch_assoc($result12);
 
-                                // $memberPhoto = $row12['profilePhoto'];
                                 if(!empty($row12['profilePhoto'])){
                                     $memberPhoto = $row12['profilePhoto']; 
                                 }else{
                                     $memberPhoto = "../asset/images/dp.png";
                                 }
+                                
                                 $memberName = $row12['fName']." ".$row12['lName'];
                                 
                                 $appointmentStartDateTime = $row11['startTime'];

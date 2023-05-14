@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $today = new DateTime();
         $currentWeekMonday = $today->modify('this week')->format('Y-m-d');
 
-        if ($monday <= $currentWeekMonday) {
+        if ($monday < $currentWeekMonday) {
             $isValid = false;
         }
     }

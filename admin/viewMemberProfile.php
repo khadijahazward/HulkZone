@@ -12,16 +12,16 @@ if (isset($_GET['memberID'])) {
     $sql = "SELECT * FROM member WHERE memberID = '$memberID'";
     $result = mysqli_query($conn, $sql);
 
-    if ($result && $result->num_rows > 0) {
+    if ($result && mysqli_num_rows($result)> 0) {
         $memberDetails = $result->fetch_assoc();
 
         // Retrieve user details using memberID from member table
         $userID = $memberDetails['userID'];
         $sql = "SELECT * FROM user WHERE userID = '$userID'";
-        $result = $conn->query($sql);
+        $result = mysqli_query($conn,$sql);
 
-        if ($result && $result->num_rows > 0) {
-            $userDetails = $result->fetch_assoc();
+        if ($result && mysqli_num_rows($result) > 0) {
+            $userDetails = mysqli_fetch_assoc($result);
         } else {
             echo "No user details found.";
         }
@@ -154,7 +154,7 @@ if (isset($_GET['memberID'])) {
 
                             <div class="form-group">
                                 <label>Date of Birth </label>
-                                <input id="dob" type="date" name="dob" min="1930-01-01" max="2004-12-31">
+                                <input id="dob" type="date" name="dob" min="1930-01-01" max="2004-12-31"value="<?php echo $userDetails['dateOfBirth']; ?>">
                             </div>
                         </div>
 

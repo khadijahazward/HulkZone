@@ -11,6 +11,7 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_assoc($result);
     $employeeID = $row['employeeID'];
+    $averageRate = $row['avgRating'];
 } else {
     echo '<script> window.alert("Error receiving data!");</script>';
 }
@@ -21,41 +22,40 @@ if (isset($row['profilePhoto'])) {
     $profilePic = "Images/Profile.png";
 }
 
-$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID";
-$result5 = mysqli_query($conn, $query5);
-$row5 = mysqli_fetch_assoc($result5);
-$rate01 = $row5['count'];
+// $query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result5 = mysqli_query($conn, $query5);
+// $row5 = mysqli_fetch_assoc($result5);
+// $rate01 = $row5['count'];
 
-$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID";
-$result6 = mysqli_query($conn, $query6);
-$row6 = mysqli_fetch_assoc($result6);
-$rate02 = $row6['count'];
+// $query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result6 = mysqli_query($conn, $query6);
+// $row6 = mysqli_fetch_assoc($result6);
+// $rate02 = $row6['count'];
 
-$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID";
-$result7 = mysqli_query($conn, $query7);
-$row7 = mysqli_fetch_assoc($result7);
-$rate03 = $row7['count'];
+// $query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result7 = mysqli_query($conn, $query7);
+// $row7 = mysqli_fetch_assoc($result7);
+// $rate03 = $row7['count'];
 
-$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID";
-$result8 = mysqli_query($conn, $query8);
-$row8 = mysqli_fetch_assoc($result8);
-$rate04 = $row8['count'];
+// $query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result8 = mysqli_query($conn, $query8);
+// $row8 = mysqli_fetch_assoc($result8);
+// $rate04 = $row8['count'];
 
-$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID";
-$result9 = mysqli_query($conn, $query9);
-$row9 = mysqli_fetch_assoc($result9);
-$rate05 = $row9['count'];
+// $query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result9 = mysqli_query($conn, $query9);
+// $row9 = mysqli_fetch_assoc($result9);
+// $rate05 = $row9['count'];
 
-$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID";
-$result10 = mysqli_query($conn, $query10);
-$row10 = mysqli_fetch_assoc($result10);
-$rate00 = $row10['count'];
+// $query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID AND endDate <= NOW()";
+// $result10 = mysqli_query($conn, $query10);
+// $row10 = mysqli_fetch_assoc($result10);
+// $rate00 = $row10['count'];
 
-$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
-$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
-$avarageOfRates = $totalOfRates / $totalCountOfRates;
-$formattedAvarageOfRates = number_format($avarageOfRates, 2);
-
+// $totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5);
+// $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05;
+// $averageOfRates = $totalOfRates / $totalCountOfRates;
+// $formattedAverageOfRates = number_format($averageOfRates, 2);
 
 ?>
 
@@ -127,13 +127,13 @@ $formattedAvarageOfRates = number_format($avarageOfRates, 2);
                     Profile</button>
                 <div class="rates">
                     <p style="font-weight: 700; font-size: 15px;">
-                        <?php echo $formattedAvarageOfRates ?> Rates
+                        <?php echo $averageRate ?> Rates
                     </p>
                     <?php
                     
 
                     for ($i = 1; $i <= 5; $i++) {
-                        if ($i <= $formattedAvarageOfRates) {
+                        if ($i <= $averageRate) {
                             echo '<i class="fa fa-star checked"></i>'; // Output a filled star icon
                         } else {
                             echo '<i class="fa fa-star notChecked"></i>'; // Output an empty star icon
@@ -227,10 +227,15 @@ $formattedAvarageOfRates = number_format($avarageOfRates, 2);
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <label for="language">Language</label><br>
-                                    <input type="text" id="language" name="language" class="textBox" style="width: 93%;"
+                                    <input type="text" id="language" name="language" class="textBox"
                                         value="<?php echo $row['language'] ?>" readonly>
+                                </td>
+                                <td>
+                                    <label for="email">Email</label><br>
+                                    <input type="email" id="email" name="email" class="textBox"
+                                        value="<?php echo $row['email'] ?>" readonly>
                                 </td>
                             </tr>
                             <tr>
