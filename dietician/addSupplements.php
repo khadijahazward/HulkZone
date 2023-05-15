@@ -36,25 +36,27 @@ if(!$result4){
     $startDate = $row4['startDate'];
 }
 
-if(isset($_POST['save']) && isset($_POST['supplementNo'])){
+if(isset($_POST['save'])){
 
-    $supplementNo = mysqli_real_escape_string($conn, $_POST['supplementNo']);
+    if(!empty($_POST['supplementNo'])){
+        $supplementNo = mysqli_real_escape_string($conn, $_POST['supplementNo']);
     
-    $query3 = "INSERT INTO supplement 
-                (supplementID, memberID, employeeID, startDate) VALUES 
-                ('$supplementNo', '$memberID', '$employeeID', '$startDate')";
+        $query3 = "INSERT INTO supplement 
+                    (supplementID, memberID, employeeID, startDate) VALUES 
+                    ('$supplementNo', '$memberID', '$employeeID', '$startDate')";
 
-    $result3 = mysqli_query($conn, $query3);
+        $result3 = mysqli_query($conn, $query3);
 
-    if($result3){
-        echo '<script> window.alert("You have been select a supplement!");</script>';
-        echo '<script> window.location.href="dietplan.php"</script>';
+        if($result3){
+            echo '<script> window.alert("You have been select a supplement!");</script>';
+            echo '<script> window.location.href="dietplan.php"</script>';
+        }else{
+            echo '<script> window.alert("Error of selecting a supplement!");</script>';
+        }
     }else{
-        echo '<script> window.alert("Error of selecting a supplement!");</script>';
+        echo '<script> window.alert("Select a supplement!");</script>';
     }
     
-}else{
-    echo '<script> window.alert("Select a supplement!");</script>';
 }
 
 ?>

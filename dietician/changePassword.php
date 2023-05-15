@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         if(password_verify($oldPassword, $databasePW)){
             
-            if(preg_match('@[0-9]@', $newPassword) && preg_match('@[^\w]@', $newPassword) && strlen($newPassword) >= 8){
+            if(preg_match('@[0-9]@', $newPassword) && preg_match('@[^\w]@', $newPassword) && strlen($newPassword) >= 8 && preg_match('@[A-Za-z]@', $newPassword)){
                 
                 if($newPassword == $confirmPassword){
                     $hashedPW = password_hash($newPassword, PASSWORD_DEFAULT);
@@ -41,7 +41,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
                 
             }else{
-                echo '<script> window.alert("Password must contain at least one number and one special character and should be at least 8 characters long!");</script>';
+                echo '<script> window.alert("Password must contain at least one number, one special character, one letter and should be at least 8 characters long!");</script>';
             }
             
         }else{

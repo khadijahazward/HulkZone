@@ -88,14 +88,10 @@ $result9 = mysqli_query($conn, $query9);
 $row9 = mysqli_fetch_assoc($result9);
 $rate05 = $row9['count'];
 
-//Get a count of members who gave rate as 0 after their service
-$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID AND endDate <= NOW()";
-$result10 = mysqli_query($conn, $query10);
-$row10 = mysqli_fetch_assoc($result10);
-$rate00 = $row10['count'];
 
-$totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5); // total of rates
-$totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05; //Count of rates
+
+$totalOfRates = ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5); // total of rates
+$totalCountOfRates = $rate01 + $rate02 + $rate03 + $rate04 + $rate05; //Count of rates
 
 if($totalOfRates != 0 && $totalCountOfRates != 0){
     $averageOfRates = $totalOfRates / $totalCountOfRates; //Average rate
@@ -103,12 +99,6 @@ if($totalOfRates != 0 && $totalCountOfRates != 0){
 }else{
     $averageOfRates = 0;
     $formattedAverageOfRates = 0.00;
-}
-
-if($rate00 != 0 && $totalCountOfRates != 0){
-    $precetageOfRate00 = $rate00 / $totalCountOfRates * 100;
-}else{
-    $precetageOfRate00 = 0;
 }
 
 if($rate01 != 0 && $totalCountOfRates != 0){
@@ -312,10 +302,6 @@ if($result12){
                         <tr style="height:<?php echo $precetageOfRate01 ?>%">
                             <th scope="row">1</th>
                             <td><span><?php echo $precetageOfRate01 ?>%</span></td>
-                        </tr>
-                        <tr style="height:<?php echo $precetageOfRate00 ?>%">
-                            <th scope="row">0</th>
-                            <td><span><?php echo $precetageOfRate00 ?>%</span></td>
                         </tr>
                     </tbody>
 
