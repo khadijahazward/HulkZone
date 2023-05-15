@@ -92,26 +92,28 @@ include '../connect.php';
                             $row3 = mysqli_fetch_assoc($result3);
                             $differenceBetweenStartAndEnd = $row3["numDays"];
 
+                            //days completed
                             $sql4 = "SELECT COUNT(*) AS numCompletedDays FROM workout_plan_status WHERE memberID = $row1[memberID] AND startDate = '$row2[startDate]' AND CompletedDate BETWEEN '$startDate' AND '$endDate'";
                             $result4 = mysqli_query($conn, $sql4);
                             $row4 = mysqli_fetch_assoc($result4);
 
                             $numCompletedDays = $row4['numCompletedDays'];
-                            //echo $numCompletedDays;
+
                             
                         }else{
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
                         }
                         
                     ?>
-                    <div style="display:flex; justify-content:center; align-items: center;padding:2%; margin: auto;">
-                        <canvas id="myChart" style="max-width:400px"></canvas>
+                    <div style="display:flex; justify-content:center; align-items: center;padding:2%; margin: auto; width:40%;">
+                        <canvas id="myChart" style="max-width:300px"></canvas>
                     </div>
 
 
                     <script>
                         var progress = <?php echo $numCompletedDays; ?>;
                         var total = <?php echo $differenceBetweenStartAndEnd; ?>;
+
                         var xValues = ["Completed", "Not Completed"];
                         new Chart("myChart", {
                             type: "doughnut",
