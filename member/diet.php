@@ -90,7 +90,7 @@ include '../connect.php';
                                     $userID = $row7["userID"];
                                     
                                     //displaying average rating from the employee table
-                                    $avgRating = $row7['avgRating'];
+                                    $avgRating = $row6['rate'];
 
                                     $stars = '';
                                     for ($i = 1; $i <= 5; $i++) {

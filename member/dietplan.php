@@ -219,7 +219,7 @@ include '../connect.php';
                             // echo $interval->i . " minutes, ";
                             // echo $interval->s . " seconds";
 
-                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'> DIET PLAN FOR WEEK: {$weeks} </p>";
+                            echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'> DIET PLAN FOR WEEK </p>";
                         } else {
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
                         }
