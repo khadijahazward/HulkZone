@@ -15,6 +15,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error receiving employee ID!");</script>';
 }
 
+// latest appointment date retrieving
 $query9 = "SELECT MAX(date) AS lastAppointmentDate FROM dieticianappointment";
 $result9 = mysqli_query($conn, $query9);
 $row9 = mysqli_fetch_assoc($result9);
@@ -32,20 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $isValid = false;
         
     } else {
-        if ($monday <= $lastAppointmentDate) {
+        if ($monday <= $lastAppointmentDate) { // dietician can't enter time slots with enter a datr that already added
             $isValid = false;
         }
 
-        $today = new DateTime();
-        $currentWeekMonday = $today->modify('this week')->format('Y-m-d');
+        $today = new DateTime(); //get tdy date 
+        $currentWeekMonday = $today->modify('this week')->format('Y-m-d'); //convert string to date time
 
-        if ($monday < $currentWeekMonday) {
+        if ($monday < $currentWeekMonday) { // dietician can not add time slots for past dates
             $isValid = false;
         }
     }
 
     if ($isValid) {
 
+        // validate the date that user enter is a monday or not
         $is_monday = (date('N', strtotime($monday)) == 1); // 1 represents Monday in the 'N' format
 
         if ($is_monday) {

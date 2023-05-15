@@ -24,6 +24,15 @@ while ($row2 = mysqli_fetch_assoc($result2)) {
     $data2[$row2['status']] = $row2['count'];
 }
 
+$query3 = "SELECT COUNT(*) AS count, MONTH(created_at) AS month FROM user GROUP BY MONTH(created_at)";
+$result3 = mysqli_query($conn, $query3);
+
+$data3 = array();
+while ($row3 = mysqli_fetch_assoc($result3)) {
+    $data3[$row3['month']] = $row3['count'];
+}
+
+
 mysqli_close($conn);
 
 ?>
@@ -70,22 +79,22 @@ include('setAdminProfilePic.php');
                 <p class="title">REPORTS</p>
             </div>
             <div>
-        <div class="notification" style="margin-left: 770px;" >
-          <?php
-          include 'notifications.php';
-          ?>
+                <div class="notification" style="margin-left: 770px;">
+                    <?php
+                    include 'notifications.php';
+                    ?>
+                </div>
+            </div>
+            <div class="notiCount" style="padding-top: 7.5px;margin-left:808px;">
+                <p><?php echo $count; ?></p>
+            </div>
+
+
+            <div class="contentMiddle" style="margin-left:35px;">
+                <p class="myProfile">My Profile</p>
+            </div>
+            <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
         </div>
-      </div>
-      <div class="notiCount" style="padding-top: 7.5px;margin-left:808px;" >
-        <p ><?php echo $count; ?></p>
-      </div>
-
-
-      <div class="contentMiddle" style="margin-left:35px;">
-        <p class="myProfile">My Profile</p>
-      </div>
-      <div class="contentRight" style="margin-left: 0px;"><img src="<?php echo $profilePictureLink ?>" alt="AdminLogo" class="adminLogo"></div>
-    </div>
         <!-- below the header -->
         <div class="down">
             <!-- Dashboard -->
@@ -156,55 +165,41 @@ include('setAdminProfilePic.php');
                     </div>
 
                     <script>
-              var ctx = document.getElementById('myChart2').getContext('2d');
-              var chart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                  labels: ['Filed', 'Completed','Ignored'],
-                  datasets: [{
-                    label: 'Complaints',
-                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)','rgba(0, 0, 255, 0.5)'],
-                    borderColor: ['rgba(255, 0, 0, 0.7)', 'rgba(0, 255, 0, 0.7)'],
-                    data: [
-                      <?php echo isset($data2['Filed']) ? $data2['Filed'] : 0 ?>,
-                      <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>,
-                      <?php echo isset($data2['Ignored']) ? $data2['Ignored'] : 0 ?>
-                    ]
-                  }]
-                },
-                options: {
-                  scales: {
-                    yAxes: [{
-                      ticks: {
-                        beginAtZero: true
-                      }
-                    }]
-                  }
-                }
-              });
-            </script>
+                        var ctx = document.getElementById('myChart2').getContext('2d');
+                        var chart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Filed', 'Completed', 'Ignored'],
+                                datasets: [{
+                                    label: 'Complaints',
+                                    backgroundColor: ['rgba(255, 0, 0, 0.5)', 'rgba(0, 255, 0, 0.5)', 'rgba(0, 0, 255, 0.5)'],
+                                    borderColor: ['rgba(255, 0, 0, 0.7)', 'rgba(0, 255, 0, 0.7)'],
+                                    data: [
+                                        <?php echo isset($data2['Filed']) ? $data2['Filed'] : 0 ?>,
+                                        <?php echo isset($data2['Completed']) ? $data2['Completed'] : 0 ?>,
+                                        <?php echo isset($data2['Ignored']) ? $data2['Ignored'] : 0 ?>
+                                    ]
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    yAxes: [{
+                                        ticks: {
+                                            beginAtZero: true
+                                        }
+                                    }]
+                                }
+                            }
+                        });
+                    </script>
                 </div>
             </div>
         </div>
         <!--<div class="tets" style="background-color: black;height:30px;width:100%;">Next elements can be added from here</div>-->
-        <?php
-        include('../connect.php');
-        $query = "SELECT MONTH(created_at) AS month, COUNT(*) AS count FROM user GROUP BY MONTH(created_at)";
-        $result = mysqli_query($conn, $query);
 
-        $labelArray = array();
-        $dataArray = array();
-        while ($row = mysqli_fetch_assoc($result)) {
-            $labelArray[] = date('F', mktime(0, 0, 0, $row['month'], 1));
-            $dataArray[] = $row['count'];
-        }
-
-        $labelString = "'" . implode("', '", $labelArray) . "'";
-        $dataString = implode(", ", $dataArray);
-        ?>
         <div class="line">
             <div class="title1">
-                <h1>Gym users:Overview by monthly</h1>
+                <h1>New users joined to the Gym:Monthly</h1>
             </div>
             <div class="graph" style="background-color: #ffffff;">
                 <div class="graph" style="background-color: #ffffff;">
@@ -219,12 +214,25 @@ include('setAdminProfilePic.php');
                     var chart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: [<?php echo $labelString; ?>],
+                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
                             datasets: [{
                                 label: 'Users Joined',
                                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
                                 borderColor: 'rgba(255, 0, 0, 0.7)',
-                                data: [<?php echo $dataString; ?>]
+                                data: [<?php echo isset($data3[1]) ? $data3[1] : 0 ?>,
+                                    <?php echo isset($data3[2]) ? $data3[2] : 0 ?>,
+                                    <?php echo isset($data3[3]) ? $data3[3] : 0 ?>,
+                                    <?php echo isset($data3[4]) ? $data3[4] : 0 ?>,
+                                    <?php echo isset($data3[5]) ? $data3[5] : 0 ?>,
+                                    <?php echo isset($data3[6]) ? $data3[6] : 0 ?>,
+                                    <?php echo isset($data3[7]) ? $data3[7] : 0 ?>,
+                                    <?php echo isset($data3[8]) ? $data3[8] : 0 ?>,
+                                    <?php echo isset($data3[9]) ? $data3[9] : 0 ?>,
+                                    <?php echo isset($data3[10]) ? $data3[10] : 0 ?>,
+                                    <?php echo isset($data3[11]) ? $data3[11] : 0 ?>,
+                                    <?php echo isset($data3[12]) ? $data3[12] : 0 ?>
+                                ]
+
                             }]
                         },
                         options: {

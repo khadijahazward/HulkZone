@@ -96,8 +96,14 @@ $rate00 = $row10['count'];
 
 $totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5); // total of rates
 $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05; //Count of rates
-$averageOfRates = $totalOfRates / $totalCountOfRates; //Average rate
-$formattedAverageOfRates = number_format($averageOfRates, 2); //format the average rate with 2 decimal numbers
+
+if($totalOfRates != 0 && $totalCountOfRates != 0){
+    $averageOfRates = $totalOfRates / $totalCountOfRates; //Average rate
+    $formattedAverageOfRates = number_format($averageOfRates, 2); //format the average rate with 2 decimal numbers
+}else{
+    $averageOfRates = 0;
+    $formattedAverageOfRates = 0.00;
+}
 
 if($rate00 != 0 && $totalCountOfRates != 0){
     $precetageOfRate00 = $rate00 / $totalCountOfRates * 100;
@@ -142,10 +148,11 @@ if($rate05 != 0 && $totalCountOfRates != 0){
 //     echo '<script> window.alert("Error receiving dietician appointment date!");</script>';
 // }
 
-//
+//Retrieve appointments that dietician have for bottom appointment area
 $query11 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND endTime >= NOW() AND status = 1";
 $result11 = mysqli_query($conn, $query11);
 
+//Get the count of appointments for top card
 $query12 = "SELECT COUNT(*) as count FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
 $result12 = mysqli_query($conn, $query12);
 
