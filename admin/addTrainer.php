@@ -279,7 +279,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group" style="margin-right:50px;margin-left: 220px;">
                 <label>Date of Birth <span class="error">*<?php echo $dobErr; ?></span></label>
                 <br>
-                <input id="dob" name="dob" type="date" min="1930-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>">
+                <input id="dob" name="dob" type="date" min="1958-01-01" max="2004-12-31" value="<?php echo $_POST['dob'] ?? ''; ?>">
             </div>
 
             <div class="form-group">
