@@ -82,7 +82,8 @@ if (mysqli_num_rows($result2) > 0) {
             // $row6 = mysqli_fetch_assoc($result6);
             // $availableSlots = isset($row6["availableSlots"]) ? $row6["availableSlots"] : '';
 
-            if ($row["status"] == 1 || $availableSlots == 0) {
+            //convert a date/time string into a Unix timestamp
+            if ($row["status"] == 1 || $availableSlots == 0 || strtotime(date("Y-m-d H:i:s")) > strtotime($row['startTime']) ) {
                 $field3name = "<button disabled>Not Available</button></td>";
             } else {
                 $field3name = "<button onclick=\"bookTrainerAppointment('".$date."', '".$empid."', '".$st."', '".$slotID."', '".$weekdayID."')\">Book Now</button></td>";
