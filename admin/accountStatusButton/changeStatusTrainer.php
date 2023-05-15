@@ -9,13 +9,13 @@ if (isset($_POST['status']) && isset($_POST['userID'])) {
     // Update the user's status in the database
     $sql = "UPDATE user SET statuses='$status' WHERE userID='$userID'";
 
-    if ($conn->query($sql) === TRUE) {
+    if (mysqli_query($conn,$sql) === TRUE) {
         // Redirect to manageMembers.php
         header("Location: ../../admin/manageTrainer.php");
         exit;
     } else {
         // Handle the error
-        echo "Error updating user status: " . $conn->error;
+        echo "Error updating user status: " . mysqli_error($conn);
     }
 } else {
     echo "Form data not submitted";

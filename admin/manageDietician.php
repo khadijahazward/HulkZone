@@ -82,7 +82,7 @@ include('notiCount.php');
                     }
 
                     while ($row = $result->fetch_assoc()) {
-                        $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
+                      
                         $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
                         $buttonStyle = ($row['accountStatus'] == 'Disabled') ? 'background-color: red;' : '';
                         echo "

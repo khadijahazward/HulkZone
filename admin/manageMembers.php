@@ -86,8 +86,7 @@ if (!$result) {
 }
 
 while ($row = mysqli_fetch_assoc($result)) {
-    // If the value is "Enabled", we set $statusText to "Disabled", otherwise we set it to "Enabled".
-    $statusText = ($row['accountStatus'] == 'Enabled') ? 'Disabled' : 'Enabled';
+    
     //If the value is "Enabled", we set $statusValue to 0, otherwise we set it to 1.
     $statusValue = ($row['accountStatus'] == 'Enabled') ? '0' : '1';
    // If the value is "Disabled",  background-color "red".If not no style
