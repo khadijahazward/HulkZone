@@ -97,68 +97,93 @@ include 'script/config.php';
         <div class="members-list-container">
             <div class="member-list-top">
                 <h1>Workout Plans List</h1>
-                <a href="addWorkout.php">Add Plan</a>
+                <a href="add-workout.php">Add Plan</a>
             </div>
             <div class="member-list-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>NO</th>
-                            <th>FIRST NAME</th>
-                            <th>LAST NAME</th>
-                            <th>TOTAL EXERCISES</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+            <table>
+    <thead>
+        <tr>
+            <th>NO</th>
+            <th>FIRST NAME</th>
+            <th>LAST NAME</th>
+            <th>TOTAL EXERCISES</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Get EmployeeID
+        $userID = $_SESSION['userID'];
+        $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
+        $res = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($res);
+        $employeeID = $row['employeeID'];
+        //echo $employeeID;
 
-                        // Get EmployeeID
-                        $userID = $_SESSION['userID'];
-                        $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
-                        $res = mysqli_query($conn, $sql);
-                        $row = mysqli_fetch_assoc($res);
-                        $employeeID = $row['employeeID'];
+        $sql1 = "SELECT * FROM employeeservice WHERE employeeID = " . $employeeID;
+        $result1 = mysqli_query($conn, $sql1);
+        $service = [];
+        
+        if ($result1 && mysqli_num_rows($result1) > 0) {
+            while ($row1 = mysqli_fetch_assoc($result1)) {
+                $serviceNum = $row1['serviceID'];
+                $service[] = $serviceNum;
+                
+            }
+        }
+        
+        // Display the values in the service array
+        // foreach ($service as $value) {
+        //     echo $value . "<br>";
+        // }
 
+        $sql2 = "SELECT * FROM servicecharge WHERE employeeID = '$employeeID' AND endDate >= NOW() AND serviceID IN (" . implode(",", $service) . ")";
+        $result2 = mysqli_query($conn, $sql2);
 
-                        $sql = 'SELECT u.fName, u.lName, w.memberID, COUNT(*) AS total_exercises
-                        FROM user u
-                        JOIN member m ON m.userID = u.userID
-                        JOIN workoutplan w ON w.memberID = m.memberID
-                        WHERE w.employeeID = ' . $employeeID . ' GROUP BY w.memberID';                        
+        if ($result2 && mysqli_num_rows($result2) > 0) {
+            $num = 1; // Initialize the $num variable outside the while loop
+            while ($row2 = mysqli_fetch_assoc($result2)) {
+                $endDate = $row2['endDate'];
+                $startDate = $row2['startDate'];
+                $memberID = $row2['memberID'];
 
-                        $res = mysqli_query($conn, $sql);
-                        $num = 1;
-                        if ($res == TRUE) {
-                            $count = mysqli_num_rows($res);
+                $sql3 = "SELECT * FROM member WHERE memberID = $memberID";
+                $result3 = mysqli_query($conn, $sql3);
+                $row3 = mysqli_fetch_assoc($result3);
+                $userID = $row3['userID'];
 
-                            if ($count > 0) {
+                $sql4 = "SELECT fName, lName FROM user WHERE userID = $userID";
+                $result4 = mysqli_query($conn, $sql4);
+                $row4 = mysqli_fetch_assoc($result4);
 
-                                while ($rows = mysqli_fetch_assoc($res)) {
-                                    $memberID = $rows['memberID'];
-                                    $fName = $rows['fName'];
-                                    $lName = $rows['lName'];
-                                    $totalExercises = $rows['total_exercises'];
+                
+                $fName = $row4['fName'];
+                $lName = $row4['lName'];
 
-                        ?>
-                                    <tr>
-                                        <td><?php echo $num; ?> </td>
-                                        <td><?php echo $fName; ?></td>
-                                        <td><?php echo $lName; ?></td>
-                                        <td><?php echo $totalExercises; ?></td>
-                                        <td><a id="workout-view-btn" href="http://localhost/hulkzone/trainer/viewWorkout.php?memberID=<?php echo $memberID; ?>">View</a></td>
-                                    </tr>
-                        <?php
-                                    $num++;
-                                }
-                            } else {
-                            }
-                        }
-                        ?>
-                    </tbody>
+                $sql5 = "SELECT COUNT(*) AS totalExercises FROM workoutplan WHERE memberID = $memberID AND employeeID = $employeeID AND startDate = '$startDate'";
+                $result5 = mysqli_query($conn, $sql5);
+                if ($result5 && mysqli_num_rows($result5) > 0) {
+                    $row5 = mysqli_fetch_assoc($result5);
+                    $totalExercises = $row5['totalExercises'];
+                    if($totalExercises > 0 ){
+                        echo "<tr>
+                        <td>" . $num . "</td>
+                        <td>" . $fName . "</td>
+                        <td>" . $lName . "</td>
+                        <td>" . $totalExercises . "</td>
+                        <td><a id='workout-view-btn' href='http://localhost/hulkzone/trainer/viewWorkout.php?memberID=" . $memberID . "'>View</a></td>
+                      </tr>";
+                        $num++; // Increment $num after each row is displayed
+                    }
+                }
+            }
+        } else {
+           echo "<tr><td colspan = '5'>No Current Members</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>
 
-
-                </table>
             </div>
 
         </div>
