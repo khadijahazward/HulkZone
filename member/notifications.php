@@ -58,7 +58,9 @@
                             <div class="noti-message">' . $row13['message'] . '</div>
                             <div class="noti-date">' . $row13['created_at'] . '</div>
                             <a href="mark-read.php?id=' . $row13['usernotificationsID'] . '" class="mark-read">Mark as read</a>
-                        </div>';
+                        </div>
+                        
+                        <hr style="margin-top:30px;">';
                 }
             } else {
                 echo '<div class="noti">No Notifications</div>';

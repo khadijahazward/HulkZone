@@ -50,7 +50,7 @@
 
     } else {
         echo '<tr>
-            <td colspan="03" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
+            <td colspan="04" style="border-radius: 10px 10px 10px 10px;"> No Exercises For the Day. </td> 
         </tr>'; 
         echo '</table>';
     }

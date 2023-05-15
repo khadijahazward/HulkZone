@@ -173,8 +173,7 @@ include('notiCount.php');
                 if (mysqli_num_rows($result) > 0) {
                     echo '<table>';
                     echo '<tr><th>Member ID</th><th>First Name</th><th>Start Time</th><th>End Time</th><th>Attendance</th></tr>';
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $statusText = ($row['Attendance'] == 'Attended') ? 'Attended' : 'Mark';
+                    while ($row = mysqli_fetch_assoc($result)) {     
                         $statusValue = ($row['Attendance'] == 'Attended') ? '0' : '1';
                         $buttonStyle = ($row['Attendance'] == 'Mark') ? 'background-color: #FF2C10;' : '';
                         echo "<tr>
@@ -187,7 +186,6 @@ include('notiCount.php');
             <button type='submit' class='button2' name='aStatus' value='$statusValue'style='$buttonStyle'>{$row['Attendance']}</button>
             <input type='hidden' name='memberID' value='{$row['memberID']}'>
             <input type='hidden' name='date' value='$date'>
-          
             <input type='hidden' name='sTime' value='{$row['sTime']}'>
             <input type='hidden' name='eTime' value='{$row['eTime']}'>
         </form> </td>

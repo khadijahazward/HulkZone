@@ -6,34 +6,6 @@ include('notiCount.php');
 // Get the announcementID from the URL
 $notificationsID = mysqli_real_escape_string($conn, $_GET['notificationsID']);
 
-// Check for the form submission
-/*if (isset($_POST['submit'])) {
-    // Get the form data
-    $currentDateTime = new DateTime('now', new DateTimeZone('UTC'));
-
-    // Set the timezone to Sri Lanka
-    $currentDateTime->setTimezone(new DateTimeZone('Asia/Colombo'));
-
-    // Format the date and time as a string in a specific format
-    $date = $currentDateTime->format('Y-m-d H:i:s');
-    $message = mysqli_real_escape_string($conn, $_POST['m']);
-
-    // Prepare the update statement
-    $stmt = $conn->prepare("UPDATE notifications SET created_at = ?, message = ? WHERE notificationsID = ?");
-    $stmt->bind_param("ssi", $date, $message, $notificationsID);
-
-    // Execute the statement
-    $stmt->execute();
-
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
-
-    // Redirect the user to the view announcements page
-    header("Location: viewAnnouncements.php");
-    exit();
-}*/
-
 // Prepare the select statement
 $stmt = $conn->prepare("SELECT message FROM notifications WHERE notificationsID = ?");
 $stmt->bind_param("i", $notificationsID);

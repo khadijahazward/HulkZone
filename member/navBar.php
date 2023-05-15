@@ -1,3 +1,9 @@
+<html>
+    <head>
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">    
+    </head>
+</html>
 <?php
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
@@ -41,7 +47,8 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/dashboard.php">
-            <div class="nav-font">Dashboard</div>
+            <div class="nav-font">
+            <i class="fas fa-tachometer-alt" style= "margin-right:10px;"></i>Dashboard</div>
         </a>
     </div>
 
@@ -49,7 +56,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/profile.php">
-            <div class="nav-font">My Profile</div>
+            <div class="nav-font"><i class="fas fa-user" style= "margin-right:10px;"></i>My Profile</div>
         </a>
     </div>
 
@@ -57,7 +64,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/services.php">
-            <div class="nav-font">Services</div>
+            <div class="nav-font"><i class="fas fa-cogs" style= "margin-right:10px;"></i>Services</div>
         </a>
     </div>
 
@@ -65,7 +72,8 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/team.php">
-            <div class="nav-font">Team</div>
+            <div class="nav-font">
+            <i class="fa fa-users" style = "margin-right:10px;"></i> Team</div>
         </a>
     </div>
 
@@ -73,7 +81,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/workout.php">
-            <div class="nav-font">Work Out Plan</div>
+            <div class="nav-font"><i class="fas fa-dumbbell" style= "margin-right:10px;"></i>Work Out Plan</div>
         </a>
     </div>
 
@@ -81,7 +89,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/dietplan.php">
-            <div class="nav-font">Diet Plan</div>
+            <div class="nav-font"><i class="fas fa-carrot" style= "margin-right:10px;"></i>Diet Plan</div>
         </a>
     </div>
 
@@ -94,7 +102,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
         echo '
         <div class="line">
             <a href="../member/chat.php">
-                <div class="nav-font">Chat</div>
+                <div class="nav-font"><i class="fas fa-comments" style= "margin-right:10px;"></i>Chat</div>
             </a>
             <div class="unreadMsg">
                 <p>
@@ -109,7 +117,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
     echo '
     <div class="line">
         <a href="../member/chat.php">
-            <div class="nav-font">Chat</div>
+            <div class="nav-font"><i class="fas fa-comments" style= "margin-right:10px;"></i>Chat</div>
         </a>
     </div>
 
@@ -123,7 +131,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/payment.php">
-            <div class="nav-font">Payments</div>
+            <div class="nav-font"><i class="fas fa-credit-card" style= "margin-right:10px;"></i>Payments</div>
         </a>
     </div>
 
@@ -131,7 +139,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/appointment.php">
-            <div class="nav-font">Appointments</div>
+            <div class="nav-font"><i class="far fa-calendar-alt" style= "margin-right:10px;"></i>Appointments</div>
         </a>
     </div>
 
@@ -139,7 +147,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../member/complaint.php">
-            <div class="nav-font">Complaints</div>
+            <div class="nav-font"><i class="fas fa-exclamation-circle" style= "margin-right:10px;"></i>Complaints</div>
         </a>
     </div>
 
@@ -147,7 +155,7 @@ if (mysqli_num_rows($resultmessage1) == 0) {
 
     <div class="line">
         <a href="../home/logout.php">
-            <div class="nav-font">Log Out</div>
+            <div class="nav-font"><i class="fas fa-sign-out-alt" style= "margin-right:10px;"></i>Log Out</div>
         </a>
     </div>
 
