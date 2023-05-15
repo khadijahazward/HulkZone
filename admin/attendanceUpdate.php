@@ -8,10 +8,8 @@ if (isset($_POST['date'])) {
 
 
 // Check if the form was submitted
-if (isset($_POST['date']) && isset($_POST['sTime']) && isset($_POST['eTime']) && isset($_POST['memberID']) && isset($_POST['aStatus'])) {
+if (isset($_POST['date']) && isset($_POST['memberID']) && isset($_POST['aStatus'])) {
     $date = $_POST['date'];
-    $sTime = $_POST['sTime'];
-    $eTime = $_POST['eTime'];
     $memberID = $_POST['memberID'];
     $aStatus = $_POST['aStatus'];
 
@@ -19,8 +17,6 @@ if (isset($_POST['date']) && isset($_POST['sTime']) && isset($_POST['eTime']) &&
             INNER JOIN slots ON gymuseappointment.slotID = slots.slotID
             SET attendance=1 
             WHERE gymuseappointment.date='$date' 
-            AND slots.sTime='$sTime' 
-            AND slots.eTime='$eTime' 
             AND gymuseappointment.memberID=$memberID";
 
 if (mysqli_query($conn, $sql)) {

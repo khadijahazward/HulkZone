@@ -32,6 +32,16 @@ while ($row3 = mysqli_fetch_assoc($result3)) {
     $data3[$row3['month']] = $row3['count'];
 }
 
+$query4 = "SELECT roles,COUNT(*) AS count
+FROM user
+GROUP BY roles";
+$result4 = mysqli_query($conn, $query4);
+
+$data4 = array();
+while ($row4 = mysqli_fetch_assoc($result4)) {
+    $data4[$row4['roles']] = $row4['count'];
+}
+
 
 mysqli_close($conn);
 
@@ -127,7 +137,7 @@ include('setAdminProfilePic.php');
                                 backgroundColor: 'rgba(255, 0, 0, 0.5)',
                                 borderColor: 'rgba(0, 0, 255, 0.7)',
                                 data: [
-                                    <?php echo isset($data2[1]['Male']) ? $data[1]['Male'] : 0 ?>,
+                                    <?php echo isset($data[1]['Male']) ? $data[1]['Male'] : 0 ?>,
                                     <?php echo isset($data[2]['Male']) ? $data[2]['Male'] : 0 ?>,
                                     <?php echo isset($data[3]['Male']) ? $data[3]['Male'] : 0 ?>
                                 ]
