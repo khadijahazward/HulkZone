@@ -129,7 +129,7 @@
 .ratingArea {
   height: 375px;
   width: 650px;
-  left: 75px;
+  left: 50px;
   top: 300px;
   position: absolute;
   z-index: 1;
@@ -153,7 +153,8 @@
 .graph caption p {
   left: -20px;
   position: absolute;
-  top: -75px;
+  top: -40px;
+  font-size: 25px;
 }
 
 /*
@@ -313,8 +314,8 @@
 .appointmentArea {
   height: 500px;
   width: 500px;
-  right: 10px;
-  top: 300px;
+  right: 0px;
+  top: 250px;
   position: absolute;
 }
 
@@ -322,8 +323,8 @@
   color: rgba(0, 104, 55, 1);
   font-weight: 700;
   font-size: 25px;
-  left: 0px;
-  top: -30px;
+  left: 100px;
+  top: 0px;
   position: absolute;
 }
 
@@ -331,15 +332,15 @@
   color: rgba(47, 147, 246, 1);
   font-weight: 400;
   font-size: 12px;
-  right: 5px;
-  top: 0px;
+  right: 10px;
+  top: 5px;
   position: absolute;
 }
 
 .appointmentGridContainer {
   height: fit-content;
   width: 350px;
-  left: 150px;
+  left: 110px;
   top: 50px;
   position: absolute;
   border-radius: 12px;
