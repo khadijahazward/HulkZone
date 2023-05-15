@@ -79,12 +79,6 @@ require 'script/config.php';
         </div>
     </nav>
     <section class="top-navbar">
-        <div class="top-search-bar">
-            <span class="material-symbols-outlined">
-                search
-            </span>
-            <input type="text" name="search" placeholder="Search...">
-        </div>
 
         <div class="topbar-right">
             <div class="topbar-notification">
@@ -92,7 +86,7 @@ require 'script/config.php';
                     notifications
                 </span>
             </div>
-            <img id="profile-photo-style" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
+            <img id="profile-photo-style" class="profilePic" src="<?php echo $_SESSION['profilePhoto']; ?>" alt="profile-icon">
         </div>
 
     </section>
@@ -109,11 +103,7 @@ require 'script/config.php';
                             <select name="memberName" id="memberID">
                                 <?php
                                 // Get EmployeeID
-                                $userID = $_SESSION['userID'];
-                                $sql = 'SELECT employee.employeeID FROM employee WHERE employee.userID= ' . $userID;
-                                $res = mysqli_query($conn, $sql);
-                                $row = mysqli_fetch_assoc($res);
-                                $employeeID = $row['employeeID'];
+                                
 
                                 // 1 workout plan per person
                                 $sql = 'SELECT u.fName, u.lName, s.serviceName, u.contactNumber, u.gender,ms.endDate,ms.startDate,m.memberID

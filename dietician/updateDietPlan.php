@@ -597,7 +597,13 @@ if(isset($_POST['update'])){
             echo '<script> window.alert("Error of updating sunday diet plan!");</script>';
         } 
 
-        if($result11 || $result12 || $result13 || $result14 || $result15 || $result16 || $result17){
+        if($mondayBreakfastErr && $mondayLunchErr && $mondayDinnerErr && 
+        $tuesdayBreakfastErr && $tuesdayLunchErr && $tuesdayDinnerErr && 
+        $wednesdayBreakfastErr && $wednesdayLunchErr && $wednesdayDinnerErr && 
+        $thursdayBreakfastErr && $thursdayLunchErr && $thursdayDinnerErr && 
+        $fridayBreakfastErr && $fridayLunchErr && $fridayDinnerErr && 
+        $saturdayBreakfastErr && $saturdayLunchErr && $saturdayDinnerErr && 
+        $sundayBreakfastErr && $sundayLunchErr && $sundayDinnerErr){
             echo '<script> window.alert("Updating Process is successfull!");</script>';
 
             $message = "Your dietician has updated your diet plan";

@@ -16,6 +16,7 @@ if (mysqli_num_rows($result1) == 1) {
     echo '<script> window.alert("Error of retrieving employee details!");</script>';
 }
 
+//get all current appointments details
 $query2 = "SELECT * FROM dieticianappointment WHERE employeeID = $employeeID AND NOT memberID = '0' AND endTime >= NOW() AND status = 1";
 $result2 = mysqli_query($conn, $query2);
 
@@ -101,6 +102,7 @@ $result2 = mysqli_query($conn, $query2);
                                     $result3 = mysqli_query($conn, $query3);
                                     $row3 = mysqli_fetch_assoc($result3);
 
+                                    //convert string to time
                                     $startTime = date('h:i A', strtotime($row2['startTime']));
                                     $endTime = date('h:i A', strtotime($row2['endTime']));
 

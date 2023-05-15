@@ -5,7 +5,7 @@ include '../connect.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
-$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = $userID AND usernotifications.status = 0 AND (notifications.type = 3 OR notifications.type = 4)";
+$sqlQuery1 = "SELECT * FROM notifications JOIN usernotifications ON notifications.notificationsID = usernotifications.notificationsID WHERE usernotifications.userID = $userID AND usernotifications.status = 0 AND (notifications.type = 3 OR notifications.type = 4 OR notifications.type = 0)";
 $sqlQueryresult1 = mysqli_query($conn, $sqlQuery1);
 
 ?>

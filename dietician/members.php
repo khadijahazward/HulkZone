@@ -92,7 +92,8 @@ if (mysqli_num_rows($result1) == 1) {
                     </thead>
                     <tbody>
                         <?php
-
+                        
+                        // Get active members only (only member ID)
                         $query2 = "SELECT * FROM servicecharge WHERE employeeID = $employeeID AND endDate >= SYSDATE()";
                         $result2 = mysqli_query($conn, $query2);
 
@@ -106,7 +107,8 @@ if (mysqli_num_rows($result1) == 1) {
                                 if ($result3) {
                                     $row3 = mysqli_fetch_assoc($result3);
                                     $memberUserID = $row3['userID'];
-
+                                    
+                                    // members'details
                                     $query4 = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
                                     $result4 = mysqli_query($conn, $query4);
 

@@ -19,6 +19,7 @@ if(mysqli_num_rows($sqlResult) == 1){
     echo '<script> window.alert("Error of receiving member details");</script>';
 }
 
+//get member's details
 $query = "SELECT * FROM user JOIN member ON user.userID = member.userID WHERE member.userID = $memberUserID";
 $result = mysqli_query($conn, $query);
 

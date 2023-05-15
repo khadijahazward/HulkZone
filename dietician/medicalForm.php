@@ -6,10 +6,12 @@ include 'setProfilePic.php';
 
 $userID = mysqli_real_escape_string($conn, $_SESSION['userID']);
 
+// get the memberID from url
 if(isset($_GET['view'])){
     $memberID = $_GET['view'];
 }
 
+//get member details
 $query1 = "SELECT * FROM member WHERE memberID = $memberID ";
 $result1 = mysqli_query($conn, $query1);
 
@@ -31,6 +33,7 @@ if($result3){
     }
 }
 
+//get member's medical form details
 $query2 = "SELECT * FROM medicalForm WHERE memberID = $memberID ";
 $result2 = mysqli_query($conn, $query2);
 
@@ -96,7 +99,14 @@ $result2 = mysqli_query($conn, $query2);
                 </div>
                 <div class="details">
                     <p style="font-weight: 500; font-size: 17px;">Status -
-                        <?php if($row3['statuses'] == 1){echo "Active";} else{echo "Inactive";}?></p>
+                        <?php   
+                                
+                                if($row3['statuses'] == 1){
+                                    echo "Active";
+                                } else{
+                                echo "Inactive";}
+                        ?>
+                    </p>
                     <p style="font-weight: 500; font-size: 17px;">Joined Date - <?php echo $row3['created_at'] ?></p>
                     <p style="font-weight: 500; font-size: 17px;">Member ID - <?php echo $memberID ?></p>
                 </div>

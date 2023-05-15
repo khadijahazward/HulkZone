@@ -36,6 +36,102 @@ if($profilePhotoURL == NULL){
 }else{
     $_SESSION['profilePhoto'] = $profilePhotoURL;    
 }
+// Retrieve employeeid and details
+$query1 = "SELECT * FROM employee WHERE userID = $userID";
+$result1 = mysqli_query($conn, $query1);
+
+if (mysqli_num_rows($result1) == 1) {
+    $row1 = mysqli_fetch_assoc($result1);
+    $employeeID = $row1['employeeID'];
+} else {
+    echo '<script> window.alert("Error of receiving employee details!");</script>';
+}
+
+//Get a count of members who gave rate as 1 after their service
+$query5 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 1 AND employeeID = $employeeID AND endDate <= NOW()";
+$result5 = mysqli_query($conn, $query5);
+$row5 = mysqli_fetch_assoc($result5);
+$rate01 = $row5['count'];
+
+//Get a count of members who gave rate as 2 after their service
+$query6 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 2 AND employeeID = $employeeID AND endDate <= NOW()";
+$result6 = mysqli_query($conn, $query6);
+$row6 = mysqli_fetch_assoc($result6);
+$rate02 = $row6['count'];
+
+//Get a count of members who gave rate as 3 after their service
+$query7 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 3 AND employeeID = $employeeID AND endDate <= NOW()";
+$result7 = mysqli_query($conn, $query7);
+$row7 = mysqli_fetch_assoc($result7);
+$rate03 = $row7['count'];
+
+//Get a count of members who gave rate as 4 after their service
+$query8 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 4 AND employeeID = $employeeID AND endDate <= NOW()";
+$result8 = mysqli_query($conn, $query8);
+$row8 = mysqli_fetch_assoc($result8);
+$rate04 = $row8['count'];
+
+//Get a count of members who gave rate as 5 after their service
+$query9 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 5 AND employeeID = $employeeID AND endDate <= NOW()";
+$result9 = mysqli_query($conn, $query9);
+$row9 = mysqli_fetch_assoc($result9);
+$rate05 = $row9['count'];
+
+//Get a count of members who gave rate as 0 after their service
+$query10 = "SELECT COUNT(*) as count FROM servicecharge WHERE rate = 0 AND employeeID = $employeeID AND endDate <= NOW()";
+$result10 = mysqli_query($conn, $query10);
+$row10 = mysqli_fetch_assoc($result10);
+$rate00 = $row10['count'];
+
+        $totalOfRates = ($rate00 * 0) + ($rate01 * 1) + ($rate02 * 2) + ($rate03 * 3) + ($rate04 * 4) + ($rate05 * 5); // total of rates
+        $totalCountOfRates = $rate00 + $rate01 + $rate02 + $rate03 + $rate04 + $rate05; //Count of rates
+
+if($totalOfRates != 0 && $totalCountOfRates != 0){
+    $averageOfRates = $totalOfRates / $totalCountOfRates;
+    $formattedAverageOfRates = number_format($averageOfRates, 2);
+}else{
+    $averageOfRates = 0;
+}
+
+if($rate00 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate00 = $rate00 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate00 = 0;
+}
+
+if($rate01 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate01 = $rate01 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate01 = 0;
+}
+
+if($rate02 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate02 = $rate02 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate02 = 0;
+}
+
+if($rate03 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate03 = $rate03 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate03 = 0;
+}
+
+if($rate04 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate04 = $rate04 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate04 = 0;
+}
+
+if($rate05 != 0 && $totalCountOfRates != 0){
+    $precetageOfRate05 = $rate05 / $totalCountOfRates * 100;
+}else{
+    $precetageOfRate05 = 0;
+}
+
+$query11 = "SELECT * FROM trainerappointment WHERE employeeID = $employeeID AND endTime >= NOW() AND status = 1";
+$result11 = mysqli_query($conn, $query11);
+
 
 ?>
 
@@ -180,87 +276,113 @@ if($profilePhotoURL == NULL){
             <p>The only person you are destined to become is the person you decide to be.</p>
         </div>
 
-        <div class="bottom-container">
-            <h2>Upcoming Classes</h2>
-            <div class="bottom-cards">
-                <div class="bottom-card-row">
-                    <div class="card-box">
-                        <img src="img/james.webp" alt="">
-                        <div>
-                            <p>James - Class #1</p>
-                            <p>10.30AM - 11.30 AM</p>
-                            <p>By Daniel Dyon
-                                <span>3.5</span>
-                            </p>
-                        </div>
+        <div class="ratingArea">
+                <table class="graph">
+                    <caption>
+                        <p>Rating</p>
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Percent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="height:<?php echo $precetageOfRate05 ?>%">
+                            <th scope="row">5</th>
+                            <td><span><?php echo $precetageOfRate05 ?>%</span></td>
+                        </tr>
+                        <tr style="height:<?php echo $precetageOfRate04 ?>%">
+                            <th scope="row">4</th>
+                            <td><span><?php echo $precetageOfRate04 ?>%</span></td>
+                        </tr>
+                        <tr style="height:<?php echo $precetageOfRate03 ?>%">
+                            <th scope="row">3</th>
+                            <td><span><?php echo $precetageOfRate03 ?>%</span></td>
+                        </tr>
+                        <tr style="height:<?php echo $precetageOfRate02 ?>%">
+                            <th scope="row">2</th>
+                            <td><span><?php echo $precetageOfRate02 ?>%</span></td>
+                        </tr>
+                        <tr style="height:<?php echo $precetageOfRate01 ?>%">
+                            <th scope="row">1</th>
+                            <td><span><?php echo $precetageOfRate01 ?>%</span></td>
+                        </tr>
+                        <tr style="height:<?php echo $precetageOfRate00 ?>%">
+                            <th scope="row">0</th>
+                            <td><span><?php echo $precetageOfRate00 ?>%</span></td>
+                        </tr>
+                    </tbody>
 
-                    </div>
+                </table>
+            </div>
+            <div class="appointmentArea">
+                <p class="topic">Recent Appointments</p>
+                <a href="trainerAppointments.php">
+                    <p class="seeMore">View All <i class="fa fa-angle-right"></i></p>
+                </a>
+                <div class="appointmentGridContainer">
+                    <table>
+                        <?php
+                        
+                        if(mysqli_num_rows($result11) > 0){
+                            while($row11 = mysqli_fetch_assoc($result11)){
 
-                    <div class="card-box">
-                        <img src="img/james.webp" alt="">
-                        <div>
-                            <p>James - Class #1</p>
-                            <p>10.30AM - 11.30 AM</p>
-                            <p>By Daniel Dyon
-                                <span>3.5</span>
-                            </p>
-                        </div>
+                                $appointmentMemberID = $row11['memberID'];
+                                
+                                $query12 = "SELECT * FROM member JOIN user ON member.userID = user.userID WHERE memberID = $appointmentMemberID";
+                                $result12 = mysqli_query($conn, $query12);
+                                $row12 = mysqli_fetch_assoc($result12);
 
-                    </div>
+                                if(!empty($row12['profilePhoto'])){
+                                    $memberPhoto = $row12['profilePhoto']; 
+                                }else{
+                                    $memberPhoto = "../asset/images/dp.png";
+                                }
+                                
+                                $memberName = $row12['fName']." ".$row12['lName'];
+                                
+                                $appointmentStartDateTime = $row11['startTime'];
+                                $appointmentStartTime = date("h:i a", strtotime($appointmentStartDateTime));
+
+                                $appointmentEndDateTime = $row11['endTime'];
+
+                                if($appointmentStartDateTime <  date('Y-m-d H:i:s') && $appointmentEndDateTime > date('Y-m-d H:i:s')){
+                                    $appointmentStartDateTimeShow = 'Ongoing';
+                                }else{
+                                    $appointmentStartDateTimeShow = $appointmentStartTime;
+                                }
+                                
+                                echo '
+                                <tr>
+                                    <td><img src="'.$memberPhoto.'"></td>
+                                    <td class="name">
+                                        <p>'.$memberName.'</p>
+                                    </td>
+                                    <td class="time">
+                                        <p>'.$appointmentStartDateTimeShow.'</p>
+                                    </td>
+                                </tr>       
+                                
+                                ';
+                                
+                            }
+                            
+                        }else{
+                            echo '
+                            <tr>
+                                <td colspan="3" class="name">
+                                    <p>No appointments for today</p>
+                                </td>
+                            </tr>
+                            ';
+                        }
+                        
+                        ?>
+                    </table>
                 </div>
             </div>
-            <div class="bottom-card-row">
-                <div class="card-box">
-                    <img src="img/james.webp" alt="">
-                    <div>
-                        <p>James - Class #1</p>
-                        <p>10.30AM - 11.30 AM</p>
-                        <p>By Daniel Dyon
-                            <span>3.5</span>
-                        </p>
-                    </div>
 
-                </div>
-
-                <div class="card-box">
-                    <img src="img/james.webp" alt="">
-                    <div>
-                        <p>James - Class #1</p>
-                        <p>10.30AM - 11.30 AM</p>
-                        <p>By Daniel Dyon
-                            <span>3.5</span>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-            <div class="bottom-card-row">
-                <div class="card-box">
-                    <img src="img/james.webp" alt="">
-                    <div>
-                        <p>James - Class #1</p>
-                        <p>10.30AM - 11.30 AM</p>
-                        <p>By Daniel Dyon
-                            <span>3.5</span>
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="card-box">
-                    <img src="img/james.webp" alt="">
-                    <div>
-                        <p>James - Class #1</p>
-                        <p>10.30AM - 11.30 AM</p>
-                        <p>By Daniel Dyon
-                            <span>3.5</span>
-                        </p>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
     </section>
 </body>
 
