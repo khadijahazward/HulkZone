@@ -27,13 +27,13 @@ if (mysqli_num_rows($result1) == 1) {
 }
 
 //Retrieving all active members who have chosen me as dietician
-$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > NOW()";
+$query2 = "SELECT * FROM serviceCharge WHERE employeeID = $employeeID AND endDate > NOW() AND serviceID = 3";
 $result2 = mysqli_query($conn, $query2);
-
+$memberCount = 0;
 if (mysqli_num_rows($result2) > 0) {
     while ($row2 = mysqli_fetch_assoc($result2)) {
         $memberID = $row2['memberID'];
-
+        $memberCount++;
         //Retrieving my active members' userID
         $query3 = "SELECT * FROM member WHERE memberID = $memberID";
         $result3 = mysqli_query($conn, $query3);
@@ -41,21 +41,19 @@ if (mysqli_num_rows($result2) > 0) {
         if ($result3) {
             $row3 = mysqli_fetch_assoc($result3);
             $memberUserID = $row3['userID'];
-            
+
             //Get a count of my active members
             $query4 = "SELECT COUNT(*) as count FROM user JOIN member ON user.userID = member.userID WHERE user.userID = $memberUserID";
             $result4 = mysqli_query($conn, $query4);
-
+        
             if(mysqli_num_rows($result4) > 0){
                 $row4 = mysqli_fetch_assoc($result4);
-                $memberCount = $row4['count'];
-            }else{
-                $memberCount = 0;
+                // $memberCount = $row['count'];
             }
         }
     }
 }else{
-    echo "hello";
+    echo " ";
 }
 
 //Get a count of members who gave rate as 1 after their service
