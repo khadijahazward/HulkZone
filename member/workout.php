@@ -113,7 +113,7 @@ include '../connect.php';
                     <script>
                         var progress = <?php echo $numCompletedDays; ?>;
                         var total = <?php echo $differenceBetweenStartAndEnd; ?>;
-
+                        // alert(total);
                         var xValues = ["Completed", "Not Completed"];
                         new Chart("myChart", {
                             type: "doughnut",

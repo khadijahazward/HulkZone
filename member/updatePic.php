@@ -11,9 +11,9 @@ include '../connect.php';
     $file_tmp = $_FILES['image']['tmp_name'];
     $file_type = $_FILES['image']['type'];
 
-    $file_ext_array = explode('.', $file_name);
-    if (count($file_ext_array) > 1) {
-      $file_ext = strtolower(end($file_ext_array));
+    $file_ext_array = explode('.', $file_name); //split the file name on the dot (.) character and store the resulting segments in an array
+    if (count($file_ext_array) > 1) { //checks if the array contains more than one element. If it does, it means that the file name had an extension 
+      $file_ext = strtolower(end($file_ext_array)); //get the extension and convert to lowercase
     } else {
       $errors[] = "File extension could not be determined.";
     }
