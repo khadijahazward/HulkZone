@@ -99,29 +99,46 @@ include '../connect.php';
 
                             $numCompletedDays = $row4['numCompletedDays'];
 
+                            //getting the number of days since the service began until today
+                            $startDateTime = strtotime($row2['startDate']);
+                            $currentDateTime = strtotime(date("Y-m-d H:i:s"));
+                            $missedDays = 0;
+                            for ($date = $startDateTime; $date < $currentDateTime; $date = strtotime('+1 day', $date)) {
+                                $currentDate = date('Y-m-d', $date);
+                                
+                                // Check if the current date is marked as completed
+                                $sql5 = "SELECT * FROM workout_plan_status WHERE memberID = $row1[memberID] AND startDate = '$row2[startDate]' AND CompletedDate = '$currentDate'";
+                                $result5 = mysqli_query($conn, $sql5);
+                                
+                                
+                                if (mysqli_num_rows($result5) === 0) {
+                                    $missedDays++;
+                                }
+                            }
                             
                         }else{
                             echo "<p style='font-size:20px; margin:0;font-weight:bold; margin-bottom:0;'>No service found for memberID </p>{$row1['memberID']} and serviceID 3.";
                         }
                         
                     ?>
-                    <div style="display:flex; justify-content:center; align-items: center;padding:2%; margin: auto; width:40%;">
-                        <canvas id="myChart" style="max-width:300px"></canvas>
+                    <div style="display:flex; justify-content:center; align-items: center;padding:2%; margin: auto; width:60%;">
+                        <canvas id="myChart" style="max-width:350px"></canvas>
                     </div>
+
 
 
                     <script>
                         var progress = <?php echo $numCompletedDays; ?>;
                         var total = <?php echo $differenceBetweenStartAndEnd; ?>;
-                        // alert(total);
-                        var xValues = ["Completed", "Not Completed"];
+                        var missed = <?php echo $missedDays; ?>;
+                        var xValues = ["Completed", "Missed", "Not Completed"];
                         new Chart("myChart", {
                             type: "doughnut",
                             data: {
                                 labels: xValues,
                                 datasets: [{
-                                    data: [progress, total - progress],
-                                    backgroundColor: ['#006837', '#FF9F29']
+                                    data: [progress, missed,  total - (progress + missed)],
+                                    backgroundColor: ['#006837', '#FF0000', '#FF9F29']
                                 }]
                             },
                             options: {
@@ -164,8 +181,13 @@ include '../connect.php';
                             for ($i = 1; $i <= 7; $i++) {
                                 $dayOfWeekDate = date('Y-m-d', strtotime($previousMonday . ' +' . ($i-1) . ' day'));
                                 
+                                $buttonAttributes = '';
+                                if ($dayOfWeekDate > date('Y-m-d')) {
+                                    $buttonAttributes = 'disabled';
+                                }
+                                
                                 echo '<div class="activeBtn">
-                                    <button data-index="' . $i . '" onclick="displayAvailableSlots(' . $i . ', \'' . $empid . '\', \'' . $startDate . '\' , \'' . $dayOfWeekDate . '\')">' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>
+                                    <button data-index="' . $i . '" onclick="displayAvailableSlots(' . $i . ', \'' . $empid . '\', \'' . $startDate . '\' , \'' . $dayOfWeekDate . '\')" ' . $buttonAttributes . '>' . date('D, M j', strtotime($dayOfWeekDate)) . '</button>
                                 </div>';
                             }
                         } else {

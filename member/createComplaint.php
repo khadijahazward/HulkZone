@@ -11,7 +11,7 @@ include "../connect.php";
 <?php
 $check = "";
 $userid = $_SESSION["userID"];
-$subjectErr = $desErr = "";
+$subjectErr = $desErr  = "";
 include "../connect.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         //for file upload - if there is an image
         //checks if the error code is not equal to 4, indicating that a file was indeed uploaded
-        if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des)){
+        if (isset($_FILES["Evi-image"]) && $_FILES["Evi-image"]["error"] !== UPLOAD_ERR_NO_FILE && !empty($subject) && !empty($des) ){
             $allowed_types = array("image/jpeg", "image/png");
             $allowed_size = 5242880; // 5MB - 5 * 1024 * 1024
             //$allowed_size = 1067008;

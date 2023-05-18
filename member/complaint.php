@@ -52,7 +52,7 @@ include "../connect.php";
                 <div class="row" style="margin-top:10px;  margin-right:10px;">
                     <?php
                         
-                        $sql = "SELECT complaintID, subject, dateReported, status, actionTaken  FROM `complaint` where userID = " . $_SESSION['userID'];
+                        $sql = "SELECT complaintID, subject, dateReported, status, actionTaken  FROM `complaint` where userID = $_SESSION[userID]" ;
                         $result = mysqli_query($conn, $sql);
 
                     echo '<table> 
@@ -64,13 +64,14 @@ include "../connect.php";
                         <th> action Taken </th>
                     </tr>';
 
-                    if (mysqli_num_rows($result) > 0) {
+                    if ($result && mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $field1name = $row["complaintID"];
                             $field2name = $row["dateReported"];
                             $field3name = $row["subject"];
                             $field4name = $row["status"];
                             $field5name = $row["actionTaken"];
+
 
                             echo '<tr> 
                                 <td>'.$field1name.'</td> 
@@ -80,6 +81,10 @@ include "../connect.php";
                                 <td>'.$field5name.'</td>
                             </tr>';
                         }
+                    }else{
+                        echo '<tr> 
+                        <td colspan= "6"> You Have not Made Any Complaints</td> 
+                    </tr>';  
                     }
                     echo '</table>';
                     ?>
